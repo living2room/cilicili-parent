@@ -6,6 +6,4 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>cilicili-advertisement</artifactId>
-  <name>advertisement</name>
-  <description>广告模块</description>
 </project>

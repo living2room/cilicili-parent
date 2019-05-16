@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Implementation-Title: user
+Implementation-Title: cilicili-user
 Implementation-Version: 0.0.1-SNAPSHOT
 Built-By: Administrator
 Implementation-Vendor-Id: com.cilicili

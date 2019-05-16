@@ -6,6 +6,4 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>cilicili-user</artifactId>
-  <name>user</name>
-  <description>用户模块</description>
 </project>

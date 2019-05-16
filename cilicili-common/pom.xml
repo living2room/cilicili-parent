@@ -6,6 +6,4 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>cilicili-common</artifactId>
-  <name>common</name>
-  <description>公用模块</description>
 </project>

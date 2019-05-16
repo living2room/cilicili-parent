@@ -6,6 +6,4 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>cilicili-social</artifactId>
-  <name>social</name>
-  <description>社交模块</description>
 </project>

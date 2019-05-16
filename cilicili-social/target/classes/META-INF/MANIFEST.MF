@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Implementation-Title: social
+Implementation-Title: cilicili-social
 Implementation-Version: 0.0.1-SNAPSHOT
 Built-By: Administrator
 Implementation-Vendor-Id: com.cilicili
