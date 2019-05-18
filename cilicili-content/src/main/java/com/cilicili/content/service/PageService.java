@@ -4,7 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.cilicili.common.bean.content.Type2;
+import com.cilicili.bean.content.Type2;
 import com.cilicili.content.mapper.TypeMapper;
 
 /**

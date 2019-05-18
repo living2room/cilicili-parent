@@ -5,4 +5,4 @@
  * @author 李明睿
  *
  */
-package com.cilicili.common.bean.content;
+package com.cilicili.bean.content;

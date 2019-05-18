@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cilicili.common.bean.content;
+package com.cilicili.bean.content;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 
