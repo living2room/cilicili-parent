@@ -6,18 +6,26 @@ package com.cilicili.common.utils;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import org.apache.commons.io.IOUtils;
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.Java2DFrameConverter;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.util.ResourceUtils;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 关于视频解析的工具包
@@ -139,8 +147,58 @@ public class VideoResolution {
 //    </exclusions>
 //</dependency>
 	
-	
-    /**
+	/**
+	 * MultipartFile 转 File
+	 * @param file
+	 * @throws Exception
+	 */
+	public static File multipartFileToFile(MultipartFile file) throws Exception {
+
+	    File toFile = null;
+	    if(file.equals("")||file.getSize()<=0){
+	        file = null;
+	    }else {
+	            InputStream ins = null;
+	            ins = file.getInputStream();
+	            toFile = new File(file.getOriginalFilename());
+	            inputStreamToFile(ins, toFile);
+	            ins.close();
+	    }
+	    return toFile;
+
+	}
+
+	/**
+	 * File 转 MultipartFile
+	 * @param file
+	 * @throws Exception
+	 */
+	public static MultipartFile fileToMultipartFile( File file ) throws Exception {
+
+	    FileInputStream fileInput = new FileInputStream(file);
+	    MultipartFile toMultipartFile = new MockMultipartFile("file",file.getName(),"text/plain", IOUtils.toByteArray(fileInput));
+	    toMultipartFile.getInputStream();
+	    return toMultipartFile;
+	}
+
+
+	public static File  inputStreamToFile(InputStream ins, File file) {
+	    try {
+	        OutputStream os = new FileOutputStream(file);
+	        int bytesRead = 0;
+	        byte[] buffer = new byte[8192];
+	        while ((bytesRead = ins.read(buffer, 0, 8192)) != -1) {
+	            os.write(buffer, 0, bytesRead);
+	        }
+	        os.close();
+	        ins.close();
+	        return file;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+		return file;
+	}
+	    /**
      * 获取视频时长，单位为秒
      *
      * @param video 源视频文件
