@@ -2,8 +2,6 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<name>cilicili-comment</name>
-	<description>Demo project for Spring Boot</description>
 	<parent>
 		<groupId>com.cilicili</groupId>
 		<artifactId>cilicili-parent</artifactId>
@@ -11,6 +9,13 @@
 	</parent>
 	<artifactId>cilicili-comment</artifactId>
 
+
+	<groupId>com.no1.cz</groupId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>springboot_4_1_demo</name>
+	<description>Demo project for Spring Boot</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
