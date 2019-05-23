@@ -86,10 +86,4 @@ public class PageController {
 	@Resource
 	PageService pService;
 
-	@RequestMapping("{id}")
-	@ResponseBody
-	public int typetest(@PathVariable("id")Integer id) {
-		int i = pService.type(id);
-		return i;
-	}
 }

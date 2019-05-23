@@ -9,11 +9,14 @@ import lombok.Data;
 
 /**
  * @author 李明睿
- * 2019年5月17日
+ * 2019年5月23日
  */
 @Data
-@TableName("type")
-public class Type2 {
+@TableName("tb_type")
+public class Type {
 	private Integer id;
-	
+	private String type;
+	private Integer typeRating;
+	private Integer fatherRatingId;
+	private String  typeUrl;
 }
