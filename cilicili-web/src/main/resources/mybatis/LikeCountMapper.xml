@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cilicili.comment.mapper.LikeCountMapper">
+  <resultMap id="BaseResultMap" type="com.cilicili.comment.domain.LikeCount">
+    <id column="like_count_id" jdbcType="INTEGER" property="likeCountId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    like_count_id, user_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_like_count
+    where like_count_id = #{likeCountId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_like_count
+    where like_count_id = #{likeCountId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cilicili.comment.domain.LikeCount">
+    insert into tb_like_count (like_count_id, user_id)
+    values (#{likeCountId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cilicili.comment.domain.LikeCount">
+    insert into tb_like_count
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="likeCountId != null">
+        like_count_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="likeCountId != null">
+        #{likeCountId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cilicili.comment.domain.LikeCount">
+    update tb_like_count
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where like_count_id = #{likeCountId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cilicili.comment.domain.LikeCount">
+    update tb_like_count
+    set user_id = #{userId,jdbcType=INTEGER}
+    where like_count_id = #{likeCountId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.cilicili.comment.domain.LikeCount">
+    <id column="like_count_id" jdbcType="INTEGER" property="likeCountId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    like_count_id, user_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_like_count
+    where like_count_id = #{likeCountId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_like_count
+    where like_count_id = #{likeCountId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cilicili.comment.domain.LikeCount">
+    insert into tb_like_count (like_count_id, user_id)
+    values (#{likeCountId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cilicili.comment.domain.LikeCount">
+    insert into tb_like_count
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="likeCountId != null">
+        like_count_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="likeCountId != null">
+        #{likeCountId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cilicili.comment.domain.LikeCount">
+    update tb_like_count
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where like_count_id = #{likeCountId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cilicili.comment.domain.LikeCount">
+    update tb_like_count
+    set user_id = #{userId,jdbcType=INTEGER}
+    where like_count_id = #{likeCountId,jdbcType=INTEGER}
+  </update>
+</mapper>
