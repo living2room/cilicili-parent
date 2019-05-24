@@ -3,7 +3,7 @@
  */
 package com.cilicili.bean.content;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -16,16 +16,18 @@ import lombok.Data;
 @Data
 @TableName("tb_video_info")
 public class VideoInfo {
-	private Integer id;
+	private String id;
+	private String videoTitle;
 	private String videoDescribe;
+	private Long videoDuration;
 	private String videoFormat;
-	private Long videoSize;
+	private String videoSize;
 	private String videoName;
-	private Timestamp videoUploadTime;
+	private Date videoUploadTime;
 	private Integer isVip;
 	private VideoPic videoPicId;
 	private VideoSeries videoSeriesId;
 	private Long videoFrames;
-	private Integer videoisAvailable;
+	private Integer videoIsAvailable;
 	private String reserved;
 }

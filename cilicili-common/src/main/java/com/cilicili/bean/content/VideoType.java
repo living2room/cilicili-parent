@@ -14,7 +14,7 @@ import lombok.Data;
 @Data
 @TableName("tb_video_type")
 public class VideoType {
-	private Integer id;
+	private Long id;
 	private VideoInfo videoId;
 	private Type typeId;
 	private String reserved;

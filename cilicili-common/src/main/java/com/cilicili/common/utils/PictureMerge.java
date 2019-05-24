@@ -8,6 +8,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -25,11 +26,11 @@ public class PictureMerge {
 	/**
 	 * orientation 横向
 	 */
-	private static final int orientation = 0;
+	public static final int orientation = 0;
 	/**
 	 * portrait 纵向
 	 */
-	private static final int portrait = 1;
+	public static final int portrait = 1;
 
 	/**
 	 * 导入图片到缓存区
@@ -112,4 +113,49 @@ public class PictureMerge {
 		// 将多张图片合在一起
 		System.out.println("success");
 	}
+
+	/**
+	 * @param orientation2
+	 * @param bufferedImageList
+	 * @return
+	 */
+	public BufferedImage Merge(int status,
+			List<BufferedImage> bis) {
+		// W:72 H:41
+				int w = 0;
+				int h = 0;
+				int height =0;
+				int width = 0;
+				for (int i = 0; i < bis.size(); i++) {
+					if (status == orientation) {
+						width = width + bis.get(i).getWidth();
+					} else if (status == portrait) {
+						height = height + bis.get(i).getHeight();
+					} else {
+						new Exception("status异常;你到底想往哪边合并啊");
+					}
+				}
+				BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+				g = image.createGraphics();
+				for (int j = 0; j < bis.size(); j++) {
+					if (status == orientation) {
+						g.drawImage(bis.get(j), w, h, null);
+						w = w + bis.get(j).getWidth();
+					} else if (status == portrait) {
+						g.drawImage(bis.get(j), w, h, null);
+						height = height + bis.get(j).getHeight();
+					} else {
+						new Exception("status异常;你到底想往哪边合并啊");
+					}
+				}
+				g.dispose();
+
+				return image;
+	}
+
+	/**
+	 * @param newPicPath
+	 * @param bufferedImageList
+	 */
+
 }

@@ -14,7 +14,7 @@ import lombok.Data;
 @Data
 @TableName("tb_video_pic")
 public class VideoPic {
-	private Integer id;
+	private Long id;
 	private String picActualUrl;
 	private String picRequestUrl;
 	private VideoInfo videoId;

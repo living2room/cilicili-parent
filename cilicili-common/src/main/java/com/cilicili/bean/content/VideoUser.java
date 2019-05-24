@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 @TableName("tb_video_user")
 public class VideoUser {
-	private Integer id;
+	private Long id;
 	private Users userId;
 	private VideoInfo videoId;
 	private Integer isVip;

@@ -1,12 +1,14 @@
 package com.cilicili.content.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.cilicili.bean.content.VideoUrl;
 import com.cilicili.content.service.PageService;
 /**
  * 页面导航的Controller
@@ -55,16 +57,22 @@ public class PageController {
 	// return "";
 	// }
 	//
-	// /**
-	// * 去某个视频页面
-	// *
-	// * @param video的request URL
-	// * @return
-	// */
-	// @RequestMapping(value = "v/{video}", method = RequestMethod.GET)
-	// public String toVideoPage(@PathVariable("video") String video) {
-	// return "";
-	// }
+	 /**
+	 * 去某个视频页面
+	 *
+	 * @param video的request URL
+	 * @return
+	 */
+	 @RequestMapping(value = "cv/{video}", method = RequestMethod.GET)
+	 public String toVideoPage(@PathVariable("video") String videoPath, HttpServletRequest req) {
+		VideoUrl videoUrl = pService.getVideo(videoPath);
+		if (videoUrl != null) {
+			req.setAttribute("video", videoUrl);
+			// TODO 返回一个状态码
+			return "";
+		}
+		return "";
+	 }
 	//
 	// /**
 	// * 拿到远端IP地址

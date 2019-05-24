@@ -4,6 +4,7 @@
 package com.cilicili.bean.content;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -19,8 +20,8 @@ public class VideoExamine {
 	private Integer id;
 	private VideoInfo videoId;
 	private Integer videoStatus;
-	private Timestamp videoLastExamineTime;
-	private Timestamp videoApprovalTime;
+	private Date videoLastExamineTime;
+	private Date videoApprovalTime;
 	private  AdminUser adminId;
 	private String reserved;
 }

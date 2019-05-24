@@ -281,7 +281,7 @@ public class VideoResolution {
      * @param picPath 截图存放路径
      * @param iFrame 指定视频帧数
      */
-    public static void getVideoPic(File video, String picPath, int iFrame) {
+    public static void getVideoPic(File video, String picPath, long iFrame) {
         FFmpegFrameGrabber ff = new FFmpegFrameGrabber(video);
         try {
             ff.start();
