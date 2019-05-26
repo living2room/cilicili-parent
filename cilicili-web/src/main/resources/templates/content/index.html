@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>淅沥淅沥 (^o^)c旦`` 喝咖啡~-cilicili</title>
+</head>
+<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.1.3/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css">
+<body>
+    <span th:text="|Welcome to our Website, ${user.name}!|">
+        <tr th:each="prod : ${prods}">
+            <td th:text="${prod.name}">Onions</td>
+            <td th:text="${prod.price}">2.41</td>
+            <td th:text="${prod.inStock}? #{true} : #{false}">yes</td>
+        </tr>
+</body>
+<script src="/webjars/jquery/3.3.1-2/jquery.min.js"></script>
+<script src="/webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"></script>
+</html>

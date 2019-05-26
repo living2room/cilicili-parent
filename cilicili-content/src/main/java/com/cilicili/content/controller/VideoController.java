@@ -32,6 +32,11 @@ public class VideoController {
 
 	@Resource
 	private VideoService vService;
+	/**点击上传
+	 * @param req
+	 * @param resp
+	 * @param jsonObj
+	 */
 	@RequestMapping(value = "up", method = RequestMethod.POST)
 	public void upload(HttpServletRequest req, HttpServletResponse resp, UploadJsonObj jsonObj) {
 		List<Type> videoType = vService.getVideoType();
@@ -39,5 +44,6 @@ public class VideoController {
 		session.setAttribute("type",videoType );
 		vService.addvideoProcessor(req,resp,jsonObj);
 	}
+	
 	
 }

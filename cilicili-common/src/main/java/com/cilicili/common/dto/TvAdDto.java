@@ -12,12 +12,12 @@ import lombok.Data;
  */
 @Data
 public class TvAdDto {
-	private Integer id;
+	private String id;
 	private String videoDuration;
 	private String name;
 	private String picAlt;
 	private String picPath;
-	private String isVip;
+	private Integer isVip;
 	private Long videoPlayedNum;
 	private Long bulletScreenNum;
 	private String link;
