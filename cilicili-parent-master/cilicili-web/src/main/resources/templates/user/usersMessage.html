@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<title>用户登录</title>
+<style>
+#header_box {
+	width: 80px;
+	height: 80px;
+	border: 1px solid #fff;
+	border-radius: 100%;
+	position: relative;
+}
+
+#header_box img, input {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 100%;
+}
+
+input:hover, img:hover {
+	cursor: pointer;
+}
+
+input {
+	opacity: 0;
+	z-index: 100;
+}
+
+img {
+	background-color: #ececec;
+}
+</style>
+
+</head>
+
+<body>
+	<h3 align="left">个人信息</h3>
+	<div id="" align="left">
+		<form method="post" enctype="multipart/form-data" action="/message/upLoad">
+			<fieldset>
+				上传头像:
+				<div id="header_box">
+					<img src="#" alt="" id="user" /> <input type="file" name="file" id="file" />
+				</div>
+
+				昵称: <input type="text" name="" /> <br> 性别: <input type="text"
+					name="sex" id=""> <br> 出生日期: <input type="text" name="age"
+					id=""> <br> QQ: <input type="text" name="qq" /> <br>
+				家乡: <input type="text" name="home" /> <br>
+				<button type="submit">确定修改</button>
+			</fieldset>
+		</form>
+	</div>
+	
+<img src="/images/52b1dc6c04434c229da574e0965bb21d.jpg" />
+<!-- 	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		$("#file").on("change", function(e) {
+			/*console.log(e.target.files[0])又能得到什么呢
+			 *得到的是第一张input选择的图片的一些参数，得到的这些参数可以根据自己的需要提取，
+			 *比如我现在需要的是size参数，e.target.files[0].size就可以拿到了,得到的单位是b哈
+			 */
+			var file = e.target.files[0];
+			var maxSize = 2048;//设置图片上传最大值为2M
+			var name = file.name;
+			var size = (file.size / 1024).toFixed(2);
+			var type = file.type;
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
+
+			reader.onload = function(e) {
+				var result = e.target.result;
+				var image = new Image();
+				image.src = result;
+
+				image.onload = function() {
+					if (size > maxSize) { //判断图像大小，大于2M则压缩后上传 ，小于2M直接上传无需压缩
+						var img64 = compress(image, 100, 100, 0.7);
+						$("#user").attr("src",img64); //实现图片预览功能
+
+						//调用后台上传接口 ，把img64当参数传给接口，接口调用成功则返回头像上传成功后的服务器的访问地址，把接口返回的图片地址赋值给页面上img的src即可
+						uploadImg(img64);
+					} else {
+						$("#user").attr("src", result); //实现图片预览功能
+						//调用后台上传接口 ，把result当参数传给接口，接口调用成功则返回头像上传成功后的服务器的访问地址，把接口返回的图片地址赋值给页面上img的src即可
+						//121			
+						//uploadImg(result);
+					}
+				}
+
+			};
+
+		});
+
+		/**canvas图片压缩函数
+		 * @params
+		 * img:需要压缩的图片对象
+		 * width:压缩后的宽度
+		 * height:压缩后的高
+		 * ratio:图片压缩质量(0-1);
+		 * */
+		 function compress(img, width, height, ratio) {
+			var canvas, ctx, img64;
+			canvas = document.createElement('canvas');
+			canvas.width = width;
+			canvas.height = height;
+			ctx = canvas.getContext("2d");
+			ctx.drawImage(img, 0, 0, width, height);
+			img64 = canvas.toDataURL("image/jpeg", ratio);
+			return img64;
+		} 
+
+		/**定义模拟图片上传接口函数
+		 * @params
+		 * img:传递给接口的图片的file类型的字符串
+		 */
+		 function uploadImg(img) {
+			var params = {
+				imgPath : img
+			};
+			$.ajax({
+				url : "/message/upLoad",
+				data : params,
+				type : "post",
+				success : function(data) {
+					if (data["code"] == 1) { //成功
+						var imgPath = data["imgPath"];//假设接口返回的地址为imgPath
+						$("#img").attr("src", imgPath);
+						alert("7"+imgPath);
+					}
+				},
+				error : function(data){
+				alert("6"+params);
+				
+			}
+			})
+		} 
+	</script> -->
+
+	<!-- 
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript">
+        swfobject.addDomLoadEvent(function () {
+            var swf = new fullAvatarEditor("/Content/UploadPic/logoupload/fullAvatarEditor.swf", "/Content/UploadPic/logoupload/expressInstall.swf", "swfContainer", {
+                //此处的swfContainer是容器的id
+                id: 'swf',
+                upload_url: '@Url.Action("Upload")',
+                //avatar_sizes: "290*150",
+                //avatar_sizes_desc: "290*150像素", 
+                src_upload: 2,//是否上传原图片的选项，有以下值：    0 ---不上传 1 ---上传 2 ---显示复选框由用户选择
+                tab_visible:false,//是否显示选项卡
+                //browse_box_border_color:"#000",//图片选择框的边框颜色。格式如：#888，#888888
+                //browse_box_align:"center",
+                src_size: "2MB",//选择的本地图片文件所允许的最大值，必须带单位，如888Byte，88KB，8MB
+                browse_button: "上传图片",//选择图片时的按钮文本
+                //avatar_intro_font:"裁剪后图片",
+                isShowUploadResultIcon: true,//在上传完成时（无论成功和失败），是否显示表示上传结果的图标。
+                src_size_over_limit: '文件大小超出限制（2MB）\n请重新上传',
+            }, function (msg) {
+                switch (msg.code) {
+                    case 1: document.title="页面成功加载了组件！"; break;
+                    case 2: document.title="已成功加载默认指定的图片到编辑面板。"; break;
+                    case 3:
+                        if (msg.type == 0) {
+                            document.title = "摄像头已准备就绪且用户已允许使用。";
+                        }
+                        else if (msg.type == 1) {
+                            document.title="摄像头已准备就绪但用户未允许使用！";
+                        }
+                        else {
+                            document.title = "摄像头被占用！";
+                        }
+                        break;
+                    case 5:
+                        if (msg.type == 0) {
+                            if (msg.content.sourceUrl) {
+                                document.title = "原图已成功保存至服务器，url为：\n" + msg.content.sourceUrl;
+                            }
+                            document.title = "头像已成功保存至服务器，url为：\n" + msg.content.avatarUrls.join("\n");
+                        }
+                        break;
+                }
+            }
+            );
+       
+        });
+
+
+    </script>
+
+	
+
+	 <div style="width:630px;margin: 0 auto;">
+        <h1 style="text-align:center">富头像上传编辑器演示</h1>
+        <div>
+         
+            <p id="swfContainer">
+            
+            </p>
+        </div>
+        <button id="upload">上传</button>
+    </div> -->
+
+</body>
+</html>

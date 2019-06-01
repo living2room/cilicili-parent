@@ -1,0 +1,30 @@
+<!doctype html>
+
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<title>用户登录</title>
+</head>
+
+<body>
+	<h3 align="center">用户登录</h3>
+	<h3 style="color: red" th:utext="${msg}"></h3>
+	<div id="" align="center">
+		<form method="post" action="/user/login">
+			账号:<input type="text" name="email" id="email" placeholder="请输入您的邮箱"><br>
+			密 码:<input type="text" name="userPassword" id="userPassword"
+				placeholder="请输入您的密码"><br> <input type="checkbox"
+				name="isRememberMe" value="1" />记住我 <a href="#">忘记密码 </a><br>
+			<input type="button" onclick="#" value="注册" /> <input type="submit"
+				value="登录" />
+		</form>
+	</div>
+
+	<!-- <li><a shiro:hasPermission="user:add"
+				data-href="admin_list.html" data-title="用户管理"
+				href="javascript:void(0)">用户管理</a></li>
+			<li><a shiro:hasPermission="sys:role:role"
+				data-href="admin_role.html" data-title="角色管理"
+				href="javascript:void(0)">角色管理</a></li> -->
+</body>
+</html>
