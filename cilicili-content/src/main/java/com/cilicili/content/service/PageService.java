@@ -6,6 +6,8 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.event.TransactionalEventListener;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -50,6 +52,7 @@ public class PageService {
 	 * @param size 取的条数
 	 * @return
 	 */
+	@Transactional
 	public List<TvAdDto> getPageContent(Type type,int index,int size) {
 //		Page<VideoInfo> page = new Page<>(1, 4);
 //        QueryWrapper<VideoInfo> queryWrapper = new QueryWrapper<>();
@@ -91,20 +94,29 @@ public class PageService {
 		return tvAdDtos;
 	}
 	/**
+	 * 根据物理地址拿到视频
 	 * @param videoPath
 	 * @return
 	 */
+	@Transactional
 	public VideoUrl getVideo(String videoPath) {
 		QueryWrapper<VideoUrl> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq("actual_url", videoPath);
 		return vUrlMapper.selectOne(queryWrapper );
-	}
+		}
 	/**
 	 * @return
 	 */
 	public List<Type> getAllFirstType() {
 		QueryWrapper<Type> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq("type_rating", 1);
+		return tMapper.selectList(queryWrapper);
+	}
+	
+	public List<Type> getItsSecondTyps(Type type){
+		QueryWrapper<Type> queryWrapper = new QueryWrapper<>();
+		queryWrapper.eq("type_rating", 2);
+		queryWrapper.eq("father_rating_id", type.getId());
 		return tMapper.selectList(queryWrapper);
 	}
 

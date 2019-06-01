@@ -12,5 +12,4 @@ import com.cilicili.bean.content.VideoUser;
  * 2019年5月24日
  */
 public interface VideoUserMapper  extends BaseMapper<VideoUser> {
-
 }
