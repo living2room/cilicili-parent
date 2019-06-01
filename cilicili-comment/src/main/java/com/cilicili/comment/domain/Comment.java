@@ -2,104 +2,37 @@ package com.cilicili.comment.domain;
 
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+
+import lombok.Data;
+
+@Data
+@TableName("tb_comment")
 public class Comment {
-    private Integer commentId;
+/*
+* comment_id	int	评论ID
+video_id	int	视频ID
+user_id	varchar	评论人ID
+comment_content	text	评论内容
+comment_status	tinyint	评论内容状态：默认正常1，已删除为0
+comment_like_num	int	评论的点赞数
+comment_time	timestamp	评论时间
+* */
+	
+	@TableId(type=IdType.AUTO)
+	private Integer commentId;
 
-    private Integer replyUserId;
+    private Integer videoId;
 
-    private Integer userId;
+    private String userId;
 
-    private String userName;
+    private Integer commentStatus;
 
-    private String userAvatar;
+    private Integer commentLikeNum;
 
-    private Byte status;
+    private Date commentTime;
 
-    private Integer likeCount;
-
-    private Date createTime;
-
-    private Date updateTime;
-
-    private String content;
-
-    public Integer getCommentId() {
-        return commentId;
-    }
-
-    public void setCommentId(Integer commentId) {
-        this.commentId = commentId;
-    }
-
-    public Integer getReplyUserId() {
-        return replyUserId;
-    }
-
-    public void setReplyUserId(Integer replyUserId) {
-        this.replyUserId = replyUserId;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
-    }
-
-    public String getUserAvatar() {
-        return userAvatar;
-    }
-
-    public void setUserAvatar(String userAvatar) {
-        this.userAvatar = userAvatar == null ? null : userAvatar.trim();
-    }
-
-    public Byte getStatus() {
-        return status;
-    }
-
-    public void setStatus(Byte status) {
-        this.status = status;
-    }
-
-    public Integer getLikeCount() {
-        return likeCount;
-    }
-
-    public void setLikeCount(Integer likeCount) {
-        this.likeCount = likeCount;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
-    }
+    private String commentContent;
 }

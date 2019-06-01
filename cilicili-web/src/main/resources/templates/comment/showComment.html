@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<!-- <html> -->
+<!-- <html xmlns:th="http://www.thymeleleaf.org"> -->
+<html xmlns:th=http://www.thymeleaf.org>
+<head>
+<meta charset="UTF-8">
+<title>Comment</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="/shortcut icon" href="favicon.ico">
+<link href="/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+<link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+<link href="/css/animate.css" rel="stylesheet">
+<link href="/css/style.css?v=4.1.0" rel="stylesheet">
+</head>
+
+<body class="gray-bg">
+
+	<div class="wrapper wrapper-content  animated fadeInRight">
+		<div class="row">
+			<div class="col-sm-6 col-sm-offset-1">
+				<div class="ibox ">
+					<div class="ibox-content text-center">
+						<h3 class="m-b-xxs">评论展示</h3>
+			            <br><hr>
+					</div>
+				</div>
+				<!-- 展示该视频下所有评论信息 -->
+				<div class="social-feed-separated" th:each="comment : ${commentList}">
+
+					<div class="social-avatar">
+					
+					<!-- 通过userId 获取用户头像  -->
+					
+						<a href=""> <img alt="image" src="/img/a5.jpg">
+						</a>
+					</div>
+
+					<div class="social-feed-box">
+
+						<div class="pull-right social-action dropdown">
+							<button data-toggle="dropdown" class="dropdown-toggle btn-white">
+								<i class="fa fa-angle-down"></i>
+							</button>
+							<ul class="dropdown-menu m-t-xs">
+								<li><a href="#">设置</a></li>
+							</ul>
+						</div>
+						
+						<div class="social-avatar">
+						
+							<!-- 通过comment里的userId获取评论人的头像  点击评论人名字跳到评论者个人信息页面 -->
+							<a href="#"><span th:text="${comment.userId}"></span></a> 
+							
+							<!-- 评论日期 -->
+							<small class="text-muted">
+								<span th:text="${#dates.format(comment.commentTime, 'yyyy-MM-dd HH:mm')}"></span>
+							</small>
+						</div>
+						
+						
+						<div class="social-body">
+
+							<!-- 评论内容 -->
+							<p th:text="${comment.commentContent}"></p>
+							
+							<!-- <img src="/img/p2.jpg" class="img-responsive"> -->
+							
+							<div class="btn-group">
+								<button class="btn btn-white btn-xs">
+									<i class="fa fa-thumbs-up"></i> 赞
+									<!-- 评论点赞数 -->
+									<span th:text="${comment.commentLikeNum}"></span>
+								</button>
+								<button class="btn btn-white btn-xs">
+									<i class="fa fa-comments"></i> 评论
+										<!-- 点击"评论"时弹出评论框    添加评论   把评论信息存入数据库并刷新显示在页面上-->
+										<span></span>
+								</button>
+								<!-- <button class="btn btn-white btn-xs">
+									<i class="fa fa-share"></i> 分享
+								</button> -->
+							</div>
+						</div>
+						<div class="social-footer">
+							<!-- 展示该评论下所有回复信息 -->
+							<div class="social-comment" th:each="reply : ${replyList}">
+							
+							   <!-- 通过reply里的userId获取回复者的头像 -->
+								<a href="" class="pull-left"> <img alt="image"
+									src="/img/a3.jpg">
+								</a>
+								
+								<div class="media-body">
+									<!-- 回复人ID  应该写出回复人名字 -->
+									<a href="#"><span th:text="${reply.userId}"></span></a>
+									<!-- 回复内容 -->
+									<p th:text="${reply.replyContent}"></p>
+									
+									<small class="text-muted">
+									<!-- 回复时间 -->
+										<span th:text="${#dates.format(reply.replyTime, 'yyyy-MM-dd HH:mm')}"></span>
+									</small>
+									&nbsp;&nbsp;
+									
+									<a href="#" class="small">
+										<i class="fa fa-thumbs-up"></i>
+										<!-- 评论点赞数 -->
+										<span th:text="${reply.replyLikeNum}"></span>
+									</a>
+									
+									&nbsp;&nbsp;
+									<!-- 点击"回复"时弹出回复框  添加回复   把回复信息存入数据库并刷新显示在页面上 -->
+									<button class="btn btn-white btn-xs">
+									<i class="fa fa-comments"></i> 回复
+										<!-- 点击"评论"时弹出评论框    添加评论   把评论信息存入数据库并刷新显示在页面上-->
+										<span></span>
+									</button>
+									<hr>
+								</div>
+							</div>
+
+								<!-- 点击"回复"时弹出回复框  添加回复   把回复信息存入数据库并刷新显示在页面上 -->
+								<!-- <span>回复</span> -->
+								<!-- <div class="social-comment">
+									<a href="" class="pull-left"> <img alt="image"
+										src="/img/a8.jpg">
+									</a>
+									<div class="media-body">
+										<textarea class="form-control" placeholder="填写评论..."></textarea>
+									</div>
+								</div> -->
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 全局js -->
+	<script src="/js/jquery.min.js?v=2.1.4"></script>
+	<script src="/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+
+	<!-- 自定义js -->
+	<script src="/js/content.js?v=1.0.0"></script>
+
+
+	<script type="text/javascript"
+		src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+	<!--统计代码，可删除-->
+
+</body>
+
+</html>

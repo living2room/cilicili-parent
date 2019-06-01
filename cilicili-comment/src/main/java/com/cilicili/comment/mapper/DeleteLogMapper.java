@@ -1,17 +1,10 @@
 package com.cilicili.comment.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cilicili.comment.domain.DeleteLog;
 
-public interface DeleteLogMapper {
-    int deleteByPrimaryKey(Integer deleteLogId);
-
-    int insert(DeleteLog record);
-
-    int insertSelective(DeleteLog record);
-
-    DeleteLog selectByPrimaryKey(Integer deleteLogId);
-
-    int updateByPrimaryKeySelective(DeleteLog record);
-
-    int updateByPrimaryKey(DeleteLog record);
+@Mapper
+public interface DeleteLogMapper extends BaseMapper<DeleteLog>{
 }
