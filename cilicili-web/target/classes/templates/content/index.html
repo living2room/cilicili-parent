@@ -173,7 +173,7 @@
                 <!-- 图标 -->
                 <ul class="list">
                     <li  class="">
-                        <a href="javascript:;"  >本站推荐</a>
+                        <a href="javascript:;">本站推荐</a>
                     </li>
                     <li th:each="list : ${PageType}" class="">
                         <a  th:text="${list.type.type}"  href="javascript:;"  ></a>
@@ -191,9 +191,15 @@
 							<div class="text1">本站推荐</div>
 							<div class="gengduo"><a href="#">查看更多<span style="margin-left: 7px; "><img src="/img/jiantou.png" alt=""></span></a></div>
 					</div>
-					<div class="con2">
-						<div class="mover"></div>
-						<div class="mover2"></div>
+					<div class="con2"><!--  视频展示部分 -->
+						<div class="mover">
+						
+                               <!--  <tr th:each="tvad,tvadStat:${PageContent}" >
+                                	<td th:text="${tvadStat.index}"></td>
+                                	<td th:text="${tvad.value}"></td>
+                                </tr> -->
+                        </div>
+						<div class="mover2">sin^2 + cos^2 = 1</div>
 						<div class="mover2"></div>
 					</div>
 					<div class="con2">
@@ -212,47 +218,32 @@
 									<div class="gengduo"><a href="#">查看更多<span style="margin-left: 7px; "><img src="/img/jiantou.png" alt=""></span></a></div>
 								</div>
 
-								<div class="con3_02">
+								<div th:each="list:${map.current.value}" class="con3_02">
 									<div class="con2">
 										<div id="box97"></div>
                                         <!-- 视频缩略图 -->
 										<div class="mover2">
-
+                                            <div class="cover_container" th:style="'background-image:' + @{url('${list.picPath}')} + ''"  data-size="48" data-row="10">
+                                                <!-- data-size  大小 data-row 每列的数量 -->
+                                            <div class="cover_progress_box">
+                                                <span class="cover_progress_bar"></span>
+                                            </div>
                                         </div>
                                         	<!-- <div class="mover2"></div> -->
 									</div>
                                         <!-- 下面的标题评论数等信息 -->
 									<div class="con4">
 										<div class="beizhu">
-											<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
-											<div class="beizhu_tubiao"><img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span style="margin-left: 22px;"><img src="/img/danmu.png" alt="">&nbsp;&nbsp;332</span></div>
+											<div th:text="${list.name}" class="beizhu_title"></div>
+											<div class="beizhu_tubiao">
+                                                <span th:utext="|<img src='/img/shiping.png'>&nbsp;&nbsp;${list.videoPlayedNum}|" ></span>
+                                                <span th:utext="|<img src='/img/danmu.png' >&nbsp;&nbsp;${lisy.bulletScreenNum}|" style="margin-left: 22px;"></span>
+                                            </div>
 										</div>
-										<div class="beizhu_text">大型虫洞控制权（上集）</div>
+										<!-- <div th:text="${list.}"class="beizhu_text">大型虫洞控制权（上集）</div> -->
 									</div>
 								</div>
-                                <!-- 重复 -->
-								<div class="con3_02">
-									<div class="con2">
-										<div class="mover"></div>
-										<div class="mover2"></div>
-									</div>
 
-									<div class="con4">
-										<div class="beizhu">
-											<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
-											<div class="beizhu_tubiao"><img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span style="margin-left: 22px;"><img src="/img/danmu.png" alt="">&nbsp;&nbsp;332</span></div>
-										</div>
-										<div class="beizhu_text">大型虫洞控制权（上集）</div>
-									</div>
-
-									<div class="con4" style="margin-left: 30px;">
-										<div class="beizhu">
-											<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
-											<div class="beizhu_tubiao"><img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span style="margin-left: 22px;"><img src="/img/danmu.png" alt="">&nbsp;&nbsp;332</span></div>
-										</div>
-										<div class="beizhu_text">大型虫洞控制权（上集）</div>
-									</div>
-								</div>
 						</div>
 
 						<div class="paihang">
@@ -295,6 +286,8 @@
         <!-- 自定义js -->
         <script type="text/javascript" src="/js/banner.js"></script>
         <script type="text/javascript" src="/js/sidebar.js"></script>
+        <script type="text/javascript" src="/js/coverdjs.js"></script>
+
 		<!-------------------------------------- 轮播图的动效 --------------------------------------------------->
 		<script type="text/javascript">
 
@@ -307,5 +300,41 @@
 			});
 
 		</script>
+        <script>
+            $('.cover_container').coverPreviewModuleInit()
+
+            var baiduBsSuggest = $("#baidu").bsSuggest({
+            allowNoKeyword: false, //是否允许无关键字时请求数据
+            multiWord: true, //以分隔符号分割的多关键字支持
+            separator: ",", //多关键字支持时的分隔符，默认为空格
+            getDataMethod: "url", //获取数据的方式，总是从 URL 获取
+            url: 'http://unionsug.baidu.com/su?p=3&t=' + (new Date()).getTime() + '&wd=',
+            /*优先从url ajax 请求 json 帮助数据，注意最后一个参数为关键字请求参数*/
+            jsonp: 'cb',
+            /*如果从 url 获取数据，并且需要跨域，则该参数必须设置*/
+            processData: function (json) { // url 获取数据时，对数据的处理，作为 getData 的回调函数
+                var i, len, data = {
+                    value: []
+                };
+                if (!json || !json.s || json.s.length === 0) {
+                    return false;
+                }
+
+                console.log(json);
+                len = json.s.length;
+
+                jsonStr = "{'value':[";
+                for (i = 0; i < len; i++) {
+                    data.value.push({
+                        word: json.s[i]
+                    });
+                }
+                data.defaults = 'baidu';
+
+                //字符串转化为 js 对象
+                return data;
+            }
+        });
+        </script>
 	</body>
 </html>
