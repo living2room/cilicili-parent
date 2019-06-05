@@ -79,6 +79,10 @@ public class PageService {
 			dataList.add(videoData);
 		}
 		//组装为对象
+		System.out.println("数据如下：");
+		for (VideoInfo videoData : infoList) {
+			System.out.println("========"+videoData);
+		}
 		for (int i = 0; i < infoList.size()-1; i++) {
 			TvAdDto adDto = new TvAdDto();
 			adDto.setId(infoList.get(i).getId());

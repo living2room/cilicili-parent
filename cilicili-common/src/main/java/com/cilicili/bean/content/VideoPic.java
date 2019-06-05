@@ -18,5 +18,5 @@ public class VideoPic {
 	private String picActualUrl;
 	private String picRequestUrl;
 	private VideoInfo videoId;
-	private String reserved;
+	private Integer picType;
 }

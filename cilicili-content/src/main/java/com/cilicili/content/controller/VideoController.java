@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,18 +33,23 @@ public class VideoController {
 
 	@Resource
 	private VideoService vService;
-	/**点击上传
+	/**点击上传 
 	 * @param req
 	 * @param resp
 	 * @param jsonObj
 	 */
-	@RequestMapping(value = "up", method = RequestMethod.POST)
+	@PostMapping("up")
 	public void upload(HttpServletRequest req, HttpServletResponse resp, UploadJsonObj jsonObj) {
 		List<Type> videoType = vService.getVideoType();
 		HttpSession session = req.getSession();
 		session.setAttribute("type",videoType );
 		vService.addvideoProcessor(req,resp,jsonObj);
 	}
+	@PostMapping("picThumb")
+	public void picThumb(String src) {
+		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+	}
+	
 	
 	
 }

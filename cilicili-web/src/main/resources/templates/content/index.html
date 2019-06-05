@@ -193,7 +193,7 @@
 					</div>
 					<div class="con2"><!--  视频展示部分 -->
 						<div class="mover">
-						
+
                                <!--  <tr th:each="tvad,tvadStat:${PageContent}" >
                                 	<td th:text="${tvadStat.index}"></td>
                                 	<td th:text="${tvad.value}"></td>
@@ -213,7 +213,8 @@
 						<div class="con3_01">
 								<div class="con3_left">
 									<div class="tubiao1"><img src="/img/tubiao02.png" ></div>
-                                    <!-- "  -->
+                                    <!-- "  -->ttttt
+
 									<div th:text="${map.current.key}" class="text1">本站推荐</div>
 									<div class="gengduo"><a href="#">查看更多<span style="margin-left: 7px; "><img src="/img/jiantou.png" alt=""></span></a></div>
 								</div>
@@ -298,6 +299,22 @@
 				container : "#banner2",//选择容器 必选
 				imgs : ['/img/a1.png','/img/a2.png','/img/a3.png','/img/a4.png','/img/a5.png'],//图片集合
 			});
+            $("#sss").val（）
+            $.ajax({
+                url: '/path/to/file',
+                type: 'default GET (Other values: POST)',
+                dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+                data: {param1: 'value1'},
+            })
+            .done(function() {
+                console.log("success");
+            })
+            .fail(function() {
+                console.log("error");
+            })
+            .always(function() {
+                console.log("complete");
+            });
 
 		</script>
         <script>

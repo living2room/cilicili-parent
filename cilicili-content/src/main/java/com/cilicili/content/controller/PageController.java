@@ -6,16 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.cilicili.bean.content.Type;
-import com.cilicili.bean.content.VideoUrl;
 import com.cilicili.common.dto.TvAdDto;
 import com.cilicili.common.dto.TypeDto;
 import com.cilicili.content.service.PageService;
@@ -62,19 +58,36 @@ public class PageController {
 			System.out.println(pageContent);
 			map.put(vType.get(i).getType(), pageContent);
 		}
+		/*
+		 * List<TvAdDto> pageContent = new ArrayList<TvAdDto>(); TvAdDto tv1 =
+		 * new TvAdDto(); tv1.setId("1"); tv1.setIsVip(1);
+		 * tv1.setLink("http://www.baidu.com"); tv1.setName("kehuan");
+		 * tv1.setPicAlt("waixingdazan"); tv1.setPicPath("/dd/d.png");
+		 * tv1.setVideoDuration("1hour"); tv1.setVideoPlayedNum(1234214l);
+		 * TvAdDto tv2 = new TvAdDto(); tv2.setId("2"); tv2.setIsVip(1);
+		 * tv2.setLink("http://www.baidu.com"); tv2.setName("kehuan");
+		 * tv2.setPicAlt("waixingdazan"); tv2.setPicPath("/dd/d.png");
+		 * tv2.setVideoDuration("1hour"); tv2.setVideoPlayedNum(1234214l);
+		 * TvAdDto tv3 = new TvAdDto(); tv3.setId("3"); tv3.setIsVip(1);
+		 * tv3.setLink("http://www.baidu.com"); tv3.setName("kehuan");
+		 * tv3.setPicAlt("waixingdazan"); tv3.setPicPath("/dd/d.png");
+		 * tv3.setVideoDuration("1hour"); tv3.setVideoPlayedNum(1234214l);
+		 * pageContent.add(tv1); pageContent.add(tv2); pageContent.add(tv3);
+		 * map.put("科幻", pageContent);
+		 */
 		//所有类型及其子类型
 		model.addAttribute("PageType",typelist);
 		//所有内容按类型封装
 		model.addAttribute("PageContent", map);
 		
-		System.out.println("PageType"+typelist);
+		//System.out.println("PageType"+typelist);
 		System.out.println("PageContent"+ map);
 		return "content/index";
 	}
 	
 	@RequestMapping("up")
 	public String toUpload() {
-		return "content/upload";
+		return "content/upload2";
 	}
 //	 /**
 //	 * 去二级主页

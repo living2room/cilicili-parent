@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -37,8 +38,10 @@ import com.cilicili.content.mapper.VideoUrlMapper;
 import com.cilicili.content.mapper.VideoUserMapper;
 
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.extra.ftp.Ftp;
 
 /**
  * @author 李明睿 2019年5月23日
@@ -58,6 +61,17 @@ public class VideoService {
 	private TypeMapper typeMapper;
 	@Resource
 	private VideoPicMapper vPicMapper;
+	
+	@Value("${FTP.ADDRESS}")
+	private String ftpAddr;
+	@Value("${FTP.PORT}")
+	private int ftpport;
+	@Value("${FTP.USERNAME}")
+	private String username;
+	@Value("${FTP.PASSWORD}")
+	private String password;
+	@Value("${FTP.BASE_PATH}")
+	private String filePath;
 	/**
 	 * 处理用户上传的视频
 	 * 
@@ -69,20 +83,21 @@ public class VideoService {
 
 		MultipartHttpServletRequest Murequest = (MultipartHttpServletRequest) req;
 		Map<String, MultipartFile> files = Murequest.getFileMap();// 得到文件map对象
-		String upaloadUrl = req.getSession().getServletContext()
-				.getRealPath("/") + "upload/";// 得到当前工程路径拼接上文件名
-		File dir = new File(upaloadUrl);
+		Ftp ftp = new Ftp(ftpAddr, ftpport, username, password);
+		ftp.cd(filePath);
 		Snowflake snowflake = IdUtil.createSnowflake(1, 1);
-		System.out.println(upaloadUrl);
-		if (!dir.exists())// 目录不存在则创建
-			dir.mkdirs();
+
 		for (MultipartFile file : files.values()) {
-			String fileName = file.getOriginalFilename();
 			File toFile;
-			String uuid = "";
 			VideoInfo entity = new VideoInfo();
+			String fileName ="";
 			try {
 				toFile = VideoResolution.multipartFileToFile(file);
+				fileName = IdUtil.simpleUUID() +"."+ VideoResolution.getVideoFormat(toFile);
+				
+				//上传本地文件
+				ftp.upload(filePath, toFile);
+
 				Map<String, Object> videoInfo = VideoResolution
 						.getVideoInfo(toFile);
 				String nextId = snowflake.nextIdStr();
@@ -98,19 +113,20 @@ public class VideoService {
 				entity.setVideoTitle(jsonObj.getTitle());
 				entity.setVideoDescribe(jsonObj.getDescribe());
 				int i = infoMapper.insert(entity);
-				addthumbnail(toFile,entity);
+				addthumbnail(toFile,entity,req);
+				addpreview(toFile,entity,req);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 			System.out.println(fileName);
-			File tagetFile = new File(upaloadUrl + fileName);// 创建文件对象
+			File tagetFile = new File(filePath +"video/" +fileName);// 创建文件对象
 			if (!tagetFile.exists()) {// 文件名不存在 则新建文件，并将文件复制到新建文件中
 				try {
 					VideoUrl videoUrl = new VideoUrl();
 					long id = snowflake.nextId();
 					videoUrl.setId(id);
 					videoUrl.setVideoId(entity);
-					videoUrl.setActualUrl(upaloadUrl);
+					videoUrl.setActualUrl(filePath);
 					videoUrl.setRequestUrl(String.valueOf(id));
 					int j = vUrlMapper.insert(videoUrl);
 					tagetFile.createNewFile();
@@ -147,7 +163,38 @@ public class VideoService {
 
 			}
 		}
+		//关闭连接
+		try {
+			ftp.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		System.out.println("接收完毕");
+	}
+
+	/**
+	 * 制作预览图的
+	 * @param toFile
+	 * @param entity
+	 */
+	public void addpreview(File toFile, VideoInfo entity,HttpServletRequest req) {
+		String localPath = req.getSession().getServletContext().getRealPath("")+ "/temp/thumbnail/";
+		String pic = IdUtil.simpleUUID()+".jpg";
+		String picPath = filePath+"imgs/preview/"+pic;
+		VideoResolution.getVideoPic(toFile,localPath+pic , 10);
+		File file = new File(localPath+pic);
+		Ftp ftp = new Ftp(ftpAddr, ftpport, username, password);
+		boolean b = ftp.upload(filePath+"imgs/preview/",file.getName(), file);
+		if(b) {System.out.println("上传预览图成功");}
+		VideoPic videoPic = new VideoPic();
+		Snowflake snowflake = IdUtil.createSnowflake(1, 1);
+		long id = snowflake.nextId();
+		videoPic.setId(id);
+		videoPic.setVideoId(entity);
+		videoPic.setPicActualUrl(picPath);
+		videoPic.setPicRequestUrl(entity.getId());
+		videoPic.setPicType(2);
+		vPicMapper.insert(videoPic );
 	}
 
 	/**
@@ -159,25 +206,28 @@ public class VideoService {
 
 
 	/**
-	 * 视频拆分成帧
+	 * 视频拆分成帧,制成缩略图并存放数据库
 	 * 
 	 */
-	public void addthumbnail(File toFile, VideoInfo videoInfo) {
+	public void addthumbnail(File toFile, VideoInfo videoInfo,HttpServletRequest req) {
 		// TODO 图片服务器
-		String picPath= IdUtil.simpleUUID()+"jpg";
 		PictureMerge tm = new PictureMerge();
 		int n = 10;
 		Long frames = videoInfo.getVideoFrames()/n;
 		List<BufferedImage> bufferedImageList = new ArrayList<BufferedImage>();
 		for (int i = 0; i < n-1; i++) {
+			String picPath= req.getSession().getServletContext().getRealPath("")+"/temp/"+IdUtil.simpleUUID()+".jpg";
 			VideoResolution.getVideoPic(toFile, picPath, frames);
 			frames  =frames + frames;
 			bufferedImageList.add(tm.loadImageLocal(picPath));
 		}
-		// TODO 新图片地址
-		String newPicPath = "";
+		String newPicPath =req.getSession().getServletContext().getRealPath("")+ "/temp/thumbnail/"+IdUtil.simpleUUID()+".jpg";
 		tm.writeImageLocal(newPicPath , tm.Merge(PictureMerge.orientation, bufferedImageList));
-		
+		//上传合成图到FTP
+		File file = new File(newPicPath);
+		Ftp ftp = new Ftp(ftpAddr, ftpport, username, password);
+		boolean b = ftp.upload(filePath+"imgs/thumbnail/",file.getName(), file);
+		if(b) {System.out.println("上传缩略图成功");}
 		VideoPic videoPic = new VideoPic();
 		Snowflake snowflake = IdUtil.createSnowflake(1, 1);
 		long id = snowflake.nextId();
@@ -185,6 +235,7 @@ public class VideoService {
 		videoPic.setVideoId(videoInfo);
 		videoPic.setPicActualUrl(newPicPath);
 		videoPic.setPicRequestUrl(videoInfo.getId());
+		videoPic.setPicType(1);
 		vPicMapper.insert(videoPic );
 	}
 }
