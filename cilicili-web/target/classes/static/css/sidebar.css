@@ -2,7 +2,7 @@
 * @Author: name
 * @Date:   2019-05-31 08:36:18
 * @Last Modified by:   name
-* @Last Modified time: 2019-05-31 10:19:17
+* @Last Modified time: 2019-06-08 14:38:01
 */
 .floatbar a{
     text-decoration:none;
@@ -38,7 +38,7 @@
     left: -1px;
     background-color: #00a1d6;
 }
-a:hover {
+.floatbar a:hover {
     background-color: #00a1d6;
     color: #fff;
 }

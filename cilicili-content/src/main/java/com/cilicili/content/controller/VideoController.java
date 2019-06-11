@@ -33,18 +33,19 @@ public class VideoController {
 
 	@Resource
 	private VideoService vService;
-	/**点击上传 
-	 * @param req
-	 * @param resp
-	 * @param jsonObj
+	/**点击上传 分片传到临时位置并保存为一个文件
 	 */
 	@PostMapping("up")
-	public void upload(HttpServletRequest req, HttpServletResponse resp, UploadJsonObj jsonObj) {
-		List<Type> videoType = vService.getVideoType();
-		HttpSession session = req.getSession();
-		session.setAttribute("type",videoType );
+	public void uploadByPieces(HttpServletRequest req, HttpServletResponse resp,UploadJsonObj jsonObj) {
 		vService.addvideoProcessor(req,resp,jsonObj);
 	}
+	/**
+	 * 上传成后回调方法
+	 */
+	@PostMapping("afterup")
+	public void uploadSuccess() {
+	}
+	
 	@PostMapping("picThumb")
 	public void picThumb(String src) {
 		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");

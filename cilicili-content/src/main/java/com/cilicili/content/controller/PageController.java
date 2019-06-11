@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cilicili.bean.content.Type;
@@ -16,6 +17,7 @@ import com.cilicili.common.dto.TvAdDto;
 import com.cilicili.common.dto.TypeDto;
 import com.cilicili.content.service.PageService;
 import com.cilicili.content.service.RankService;
+import com.cilicili.content.service.TypeService;
 /**
  * 页面导航的Controller
  * 
@@ -29,6 +31,8 @@ public class PageController {
 	PageService pService;
 	@Resource
 	private RankService rService;
+	@Resource 
+	private TypeService tService;
 	/**
 	 * 去一级主页
 	 * 
@@ -88,6 +92,34 @@ public class PageController {
 	@RequestMapping("up")
 	public String toUpload() {
 		return "content/upload2";
+	}
+	
+	@RequestMapping("b/index")
+	public String toBIndex() {
+		return "bg_index";
+	}
+	@RequestMapping("b/type")
+	public String toTypeManager() {
+		return "content/bg_typetree";
+	}
+	
+	@RequestMapping("b/review")
+	public String toContentView() {
+		return "";
+	}
+	@RequestMapping("b/type/edit/{text}")
+	public String toEditPup(@PathVariable String text,Model model) {
+			Type type = tService.getTypeByName(text);
+			if(type != null) {
+				model.addAttribute("result",type);
+			}else {
+				model.addAttribute("result",0);
+			}
+		return "content/bg_typeedit";
+	}
+	@RequestMapping("ie")
+	public String toIE() {
+		return "ie";
 	}
 //	 /**
 //	 * 去二级主页

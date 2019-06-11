@@ -7,4 +7,5 @@ Build-Jdk: 1.8.0_131
 Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
  ot-starter-parent/cilicili-parent/cilicili-web
 Created-By: Maven Integration for Eclipse
+Main-Class: com.cilicili.CiliciliWebApplication
 

@@ -1,17 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="utf-8" />
-		<title></title>
-
-        <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.1.3/css/bootstrap.min.css">
+		<title>嘻哩嘻哩 (^o^)c旦`` 喝咖啡~-cilicili</title>
+        <!-- 全局css -->
+        <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/3.4.1/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css">
-        <link rel="stylesheet" type="text/css" href=" /webjars/font-awesome/5.8.1/css/fontawesome.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/webjars/font-awesome/5.8.1/css/all.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/animate.css"/>
         <!--自定义css  -->
-		<link rel="stylesheet" type="text/css" href="/css/style.css"/>
-		<link rel="stylesheet" href="/css/reset.css">
-		<link rel="stylesheet" href="/css/common.css">
+		<link rel="stylesheet" type="text/css" href="/css/stylef.css"/>
+		<link rel="stylesheet" type="text/css" href="/css/reset.css">
+		<link rel="stylesheet" type="text/css" href="/css/common.css">
          <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
+
+
+        <!-- 全局js -->
+        <script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="/webjars/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/js/bootstrap-suggest.min.js"></script>
+        <!-- 自定义js -->
+        <script type="text/javascript" src="/js/banner.js"></script>
+        <script type="text/javascript" src="/js/sidebar.js"></script>
+        <script type="text/javascript" th:src="@{/js/coverdjs.js}"></script>
+
+        <!-------------------------------------- 轮播图的动效 --------------------------------------------------->
+        <script type="text/javascript">
+            $(function(){
+                     $("#baidu").bsSuggest({
+                        emptyTip: '未检索到匹配的数据',
+                        allowNoKeyword: false,   //是否允许无关键字时请求数据。为 false 则无输入时不执行过滤请求
+                        ignorecase: true,
+                        showBtn: false,     //不显示下拉按钮
+                        multiWord: true,         //以分隔符号分割的多关键字支持
+                        separator: ",",          //多关键字支持时的分隔符，默认为空格
+                        getDataMethod: "url",    //获取数据的方式，总是从 URL 获取
+                        url: 'http://unionsug.baidu.com/su?p=3&wd=', //优先从url ajax 请求 json 帮助数据，注意最后一个参数为关键字请求参数
+                        jsonp: 'cb',                        //如果从 url 获取数据，并且需要跨域，则该参数必须设置
+                        fnProcessData: function (json) {    // url 获取数据时，对数据的处理，作为 fnGetData 的回调函数
+                            var index, len, data = {value: []};
+                            if (!json || !json.s || json.s.length === 0) {
+                                return false;
+                            }
+
+                            len = json.s.length;
+
+                            for (index = 0; index < len; index++) {
+                                data.value.push({
+                                    word: json.s[index]
+                                });
+                            }
+                            data.defaults = 'baidu';
+
+                            //字符串转化为 js 对象
+                            return data;
+                        }
+                    }).on('onDataRequestSuccess', function (e, result) {
+                        console.log('onDataRequestSuccess: ', result);
+                    }).on('onSetSelectValue', function (e, keyword, data) {
+                        console.log('onSetSelectValue: ', keyword, data);
+                        //有时间实现ajax调用后台查询，并跳转到查询结果页
+                        //没时间就暂时跳到百度页面
+                    }).on('onUnsetSelectValue', function () {
+                        console.log("onUnsetSelectValue");
+                    });
+            })
+            /*
+            ** 只填两个必要参数也是可以的
+            */
+            // var banenr2 = new FragmentBanner({
+            //  container : "#banner2",//选择容器 必选
+            //  imgs : ['/img/a1.png','/img/a2.png','/img/a3.png','/img/a4.png','/img/a5.png'],//图片集合
+            // });
+
+        </script>
 	</head>
 
 	<body>
@@ -25,8 +88,16 @@
 			<div class="nav">
 				<div class="logo"><img src="/img/LOGO01.png" ></div>
 				<div id="box">
-					<input type="text" id="box_sousuo" name="search" placeholder="请输入关键字">
-					<div id="search">搜索</div>
+                            <div class="input-group" style="width: 230px;">
+                                <input type="text" class="form-control" id="baidu" placeholder="嗖(。≖ˇェˇ≖｡)">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+                                </div>
+                                <!-- /btn-group -->
+                            </div>
 				</div>
 				<div class="nav_right">
 					<div class="shouye">
@@ -213,7 +284,7 @@
 						<div class="con3_01">
 								<div class="con3_left">
 									<div class="tubiao1"><img src="/img/tubiao02.png" ></div>
-                                    <!-- "  -->ttttt
+                                    <!-- "  -->aa
 
 									<div th:text="${map.current.key}" class="text1">本站推荐</div>
 									<div class="gengduo"><a href="#">查看更多<span style="margin-left: 7px; "><img src="/img/jiantou.png" alt=""></span></a></div>
@@ -255,103 +326,10 @@
 								<div class="paihang_con"></div>
 							</div>
 						</div>
-
 					</div>
-
 				</div>
-
 			</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	</div>
-
-
-		<!-- 全局js -->
-		<script src="/webjars/jquery/3.3.1-2/jquery.min.js"></script>
-        <script src="/webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-        <script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"></script>
-        <!-- 自定义js -->
-        <script type="text/javascript" src="/js/banner.js"></script>
-        <script type="text/javascript" src="/js/sidebar.js"></script>
-        <script type="text/javascript" src="/js/coverdjs.js"></script>
-
-		<!-------------------------------------- 轮播图的动效 --------------------------------------------------->
-		<script type="text/javascript">
-
-			/*
-			** 只填两个必要参数也是可以的
-			*/
-			var banenr2 = new FragmentBanner({
-				container : "#banner2",//选择容器 必选
-				imgs : ['/img/a1.png','/img/a2.png','/img/a3.png','/img/a4.png','/img/a5.png'],//图片集合
-			});
-            $("#sss").val（）
-            $.ajax({
-                url: '/path/to/file',
-                type: 'default GET (Other values: POST)',
-                dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
-                data: {param1: 'value1'},
-            })
-            .done(function() {
-                console.log("success");
-            })
-            .fail(function() {
-                console.log("error");
-            })
-            .always(function() {
-                console.log("complete");
-            });
-
-		</script>
-        <script>
-            $('.cover_container').coverPreviewModuleInit()
-
-            var baiduBsSuggest = $("#baidu").bsSuggest({
-            allowNoKeyword: false, //是否允许无关键字时请求数据
-            multiWord: true, //以分隔符号分割的多关键字支持
-            separator: ",", //多关键字支持时的分隔符，默认为空格
-            getDataMethod: "url", //获取数据的方式，总是从 URL 获取
-            url: 'http://unionsug.baidu.com/su?p=3&t=' + (new Date()).getTime() + '&wd=',
-            /*优先从url ajax 请求 json 帮助数据，注意最后一个参数为关键字请求参数*/
-            jsonp: 'cb',
-            /*如果从 url 获取数据，并且需要跨域，则该参数必须设置*/
-            processData: function (json) { // url 获取数据时，对数据的处理，作为 getData 的回调函数
-                var i, len, data = {
-                    value: []
-                };
-                if (!json || !json.s || json.s.length === 0) {
-                    return false;
-                }
-
-                console.log(json);
-                len = json.s.length;
-
-                jsonStr = "{'value':[";
-                for (i = 0; i < len; i++) {
-                    data.value.push({
-                        word: json.s[i]
-                    });
-                }
-                data.defaults = 'baidu';
-
-                //字符串转化为 js 对象
-                return data;
-            }
-        });
-        </script>
+        </div>
+    </div>
 	</body>
 </html>

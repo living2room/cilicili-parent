@@ -182,7 +182,7 @@ public class VideoResolution {
 	}
 
 
-	public static File  inputStreamToFile(InputStream ins, File file) {
+	public static File inputStreamToFile(InputStream ins, File file) {
 	    try {
 	        OutputStream os = new FileOutputStream(file);
 	        int bytesRead = 0;
@@ -323,7 +323,7 @@ public class VideoResolution {
      */
     public static String getVideoFormat(File video) {
     	String fullname = video.getName();
-    	String[] strings = fullname.split(".");//abc.abc.mp4
+    	String[] strings = fullname.split("\\.");//abc.abc.mp4
 		return strings[strings.length-1];
     }
 
@@ -413,20 +413,19 @@ public class VideoResolution {
     public static void main(String[] args) {
 //        String videoPath = ResourceUtils.CLASSPATH_URL_PREFIX + "video.mp4";
         File video = null;
-        String videoPath = "E:\\video\\【北酱】恋与制作人BGM三连发 主题曲+日常+悲剧收场 最后1P有彩蛋\\"
-        		+ "1.恋与制作人 主题曲(Av52797360,P1).mp4";
+        String videoPath = "C:\\Users\\living2room\\AppData\\Local\\Temp\\tomcat-docbase.3109862704311275266.8080\\temp\\video\\Dérniere Danse『来自haku异国的歌喉』 - 1.Dérniere Danse(Av53199914,P1).mp4";
+        String testPath = "C:\\Users\\Public\\Videos\\Sample Videos\\Wildlife.wmv";
         try {
 			video = ResourceUtils.getFile(videoPath);
+			System.out.println("r   "+video.canRead()+"  w  "+video.canWrite());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        String picPath1 = "E:\\video\\【北酱】恋与制作人BGM三连发 主题曲+日常+悲剧收场 最后1P有彩蛋\\video1.jpg";
-        String picPath2 = "E:\\video\\【北酱】恋与制作人BGM三连发 主题曲+日常+悲剧收场 最后1P有彩蛋\\video2.jpg";
-        getVideoPic(video, picPath1,5);
-        getVideoPic(video, picPath2,50);
-
+//        Map<String, Object> videoInfo = getVideoInfo(video);
         long duration = getVideoDuration(video);
+        long frames = getVideoLengthFrames(video);
         System.out.println("videoDuration = " + duration);
-    	   
+        System.out.println("frames = " + frames);
+//        System.out.println("info = " + videoInfo);
     }
 }

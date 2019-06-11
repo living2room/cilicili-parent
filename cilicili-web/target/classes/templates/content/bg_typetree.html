@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>TypeTree</title>
+
+
+<!-- 全局css -->
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/plugins/jsTree/style.min.css" >
+    <link rel="stylesheet" type="text/css" href="/webjars/font-awesome/5.8.1/css/all.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/animate.css"/>
+    <!--自定义css  -->
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <link rel="shortcut icon" href="/favicon.ico">
+
+
+        <!-- 全局js -->
+        <script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="/webjars/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <!-- 自定义js -->
+        <script src="/js/content.js?v=1.0.0"></script>
+        <!-- jsTree plugin javascript -->
+        <script src="/js/plugins/jsTree/jstree.js"></script>
+        <!-- layer javascript -->
+        <script src="/js/plugins/layer/layer.min.js"></script>
+
+
+
+    <style>
+        .jstree-open > .jstree-anchor > .fa-folder:before {
+            content: "\f07c";
+        }
+
+        .jstree-default .jstree-icon.none {
+            width: 0;
+        }
+        .vakata-context, .vakata-context ul{
+            z-index: 100;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+
+            $('#jsonTree').jstree({
+                'core': {
+                    'check_callback': true,//如果保留为false，则防止创建、重命名、删除、移动或复制等操作
+                    'data': {
+                        'url' : '/t/get',
+                        'dataType' : 'json',
+                        'type' : 'post'
+                    }
+                },
+                'plugins' : [
+                        'contextmenu',"search",'dnd'
+                ],
+                //contextmenu 存储contextmenu插件的所有默认值
+                'contextmenu':{
+                    'items' : {
+                        'add':{
+                            'label':'新增',
+                            'action':function(obj){
+                                //reference获取当前选中节点的引用
+                                var inst = jQuery.jstree.reference(obj.reference);
+                                //通过get_node方法获取节点的信息，类似于实例对象
+                                var clickedNode = inst.get_node(obj.reference);
+                                /*
+                                    inst.create_node 参数1:父节点  参数2:新节点的数据
+                                    参数3: 1）first：当前节点下的头部新增节点
+                                           2）last：当前节点下的尾部新增节点
+                                           3）before：当前节点同级的上部新增节点
+                                           4）after：当前节点同级的下部新增节点
+                                    参数4:回调函数
+                                    参数5:Boolean类型,内部参数，指示父节点是否成功加载
+                                */
+                                var newNode = inst.create_node(clickedNode,
+                                    {    //'id': 'ajson20',
+                                        //'parent' : 'ajson2',
+                                        'icon' : 'jstree-file',
+                                        'text':'新节点'},'last',function(node){
+                                        //回调返回创建后点节点，给新节点改名
+                                         inst.edit(node,node.val);
+                                    },'');
+                            }
+                        },
+                        'delete':{
+                            "label": "删除",
+                            'action':function(obj){
+                                var inst = jQuery.jstree.reference(obj.reference);
+                                var clickedNode = inst.get_node(obj.reference);
+                                //询问框
+                                parent.layer.confirm('确定要删除吗？', {
+                                    btn: ['确定','再想想'], //按钮
+                                    shade: false //不显示遮罩
+                                }, function(){
+                                   var bol =  inst.delete_node(obj.reference);
+                                   $.ajax({
+                                       url: '/t/del/'+clickedNode.text,
+                                       type: 'POST',
+                                       async: false,
+                                       dataType: 'html',
+                                   })
+                                   .done(function(e) {
+                                    if (e != "1")
+                                        bol = false
+                                   })
+
+                                   if(bol){
+                                    parent.layer.msg('删除了', {icon: 1});
+                                   }else{
+                                    parent.layer.msg('失败了', {shift: 6});
+                                   }
+                                }, function(){
+                                });
+                            }
+                        },
+                        'edit':{
+                            "label": "修改",
+                            'action':function(obj){
+                                var inst = jQuery.jstree.reference(obj.reference);
+                                var clickedNode = inst.get_node(obj.reference);
+                                console.log(clickedNode.text);
+                                //修改，弹出框修改
+                                parent.layer.open({
+                                    type: 2,
+                                    title: '类型修改页',
+                                    shadeClose: false,
+                                    shade: 0.8,
+                                    closeBtn: 1,
+                                    area: ['400px', '80%'],
+                                    content: ['/to/b/type/edit/'+clickedNode.text], //iframe的url
+                                    end: function () {
+                                        location.reload();
+                                      }
+                                });
+                            }
+                        }
+                    }
+                }
+            });
+            $("#s").blur(function(e){
+                 e.preventDefault();
+                $("#jsonTree").jstree(true).search($("#s").val());
+            })
+        });
+    </script>
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content  animated fadeInRight">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+
+                        <strong>类型管理</strong>
+                        通过树型结构，对视频类型进行增加、删除、排序、重命名等操作<br>
+                         <strong style="color: red">！！！注意：删除排序重命名操作将可能会对已有视频类型造成不可预知的干扰，请操作员谨慎操作</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>视频类型树型图</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <input type="search" id="s" placeholder="输入检索关键字" />
+                        <div id="jsonTree"></div>
+
+                    </div>
+                </div>
+            </div>
+         <div class="col-sm-2"></div>
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>

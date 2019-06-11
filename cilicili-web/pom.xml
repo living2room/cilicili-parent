@@ -2,6 +2,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<properties>
+		<!-- The main class to start by executing java -jar -->
+		<start-class>com.cilicili.CiliciliWebApplication</start-class>
+	</properties>
+
 	<parent>
 		<groupId>com.cilicili</groupId>
 		<artifactId>cilicili-parent</artifactId>
@@ -65,7 +70,7 @@
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>bootstrap</artifactId>
-			<version>4.1.3</version>
+			<version>3.4.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars</groupId>
@@ -76,7 +81,7 @@
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>jquery</artifactId>
-			<version>3.3.1-2</version>
+			<version>3.3.1</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.webjars/font-awesome -->
 		<dependency>
@@ -84,12 +89,23 @@
 			<artifactId>font-awesome</artifactId>
 			<version>5.8.1</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.webjars.npm/css-animation -->
+		<!-- https://mvnrepository.com/artifact/org.webjars/jquery-form -->
 		<dependency>
-			<groupId>org.webjars.npm</groupId>
-			<artifactId>css-animation</artifactId>
-			<version>1.5.0</version>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery-form</artifactId>
+			<version>4.2.2</version>
 		</dependency>
 
 	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.cilicili.CiliciliWebApplication</mainClass>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
