@@ -24,7 +24,7 @@ public class VideoInfo {
 	private String videoSize;
 	private String videoName;
 	private Date videoUploadTime;
-	private Integer isVip;
+	private Integer videoIsvip;
 	private VideoPic videoPicId;
 	private VideoSeries videoSeriesId;
 	private Long videoFrames;

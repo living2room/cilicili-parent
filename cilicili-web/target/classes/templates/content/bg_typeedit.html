@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title></title>
 <link rel="stylesheet" type="text/css"
 	href="/webjars/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -29,7 +30,7 @@
 				},
 			});
              var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-			 parent.layer.close(index); //再执行关闭 
+			 parent.layer.close(index); //再执行关闭
 			return false;
 		})
 		$("#addtype").on("submit", function() {
@@ -40,13 +41,14 @@
 					console.log(data);
 					if (data == "1") {
 						parent.layer.msg('添加成功', {icon: 1});
+						var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+						 parent.layer.close(index); //再执行关闭
 					} else {
 						parent.layer.msg('添加失败', {shift: 6});
 					}
 				},
 			});
-            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-			 parent.layer.close(index); //再执行关闭    
+
 			return false;
 		})
 		/*             var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引

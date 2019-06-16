@@ -17,11 +17,11 @@ import lombok.Data;
 @Data
 @TableName("tb_video_examine")
 public class VideoExamine {
-	private Integer id;
-	private VideoInfo videoId;
+	private Long id;
+	private String videoId;
 	private Integer videoStatus;
 	private Date videoLastExamineTime;
 	private Date videoApprovalTime;
-	private  AdminUser adminId;
-	private String reserved;
+	private AdminUser adminId;
+	private Integer resonId;
 }

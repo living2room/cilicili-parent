@@ -15,23 +15,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.net.ftp.FTPClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cilicili.bean.content.Type;
 import com.cilicili.bean.content.Users;
+import com.cilicili.bean.content.VideoExamine;
 import com.cilicili.bean.content.VideoInfo;
 import com.cilicili.bean.content.VideoPic;
 import com.cilicili.bean.content.VideoType;
 import com.cilicili.bean.content.VideoUrl;
 import com.cilicili.bean.content.VideoUser;
 import com.cilicili.common.dto.UploadJsonObj;
+import com.cilicili.common.dto.VideoReviewDto;
 import com.cilicili.common.utils.PictureMerge;
 import com.cilicili.common.utils.VideoResolution;
 import com.cilicili.content.mapper.TypeMapper;
+import com.cilicili.content.mapper.VideoExamineMapper;
 import com.cilicili.content.mapper.VideoInfoMapper;
 import com.cilicili.content.mapper.VideoPicMapper;
 import com.cilicili.content.mapper.VideoTypeMapper;
@@ -39,11 +43,10 @@ import com.cilicili.content.mapper.VideoUrlMapper;
 import com.cilicili.content.mapper.VideoUserMapper;
 
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.extra.ftp.Ftp;
-
+import org.apache.commons.net.ftp.FTPClient;
 /**
  * @author 李明睿 2019年5月23日
  */
@@ -62,6 +65,8 @@ public class VideoService {
 	private TypeMapper typeMapper;
 	@Resource
 	private VideoPicMapper vPicMapper;
+	@Resource
+	private VideoExamineMapper veMapper;
 
 	@Value("${FTP.ADDRESS}")
 	private String ftpAddr;
@@ -71,105 +76,35 @@ public class VideoService {
 	private String username;
 	@Value("${FTP.PASSWORD}")
 	private String password;
+	@Value("${FTP.BASE_PATH}")
+	private String ftpPath;
 
 	/**
-	 * 处理用户上传的视频 WebUploader将会把视频分成几份上传
+	 * 用户上传的视频 WebUploader 转到FTP
 	 * 
 	 * @param req
-	 * @param resp
 	 */
-	public void addvideoProcessor(HttpServletRequest req,
-			HttpServletResponse resp, UploadJsonObj jsonObj) {
-
-		String filePath = "/video/";
+	public File videoupload(HttpServletRequest req) {
+		FTPClient c = new FTPClient();
+		String filePath ="/video";
 		MultipartHttpServletRequest Murequest = (MultipartHttpServletRequest) req;
 		Map<String, MultipartFile> files = Murequest.getFileMap();// 得到文件map对象
 		Ftp ftp = new Ftp(ftpAddr, ftpport, username, password);
 		ftp.setMode(cn.hutool.extra.ftp.FtpMode.Active);
-		// TODO 前端一次只上传了5M，所以后端解析时会报错
-		Snowflake snowflake = IdUtil.createSnowflake(1, 1);
-
+		String localPath = req.getSession().getServletContext().getRealPath("")
+				+ "temp" + File.separator + "video" + File.separator;
+		File localFile = new File(localPath);
 		for (MultipartFile file : files.values()) {
-			String localPath = req.getSession().getServletContext()
-					.getRealPath("") + "temp\\video\\";
 			String localfile = file.getOriginalFilename();
-			File localFile = new File(localPath, localfile);
+			localFile = new File(localPath, localfile);
 			try {
 				localFile.getParentFile().mkdirs();
 				file.transferTo(localFile);
+				boolean d = ftp.cd(filePath);
+				boolean b = ftp.upload(filePath, localFile);
+					System.out.println(b+""+d);
 			} catch (IllegalStateException | IOException e2) {
 				e2.printStackTrace();
-			}
-			VideoInfo entity = new VideoInfo();
-			String fileName = "";
-			try {
-				fileName = IdUtil.simpleUUID() + "."
-						+ VideoResolution.getVideoFormat(localFile);
-				// 上传本地文件
-				ftp.upload(filePath, localFile);
-				Map<String, Object> videoInfo = VideoResolution
-						.getVideoInfo(localFile);
-				String nextId = snowflake.nextIdStr();
-				entity.setId(nextId);
-				entity.setVideoDuration((long) videoInfo.get("Duration"));
-				entity.setVideoFormat((String) videoInfo.get("Format"));
-				entity.setVideoFrames((long) videoInfo.get("FrameLength"));
-				entity.setVideoName((String) videoInfo.get("VideoName"));
-				entity.setVideoSize((String) videoInfo.get("Size"));
-				entity.setVideoUploadTime(DateUtil.date());
-				entity.setVideoIsAvailable(0);
-				entity.setIsVip(jsonObj.getVip());
-				entity.setVideoTitle(jsonObj.getTitle());
-				entity.setVideoDescribe(jsonObj.getDescribe());
-				int i = infoMapper.insert(entity);
-				addthumbnail(localFile, entity, req, ftp);
-				addpreview(localFile, entity, req, ftp);
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-			System.out.println(fileName);
-			File tagetFile = new File(filePath + "video/" + fileName);// 创建文件对象
-			if (!tagetFile.exists()) {// 文件名不存在 则新建文件，并将文件复制到新建文件中
-				try {
-					VideoUrl videoUrl = new VideoUrl();
-					long id = snowflake.nextId();
-					videoUrl.setId(id);
-					videoUrl.setVideoId(entity);
-					videoUrl.setActualUrl(filePath);
-					videoUrl.setRequestUrl(String.valueOf(id));
-					int j = vUrlMapper.insert(videoUrl);
-					tagetFile.createNewFile();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				try {
-
-					VideoUser videoUser = new VideoUser();
-					HttpSession session = req.getSession();
-					Users user = (Users) session.getAttribute("user");
-					long id = snowflake.nextId();
-					videoUser.setId(id);
-					videoUser.setUserId(user);
-					videoUser.setVideoId(entity);
-					videoUser.setIsVip(jsonObj.getVip());
-					int k = vUserMapper.insert(videoUser);
-
-					VideoType videoType = new VideoType();
-					id = snowflake.nextId();
-					videoType.setId(id);
-					Type type = new Type();
-					type.setId(jsonObj.getTypeId());
-					videoType.setTypeId(type);
-					videoType.setVideoId(entity);
-					int l = vTypeMapper.insert(videoType);
-
-					file.transferTo(tagetFile);
-				} catch (IllegalStateException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
 			}
 		}
 		// 关闭连接
@@ -178,36 +113,131 @@ public class VideoService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("接收完毕");
+		return localFile;
 	}
 
 	/**
-	 * 制作预览图的
+	 * 添加信息到数据库
 	 * 
-	 * @param toFile
-	 * @param entity
+	 * @param jsonObj
+	 * @param localFile
 	 */
-	public void addpreview(File toFile, VideoInfo entity,
-			HttpServletRequest req, Ftp ftp) {
+	public Object addvideoDb(File localFile, HttpSession session) {
+		Snowflake snowflake = IdUtil.createSnowflake(1, 1);
+		String nextId = snowflake.nextIdStr();
+		VideoInfo entity = new VideoInfo();
+		String fileName = "";
+		int i = 0;
+		try {
+			fileName = IdUtil.simpleUUID() + "."
+					+ VideoResolution.getVideoFormat(localFile);
+			// 上传本地文件
+			Map<String, Object> videoInfo = VideoResolution
+					.getVideoInfo(localFile);
+			entity.setId(nextId);
+			entity.setVideoDuration((long) videoInfo.get("Duration(s)"));
+			entity.setVideoFormat((String) videoInfo.get("Format"));
+			entity.setVideoFrames((long) videoInfo.get("FrameLength"));
+			entity.setVideoName((String) videoInfo.get("VideoName"));
+			entity.setVideoSize((String) videoInfo.get("Size"));
+			entity.setVideoUploadTime(DateUtil.date());
+			entity.setVideoIsAvailable(1);
+			// entity.setIsVip(jsonObj.getVip());
+			// entity.setVideoTitle(jsonObj.getTitle());
+			// entity.setVideoDescribe(jsonObj.getDescribe());
+			i = infoMapper.insert(entity);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		System.out.println(fileName);
+		VideoUrl videoUrl = new VideoUrl();
+		long id = snowflake.nextId();
+		videoUrl.setId(id);
+		videoUrl.setVideoId(nextId);
+		videoUrl.setActualUrl(ftpPath+"video/"+localFile.getName());//存放问题
+		videoUrl.setRequestUrl(String.valueOf(id));
+		int j = vUrlMapper.insert(videoUrl);
+
+		// VideoUser videoUser = new VideoUser();
+		// Users user = (Users) session.getAttribute("user");
+		// id = snowflake.nextId();
+		// videoUser.setId(id);
+		// videoUser.setUserId(user.getId());
+		// videoUser.setVideoId(nextId);
+		//// videoUser.setIsVip(jsonObj.getVip());
+		// int k = vUserMapper.insert(videoUser);
+
+		// VideoType videoType = new VideoType();
+		// id = snowflake.nextId();
+		// videoType.setId(id);
+		// Type type = new Type();
+		//// type.setId(jsonObj.getTypeId());
+		// videoType.setTypeId(type.getId());
+		// videoType.setVideoId(nextId);
+		// int l = vTypeMapper.insert(videoType);
+
+		VideoExamine videoExam = new VideoExamine();
+		videoExam.setVideoStatus(0);
+		int n = veMapper.insert(videoExam);
+		if (2 == i + j) {
+			System.out.println("接收完毕");
+			return nextId;
+		}
+		return false;
+	}
+
+	/**
+	 * 制预览图并上传
+	 * 
+	 * @param toFile 视频文件
+	 * @param req
+	 * @return 图片路径
+	 */
+	public String previewupload(File toFile, HttpServletRequest req) {
+		Ftp ftp = new Ftp(ftpAddr, ftpport, username, password);
+		ftp.setMode(cn.hutool.extra.ftp.FtpMode.Active);
 		String localPath = req.getSession().getServletContext().getRealPath("")
-				+ "/temp/thumbnail/";
+				+ "temp" + File.separator + "thumbnail"
+				+ File.separator;
+		File localPathFile = new File(localPath);
+		if(!localPathFile.exists())
+			localPathFile.mkdirs();
 		String pic = IdUtil.simpleUUID() + ".jpg";
-		String picPath = "/imgs/preview/" + pic;
-		VideoResolution.getVideoPic(toFile, localPath + pic, 10);
+		String picPath = File.separator + "imgs" + File.separator + "preview" + File.separator;
+		VideoResolution.getVideoPic(toFile, localPath + pic, 20);
 		File file = new File(localPath + pic);
+		boolean c = ftp.cd(localPath); 
 		boolean b = ftp.upload(picPath, file.getName(), file);
-		if (b) {
+		if (b&&c) {
 			System.out.println("上传预览图成功");
 		}
+		try {
+			ftp.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return pic;
+	}
+	/**
+	 * 预览图插入数据库
+	 * 
+	 * @param pic
+	 * @param infoId
+	 */
+	public void addpreviewDb(String pic, String infoId) {
+		String picPath = File.separator + "imgs" + File.separator + "preview"
+				+ File.separator + pic;
+		VideoInfo entity = infoMapper.selectById(infoId);
 		VideoPic videoPic = new VideoPic();
 		Snowflake snowflake = IdUtil.createSnowflake(1, 1);
-		long id = snowflake.nextId();
+		Long id = snowflake.nextId();
 		videoPic.setId(id);
 		videoPic.setVideoId(entity);
 		videoPic.setPicActualUrl(picPath);
 		videoPic.setPicRequestUrl(entity.getId());
 		videoPic.setPicType(2);
 		vPicMapper.insert(videoPic);
+
 	}
 
 	/**
@@ -217,68 +247,134 @@ public class VideoService {
 		return typeMapper.selectList(null);
 	}
 
-	/**
-	 * 视频拆分成帧,制成缩略图并存放数据库
-	 * 
-	 * @param ftp
-	 * 
+	/**制作缩略图上传
+	 * @param toFile 视频文件
+	 * @param req
+	 * @param infoId 
+	 * @return 图片的路径
 	 */
-	public void addthumbnail(File toFile, VideoInfo videoInfo,
-			HttpServletRequest req, Ftp ftp) {
-		// TODO 图片服务器
+	public String thumbnailupload(File toFile, HttpServletRequest req,
+			String infoId) {
+		Ftp ftp = new Ftp(ftpAddr, ftpport, username, password);
+		ftp.setMode(cn.hutool.extra.ftp.FtpMode.Active);
+		VideoInfo videoInfo = infoMapper.selectById(infoId);
 		PictureMerge tm = new PictureMerge();
 		int n = 10;
 		Long frames = videoInfo.getVideoFrames() / n;
 		List<BufferedImage> bufferedImageList = new ArrayList<BufferedImage>();
+		Long Tar = frames;
 		for (int i = 0; i < n - 1; i++) {
 			String picPath = req.getSession().getServletContext()
-					.getRealPath("") + "/temp/" + IdUtil.simpleUUID() + ".jpg";
-			VideoResolution.getVideoPic(toFile, picPath, frames);
-			frames = frames + frames;
+					.getRealPath("")  + "temp" + File.separator
+					+ IdUtil.simpleUUID() + ".jpg";
+			VideoResolution.getVideoPic(toFile, picPath, Tar);
+			Tar = Tar + frames;
 			bufferedImageList.add(tm.loadImageLocal(picPath));
 		}
 		String newPicPath = req.getSession().getServletContext().getRealPath("")
-				+ "/temp/thumbnail/" + IdUtil.simpleUUID() + ".jpg";
+				+ "temp" + File.separator + "thumbnail"
+				+ File.separator + IdUtil.simpleUUID() + ".jpg";
 		tm.writeImageLocal(newPicPath,
 				tm.Merge(PictureMerge.orientation, bufferedImageList));
 		// 上传合成图到FTP
 		File file = new File(newPicPath);
-		boolean b = ftp.upload("/imgs/thumbnail/", file.getName(), file);
+		String ftpPicPath ="/imgs/thumbnail/";
+		String ftpPicName = ftpPicPath + file.getName();
+		ftp.cd(ftpPicPath);
+		boolean b = ftp.upload(ftpPicPath, file.getName(), file);
 		if (b) {
 			System.out.println("上传缩略图成功");
 		}
+		try {
+			ftp.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return ftpPicName;
+	}
+	/**
+	 * 将缩略图插入数据库
+	 * 
+	 * @param picPath
+	 * @param infoId
+	 */
+	public void addthumbnail(String picPath, String infoId) {
+		VideoInfo videoInfo = infoMapper.selectById(infoId);
 		VideoPic videoPic = new VideoPic();
 		Snowflake snowflake = IdUtil.createSnowflake(1, 1);
 		long id = snowflake.nextId();
 		videoPic.setId(id);
 		videoPic.setVideoId(videoInfo);
-		videoPic.setPicActualUrl(newPicPath);
+		videoPic.setPicActualUrl(picPath);
 		videoPic.setPicRequestUrl(videoInfo.getId());
 		videoPic.setPicType(1);
 		vPicMapper.insert(videoPic);
+
 	}
 
+	/**
+	 * 通过类型名拿到该类 审核未通过和未审核的视频信息
+	 * 
+	 * @param text
+	 * @return
+	 */
+	public List<VideoReviewDto> getVideoByTypeName(String text) {
+		List<VideoReviewDto> vrDtoList = new ArrayList<VideoReviewDto>();
+		QueryWrapper<Type> queryWrapper = new QueryWrapper<Type>();
+		queryWrapper.eq("type", text);
+		Type type = typeMapper.selectOne(queryWrapper);
 
+		QueryWrapper<VideoType> tqueryWrapper = new QueryWrapper<VideoType>();
+		tqueryWrapper.eq("type_id", type.getId());
+		List<VideoType> typetList = vTypeMapper.selectList(tqueryWrapper);
+		for (int j = 0; j < typetList.size(); j++) {
+			VideoReviewDto vrDto = new VideoReviewDto();
+			QueryWrapper<VideoExamine> vequeryWrapper = new QueryWrapper<VideoExamine>();
+			vequeryWrapper.eq("video_id", typetList.get(j).getVideoId());
+			vequeryWrapper.ne("video_status", 1);
+			VideoExamine videoExamine = veMapper.selectOne(vequeryWrapper);
+			if (videoExamine != null) {
+				VideoInfo byId = infoMapper
+						.selectById(typetList.get(j).getVideoId());
+				vrDto.setId(byId.getId());
+				vrDto.setVideoName(byId.getVideoName());
+				vrDto.setVideoUploadtime(byId.getVideoUploadTime());
+				QueryWrapper<VideoPic> vpqueryWrapper = new QueryWrapper<VideoPic>();
+				vpqueryWrapper.eq("video_id", byId.getId());
+				vpqueryWrapper.eq("pic_type", 2);
+				VideoPic videoPic = vPicMapper.selectOne(vpqueryWrapper);
+				vrDto.setPicActualUrl(videoPic.getPicActualUrl());
+				QueryWrapper<VideoUrl> vuqueryWrapper = new QueryWrapper<VideoUrl>();
+				vuqueryWrapper.eq("video_id", byId.getId());
+				VideoUrl videoUrl = vUrlMapper.selectOne(vuqueryWrapper);
+				vrDto.setActualUrl(videoUrl.getActualUrl());
+				vrDto.setVideoStatus(videoExamine.getVideoStatus());
+				vrDtoList.add(vrDto);
+			}
+		}
+		//
+		return vrDtoList;
+	}
 
-//	/**分片处理待完成
-//	 * @param req
-//	 */
-//	public void uploadByPieces(MultipartFile file,HttpServletRequest req) {
-//
-//		int i = 1;
-//		String localPath = req.getSession().getServletContext().getRealPath("")
-//				+ "temp" + File.separator + "video" + File.separator;
-//		String localfile = i + "_" + file.getOriginalFilename();
-//		File localFile = new File(localPath, localfile);
-//		try {
-//			// TODO 查看webloader上传参数制作Dto
-//			localFile.getParentFile().mkdirs();
-//			file.transferTo(localFile);
-//			i++;
-//		} catch (IllegalStateException | IOException e2) {
-//			e2.printStackTrace();
-//		}
-//
-//	}
+	// /**分片处理待完成
+	// * @param req
+	// */
+	// public void uploadByPieces(MultipartFile file,HttpServletRequest req) {
+	//
+	// int i = 1;
+	// String localPath = req.getSession().getServletContext().getRealPath("")
+	// + "temp" + File.separator + "video" + File.separator;
+	// String localfile = i + "_" + file.getOriginalFilename();
+	// File localFile = new File(localPath, localfile);
+	// try {
+	// // TODO 查看webloader上传参数制作Dto
+	// localFile.getParentFile().mkdirs();
+	// file.transferTo(localFile);
+	// i++;
+	// } catch (IllegalStateException | IOException e2) {
+	// e2.printStackTrace();
+	// }
+	//
+	// }
 
 }

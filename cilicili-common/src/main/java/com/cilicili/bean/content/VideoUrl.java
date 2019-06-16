@@ -15,7 +15,7 @@ import lombok.Data;
 @TableName("tb_video_url")
 public class VideoUrl {
 	private Long id;
-	private VideoInfo videoId;
+	private String videoId;
 	private String actualUrl;
 	private String requestUrl;
 	private String reserved;

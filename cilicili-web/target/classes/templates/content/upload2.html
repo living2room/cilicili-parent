@@ -5,32 +5,8 @@
     <title>上传视频至网盘</title>
     <link rel="stylesheet" type="text/css" href="/css/upload.css" />
     <link rel="stylesheet" type="text/css" href="/css/webuploader.css">
-</head>
-<body onbeforeunload="return checkState()">
-            <div id="wrapper">
-            <div id="container">
-                <!--头部，相册选择和格式选择-->
 
-                <div id="uploader">
-                    <div class="queueList">
-                        <div id="dndArea" class="placeholder">
-                            <div id="filePicker"></div>
-                            <p>或将视频拖到这里，单次最多可选300部</p>
-                        </div>
-                    </div>
-                    <div class="statusBar" style="display:none;">
-                        <div class="progress">
-                            <span class="text">0%</span>
-                            <span class="percentage"></span>
-                        </div><div class="info"></div>
-                        <div class="btns">
-                            <div id="filePicker2"></div><div class="uploadBtn">开始上传</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script src="/webjars/jquery/3.3.1-2/jquery.min.js"></script>
+        <script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
         <script type="text/javascript" src="/js/webuploader.js"></script>
         <script type="text/javascript">
         var allowLeave = true;
@@ -189,7 +165,7 @@
                 swf: '/js/Uploader.swf',
                 // chunked: true,
                 // chunkSize: 10 * 1024 * 1024,
-                threads: 5,
+                threads: 1,
                 server: '/v/up',
                 // runtimeOrder: 'flash',
 
@@ -199,7 +175,7 @@
                 },
 
                 // 禁掉全局的拖拽功能。这样不会出现图片拖进页面的时候，把图片打开。
-                disableGlobalDnd: true,
+                disableGlobalDnd: false,
                 fileNumLimit: 300
             });
             uploader.lastPer = 0;
@@ -615,5 +591,31 @@
             }
         }
         </script>
+</head>
+<body onbeforeunload="return checkState()">
+            <div id="wrapper">
+            <div id="container">
+                <!--头部，相册选择和格式选择-->
+
+                <div id="uploader">
+                    <div class="queueList">
+                        <div id="dndArea" class="placeholder">
+                            <div id="filePicker"></div>
+                            <p>或将视频拖到这里，单次最多可选300部</p>
+                        </div>
+                    </div>
+                    <div class="statusBar" style="display:none;">
+                        <div class="progress">
+                            <span class="text">0%</span>
+                            <span class="percentage"></span>
+                        </div><div class="info"></div>
+                        <div class="btns">
+                            <div id="filePicker2"></div><div class="uploadBtn">开始上传</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </body>
 </html>

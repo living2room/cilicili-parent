@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title></title>
+        <!-- 全局css -->
+        <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/3.4.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/css/plugins/DPlayer/DPlayer.min.css">
+	    <link rel="shortcut icon" href="/favicon.ico">
+        <!--自定义css  -->
+		<link rel="stylesheet" type="text/css" href="/css/stylef.css"/>
+		<link rel="stylesheet" type="text/css" href="/css/base.css"/>
+
+
+        <!-- 全局js -->
+        <script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="/webjars/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/js/plugins/DPlayer/DPlayer.min.js"></script>
+	<script>
+	    console.log(" %c 该项目基于Dplayer.js",'color:red')
+	    var dp = new DPlayer({
+	        element: document.getElementById('player1'),
+	        video: {
+	            url: 'http://oz4nlgp7a.bkt.clouddn.com/ss.mp4',
+	            pic: 'css/danmu.jpg'
+	        },
+	        danmaku: {
+	            id: 'demo',
+	            api: 'https://api.prprpr.me/dplayer/',
+	            addition: ['https://api.prprpr.me/dplayer/bilibili?aid=15572523']
+	        }
+	    });
+	    // 弹出框
+	    function alert_back(text) {
+	        $(".alert_back").html(text).show();
+	        setTimeout(function () {
+	            $(".alert_back").fadeOut();
+	        },1200)
+	    }
+	    //秒转分秒
+	    function formatTime(seconds) {
+	        return [
+	//            parseInt(seconds / 60 / 60),
+	            parseInt(seconds / 60 % 60),
+	            parseInt(seconds % 60)
+	        ]
+	            .join(":")
+	            .replace(/\b(\d)\b/g, "0$1");
+	    }
+	$.ajax({
+	    url:"https://api.prprpr.me/dplayer/bilibili?aid=15572523",
+	    success:function (data) {
+	        if(data.code=="1"){
+	            var danmaku=data.danmaku;
+	            var autor="农民";
+	            $(".danmuku_num").text(danmaku.length)
+	            $(danmaku).each(function (index,item) {
+	                if(item.type=="right"){
+	                }else
+	                {
+	                    autor="地主"
+	                }
+	                var oLi='<ol class="danmuku_list" time="${item.time}">
+	            <li>${formatTime(item.time)}</li>
+	            <li title="${item.text}">${item.text}</li>
+	            <li>${autor}</li></ol>'
+	                $(".list_ovefiow").append(oLi);
+	                autor="农民";
+	            })
+	        }else {
+	            alert_back("弹幕加载失败 -v-!");
+	        }
+	        $(".danmuku_list").on("click",function () {
+
+	            dp.seek( $(this).attr("time"))
+	        })
+	    }
+	})
+	</script>
+	</head>
+
+	<body>
+
+			<div class="top">
+			<div class="nav">
+				<div class="logo"><img src="img/LOGO01.png" ></div>
+				<div id="box">
+					<input type="text" id="box_sousuo" name="search" placeholder="请输入关键字">
+					<div id="search">搜索</div>
+				</div>
+				<div class="nav_right">
+					<div class="shouye">
+						<div class="tubiao"><img src="img/shouye.png" ></div>
+						<div class="nav_text"><a href="index.html"  style="color: #00b7ee;">首页</a></div>
+					</div>
+					<div class="shcngchuan">
+						<div class="tubiao"><img src="img/shangchuan.png" ></div>
+						<div class="nav_text"><a href="#">上传</a></div>
+					</div>
+					<div class="shcngchuan">
+						<div class="tubiao"><img src="img/tuiguang.png" ></div>
+						<div class="nav_text"><a href="#">推广</a></div>
+					</div>
+					<div class="shcngchuan">
+						<div class="tubiao"><img src="img/huiyuan.png" ></div>
+						<div class="nav_text"><a href="#">会员</a></div>
+					</div>
+					<div class="shcngchuan">
+						<div class="tubiao"><img src="img/yonghu.png" ></div>
+						<div class="nav_text"><a href="Login.html">登录</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+			<!----------------------------- 视频内容部分开始	 ----------------------------------->
+			<div class="shiping_con">
+
+					<div class="shiping_con_top">
+						<div class="top_left">
+							<div class="top_left1">岂有此理，又被这个小学生摆了一道！爆笑视频</div>
+							<div class="top_left2"> 75.2万播放 · 943弹幕  &nbsp;&nbsp;  2019-06-03 21:20:52</div>
+						</div>
+						<div class="top_right"></div>
+					</div>
+
+
+					<div class="Dplayer_box">
+						<div class="player_av">
+							<div id="player1"></div>
+						</div>
+
+						<div class="Dplayer_danmu">
+							<div class="Dplayer_watching">
+								<span class="Dplayer-watching-number" title="这个数据是假的">24</span>
+								人正在观看,<span class="danmuku_num">100</span>条弹幕
+							</div>
+
+							<ul class="Dplayer_list">
+								<li>时间</li>
+								<li>发送内容</li>
+								<li>用户类型</li>
+							</ul>
+							<ul class="list_ovefiow">
+
+							</ul>
+
+						</div>
+					</div>
+
+					<div class="alert_back">加载中</div>
+
+
+
+					<!---------------------------- 评论模块开始 ----------------------------------------------->
+					<div class="pinglun_box"></div>
+					<!---------------------------- 评论模块结束 ----------------------------------------------->
+
+
+					<!---------------------------- 相关视频推荐开始 ------------------------------------------------>
+					<div class="xiangguan">
+						<div class="xiangguan_text">相关推荐</div>
+						<div class="xiangguan_box2" style="margin-top: 0;">
+							<div class="xiangguan_shiping_box"></div>
+							<div class="xiangguan_shiping_text">
+								<div class="text1_box" title="大雄不停往天上扔东西，却不停的会掉下来">大雄不停往天上扔东西，却不停的会掉下来</div>
+								<div class="text2_box">UP : &nbsp;隔壁老王</div>
+								<div class="text3_box">635播放&nbsp;·&nbsp;16弹幕</div>
+							</div>
+						</div>
+						<div class="xiangguan_box2">
+							<div class="xiangguan_shiping_box"></div>
+							<div class="xiangguan_shiping_text">
+								<div class="text1_box" title="大雄不停往天上扔东西，却不停的会掉下来">大雄不停往天上扔东西，却不停的会掉下来</div>
+								<div class="text2_box">UP : &nbsp;隔壁老王</div>
+								<div class="text3_box">635播放&nbsp;·&nbsp;16弹幕</div>
+							</div>
+						</div>
+						<div class="xiangguan_box2">
+							<div class="xiangguan_shiping_box"></div>
+							<div class="xiangguan_shiping_text">
+								<div class="text1_box" title="大雄不停往天上扔东西，却不停的会掉下来">大雄不停往天上扔东西，却不停的会掉下来</div>
+								<div class="text2_box">UP : &nbsp;隔壁老王</div>
+								<div class="text3_box">635播放&nbsp;·&nbsp;16弹幕</div>
+							</div>
+						</div>
+						<div class="xiangguan_box2">
+							<div class="xiangguan_shiping_box"></div>
+							<div class="xiangguan_shiping_text">
+								<div class="text1_box" title="大雄不停往天上扔东西，却不停的会掉下来">大雄不停往天上扔东西，却不停的会掉下来</div>
+								<div class="text2_box">UP : &nbsp;隔壁老王</div>
+								<div class="text3_box">635播放&nbsp;·&nbsp;16弹幕</div>
+							</div>
+						</div>
+						<div class="xiangguan_box2">
+							<div class="xiangguan_shiping_box"></div>
+							<div class="xiangguan_shiping_text">
+								<div class="text1_box" title="大雄不停往天上扔东西，却不停的会掉下来">大雄不停往天上扔东西，却不停的会掉下来</div>
+								<div class="text2_box">UP : &nbsp;隔壁老王</div>
+								<div class="text3_box">635播放&nbsp;·&nbsp;16弹幕</div>
+							</div>
+						</div>
+						<div class="xiangguan_box2">
+							<div class="xiangguan_shiping_box"></div>
+							<div class="xiangguan_shiping_text">
+								<div class="text1_box" title="大雄不停往天上扔东西，却不停的会掉下来">大雄不停往天上扔东西，却不停的会掉下来</div>
+								<div class="text2_box">UP : &nbsp;隔壁老王</div>
+								<div class="text3_box">635播放&nbsp;·&nbsp;16弹幕</div>
+							</div>
+						</div>
+						<div class="xiangguan_box2">
+							<div class="xiangguan_shiping_box"></div>
+							<div class="xiangguan_shiping_text">
+								<div class="text1_box" title="大雄不停往天上扔东西，却不停的会掉下来">大雄不停往天上扔东西，却不停的会掉下来</div>
+								<div class="text2_box">UP : &nbsp;隔壁老王</div>
+								<div class="text3_box">635播放&nbsp;·&nbsp;16弹幕</div>
+							</div>
+						</div>
+						<div class="xiangguan_box2">
+							<div class="xiangguan_shiping_box"></div>
+							<div class="xiangguan_shiping_text">
+								<div class="text1_box" title="大雄不停往天上扔东西，却不停的会掉下来">大雄不停往天上扔东西，却不停的会掉下来</div>
+								<div class="text2_box">UP : &nbsp;隔壁老王</div>
+								<div class="text3_box">635播放&nbsp;·&nbsp;16弹幕</div>
+							</div>
+						</div>
+
+					<!---------------------------- 相关视频推荐结束 ------------------------------------------------>
+					</div>
+
+			</div>
+
+			<div class="footer">
+				<div id="box94"></div>
+				<div class="footer_con">
+					<form>
+						<div class="footer_con1">
+							<input type="text" name="" id="footer_text" value="" style="border: none;" />
+							<div class="footer_button">
+								<input type="reset" id="chongzhi" value="清空内容" style="border: none;"/>
+								<input type="submit" id="tijiao" value="提交建议" style="border: none;" />
+							</div>
+
+						</div>
+					</form>
+					<div class="footer_lianjie">
+						<ul>
+							<li>友情链接：</li>
+							<li><a href="http://www.gxstnu.edu.cn/">广西科技师范学院</a></li>
+							<li><a href="https://ai.taobao.com/">淘宝网</a></li>
+							<li><a href="https://www.jd.com/">京东商城</a></li>
+							<li><a href="https://www.bilibili.com/">哔哩哔哩</a></li>
+							<li><a href="http://www.iqiyi.com/">爱奇艺</a></li>
+							<li><a href="https://v.qq.com/">腾讯视频</a></li>
+							<li><a href="https://pan.baidu.com/">百度云</a></li>
+							<li><a href="https://www.tmall.com/">天猫超市</a></li>
+							<li><a href="https://nba.hupu.com/">虎扑体育</a></li>
+							<li><a href="https://music.163.com/">网易云音乐</a></li>
+							<li><a href="https://www.youku.com/">优酷</a></li>
+							<li><a href="https://www.baidu.com/">百度</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+		</body>
+		</html>

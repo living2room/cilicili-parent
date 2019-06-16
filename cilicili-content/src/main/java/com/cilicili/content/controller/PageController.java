@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.cilicili.bean.content.Type;
 import com.cilicili.common.dto.TvAdDto;
 import com.cilicili.common.dto.TypeDto;
+import com.cilicili.common.dto.VideoReviewDto;
 import com.cilicili.content.service.PageService;
 import com.cilicili.content.service.RankService;
+import com.cilicili.content.service.ReviewService;
 import com.cilicili.content.service.TypeService;
 /**
  * 页面导航的Controller
@@ -33,6 +35,8 @@ public class PageController {
 	private RankService rService;
 	@Resource 
 	private TypeService tService;
+	@Resource
+	private ReviewService revService;
 	/**
 	 * 去一级主页
 	 * 
@@ -89,24 +93,46 @@ public class PageController {
 		return "content/index";
 	}
 	
+	/**去上传页面
+	 * @return
+	 */
 	@RequestMapping("up")
 	public String toUpload() {
 		return "content/upload2";
 	}
 	
+	/**去后台主页
+	 * @return
+	 */
 	@RequestMapping("b/index")
 	public String toBIndex() {
 		return "bg_index";
+	}
+	/**后台欢迎页
+	 * @return
+	 */
+	@RequestMapping("b/contab")
+	public String tocontab() {
+		return "contab";
 	}
 	@RequestMapping("b/type")
 	public String toTypeManager() {
 		return "content/bg_typetree";
 	}
 	
+	/**去视频审查页面
+	 * @return
+	 */
 	@RequestMapping("b/review")
 	public String toContentView() {
-		return "";
+		
+		return "content/bg_review";
 	}
+	/**去类型编辑弹窗
+	 * @param text 类型名称
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("b/type/edit/{text}")
 	public String toEditPup(@PathVariable String text,Model model) {
 			Type type = tService.getTypeByName(text);
@@ -117,6 +143,19 @@ public class PageController {
 			}
 		return "content/bg_typeedit";
 	}
+	/**去视频审查弹窗页
+	 * @param text 视频Id
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/to/b/review/edit/{text}")
+	public String toReviewPup(@PathVariable String text, Model model) {
+		List<VideoReviewDto> vrDto = revService.getReviewInfo(text);
+		return "";
+	}
+	/**IE支持页
+	 * @return
+	 */
 	@RequestMapping("ie")
 	public String toIE() {
 		return "ie";

@@ -24,11 +24,14 @@
         <script type="text/javascript" src="/js/banner.js"></script>
         <script type="text/javascript" src="/js/sidebar.js"></script>
         <script type="text/javascript" th:src="@{/js/coverdjs.js}"></script>
+        <!-- layer javascript -->
+        <script src="/js/plugins/layer/layer.min.js"></script>
+
 
         <!-------------------------------------- 轮播图的动效 --------------------------------------------------->
         <script type="text/javascript">
             $(function(){
-                     $("#baidu").bsSuggest({
+                     $("#box_sousuo").bsSuggest({
                         emptyTip: '未检索到匹配的数据',
                         allowNoKeyword: false,   //是否允许无关键字时请求数据。为 false 则无输入时不执行过滤请求
                         ignorecase: true,
@@ -62,9 +65,38 @@
                         console.log('onSetSelectValue: ', keyword, data);
                         //有时间实现ajax调用后台查询，并跳转到查询结果页
                         //没时间就暂时跳到百度页面
+                        //询问框
+
                     }).on('onUnsetSelectValue', function () {
                         console.log("onUnsetSelectValue");
                     });
+                    //回车搜索
+                    $("#box_sousuo").on('keypress',function(e){
+                        if (e.keyCode == 13) {
+                            var text = $(this).val()
+                            layer.confirm('C酱不会搜索,帮您到度娘那里问问,可以吗', {
+                                btn: ['确定','再想想'], //按钮
+                                shade: false //不显示遮罩
+                            }, function(index){
+                               window.open('https://www.baidu.com/s?ie=utf-8&wd='+text);
+                               //https://www.baidu.com/s?ie=utf-8&wd=%E6%97%A5%E6%9C%AC&si=163.com&ct=2097152
+                               layer.close(index);
+                            }, function(){
+                            });
+                        };
+                    })
+                    // $("#search").click(function(){
+                    //         var text = $("#box_sousuo").val()
+                    //         layer.confirm('C酱不会搜索,帮您到度娘那里问问,可以吗', {
+                    //             btn: ['确定','再想想'], //按钮
+                    //             shade: false //不显示遮罩
+                    //         }, function(index){
+                    //            window.open('https://www.baidu.com/s?ie=utf-8&wd='+text);
+                    //            //https://www.baidu.com/s?ie=utf-8&wd=%E6%97%A5%E6%9C%AC&si=163.com&ct=2097152
+                    //            layer.close(index);
+                    //         }, function(){
+                    //         });
+                    // })
             })
             /*
             ** 只填两个必要参数也是可以的
@@ -88,8 +120,8 @@
 			<div class="nav">
 				<div class="logo"><img src="/img/LOGO01.png" ></div>
 				<div id="box">
-                            <div class="input-group" style="width: 230px;">
-                                <input type="text" class="form-control" id="baidu" placeholder="嗖(。≖ˇェˇ≖｡)">
+                            <div class="input-group" style="width: 175px;">
+                                <input type="text" class="form-control" id="box_sousuo" placeholder="嗖(。≖ˇェˇ≖｡)...">
                                 <div class="input-group-btn">
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                         <span class="caret"></span>
@@ -232,7 +264,7 @@
                         <a href="#" class="link">小黑屋</a>
                     </li>
                 </ul>
-                <div class="nav-gif"><img src="img/nav_img.gif" alt="求领养"></div>
+                <div class="nav-gif"><img src="/img/nav_img.gif" alt="求领养"></div>
             </div>
         </nav>
 			<!-------------------------------------------- 小导航栏结束 ------------------------------------------------->

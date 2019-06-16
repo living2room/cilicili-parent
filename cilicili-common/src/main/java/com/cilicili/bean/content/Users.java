@@ -14,5 +14,5 @@ import lombok.Data;
 @Data
 @TableName("tb_u_users")
 public class Users {
-	private Integer id;
+	private String id;
 }

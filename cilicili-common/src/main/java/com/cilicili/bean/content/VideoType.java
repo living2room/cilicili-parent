@@ -3,6 +3,8 @@
  */
 package com.cilicili.bean.content;
 
+import org.springframework.data.annotation.AccessType;
+
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import lombok.Data;
@@ -15,7 +17,7 @@ import lombok.Data;
 @TableName("tb_video_type")
 public class VideoType {
 	private Long id;
-	private VideoInfo videoId;
-	private Type typeId;
+	private String videoId;
+	private Integer typeId;
 	private String reserved;
 }

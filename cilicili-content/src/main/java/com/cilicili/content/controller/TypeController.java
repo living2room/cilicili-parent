@@ -24,14 +24,13 @@ import com.cilicili.content.service.TypeService;
  * @author 李明睿
  * 2019年5月26日
  */
-@Controller
+@RestController
 @RequestMapping("t")
 public class TypeController {
 	@Resource
 	private TypeService tService;
 	
 	@PostMapping("get")
-	@ResponseBody
 	public String getTyleJsonList() {
 		List<TypeTreeJsonObj> types = tService.getTypes();
 		return JSON.toJSONString(types);
@@ -42,25 +41,25 @@ public class TypeController {
 	public String formupdate(Type type) {
 		int i = tService.editType(type);
 		if (i == 1) {
-			return "1";
+			return com.cilicili.common.msg.ReturnMsg.SUCCESS;
 		}
-		return "0";
+		return com.cilicili.common.msg.ReturnMsg.FAILED;
 	}
 	
 	@PostMapping("new")
 	public String formnew(Type type) {
 		int i = tService.addType(type);
 		if (i == 1) {
-			return "1";
+			return com.cilicili.common.msg.ReturnMsg.SUCCESS;
 		}
-		return "0";
+		return com.cilicili.common.msg.ReturnMsg.FAILED;
 	}
 	@PostMapping("del/{text}")
 	public String delNode(@PathVariable String text) {
 		int i  = tService.deleteTypeByName(text);
 		if (i == 1) {
-			return "1";
+			return com.cilicili.common.msg.ReturnMsg.SUCCESS;
 		}
-		return "0";
+		return com.cilicili.common.msg.ReturnMsg.FAILED;
 	}
 }

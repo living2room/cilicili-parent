@@ -113,5 +113,12 @@ public class TypeService{
 		wrapper.eq("type", text);
 		return tMapper.delete(wrapper );
 	}
+
+	/**
+	 * @return
+	 */
+	public List<Type> getAllTypes() {
+		return tMapper.selectList(null);
+	}
 	
 }
