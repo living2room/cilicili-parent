@@ -6,9 +6,11 @@
     <link rel="stylesheet" type="text/css" href="/css/upload.css" />
     <link rel="stylesheet" type="text/css" href="/css/webuploader.css">
 
-        <script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+        <!-- <script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"></script> -->
+        <script type="text/javascript" src="/js/jquery.min.js"></script>
         <script type="text/javascript" src="/js/webuploader.js"></script>
         <script type="text/javascript">
+
         var allowLeave = true;
         (function( $ ){
         // 当domReady的时候开始初始化
@@ -156,16 +158,14 @@
                     label: '点击选择视频'
                 },
                 formData: {
-                    // videoTitle : $.trim($('#title').val()),
-                    // videoDescribe : $.trim($('#describe').val()),
-                    // videoVip : $.trim($('#vip').val()),
+
                 },
                 dnd: '#dndArea',
                 paste: '#uploader',
                 swf: '/js/Uploader.swf',
                 // chunked: true,
                 // chunkSize: 10 * 1024 * 1024,
-                threads: 1,
+                threads: 3,
                 server: '/v/up',
                 // runtimeOrder: 'flash',
 
@@ -176,12 +176,12 @@
 
                 // 禁掉全局的拖拽功能。这样不会出现图片拖进页面的时候，把图片打开。
                 disableGlobalDnd: false,
-                fileNumLimit: 300
+                fileNumLimit: 1
             });
             uploader.lastPer = 0;
 
             uploader.on('dialogOpen', function() {
-                // console.log('here');
+                 console.log('here');
             });
 
             // uploader.on('filesQueued', function() {
@@ -203,17 +203,17 @@
             uploader.on('ready', function() {
                 window.uploader = uploader;
             });
-            uploader.on("uploadAccept", function( file, ret){
-                if(ret.status!='success'){
-                    uploader.retry(file);
-                    console.log(ret);
-                }
-            });
-            uploader.on("uploadAccept", function( file, data){
-                if ( data.status!="success") {
-                    return false;
-                }
-            });
+            // uploader.on("uploadAccept", function( file, ret){
+            //     if(ret.status!='success'){
+            //         uploader.retry(file);
+            //         console.log(ret);
+            //     }
+            // });
+            // uploader.on("uploadAccept", function( file, data){
+            //     if ( data.status!="success") {
+            //         return false;
+            //     }
+            // });
             // 当有文件添加进来时执行，负责view的创建
             function addFile( file ) {
                 var $li = $( '<li id="' + file.id + '">' +
@@ -263,8 +263,8 @@
                             img = $('<img src="'+src+'">');
                             $wrap.empty().append( img );
                         } else {
-                            // ajax 预览图
-                            $.ajax('/v/picThumb', {
+
+                             $.ajax('/v/picThumb', {
                                 method: 'POST',
                                 data: src,
                                 dataType:'json'
@@ -590,6 +590,7 @@
                 return false;
             }
         }
+
         </script>
 </head>
 <body onbeforeunload="return checkState()">

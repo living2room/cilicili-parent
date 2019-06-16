@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -32,19 +33,23 @@ import com.cilicili.content.service.VideoService;
 /**
  * @author 李明睿 2019年5月23日
  */
-@Controller
+@RestController
 @RequestMapping("v")
 public class VideoController {
 
+	
 	@Resource
 	private VideoService vService;
 	
 	/**点击上传 分片传到临时位置并保存为一个文件
 	 */
+	
+	
 	@PostMapping("up")
-	public void uploadByPieces(HttpServletRequest req,HttpSession session) {
+	public String uploadByPieces(HttpServletRequest req,HttpSession session) {
 		File file = vService.videoupload(req);
-		Object obj = vService.addvideoDb(file, session);
+//		Object obj = vService.addvideoDb(file, session);
+		return "success";
 	}
 	/**
 	 * 上传成后回调方法
@@ -64,7 +69,6 @@ public class VideoController {
 	 * @return
 	 */
 	@PostMapping("get/{text}")
-	@ResponseBody
 	public String getVideoByName(@PathVariable String text, Model model) {
 		List<VideoReviewDto> videoByTypeName = vService.getVideoByTypeName(text);
 		System.out.println(videoByTypeName);
