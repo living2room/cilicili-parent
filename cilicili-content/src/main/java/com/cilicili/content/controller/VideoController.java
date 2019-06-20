@@ -48,8 +48,12 @@ public class VideoController {
 	@PostMapping("up")
 	public String uploadByPieces(HttpServletRequest req,HttpSession session) {
 		File file = vService.videoupload(req);
-//		Object obj = vService.addvideoDb(file, session);
-		return "success";
+		Object obj = vService.addvideoDb(file, session);
+		if (obj instanceof String) {
+			String id = (String) obj;
+			return "success "+id;
+		}
+		return "failed";
 	}
 	/**
 	 * 上传成后回调方法
@@ -62,6 +66,7 @@ public class VideoController {
 	public void picThumb(String src) {
 		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 	}
+	
 	
 	/**点击某类型后调用的Controller
 	 * @param text 类型名称

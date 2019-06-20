@@ -6,13 +6,24 @@
     <link rel="stylesheet" type="text/css" href="/css/upload.css" />
     <link rel="stylesheet" type="text/css" href="/css/webuploader.css">
 
-        <!-- <script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"></script> -->
-        <script type="text/javascript" src="/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+        <!-- <script type="text/javascript" src="/js/jquery.min.js"></script> -->
         <script type="text/javascript" src="/js/webuploader.js"></script>
         <script type="text/javascript">
-
+       	 var bol = false
+         var str = "none"
+         function getStr(){
+            return str[1];
+         }
+         function setbol(bool){
+     	   bol = bool
+             return bol;
+         }
+         function getbol(){
+             return bol;
+         }
         var allowLeave = true;
-        (function( $ ){
+        (function($){
         // 当domReady的时候开始初始化
         $(function() {
             var $wrap = $('#uploader'),
@@ -533,6 +544,17 @@
                 updateTotalProgress();
 
             };
+
+            uploader.onUploadSuccess = function(file, response){
+                str = response._raw.split(" ")
+                if (str[0] === "success") {
+                    console.log(str);
+                    setbol(true)
+                }else{
+                    setbol(false)
+                }
+            }
+
 
             uploader.on( 'all', function( type ) {
                 var stats;

@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -92,13 +93,26 @@ public class PageController {
 		System.out.println("PageContent"+ map);
 		return "content/index";
 	}
-	
-	/**去上传页面
+	/**去上传界面
 	 * @return
 	 */
 	@RequestMapping("up")
 	public String toUpload() {
+		return "content/upload";
+	}
+	/**去上传弹窗页面
+	 * @return
+	 */
+	@RequestMapping("upPup")
+	public String toUpload2() {
 		return "content/upload2";
+	}
+	/**去填写视频信息页面
+	 * @return
+	 */
+	@RequestMapping("upinfo/{id}")
+	public String toUpInfo(@PathVariable("id") String videoInfoId ) {
+		return "content/videoInfo";
 	}
 	
 	/**去后台主页
@@ -186,22 +200,17 @@ public class PageController {
 //	 return "";
 //	 }
 	
-//	 /**
-//	 * 去某个视频页面
-//	 *
-//	 * @param video的request URL
-//	 * @return
-//	 */
-//	 @RequestMapping(value = "cv/{video}", method = RequestMethod.GET)
-//	 public String toVideoPage(@PathVariable("video") String videoPath, HttpServletRequest req) {
-//		VideoUrl videoUrl = pService.getVideo(videoPath);
-//		if (videoUrl != null) {
-//			req.setAttribute("video", videoUrl);
-//			// TODO 返回一个状态码
-//			return "";
-//		}
-//		return "";
-//	 }
+	 /**
+	 * 去某个视频页面
+	 *
+	 * @param video的request URL
+	 * @return
+	 */
+	 @GetMapping("vi/{id}")
+	 public String toVideoPage(@PathVariable("id") String videoPath) {
+			return "/content/video";
+		}
+
 //	 /**
 //	 * 拿到远端IP地址
 //	 * 如果通过了多级反向代理的话，X-Forwarded-For的值并不止一个，而是一串IP值

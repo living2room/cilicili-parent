@@ -52,7 +52,6 @@ public class PageService {
 	 * @param size 取的条数
 	 * @return
 	 */
-	@Transactional
 	public List<TvAdDto> getPageContent(Type type,int index,int size) {
 //		Page<VideoInfo> page = new Page<>(1, 4);
 //        QueryWrapper<VideoInfo> queryWrapper = new QueryWrapper<>();
@@ -64,7 +63,7 @@ public class PageService {
 		List<VideoPic> picList = new ArrayList<VideoPic>();
 		List<VideoData> dataList = new ArrayList<VideoData>();
 		//查询出所需信息
-		for (int i = 0; i < typeList.size()-1; i++) {
+		for (int i = 0; i <= typeList.size()-1; i++) {
 			QueryWrapper<VideoInfo> queryWrapperVI = new QueryWrapper<>();
 			queryWrapperVI.eq("id", typeList.get(i).getVideoId());
 			VideoInfo info = infoMpper.selectOne(queryWrapperVI);
@@ -75,11 +74,12 @@ public class PageService {
 			picList.add(one);
 			QueryWrapper<VideoData> queryWrapperVD = new QueryWrapper<>();
 			queryWrapperVD.eq("video_id", info.getId());
+			queryWrapperVD.eq("pic_type", 1);
 			VideoData videoData = vDataMapper.selectOne(queryWrapperVD);
 			dataList.add(videoData);
 		}
 		//组装为对象
-		for (int i = 0; i < infoList.size()-1; i++) {
+		for (int i = 0; i <= infoList.size()-1; i++) {
 			TvAdDto adDto = new TvAdDto();
 			adDto.setId(infoList.get(i).getId());
 			adDto.setName(infoList.get(i).getVideoTitle());
@@ -98,7 +98,6 @@ public class PageService {
 	 * @param videoPath
 	 * @return
 	 */
-	@Transactional
 	public VideoUrl getVideo(String videoPath) {
 		QueryWrapper<VideoUrl> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq("actual_url", videoPath);

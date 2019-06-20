@@ -1742,3 +1742,254 @@ ul.num_a2 a{list-style:none;width:100%;height:100%;line-height:100%;border-radiu
 	height: 12px;
 	border-top: solid 1px #d8d8d8;
 }
+
+
+/********************************* 修改密码页面1 *********************************/
+.password01_top_img{
+	width: 1920px;
+	height: 129px;
+	background: url(../img/dingbu.png);
+}
+
+.password01_nav{
+	height: 40px;
+	width: 800px;
+}
+
+.password01_nav_text{
+	width:200px ;
+	color: #333;
+	margin-left: 462px;
+	font-size: 16px;
+	font-family: "Microsoft Yahei";
+}
+
+.password01_tubiao{
+	height: 83px;
+	width: 1920px;
+	background: url(../img/queren.png);
+	overflow: hidden;
+}
+
+/********************************* 修改密码页面2 *********************************/
+.password02_tubiao{
+	height: 85px;
+	width: 1920px;
+	background:url(../img/password02.png);
+	overflow: hidden;
+}
+
+.password03_tubiao{
+	height: 373px;
+	width: 1920px;
+	background:url(../img/password03.png);
+	overflow: hidden;
+}
+
+
+
+/************************* 上传页面 ******************************/
+.shangchuan_img{
+	width: 220px;
+	height: 220px;
+	margin: 0 auto;
+	background: url(../img/shangchuan01.png);
+}
+
+.shangchuan_con{
+	width: 230px;
+	height: 70px;
+	margin: 0 auto;
+	position: relative;
+}
+
+#shangchuan_button{
+	width: 230px;
+	height: 60px;
+	border-radius: 70px;
+	opacity: 0;
+	z-index: 99;
+}
+
+#shangchuan_button1{
+	width: 230px;
+	height: 70px;
+	border-radius: 50px;
+	background: #00a1d6;
+	z-index: -6;
+	position: absolute;
+	top: 0;
+	left: 0;
+	line-height: 70px;
+	text-align: center;
+	color: #fff;
+	font-size: 24px;
+}
+
+.tiaoyue{
+	width: 350px;
+	height: 32px;
+	margin: 0 auto;
+	text-align: center;
+	font-size: 14px;
+	
+}
+
+.tiaoyue2{
+	width: 550px;
+	height: 32px;
+	margin: 0 auto;
+	text-align: center;
+	font-size: 14px;
+	color: #959595;
+	position: relative;
+}
+
+.tiaoyue2 img{
+	position: absolute;
+	top: 30px;
+	display: none;
+}
+
+.tioayue01:hover{
+	color: #00A1D6;
+	cursor: pointer;
+}
+
+.tioayue01:hover img{
+	display: block;
+}
+
+.leixing_con{
+	margin: 0 auto;
+	width: 900px;
+	height: 300px;
+	border-top: solid 1px #e5e5e5;
+}
+
+.leixing_con_box{
+	height: 240px;
+	width: 900px;
+}
+
+.leixing_img1{
+	float: left;
+}
+
+.leixing_img1 img{
+	margin-left: 110px;
+}
+
+.leixing_con_text{
+	height: 50px;
+	width: 900px;
+}
+
+.leixing_text1{
+	width: 144px;
+	height: 40px;
+	float: left;
+	margin-left: 110px;
+	text-align: center;
+}
+
+.leixing_img1 img{
+			cursor: pointer;
+			transition: all 0.3s;
+}
+
+.leixing_img1 img:hover{
+		transform: scale(1.1);
+}
+
+/******************************************* 上传页结束 ****************************************************/
+
+
+
+
+/******************************************* 发邮件页开始 ****************************************************/
+.youjian_con{
+	width: 970px;
+	height: 550px;
+	margin: 0 auto;
+}
+
+.youjian_con1{
+	width: 486px;
+	height: 447px;
+	float: left;
+	background: url(../img/youjian.png);
+}
+
+.youjian_con2{
+	width: 480px;
+	height: 447px;
+	float: left;
+	
+}
+
+.youjian_con3{
+	width: 366px;
+	height: 330px;
+	margin-top: 70px;
+	margin-left: 104px;
+}
+/******************************************* 发邮件页结束 ****************************************************/
+
+
+/******************************************* 收件箱开始 ****************************************************/
+.shoujian_con1{
+		width: 970px;
+		height: 125px;
+		margin-top: 30px;
+		background: url(../img/youjian2.png);
+}
+
+table{
+	width: 970px;
+	height: 200;
+	border: 1px solid #c3c3c3 ;
+	border-collapse: collapse;
+	margin-top: 50px;
+}
+
+tr{
+	height: 50px;
+	border-bottom: 1px solid #c3c3c3;
+}
+
+th{
+	border-right: 1px solid #c3c3c3;
+	/* font-weight: normal; */
+	text-align: center;
+}
+
+td{
+	line-height: 50px;
+	text-align: center;
+	border-right: 1px solid #c3c3c3;
+}
+
+tr:nth-child(2n){
+	background: #eeeeee;
+}
+
+/******************************************* 收件箱结束 ****************************************************/
+
+
+
+/******************************************* 修改资料开始 ****************************************************/
+.ziliao_img{
+	width: 787px;
+	height: 150px;
+	margin: 0 auto;
+	background: url(../img/ziliao.png);
+}
+
+.ziliao_con{
+	width: 450px;
+	height: 700px;
+	margin: 0 auto;
+	margin-top: 34px;
+	padding-left: 20px;
+}

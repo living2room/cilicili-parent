@@ -1,112 +1,209 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<!--引入CSS-->
-<link rel="stylesheet" type="text/css" href="/css/webuploader.css">
-</head>
-<body>
-	<div id="uploader" class="wu-example">
-		<!--用来存放文件信息-->
-		<div id="thelist" class="uploader-list"></div>
-		<div>
-            <input type="text" id="title" placeholder="视频标题">
-            <textarea placeholder="描述" id="describe" cols="3"></textarea>
-            是否VIP视频:<input type="checkbox" id="vip" value="1">
-            <select  id="type">
-                <option value=""></option>
-            </select>
-        </div>
-		<div class="btns">
-			<div id="picker" >选择文件</div>
-			<button id="ctlBtn" class="btn btn-default">开始上传</button>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/3.4.1/css/bootstrap.min.css">
+		 <!--自定义css  -->
+		<link rel="stylesheet" type="text/css" href="/css/stylef.css"/>
+		 <!-- 全局js -->
+        <script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="/webjars/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/js/bootstrap-suggest.min.js"></script>
+        <!-- layer javascript -->
+        <script src="/js/plugins/layer/layer.min.js"></script>
+
+	</head>
+
+	<body>
+		<div class="top">
+			<div class="nav">
+				<div class="logo"><img src="/img/LOGO01.png" ></div>
+				<div id="box">
+					<div class="input-group" style="width: 175px;">
+                        <input type="text" class="form-control" id="box_sousuo" placeholder="嗖(。≖ˇェˇ≖｡)...">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+                        </div>
+                        <!-- /btn-group -->
+                    </div>
+				</div>
+				<div class="nav_right">
+					<div class="shouye">
+						<div class="tubiao"><img src="/img/zhuye_an.png" ></div>
+						<div class="nav_text"><a href="index.html">首页</a></div>
+					</div>
+					<div class="shcngchuan">
+						<div class="tubiao"><img src="/img/shangchuan.png" ></div>
+						<div class="nav_text"><a href="#"   style="color: #00b7ee;">上传</a></div>
+					</div>
+					<div class="shcngchuan">
+						<div class="tubiao"><img src="/img/tuiguang.png" ></div>
+						<div class="nav_text"><a href="#">推广</a></div>
+					</div>
+					<div class="shcngchuan">
+						<div class="tubiao"><img src="/img/huiyuan.png" ></div>
+						<div class="nav_text"><a href="#">会员</a></div>
+					</div>
+					<div class="shcngchuan">
+						<div class="tubiao"><img src="/img/yonghu.png" ></div>
+						<div class="nav_text"><a href="Login.html">登录</a></div>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
-</body>
-<!--引入JS-->
-<script src="/webjars/jquery/3.3.1-2/jquery.min.js"></script>
-<script type="text/javascript" src="/js/webuploader.min.js"></script>
-<script type="text/javascript">
-     var data = {
-        videoTitle : $.trim($('#title').val()),
-        videoDescribe : $.trim($('#describe').val()),
-        videoVip : $.trim($('#vip').val())
-    }
-    $picker = $("#picker");
-	var uploader = WebUploader.create({
+		<div id="box90_null" style="height: 40px;"></div>
+		<div class="shangchuan_img"></div>
+		<div class="shangchuan_con">
+			<a href="javascript:;"><input type="button" id="shangchuan_button" value="点击上传" /></a>
+			<div id="shangchuan_button1">上传视频</div>
+		</div>
+		<div id="tip" style="height: 45px;color: red"></div>
+		<div class="tiaoyue">
+			<input id="agree" type="checkbox" checked=false /><span>&nbsp;&nbsp;我已阅读并同意<a href="">cilicili上传服务条款</a></span>
+		</div>
+		<div style="height: 0px;"></div>
+		<div class="tiaoyue2">
+			<span class="tioayue01">禁止发布的视频内容
+				<img src="/img/tiaoyue01.PNG" style="margin-left: 0;">
+			</span>&nbsp;丨&nbsp;
+			<span class="tioayue01">视频规格
+				<img src="/img/tiaoyue2.jpg" style="margin-left: 130px;">
+			</span>&nbsp;丨&nbsp;
+			<span class="tioayue01">高清及超高清视频标识
+				<img src="/img/tiaoyue3.jpg" style="margin-left: 200px;">
+			</span>&nbsp;丨&nbsp;
+			<span class="tioayue01">视频处理流程
+				<img src="/img/tiaoyue4.jpg" style="margin-left: 320px;">
+			</span>
 
-		 auto : true,
-		// swf文件路径
-		swf : '/js/Uploader.swf',
 
-		// 文件接收服务端。
-		server : 'v/up',
- 		formData :{
-			 	"data":data
-		},
 
-		// 选择文件的按钮。可选。
-		// 内部根据当前运行是创建，可能是input元素，也可能是flash.
-		pick : {
-            id: $picker,
-        },
+		</div>
+		<div style="height: 45px;"></div>
+		<div class="leixing_con">
+			<div style="height: 50px;"></div>
+			<div class="leixing_con_box">
+				<div class="leixing_img1"><img src="/img/leixing1.png" ></div>
+				<div class="leixing_img1"><img src="/img/leixing2.png" ></div>
+				<div class="leixing_img1"><img src="/img/leixing3.png" ></div>
+				<div class="leixing_con_text">
+					<div class="leixing_text1">
+						<div style="font-size: 18px;color: #333;margin-top: 12px;">绘画</div>
+						<div style="font-size: 12px;color: #868686;margin-top: 3px;">原创丨同人丨插画丨漫画</div>
+					</div>
+					<div class="leixing_text1">
+						<div style="font-size: 18px;color: #333;margin-top: 12px;">摄影</div>
+						<div style="font-size: 12px;color: #868686;margin-top: 3px;">cosplay丨旅行丨随拍</div>
+					</div>
+					<div class="leixing_text1">
+						<div style="font-size: 18px;color: #333;margin-top: 12px;">日常</div>
+						<div style="font-size: 12px;color: #868686;margin-top: 3px;">心情丨搞笑丨生活丨VLOG</div>
+					</div>
+				</div>
+			</div>
+		</div>
+         <script type="text/javascript">
+            $(function(){
+                var flag = false
+                     $("#box_sousuo").bsSuggest({
+                        emptyTip: '未检索到匹配的数据',
+                        allowNoKeyword: false,   //是否允许无关键字时请求数据。为 false 则无输入时不执行过滤请求
+                        ignorecase: true,
+                        showBtn: false,     //不显示下拉按钮
+                        multiWord: true,         //以分隔符号分割的多关键字支持
+                        separator: ",",          //多关键字支持时的分隔符，默认为空格
+                        getDataMethod: "url",    //获取数据的方式，总是从 URL 获取
+                        url: 'http://unionsug.baidu.com/su?p=3&wd=', //优先从url ajax 请求 json 帮助数据，注意最后一个参数为关键字请求参数
+                        jsonp: 'cb',                        //如果从 url 获取数据，并且需要跨域，则该参数必须设置
+                        fnProcessData: function (json) {    // url 获取数据时，对数据的处理，作为 fnGetData 的回调函数
+                            var index, len, data = {value: []};
+                            if (!json || !json.s || json.s.length === 0) {
+                                return false;
+                            }
 
-		// 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
-		resize : false,
+                            len = json.s.length;
 
-		//上传过滤
-		accept: {
-        title: 'Videos',
-        extensions: 'mpeg,webm,avi,mp4',
-        mimeTypes: 'video/*',
-        },
-	});
-	// 当有文件被添加进队列的时候
-	uploader.on('fileQueued', function(file) {
-		$list.append('<div id="' + file.id + '" class="item">'
-				+ '<h4 class="info">' + file.name + '</h4>'
-				+ '<p class="state">等待上传...</p>' + '</div>');
-	});
-    //上传前参数覆盖
-    uploader.on('uploadBeforeSend', function(obj,data, headers) {
-        data.data = {
-            videoTitle : $.trim($('#title').val()),
-            videoDescribe : $.trim($('#describe').val()),
-            videoVip : $.trim($('#vip').val())
-        }
-    })
-	// 文件上传过程中创建进度条实时显示。
-	uploader
-			.on(
-					'uploadProgress',
-					function(file, percentage) {
-						var $li = $('#' + file.id), $percent = $li
-								.find('.progress .progress-bar');
+                            for (index = 0; index < len; index++) {
+                                data.value.push({
+                                    word: json.s[index]
+                                });
+                            }
+                            data.defaults = 'baidu';
 
-						// 避免重复创建
-						if (!$percent.length) {
-							$percent = $(
-									'<div class="progress progress-striped active">'
-											+ '<div class="progress-bar" role="progressbar" style="width: 0%">'
-											+ '</div>' + '</div>')
-									.appendTo($li).find('.progress-bar');
-						}
+                            //字符串转化为 js 对象
+                            return data;
+                        }
+                    }).on('onDataRequestSuccess', function (e, result) {
+                        console.log('onDataRequestSuccess: ', result);
+                    }).on('onSetSelectValue', function (e, keyword, data) {
+                        console.log('onSetSelectValue: ', keyword, data);
+                        //有时间实现ajax调用后台查询，并跳转到查询结果页
+                        //没时间就暂时跳到百度页面
+                        //询问框
 
-						$li.find('p.state').text('上传中');
+                    }).on('onUnsetSelectValue', function () {
+                        console.log("onUnsetSelectValue");
+                    });
+                    //回车搜索
+                    $("#box_sousuo").on('keypress',function(e){
+                        if (e.keyCode == 13) {
+                            var text = $(this).val()
+                            layer.confirm('C酱不会搜索,帮您到度娘那里问问,可以吗', {
+                                btn: ['确定','再想想'], //按钮
+                                shade: false //不显示遮罩
+                            }, function(index){
+                               window.open('https://www.baidu.com/s?ie=utf-8&wd='+text);
+                               //https://www.baidu.com/s?ie=utf-8&wd=%E6%97%A5%E6%9C%AC&si=163.com&ct=2097152
+                               layer.close(index);
+                            }, function(){
+                            });
+                        };
+                    })
+                    $(".shangchuan_con").click(function(event) {
+                        /* Act on the event */
+                            var bol = false
+                            parent.layer.open({
+                                type: 2,
+                                title: '上传视频',
+                                shadeClose: false,
+                                shade: 0.8,
+                                closeBtn: 0,
+                                btn:['继续','关闭'],
+                                area: ['80%', '80%'],
+                                content: ['/to/upPup'], //iframe的url
+                                success:function  (layero,index) {
+                                    var  body = layer.getChildFrame('body',index);
+                                    var iframeWin = window[layero.find('iframe')[0]['name']];
+                                    console.log(iframeWin);
+                                    iframeWin.setbol(false)
+                                },
+                                btn1: function (index, layero) {
+                                    var  body = layer.getChildFrame('body',index);
+                                    var iframeWin = window[layero.find('iframe')[0]['name']];
+                                    console.log(iframeWin);
+                                    var bol = iframeWin.getbol()
+                                    var id = iframeWin.getStr()
+                                    if (bol) {
+                                        window.location.href="/to/upinfo/"+id;
+                                        layer.close(index)
+                                    }else{
+                                        parent.layer.msg('上传失败了', {shift: 6});
+                                        layer.close(index)
+                                    }
+                                    // 判断成功还是失败
+                                  },
+                                btn2:function(index, layero){
+                                    parent.layer.msg('上传失败了', {shift: 6});
+                                }
+                            });
+                    });
+                })
+        </script>
 
-						$percent.css('width', percentage * 100 + '%');
-					});
-	uploader.on('uploadSuccess', function(file) {
-		$('#' + file.id).find('p.state').text('已上传');
-	});
+	</body>
 
-	uploader.on('uploadError', function(file) {
-		$('#' + file.id).find('p.state').text('上传出错');
-	});
-
-	uploader.on('uploadComplete', function(file) {
-		$('#' + file.id).find('.progress').fadeOut();
-	});
-</script>
 </html>

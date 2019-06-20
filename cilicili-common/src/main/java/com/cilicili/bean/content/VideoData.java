@@ -12,7 +12,7 @@ import lombok.Data;
  * 2019年5月23日
  */
 @Data
-@TableName("tb_admin_user")
+@TableName("tb_video_data")
 public class VideoData {
 	private Integer id;
 	private	VideoInfo videoId;

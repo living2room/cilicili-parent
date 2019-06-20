@@ -23,6 +23,8 @@ public class ErrorPageConfig {
 	        return (factory -> {
 	            ErrorPage errorPage404 = new ErrorPage(HttpStatus.NOT_FOUND, "/404.html");
 	            factory.addErrorPages(errorPage404);
+	            ErrorPage errorPage500 = new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/404.html");
+	            factory.addErrorPages(errorPage500);
 	        });
 	    }
 	 

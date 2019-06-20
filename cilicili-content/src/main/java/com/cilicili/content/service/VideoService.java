@@ -232,7 +232,7 @@ public class VideoService {
 		Snowflake snowflake = IdUtil.createSnowflake(1, 1);
 		Long id = snowflake.nextId();
 		videoPic.setId(id);
-		videoPic.setVideoId(entity);
+		videoPic.setVideoId(entity.getId());
 		videoPic.setPicActualUrl(picPath);
 		videoPic.setPicRequestUrl(entity.getId());
 		videoPic.setPicType(2);
@@ -304,7 +304,7 @@ public class VideoService {
 		Snowflake snowflake = IdUtil.createSnowflake(1, 1);
 		long id = snowflake.nextId();
 		videoPic.setId(id);
-		videoPic.setVideoId(videoInfo);
+		videoPic.setVideoId(videoInfo.getId());
 		videoPic.setPicActualUrl(picPath);
 		videoPic.setPicRequestUrl(videoInfo.getId());
 		videoPic.setPicType(1);

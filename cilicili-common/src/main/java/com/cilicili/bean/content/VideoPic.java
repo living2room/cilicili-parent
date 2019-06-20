@@ -17,6 +17,6 @@ public class VideoPic {
 	private Long id;
 	private String picActualUrl;
 	private String picRequestUrl;
-	private VideoInfo videoId;
+	private String videoId;
 	private Integer picType;
 }
