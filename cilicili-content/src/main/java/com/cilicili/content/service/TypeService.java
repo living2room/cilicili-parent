@@ -38,24 +38,6 @@ public class TypeService{
 	public int deleteType(int id) {
 		return tMapper.deleteById(id);
 	}
-	
-	/** 先拿到同一类型下的所有类型并封装,
-	 * 再拿到所有类型
-	 * @return
-	 */
-	List<Type> getFirstTypes(){
-		QueryWrapper<Type> queryWrapper = new QueryWrapper<Type>();
-		queryWrapper.eq("type_rating", 1);
-		List<Type> firstlist = tMapper.selectList(queryWrapper);
-		for (int i = 0; i < firstlist.size(); i++) {
-			queryWrapper = new QueryWrapper<Type>();
-			queryWrapper.eq("father_rating_id", firstlist.get(i).getId());
-			List<Type> secondlist = tMapper.selectList(queryWrapper );
-			
-		}
-		//TODO 怎么封装返回？
-		return firstlist;
-	}
 
 	/**拿到所有类型并封装返回
 	 * @return
@@ -114,11 +96,31 @@ public class TypeService{
 		return tMapper.delete(wrapper );
 	}
 
-	/**
+	/**拿到所有类型
 	 * @return
 	 */
 	public List<Type> getAllTypes() {
 		return tMapper.selectList(null);
+	}
+
+	/**拿到所有N级类型
+	 * @return
+	 */
+	public List<Type> getAllTypeByRating(int n) {
+		QueryWrapper<Type> queryWrapper = new QueryWrapper<Type>();
+		queryWrapper.eq("type_rating", n);
+		return tMapper.selectList(queryWrapper );
+	}
+
+	/**根据ID 拿到该类型下的所有类型
+	 * @param id
+	 * @param rating
+	 */
+	public List<Type> getTypeByRatingAndId(Integer id, Integer rating) {
+		QueryWrapper<Type> queryWrapper = new QueryWrapper<Type>();
+		queryWrapper.eq("type_rating", rating);
+		queryWrapper.eq("father_rating_id", id);
+	 	return tMapper.selectList(queryWrapper);
 	}
 	
 }

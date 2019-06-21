@@ -88,26 +88,36 @@
 										        		<input type="file" id="file" style="cursor:pointer;opacity:0;filter:alpha(opacity=0);width:100%;height:100%;position:absolute;top:0;left:0;">
 										        	</div>
 									        	</div>
-
-
 								        	</div>
 							        	</div>
 						        	</div>
-
 				        		</div>
 				        	</div>
 				<!------------------------- 上传封面结束	 ------------------------>
 
-				<form action="" method="">
+				<form action="" method="POST" accept-charset="utf-8">
 					<div class="shuoming_con1"><i style="width:10px;height:10px;border-radius:50%;background-color:#ff005f;display: block;float: left;margin-top:13px;"></i><span style="float: left;margin-left: 8px;line-height: 34px;">作品标题</span>
 							<div><input type="text" class="form-control" style="width: 370px;float: left;margin-left: 36px;" placeholder="请输入标题&nbsp;/&nbsp;不超过15字符"></div>
 					</div>
 
-					<div class="shuoming_con1" style="margin-top: 30px;">
+					<div class="shuoming_con1"><i style="width:10px;height:10px;border-radius:50%;background-color:#ff005f;display: block;float: left;margin-top:13px;"></i><span style="float: left;margin-left: 8px;line-height: 34px;">视频类型</span>
+						<div>
+							<select id="ty1" onchange="selectChange(1)" name="1" class="form-control" style="width:100px;margin-left: 30px;float: left;">
+								<option th:each="list : ${typeList}" th:rating="${list.typeRating}" th:value="${list.id}" th:text="${list.type}"></option>
+							</select>
+							<select id="ty2" onchange="selectChange(2)" name="2" class="form-control" style="width:100px;float: left;margin-left: 18px;">
+							</select>
+							<select id="ty3" onchange="selectChange(3)" name="3" class="form-control" style="width:100px;float: left;margin-left: 18px;">
+							</select>
+						</div>
+					</div>
+
+					<div class="shuoming_con1" style="margin-top: 60px;">
 						<i style="width:10px;height:10px;border-radius:50%;background-color:#ff005f;display: block;float: left;margin-top:13px;"></i>
 						<span style="float: left;margin-left: 8px;line-height: 34px;">作品简介</span>
 						<input type="text" class="form-control" style="width: 370px;float: left;margin-left: 36px;height: 90px;" placeholder="请输入作品简介&nbsp;/&nbsp;不超过30字符">
 					</div>
+
 
 					<div class="shuoming_con1" style="margin-top: 90px;">
 						<button type="submit" class="btn btn-primary" style="height: 40px;width: 120px;background: #00a1d6;font-size: 16px;border: none;float: left;">提交</button>
@@ -145,6 +155,32 @@
 
 		});
 		//clipArea.destroy();
+		//
+	function getJsonLength(jsonData){
+		var jsonLength = 0;
+		for(var item in jsonData){
+		jsonLength++;
+		}
+		return jsonLength;
+		}
+	 function selectChange(e){
+         var objS = document.getElementById("ty"+e);
+         var tid = objS.options[objS.selectedIndex].value;
+
+         $.ajax({
+         	url: '/t/linkage/'+(e+1)+"/"+tid,
+         	type: 'POST',
+         	dataType: 'html',
+         })
+         .done(function(data) {
+			var responseJsonData = eval('('+data+')')
+         	var l= getJsonLength(responseJsonData)
+         	$("#ty"+(e+1)).html("");
+         	$.each(responseJsonData, function(index, val) {
+         		 $("#ty"+(e+1)).append('<option value="'+(index+1)+'">'+val.type+'</option>');
+         	});
+         })
+       }
 	    </script>
 	</body>
 </html>

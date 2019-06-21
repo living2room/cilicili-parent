@@ -31,7 +31,7 @@ import com.cilicili.content.service.TypeService;
 @RequestMapping("/to")
 public class PageController {
 	@Resource
-	PageService pService;
+	private PageService pService;
 	@Resource
 	private RankService rService;
 	@Resource 
@@ -55,7 +55,6 @@ public class PageController {
 			typeDtof.setType(vType.get(i));
 			List<Type> secondTyps = pService.getItsSecondTyps(vType.get(i));
 			List<TypeDto> typeDtolist = new ArrayList<TypeDto>();
-			//看不懂别问，问就不知道
 			for (int j = 0; j <= secondTyps.size()-1; j++) {
 				TypeDto typeDtos = new TypeDto();
 				typeDtos.setType(secondTyps.get(j));
@@ -67,23 +66,6 @@ public class PageController {
 			System.out.println(pageContent);
 			map.put(vType.get(i).getType(), pageContent);
 		}
-		/*
-		 * List<TvAdDto> pageContent = new ArrayList<TvAdDto>(); TvAdDto tv1 =
-		 * new TvAdDto(); tv1.setId("1"); tv1.setIsVip(1);
-		 * tv1.setLink("http://www.baidu.com"); tv1.setName("kehuan");
-		 * tv1.setPicAlt("waixingdazan"); tv1.setPicPath("/dd/d.png");
-		 * tv1.setVideoDuration("1hour"); tv1.setVideoPlayedNum(1234214l);
-		 * TvAdDto tv2 = new TvAdDto(); tv2.setId("2"); tv2.setIsVip(1);
-		 * tv2.setLink("http://www.baidu.com"); tv2.setName("kehuan");
-		 * tv2.setPicAlt("waixingdazan"); tv2.setPicPath("/dd/d.png");
-		 * tv2.setVideoDuration("1hour"); tv2.setVideoPlayedNum(1234214l);
-		 * TvAdDto tv3 = new TvAdDto(); tv3.setId("3"); tv3.setIsVip(1);
-		 * tv3.setLink("http://www.baidu.com"); tv3.setName("kehuan");
-		 * tv3.setPicAlt("waixingdazan"); tv3.setPicPath("/dd/d.png");
-		 * tv3.setVideoDuration("1hour"); tv3.setVideoPlayedNum(1234214l);
-		 * pageContent.add(tv1); pageContent.add(tv2); pageContent.add(tv3);
-		 * map.put("科幻", pageContent);
-		 */
 		//所有类型及其子类型
 		model.addAttribute("PageType",typelist);
 		//所有内容按类型封装
@@ -111,7 +93,9 @@ public class PageController {
 	 * @return
 	 */
 	@RequestMapping("upinfo/{id}")
-	public String toUpInfo(@PathVariable("id") String videoInfoId ) {
+	public String toUpInfo(@PathVariable("id") String videoInfoId, Model model) {
+		List<Type> firsttypeList = tService.getAllTypeByRating(1);
+		model.addAttribute("typeList", firsttypeList);
 		return "content/videoInfo";
 	}
 	
