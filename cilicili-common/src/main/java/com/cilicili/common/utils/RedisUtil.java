@@ -16,6 +16,7 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations.TypedTuple;
+import org.springframework.stereotype.Component;
 
 /**
  * Redis工具类
@@ -24,6 +25,7 @@ import org.springframework.data.redis.core.ZSetOperations.TypedTuple;
  * @date 2018-02-24 下午03:09:50
  * @version 1.1 (GitHub文档: https://github.com/whvcse/RedisUtil )
  */
+@Component
 public class RedisUtil {
 	private StringRedisTemplate redisTemplate;
 

@@ -12,6 +12,8 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import org.springframework.stereotype.Component;
+
 import cn.hutool.core.img.ImgUtil;
 import cn.hutool.core.io.FileUtil;
 

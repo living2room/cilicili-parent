@@ -24,6 +24,7 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cilicili.bean.content.Type;
 import com.cilicili.bean.content.Users;
+import com.cilicili.bean.content.VideoData;
 import com.cilicili.bean.content.VideoExamine;
 import com.cilicili.bean.content.VideoInfo;
 import com.cilicili.bean.content.VideoPic;
@@ -33,8 +34,10 @@ import com.cilicili.bean.content.VideoUser;
 import com.cilicili.common.dto.UploadJsonObj;
 import com.cilicili.common.dto.VideoReviewDto;
 import com.cilicili.common.utils.PictureMerge;
+import com.cilicili.common.utils.RedisUtil;
 import com.cilicili.common.utils.VideoResolution;
 import com.cilicili.content.mapper.TypeMapper;
+import com.cilicili.content.mapper.VideoDataMapper;
 import com.cilicili.content.mapper.VideoExamineMapper;
 import com.cilicili.content.mapper.VideoInfoMapper;
 import com.cilicili.content.mapper.VideoPicMapper;
@@ -52,7 +55,8 @@ import org.apache.commons.net.ftp.FTPClient;
  */
 @Service
 public class VideoService {
-
+	@Resource
+	private RedisUtil redisUtil;
 	@Resource
 	private VideoInfoMapper infoMapper;
 	@Resource
@@ -67,6 +71,8 @@ public class VideoService {
 	private VideoPicMapper vPicMapper;
 	@Resource
 	private VideoExamineMapper veMapper;
+	@Resource
+	private VideoDataMapper vDataMapper;
 
 	@Value("${FTP.ADDRESS}")
 	private String ftpAddr;
@@ -86,10 +92,10 @@ public class VideoService {
 	 */
 	public File videoupload(HttpServletRequest req) {
 		FTPClient c = new FTPClient();
-		String filePath ="/video";
+		String filePath ="/data/video";
 		MultipartHttpServletRequest Murequest = (MultipartHttpServletRequest) req;
 		Map<String, MultipartFile> files = Murequest.getFileMap();// 得到文件map对象
-		Ftp ftp = new Ftp(ftpAddr, ftpport, username, password);
+		Ftp ftp = new Ftp(ftpAddr, ftpport);
 		ftp.setMode(cn.hutool.extra.ftp.FtpMode.Active);
 		String localPath = req.getSession().getServletContext().getRealPath("")
 				+ "temp" + File.separator + "video" + File.separator;
@@ -194,7 +200,7 @@ public class VideoService {
 	 * @return 图片路径
 	 */
 	public String previewupload(File toFile, HttpServletRequest req) {
-		Ftp ftp = new Ftp(ftpAddr, ftpport, username, password);
+		Ftp ftp = new Ftp(ftpAddr, ftpport);
 		ftp.setMode(cn.hutool.extra.ftp.FtpMode.Active);
 		String localPath = req.getSession().getServletContext().getRealPath("")
 				+ "temp" + File.separator + "thumbnail"
@@ -203,7 +209,7 @@ public class VideoService {
 		if(!localPathFile.exists())
 			localPathFile.mkdirs();
 		String pic = IdUtil.simpleUUID() + ".jpg";
-		String picPath = File.separator + "imgs" + File.separator + "preview" + File.separator;
+		String picPath =  "/data/imgs/preview";
 		VideoResolution.getVideoPic(toFile, localPath + pic, 20);
 		File file = new File(localPath + pic);
 		boolean c = ftp.cd(localPath); 
@@ -225,8 +231,7 @@ public class VideoService {
 	 * @param infoId
 	 */
 	public void addpreviewDb(String pic, String infoId) {
-		String picPath = File.separator + "imgs" + File.separator + "preview"
-				+ File.separator + pic;
+		String picPath = "/data/imgs/preview/"+ pic;
 		VideoInfo entity = infoMapper.selectById(infoId);
 		VideoPic videoPic = new VideoPic();
 		Snowflake snowflake = IdUtil.createSnowflake(1, 1);
@@ -255,7 +260,7 @@ public class VideoService {
 	 */
 	public String thumbnailupload(File toFile, HttpServletRequest req,
 			String infoId) {
-		Ftp ftp = new Ftp(ftpAddr, ftpport, username, password);
+		Ftp ftp = new Ftp(ftpAddr, ftpport);
 		ftp.setMode(cn.hutool.extra.ftp.FtpMode.Active);
 		VideoInfo videoInfo = infoMapper.selectById(infoId);
 		PictureMerge tm = new PictureMerge();
@@ -278,7 +283,7 @@ public class VideoService {
 				tm.Merge(PictureMerge.orientation, bufferedImageList));
 		// 上传合成图到FTP
 		File file = new File(newPicPath);
-		String ftpPicPath ="/imgs/thumbnail/";
+		String ftpPicPath ="/data/imgs/thumbnail/";
 		String ftpPicName = ftpPicPath + file.getName();
 		ftp.cd(ftpPicPath);
 		boolean b = ftp.upload(ftpPicPath, file.getName(), file);
@@ -354,6 +359,57 @@ public class VideoService {
 		}
 		//
 		return vrDtoList;
+	}
+
+	/** 添加视频相关信息
+	 * @param videoInfoId 视频ID
+	 * @param base64 二进制图片
+	 * @param videoName 视频标题
+	 * @param videoDescribe 视频描述
+	 * @param tn 类型
+	 */
+	public void addvideoInfo(HttpSession session,String videoInfoId, String base64,
+		String videoName, String videoDescribe, String tn) {
+		VideoInfo entity = new VideoInfo();
+		entity.setVideoDescribe(videoDescribe);
+		entity.setVideoTitle(videoName);
+		entity.setId(videoInfoId);
+		infoMapper.updateById(entity );
+		
+		VideoType vType = new VideoType();
+		vType.setVideoId(videoInfoId);
+		vType.setTypeId(Integer.valueOf(tn));
+		vTypeMapper.insert(vType );
+		
+		Users user = (Users) session.getAttribute("user");
+		
+		VideoUser uVi = new VideoUser();
+		uVi.setUserId(user.getId());
+		uVi.setVideoId(videoInfoId);
+		vUserMapper.insert(uVi );
+		
+		// 将封面图片放进redis里
+		redisUtil.set(videoInfoId,base64);
+	}
+
+	/**拿到该视频的信息
+	 * @param videoPath
+	 */
+	public void getThisVideo(String videoPath) {
+		VideoUrl videoUrl = vUrlMapper.selectById(videoPath);
+		VideoInfo videoInfo = infoMapper.selectById(videoUrl.getVideoId());
+		
+		QueryWrapper<VideoPic> queryWrapper = new QueryWrapper<VideoPic>();
+		queryWrapper.eq("video_id", videoInfo.getId());
+		queryWrapper.eq("pic_type", 1);
+		VideoPic videoPic = vPicMapper.selectOne(queryWrapper );
+		
+		QueryWrapper<VideoData> dqueryWrapper = new QueryWrapper<VideoData>();
+		dqueryWrapper.eq("video_id", videoInfo.getId());
+		VideoData videoData = vDataMapper.selectOne(dqueryWrapper );
+		videoData.setLikedNum(videoData.getLikedNum()+1);
+		vDataMapper.updateById(videoData);
+		
 	}
 
 	// /**分片处理待完成

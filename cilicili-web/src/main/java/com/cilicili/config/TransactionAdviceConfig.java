@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cilicili.content.config;
+package com.cilicili.config;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.aop.Advisor;

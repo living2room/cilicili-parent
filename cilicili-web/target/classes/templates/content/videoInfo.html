@@ -18,8 +18,10 @@
 		<script type="text/javascript" src="/js/plugins/cover_js/hammer.js" ></script>
 		<script type="text/javascript" src="/js/plugins/cover_js/lrz.all.bundle.js" ></script>
 		<script type="text/javascript" src="/js/plugins/cover_js/jquery.photoClip.min.js" ></script>
-
-
+		<!-- 第三方插件 -->
+		<script type="text/javascript" src="/webjars/jquery-form/4.2.2/jquery.form.min.js"></script>
+       <!-- layer javascript -->
+        <script src="/js/plugins/layer/layer.min.js"></script>
 	</head>
 	<body>
 			<div class="top">
@@ -85,7 +87,7 @@
 							        				<div style="height:10px;"></div>
 										        	<div class="" style="width:100px;height:32px;border-radius: 4px;background-color:#fff;color: #FFFFFF;font-size: 14px;text-align:center;line-height:32px;outline:none;position:relative;color: #333;border: solid 1px #b8b8b8;">
 										        		点击上传
-										        		<input type="file" id="file" style="cursor:pointer;opacity:0;filter:alpha(opacity=0);width:100%;height:100%;position:absolute;top:0;left:0;">
+										        		<input  type="file" id="file" style="cursor:pointer;opacity:0;filter:alpha(opacity=0);width:100%;height:100%;position:absolute;top:0;left:0;">
 										        	</div>
 									        	</div>
 								        	</div>
@@ -95,19 +97,19 @@
 				        	</div>
 				<!------------------------- 上传封面结束	 ------------------------>
 
-				<form action="" method="POST" accept-charset="utf-8">
+				<form action="/v/upinfo" method="POST" id="formsub" accept-charset="utf-8">
 					<div class="shuoming_con1"><i style="width:10px;height:10px;border-radius:50%;background-color:#ff005f;display: block;float: left;margin-top:13px;"></i><span style="float: left;margin-left: 8px;line-height: 34px;">作品标题</span>
-							<div><input type="text" class="form-control" style="width: 370px;float: left;margin-left: 36px;" placeholder="请输入标题&nbsp;/&nbsp;不超过15字符"></div>
+							<div><input type="text" class="form-control" name="videoName" style="width: 370px;float: left;margin-left: 36px;"  required="required" placeholder="请输入标题&nbsp;/&nbsp;不超过15字符"></div>
 					</div>
 
 					<div class="shuoming_con1"><i style="width:10px;height:10px;border-radius:50%;background-color:#ff005f;display: block;float: left;margin-top:13px;"></i><span style="float: left;margin-left: 8px;line-height: 34px;">视频类型</span>
 						<div>
-							<select id="ty1" onchange="selectChange(1)" name="1" class="form-control" style="width:100px;margin-left: 30px;float: left;">
+							<select id="ty1" onchange="selectChange(1)" name="t1" class="form-control" style="width:100px;margin-left: 30px;float: left;">
 								<option th:each="list : ${typeList}" th:rating="${list.typeRating}" th:value="${list.id}" th:text="${list.type}"></option>
 							</select>
-							<select id="ty2" onchange="selectChange(2)" name="2" class="form-control" style="width:100px;float: left;margin-left: 18px;">
+							<select id="ty2" onchange="selectChange(2)" name="t2" class="form-control" style="width:100px;float: left;margin-left: 18px;">
 							</select>
-							<select id="ty3" onchange="selectChange(3)" name="3" class="form-control" style="width:100px;float: left;margin-left: 18px;">
+							<select id="ty3" onchange="selectChange(3)" name="t3" class="form-control" style="width:100px;float: left;margin-left: 18px;">
 							</select>
 						</div>
 					</div>
@@ -115,7 +117,7 @@
 					<div class="shuoming_con1" style="margin-top: 60px;">
 						<i style="width:10px;height:10px;border-radius:50%;background-color:#ff005f;display: block;float: left;margin-top:13px;"></i>
 						<span style="float: left;margin-left: 8px;line-height: 34px;">作品简介</span>
-						<input type="text" class="form-control" style="width: 370px;float: left;margin-left: 36px;height: 90px;" placeholder="请输入作品简介&nbsp;/&nbsp;不超过30字符">
+						<input type="text"  required="required" name="videoDescribe" class="form-control" style="width: 370px;float: left;margin-left: 36px;height: 90px;" placeholder="请输入作品简介&nbsp;/&nbsp;不超过30字符">
 					</div>
 
 
@@ -123,10 +125,17 @@
 						<button type="submit" class="btn btn-primary" style="height: 40px;width: 120px;background: #00a1d6;font-size: 16px;border: none;float: left;">提交</button>
 						<button type="reset" class="btn btn-primary" style="height: 40px;width: 120px;background: #00a1d6;font-size: 16px;border: none;margin-left: 50px;float: left;">清空</button>
 					</div>
+					<input id="base64" name="base64" type="hidden">
 				</form>
 			</div>
 
   <script type="text/javascript">
+  		var img1 = $("#img").val();
+		var img3 = "url(" + img1 + ")";
+		$('#view').css('background-image', img3);
+		var url = window.location.href.split("/")
+		var vid = url[url.length-1]
+		console.log(vid);
 	    //上传封面
 	    //document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 		var clipArea = new bjj.PhotoClip("#clipArea", {
@@ -147,10 +156,13 @@
 			},
 			//loadError: function(event) {}, // 加载失败的回调函数。this指向 fileReader 对象，并将错误事件的 event 对象作为参数传入
 			clipFinish: function(dataURL) {
-				 // 裁剪完成的回调函数。this指向图片对象，会将裁剪出的图像数据DataURL作为参数传入
+				// 裁剪完成的回调函数。this指向图片对象，会将裁剪出的图像数据DataURL作为参数传入
 				$('.cover-wrap').fadeOut();
-				$('#view').css('background-size','100% 100%');
+				$('#view').css('background-size', '100% 100%');
 				console.log(dataURL);
+				document.getElementById('base64').value = dataURL;
+				var img = "url(" + dataURL + ")";
+				//$('#view').css('background-image',img);
 			}
 
 		});
@@ -177,10 +189,25 @@
          	var l= getJsonLength(responseJsonData)
          	$("#ty"+(e+1)).html("");
          	$.each(responseJsonData, function(index, val) {
-         		 $("#ty"+(e+1)).append('<option value="'+(index+1)+'">'+val.type+'</option>');
+         		 $("#ty"+(e+1)).append('<option value="'+val.id+'">'+val.type+'</option>');
          	});
          })
        }
+		$("#formsub").on("submit", function() {
+			$(this).ajaxSubmit({
+				url : "/v/upinfo/" + vid,
+				async: false,
+				success : function(data) {
+					console.log(data);
+					if (data == "1") {
+						parent.layer.msg('添加成功', {icon: 1});
+					} else {
+						parent.layer.msg('添加失败', {shift: 6});
+					}
+				},
+			});
+			return false;
+		})
 	    </script>
 	</body>
 </html>

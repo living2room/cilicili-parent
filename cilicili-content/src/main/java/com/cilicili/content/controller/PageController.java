@@ -11,16 +11,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cilicili.bean.content.Type;
 import com.cilicili.common.dto.TvAdDto;
 import com.cilicili.common.dto.TypeDto;
 import com.cilicili.common.dto.VideoReviewDto;
+import com.cilicili.common.utils.RedisUtil;
 import com.cilicili.content.service.PageService;
 import com.cilicili.content.service.RankService;
 import com.cilicili.content.service.ReviewService;
 import com.cilicili.content.service.TypeService;
+import com.cilicili.content.service.VideoService;
 /**
  * 页面导航的Controller
  * 
@@ -38,6 +41,10 @@ public class PageController {
 	private TypeService tService;
 	@Resource
 	private ReviewService revService;
+	@Resource
+	private VideoService vService;
+
+
 	/**
 	 * 去一级主页
 	 * 
@@ -191,9 +198,11 @@ public class PageController {
 	 * @return
 	 */
 	 @GetMapping("vi/{id}")
-	 public String toVideoPage(@PathVariable("id") String videoPath) {
-			return "/content/video";
+	 public String toVideoPage(Model model,@PathVariable("id") String videoPath) {
+		 vService.getThisVideo(videoPath);
+		 return "/content/video";
 		}
+
 
 //	 /**
 //	 * 拿到远端IP地址

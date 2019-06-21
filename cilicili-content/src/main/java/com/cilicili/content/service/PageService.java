@@ -53,9 +53,6 @@ public class PageService {
 	 * @return
 	 */
 	public List<TvAdDto> getPageContent(Type type,int index,int size) {
-//		Page<VideoInfo> page = new Page<>(1, 4);
-//        QueryWrapper<VideoInfo> queryWrapper = new QueryWrapper<>();
-//        IPage<VideoInfo> selectPage = infoMpper.selectPage(page, queryWrapper);
 		Page<VideoType> page = new Page<>(index, size);
 		List<VideoType> typeList = vtypeMapper.selectVideoTypeByType(page);//拿到该分类下的分页视频
 		List<VideoInfo> infoList = new ArrayList<VideoInfo>();

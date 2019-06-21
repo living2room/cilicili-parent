@@ -18,6 +18,6 @@ public class BulletScreen {
 	private String bulletScreenContent;
 	private String bulletScrennColor;
 	private String bulletScreenPosition;
-	private String bulletScreenSize;
+	private String bulletScreenTime;
 	private String bulletScreenIsNew;
 }

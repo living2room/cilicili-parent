@@ -1,7 +1,8 @@
+package com.cilicili.config;
 /**
  * 
  */
-package com.cilicili.content.config;
+
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

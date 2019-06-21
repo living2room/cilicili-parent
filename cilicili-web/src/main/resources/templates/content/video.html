@@ -401,16 +401,21 @@
 	    })
 	</script>
 	<script>
+		var url = window.location.href.split("/");
+		var vid = url[url.length-1]
+		console.log(url);
 	    console.log(" %c 该项目基于Dplayer.js",'color:red')
 	    var dp = new DPlayer({
 	        element: document.getElementById('player1'),
+	        autoplay: false,
 	        video: {
-	            url: 'http://oz4nlgp7a.bkt.clouddn.com/ss.mp4',
+	            url: 'http://172.18.83.158/data/video/Dérniere Danse『来自haku异国的歌喉』 - 1.Dérniere Danse(Av53199914,P1).mp4',
 	            pic: '/img/danmu.jpg'
 	        },
 	        danmaku: {
 	            id: 'demo',
 	            api: 'https://api.prprpr.me/dplayer/',
+	            maximum: 1000,
 	            addition: ['https://api.prprpr.me/dplayer/bilibili?aid=13579']
 	        }
 	    });
