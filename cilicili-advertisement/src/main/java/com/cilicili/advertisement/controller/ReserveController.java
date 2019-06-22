@@ -38,13 +38,13 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.cilicili.advertisement.domain.AdvertiseType;
-import com.cilicili.advertisement.domain.CenterAdv;
-import com.cilicili.advertisement.domain.ProductofJson;
-import com.cilicili.advertisement.domain.ReserveAdv;
 import com.cilicili.advertisement.service.AdvertiseTypeService;
 import com.cilicili.advertisement.service.ReserveService;
 import com.cilicili.common.dto.JqGridDto;
+import com.cilicili.domain.advertisement.AdvertiseType;
+import com.cilicili.domain.advertisement.CenterAdv;
+import com.cilicili.domain.advertisement.ProductofJson;
+import com.cilicili.domain.advertisement.ReserveAdv;
 
 
 @Controller("reserveCon")

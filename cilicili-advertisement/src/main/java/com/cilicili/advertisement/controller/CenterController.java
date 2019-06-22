@@ -38,12 +38,12 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.cilicili.advertisement.domain.AdvertiseType;
-import com.cilicili.advertisement.domain.CenterAdv;
-import com.cilicili.advertisement.domain.ProductofJson;
 import com.cilicili.advertisement.service.AdvertiseTypeService;
 import com.cilicili.advertisement.service.CenterService;
 import com.cilicili.common.dto.JqGridDto;
+import com.cilicili.domain.advertisement.AdvertiseType;
+import com.cilicili.domain.advertisement.CenterAdv;
+import com.cilicili.domain.advertisement.ProductofJson;
 
 
 @Controller("centerCon")

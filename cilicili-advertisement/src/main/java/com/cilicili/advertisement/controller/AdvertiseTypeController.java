@@ -9,9 +9,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cilicili.advertisement.domain.AdvertiseType;
-import com.cilicili.advertisement.domain.ListSetClass;
 import com.cilicili.advertisement.service.AdvertiseTypeService;
+import com.cilicili.domain.advertisement.AdvertiseType;
+import com.cilicili.domain.advertisement.ListSetClass;
 
 @Controller("AdvertiseTypeCon")
 @RequestMapping("/advertisetype")

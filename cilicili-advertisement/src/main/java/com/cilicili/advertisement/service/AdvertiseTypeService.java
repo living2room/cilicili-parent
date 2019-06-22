@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.cilicili.advertisement.domain.AdvertiseType;
-import com.cilicili.advertisement.domain.ListSetClass;
 import com.cilicili.advertisement.mapper.AdvertiseTypeMapper;
+import com.cilicili.domain.advertisement.AdvertiseType;
+import com.cilicili.domain.advertisement.ListSetClass;
 
 
 @Service

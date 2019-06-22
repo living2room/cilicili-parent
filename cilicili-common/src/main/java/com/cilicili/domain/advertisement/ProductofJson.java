@@ -1,4 +1,4 @@
-package com.cilicili.advertisement.domain;
+package com.cilicili.domain.advertisement;
 
 import java.util.List;
 

@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.cilicili.advertisement.domain.CenterAdv;
-import com.cilicili.advertisement.domain.LeftAdv;
-import com.cilicili.advertisement.domain.RightAdv;
 import com.cilicili.advertisement.mapper.LeftMapper;
+import com.cilicili.domain.advertisement.CenterAdv;
+import com.cilicili.domain.advertisement.LeftAdv;
+import com.cilicili.domain.advertisement.RightAdv;
 
 
 @Service

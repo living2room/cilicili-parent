@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cilicili.user.mapper.user.RoleMapper">
+
+<!-- 通过roelId查角色的权限等信息 -->
+	<select id="findByRoleId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select * from tb_u_role r left JOIN tb_u_role_permission rp on
+		r.role_id = rp.role_id left JOIN tb_u_permission p on
+		rp.permission_id = p.permission_id
+		WHERE r.role_id = #{roleId}
+	</select>
+
+
+  <resultMap id="BaseResultMap" type="com.cilicili.user.domain.user.Role">
+    <id column="role_id" jdbcType="VARCHAR" property="roleId" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <collection property="permissionList"
+			javaType="java.util.List"
+			ofType="com.cilicili.user.domain.user.Permission"
+			resultMap="com.cilicili.user.mapper.user.PermissionMapper.BaseResultMap" />
+  </resultMap>
+ 
+</mapper>
