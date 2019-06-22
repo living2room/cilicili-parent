@@ -1,4 +1,4 @@
-package com.cilicili.comment.domain;
+package com.cilicili.bean.comment;
 
 import java.util.Date;
 

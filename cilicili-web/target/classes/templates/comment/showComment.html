@@ -11,7 +11,129 @@
 <link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
 <link href="/css/animate.css" rel="stylesheet">
 <link href="/css/style.css?v=4.1.0" rel="stylesheet">
+
 </head>
+
+<!-- 全局js -->
+<script src="/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/bootstrap.min.js?v=3.3.6"></script>
+<!-- 自定义js -->
+<script src="/js/content.js?v=1.0.0"></script>
+
+<script type="text/javascript">
+	
+	function Cdianzan(e){	//评论点赞
+  		var ClikeNum = $(".ClikeNum"+e).text();
+		var CUserId = $('#CUserId'+e).text();
+		var commentId = $('#Cid'+e).val();
+		console.log(e);
+		 var data={
+				 'CUserId':CUserId,
+				 'commentId':commentId
+		 }
+		 
+		$.ajax({	//评论点赞
+			url:'/like/CommentLike',
+            type: 'post',
+            contentType: 'application/json',
+            data:JSON.stringify(data),
+            dataType:'html',
+            success: function (data) {
+            	ClikeNum++;
+            	$(".ClikeNum").text(ClikeNum);
+                $('#Czan'+e).html(data);
+			}
+		})
+	 }
+
+	
+function Rdianzan(i){
+	
+	var RlikeNum = $(".RlikeNum"+i).text();
+	var RUserId =$('#RUserId'+i).text();
+	var replyId=$('#Rid'+i).val();
+	console.log(i);
+	var data={
+			'RUserId':RUserId,
+			'replyId':replyId
+	}
+	
+	$.ajax({
+		url:'/like/ReplyLike',
+		type:'post',
+		contentType:'application/json',
+		data:JSON.stringify(data),
+		dataType:'html',
+		success:function(data){
+			RlikeNum++;
+			$(".RlikeNum"+i).text(RlikeNum);
+			$('#Rzan'+i).html(data);
+		}
+	})
+	
+}	
+
+
+function AddComment(ac){
+	var Ccontent =$("#Ccontent"+ac).val();
+	var ACUserId = $('#ACUserId'+ac).text();
+	var commentId=$('#ACid'+ac).val();
+	console.log(ac);
+	var data={
+			'Ccontent':Ccontent,
+			'ACUserId':ACUserId,
+			'commentId':commentId
+	}
+	$.ajax({
+		url:'/comment/addComment',
+		type:'post',
+		contentType:'application/json',
+		data:JSON.stringify(data),
+		dataType:'html',
+		success:function(data){
+			$("Ccontent"+ac).text(Ccontent);
+			$('#addC'+i).html(data);
+		}
+	})
+}	
+
+
+/*
+	function AddComment() {
+        var nickname = document.getElementById("nickname").value;
+        var comment = document.getElementById("comment").value;            
+
+        //获得表格对象
+        var tableComment = document.getElementById("tableComment");
+        //创建新行
+        var tr = document.createElement("tr");
+
+        //创建昵称单元格
+        var tdNickName = document.createElement("td");
+        tdNickName.innerText = nickname;
+        tr.appendChild(tdNickName);//添加到新行中
+
+        var tdComment = document.createElement("td");
+        tdComment.innerText = comment;
+        tr.appendChild(tdComment);
+
+        tableComment.tBodies[0].appendChild(tr); //将新行添加到表格的tbody中,tBodies→一个表格允许有多个tbody
+
+        //清空内容
+        document.getElementById("nickname").value = "";
+        document.getElementById("comment").value = "";
+    }
+*/
+
+
+  $(function(){ //评点击回复弹出输入框
+      //页面加载完毕后开始执行的事件
+      $(".reply_btn").click(function(){
+          $(".reply_textarea").remove();
+          $(this).parent().append("<div class='reply_textarea'><textarea name='' cols='90' rows='5'></textarea><br/><input type='submit' value='发表' /></div>");
+      });
+  })
+</script>
 
 <body class="gray-bg">
 
@@ -22,7 +144,19 @@
 					<div class="ibox-content text-center">
 						<h3 class="m-b-xxs">评论展示</h3>
 			            <br><hr>
-					</div>
+			            
+			            <p>评论区：</p>
+						<table id="tableComment">
+						    <tbody>
+						        <tr><td>最强大</td><td>沙发耶！</td></tr>
+						    </tbody>
+						</table>
+						<br><hr>
+						
+						昵称：<input id="nickname" type="text" /><br />
+						<textarea id="comment"></textarea><br />
+						<input type="button" value="评论" onclick="AddComment()" />
+
 				</div>
 				<!-- 展示该视频下所有评论信息 -->
 				<div class="social-feed-separated" th:each="comment : ${commentList}">
@@ -49,8 +183,8 @@
 						<div class="social-avatar">
 						
 							<!-- 通过comment里的userId获取评论人的头像  点击评论人名字跳到评论者个人信息页面 -->
-							<a href="#"><span th:text="${comment.userId}"></span></a> 
-							
+							<a href="#"><span th:id="|CUserId${comment.commentId}|"  th:text="${comment.userId}"></span></a> 
+							<input th:id="|Cid${comment.commentId}|"  th:value="${comment.commentId}" type="hidden" />
 							<!-- 评论日期 -->
 							<small class="text-muted">
 								<span th:text="${#dates.format(comment.commentTime, 'yyyy-MM-dd HH:mm')}"></span>
@@ -66,19 +200,18 @@
 							<!-- <img src="/img/p2.jpg" class="img-responsive"> -->
 							
 							<div class="btn-group">
-								<button class="btn btn-white btn-xs">
+							
+								<button th:id="|Czan${comment.commentId}|" th:onclick="|Cdianzan('${comment.commentId}')|" class="btn btn-white btn-xs">
 									<i class="fa fa-thumbs-up"></i> 赞
 									<!-- 评论点赞数 -->
-									<span th:text="${comment.commentLikeNum}"></span>
+									<span th:class="|ClikeNum${comment.commentId}|"  th:text="${comment.commentLikeNum}"></span>
 								</button>
+								
 								<button class="btn btn-white btn-xs">
 									<i class="fa fa-comments"></i> 评论
 										<!-- 点击"评论"时弹出评论框    添加评论   把评论信息存入数据库并刷新显示在页面上-->
 										<span></span>
 								</button>
-								<!-- <button class="btn btn-white btn-xs">
-									<i class="fa fa-share"></i> 分享
-								</button> -->
 							</div>
 						</div>
 						<div class="social-footer">
@@ -92,7 +225,9 @@
 								
 								<div class="media-body">
 									<!-- 回复人ID  应该写出回复人名字 -->
-									<a href="#"><span th:text="${reply.userId}"></span></a>
+									<a href="#"><span th:id="|RUserId${reply.replyId}|" th:text="${reply.userId}"></span></a>
+									<!-- 拿到回复Id -->
+									<input th:id="|Rid${reply.replyId}|" th:value="${reply.replyId}" type="hidden"/>
 									<!-- 回复内容 -->
 									<p th:text="${reply.replyContent}"></p>
 									
@@ -103,58 +238,50 @@
 									&nbsp;&nbsp;
 									
 									<a href="#" class="small">
-										<i class="fa fa-thumbs-up"></i>
-										<!-- 评论点赞数 -->
-										<span th:text="${reply.replyLikeNum}"></span>
+										<button th:id="|Rzan${reply.replyId}|" th:onclick="|Rdianzan('${reply.replyId}')|">
+											<i class="fa fa-thumbs-up"></i>
+											<!-- 回复点赞数 -->
+											<!-- <span th:text="${reply.replyId}"></span> -->
+											<span th:class="|RlikeNum${reply.replyId}|" th:text="${reply.replyLikeNum}"></span>
+										</button>
 									</a>
 									
 									&nbsp;&nbsp;
 									<!-- 点击"回复"时弹出回复框  添加回复   把回复信息存入数据库并刷新显示在页面上 -->
 									<button class="btn btn-white btn-xs">
-									<i class="fa fa-comments"></i> 回复
+									<i class="fa fa-comments"></i> 
 										<!-- 点击"评论"时弹出评论框    添加评论   把评论信息存入数据库并刷新显示在页面上-->
+										<a href="javascript:;" class="reply_btn" >回复</a>
 										<span></span>
 									</button>
 									<hr>
+									
 								</div>
 							</div>
 
 								<!-- 点击"回复"时弹出回复框  添加回复   把回复信息存入数据库并刷新显示在页面上 -->
 								<!-- <span>回复</span> -->
-								<!-- <div class="social-comment">
-									<a href="" class="pull-left"> <img alt="image"
-										src="/img/a8.jpg">
+								
+								<div class="social-comment">
+									<a href="" class="pull-left"> 
+										<!-- 拿写评论的用户头像和姓名 -->
+										<img alt="image" src="/img/a8.jpg">
+										<input th:id="|ACid${comment.commentId}|"  th:value="${comment.commentId}" type="hidden" />
+										<input th:id="|ACUserId${comment.commentId}|" th:value="${comment.commentId}" type="hidden" />
 									</a>
 									<div class="media-body">
-										<textarea class="form-control" placeholder="填写评论..."></textarea>
+										<textarea class="form-control" placeholder="填写评论..."  th:id="|Ccontent${comment.commentContent}|" th:value="${comment.commentContent}"></textarea>
+										<!-- <input type='submit' value='发表' th:id="|addC${comment.commentId}|" th:onclick="AddComment('${comment.commentId}')" /> -->
+										<!-- <button th:id="|addC${comment.commentId}|" th:onclick="AddComment('${comment.commentId}')">发表</button> -->
+										<input type="button" value="评论" onclick="AddComment()" />
 									</div>
-								</div> -->
-
+								</div>
 							</div>
-
 						</div>
-
 					</div>
-
 				</div>
 			</div>
 		</div>
 	</div>
-
-	<!-- 全局js -->
-	<script src="/js/jquery.min.js?v=2.1.4"></script>
-	<script src="/js/bootstrap.min.js?v=3.3.6"></script>
-
-
-
-	<!-- 自定义js -->
-	<script src="/js/content.js?v=1.0.0"></script>
-
-
-	<script type="text/javascript"
-		src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
-	<!--统计代码，可删除-->
-
 </body>
-
 </html>

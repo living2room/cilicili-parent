@@ -7,5 +7,5 @@ import com.cilicili.comment.domain.Like;
 
 @Mapper
 public interface LikeMapper extends BaseMapper<Like>{
-
+	Like findLikeDetail(Like like);
 }

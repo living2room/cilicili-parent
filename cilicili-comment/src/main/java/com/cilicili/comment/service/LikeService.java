@@ -16,66 +16,63 @@ public class LikeService {
 	@Resource
 	private LikeMapper likeMapper;
 
+	
+	/**
+	 * 通过用户Id查看是否有该用户的点赞记录
+	 * @param userId
+	 * @return
+	 */
 	@Transactional(propagation=Propagation.REQUIRED, readOnly=true)
-	public List<Like> findAll(){
-		try {
-			return this.likeMapper.selectList(null);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
+	public Like findByUserId(String userId){
+			return likeMapper.selectById(userId);
 	}
 	
+	/**
+	 * 通过点赞Id查看点赞记录
+	 * @param likeId
+	 * @return
+	 */
 	@Transactional(propagation=Propagation.REQUIRED, readOnly=true)
-	public Like findById(int likeCountId){
-		try {
-			return this.likeMapper.selectById(likeCountId);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
+	public Like findById(int likeId){
+			return likeMapper.selectById(likeId);
 	}
 	
+
+	/**
+	 * 根据用户id和文章id信息查询点赞记录
+	 * @param like
+	 * @return
+	 */
+	@Transactional(propagation=Propagation.REQUIRED, readOnly=true)
+	public Like findLikeDetail(Like like){
+		return likeMapper.findLikeDetail(like);
+		
+	}
+	
+	
+	/**
+	 * 添加点赞记录
+	 * @param like
+	 */
 	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
 	public void insert(Like like) {
-		try {
-			this.likeMapper.insert(like);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		} 
+		 likeMapper.insert(like);
 	}
 	
-	/*
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
-	public int updateById(LikeCount likeCount) {
-		try {
-			return this.likeCountMapper.updateById(likeCount);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		} 
+	@Transactional(propagation=Propagation.REQUIRED, readOnly=true)
+	public List<Like> findAll(){
+			return likeMapper.selectList(null);
 	}
-	*/
+	
 	
 	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
-	public int updateById(int likeCountId) {
-		try {
-			Like like = this.likeMapper.selectById(likeCountId);
-			return this.likeMapper.updateById(like);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		} 
+	public int updateById(int likeId) {
+			Like like = this.likeMapper.selectById(likeId);
+			return likeMapper.updateById(like);
 	}
 	
 	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
-	public void deleteById(int likeCountId){
-		try {
-			this.likeMapper.deleteById(likeCountId);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		} 
+	public void deleteById(int likeId){
+			likeMapper.deleteById(likeId);
 	}
 }

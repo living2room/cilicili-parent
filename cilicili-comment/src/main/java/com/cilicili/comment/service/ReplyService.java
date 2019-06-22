@@ -28,21 +28,27 @@ public class ReplyService {
 		return replyMapper.selectById(commentId);
 	}
 	
+	/**
+	 *  通过replyId查看回复信息
+	 * @param replyId
+	 * @return
+	 */
+	@Transactional(propagation=Propagation.REQUIRED, readOnly=true)
+	public Reply findById(int replyId){
+			return this.replyMapper.selectById(replyId);
+	}
+	
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
+	public int updateById(Reply reply) {
+			return this.replyMapper.updateById(reply);
+	}
 	
 	@Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 	public List<Reply> findAll(){
 			return replyMapper.selectList(null);
 	}
 	
-	@Transactional(propagation=Propagation.REQUIRED, readOnly=true)
-	public Reply findById(int commentReplyId){
-		try {
-			return this.replyMapper.selectById(commentReplyId);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
-	}
+	
 	
 	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
 	public void insert(Reply reply) {
@@ -54,17 +60,6 @@ public class ReplyService {
 		} 
 	}
 	
-	
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
-	public int updateById(int commentReplyId) {
-		try {
-			Reply reply = this.replyMapper.selectById(commentReplyId);
-			return this.replyMapper.updateById(reply);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		} 
-	}
 	
 	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
 	public void deleteById(int commentReplyId){

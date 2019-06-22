@@ -27,6 +27,25 @@ public class CommentService {
 		return commentMapper.selectById(videoId);
 	}
 	
+	/**
+	 * 通过commentId查看评论信息
+	 * @param commentId
+	 * @return
+	 */
+	@Transactional(propagation=Propagation.REQUIRED, readOnly=true)
+	public Comment findById(int commentId){
+		return commentMapper.selectById(commentId);
+	}
+	
+	/**
+	 * 添加评论
+	 * @param comment
+	 */
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
+	public void insert(Comment comment) {
+			this.commentMapper.insert(comment);
+	}
+	
 	/*
 	//思路2 分页selectPage
 	@Transactional(propagation=Propagation.REQUIRED, readOnly=true)
@@ -41,13 +60,7 @@ public class CommentService {
 	}
 	*/
 	
-	/**
-	 * @param comment
-	 */
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
-	public void insert(Comment comment) {
-			this.commentMapper.insert(comment);
-	}
+	
 	
 	
 	/**
@@ -71,4 +84,16 @@ public class CommentService {
 			this.commentMapper.deleteById(commentId);
 	}
 	
+
+	/**
+	 * 更新点赞
+	 * @param num
+	 * @param commentId
+	 * @param userId
+	 * @return
+	 */
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
+	public int updateLike(int num,int commentId,int userId) {
+			return commentMapper.updateLike(num, commentId, userId);
+	}
 }

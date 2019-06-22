@@ -7,5 +7,5 @@ import com.cilicili.comment.domain.Comment;
 
 @Mapper
 public interface CommentMapper extends BaseMapper<Comment>{
-	
+	int updateLike(int num,int commentId,int userId);
 }

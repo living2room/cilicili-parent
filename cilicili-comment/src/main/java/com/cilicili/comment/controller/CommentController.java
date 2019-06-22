@@ -6,8 +6,11 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cilicili.comment.domain.Comment;
 import com.cilicili.comment.domain.Reply;
@@ -67,7 +70,32 @@ public class CommentController {
 
 	}
 	  
-	
+	/**
+	 * 增加评论
+	 * 
+	 * @param comment
+	 * @return
+	 */
+
+	@PostMapping(value="/addComment" , produces="application/json")
+	@ResponseBody
+	public String addComment(@RequestBody Comment comment, Model model){
+		System.out.println("增加评论："+comment.toString()); 
+		/*if(comment.getCommentContent()!=null && !comment.getCommentContent().equals("")) { 
+			commentService.insert(comment); 
+		}*/
+		/*Comment comment1 =new Comment();
+		comment1.setCommentId(comment.getCommentId());
+		comment1.setUserId(comment.getUserId());
+		comment1.setCommentContent(comment.getCommentContent());
+		this.commentService.insert(comment1); */
+		this.commentService.insert(comment); 
+		model.addAttribute("comment",comment);
+		return "redirect:/comment/showComment?videoId="+comment.getVideoId();
+	}
+	//return "redirect:/user/comment?contentId="+comment.getcContentid(); }
+
+  
 	
 	/*
 	 * 
@@ -104,23 +132,10 @@ public class CommentController {
 	 * 
 	 * }
 	 * 
-	 *//**
-		 * 增加评论
-		 * 
-		 * @param comment
-		 * @return
-		 */
-	/*
-	 * 
-	 * @RequestMapping("/addComment") public String addComment(Comment comment){
-	 * System.out.println("增加评论："+comment.toString()); if(comment.getContent()!=null
-	 * && !comment.getContent().equals("")) { commentService.insert(comment); }
-	 * return "redirect:/comment/showComment?commentId="+comment.getCommentId();
-	 * //return "redirect:/user/comment?contentId="+comment.getcContentid(); }
-	 * 
-	 * 
-	 * 
-	 *//**
+	 */
+	
+	  
+	 /**
 		 * 通过评论ID查看评论内容
 		 * 
 		 * @param commentId
