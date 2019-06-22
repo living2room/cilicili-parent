@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>查看订单</title>
+</head>
+
+<body>
+	<h2 align="center">查看订单</h2>
+	<table width="800" border="1" cellspacing="0" cellpadding="0" align="center">
+		<tr align="center">
+			<td>订单ID</td>
+			<td>支付宝交易号</td>
+			<td>金额</td>
+			<td>用户ID</td>
+			<td>vip名</td>
+		</tr>
+		<tr align="center" th:each="manageOrders:${manageOrdersList}">
+			<td th:text="${manageOrders.payment_id}"></td>
+			<td th:text="${manageOrders.alipay_id}"></td>
+			<td th:text="${manageOrders.price}"></td>
+			<td th:text="${manageOrders.user_id}"></td>
+			<td th:text="${manageOrders.vip_name}"></td>
+		</tr>
+	</table>
+</body>
+</html>

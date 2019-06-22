@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+</head>
+
+<body>
+	<span th:utext="${javascript}"></span>
+	<form action="/PaymentManageVipType/update.do" method="post">
+	<table width="500" border="1" cellspacing="0" cellpadding="0" align="center">
+		<tr align="center">
+			<td>ID编号&nbsp;<span th:text="${vipType.VipID}"></span><input name="VipID" th:value="${vipType.VipID}" type="hidden"/></td>
+		</tr>
+		<tr align="center">
+			<td>VIP名称<input name="VipName" type="text" th:value="${vipType.VipName}"></td>
+		</tr>
+		<tr align="center">
+			<td>VIP售价<input name="VipPrice" type="text" th:value="${vipType.VipPrice}"></td>
+		</tr>
+		<tr align="center">
+			<td>VIP描述<input name="VipDescribe" type="text" th:value="${vipType.VipDescribe}"></td>
+		</tr>
+		<tr align="center">
+			<td>时间(月/30天)<input name="VipTime" type="text" th:value="${month}"></td>
+		</tr>
+		<tr align="center">
+			<td><input type="submit" value="修  改"></td>
+		</tr>
+	</table>
+	</form>
+</body>
+</html>

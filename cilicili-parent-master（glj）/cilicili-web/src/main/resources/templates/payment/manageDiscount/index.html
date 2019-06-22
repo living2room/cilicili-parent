@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>折扣管理</title>
+</head>
+
+<body>
+	<div align="center"><h2>折扣管理</h2></div>
+	<table width="800" border="1" cellspacing="0" cellpadding="0" align="center">
+		<tr align="center" th:each="discount:${discountList}">
+			<td><span th:text="${discount.VipName}"></span></td>
+			<td>
+				<form action="/PaymentManageDiscount/update" method="post">
+				<input type="hidden" th:value="${discount.VipID}" name="VipID"/>
+				<input th:if="${discount.discountName} !=null" name="discountName" th:value="${discount.discountName}+'&nbsp;&nbsp'"/>
+				<input th:if="${discount.discountName} ==null" name="discountName"/>				
+				<select name="discountValue">
+					<option value="10">无折扣</option>
+					<option th:if="${discount.discountValue} eq 9" th:selected="seleced" value="9">9折</option>
+					<option th:if="${discount.discountValue} ne 9" value="9">9折</option>
+					<option th:if="${discount.discountValue} eq 8" th:selected="seleced" value="8">8折</option>
+					<option th:if="${discount.discountValue} ne 8" value="8">8折</option>
+					<option th:if="${discount.discountValue} eq 7" th:selected="seleced" value="7">7折</option>
+					<option th:if="${discount.discountValue} ne 7" value="7">7折</option>
+					<option th:if="${discount.discountValue} eq 6" th:selected="seleced" value="6">6折</option>
+					<option th:if="${discount.discountValue} ne 6" value="6">6折</option>
+					<option th:if="${discount.discountValue} eq 5" th:selected="seleced" value="4">5折</option>
+					<option th:if="${discount.discountValue} ne 5" value="5">5折</option>
+					<option th:if="${discount.discountValue} eq 4" th:selected="seleced" value="4">4折</option>
+					<option th:if="${discount.discountValue} ne 4" value="4">4折</option>
+					<option th:if="${discount.discountValue} eq 3" th:selected="seleced" value="3">3折</option>
+					<option th:if="${discount.discountValue} ne 3" value="3">3折</option>
+					<option th:if="${discount.discountValue} eq 2" th:selected="seleced" value="2">2折</option>
+					<option th:if="${discount.discountValue} ne 2" value="2">2折</option>	
+					<option th:if="${discount.discountValue} eq 1" th:selected="seleced" value="1">1折</option>
+					<option th:if="${discount.discountValue} ne 1" value="1">1折</option>				
+				</select>
+				<span><input type="submit" value="修  改"></span>
+				</form>
+			</td>
+		</tr>
+		
+	</table>
+</body>
+</html>
