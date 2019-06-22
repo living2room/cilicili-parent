@@ -1,13 +1,15 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>com.cilicili</groupId>
-    <artifactId>cilicili-parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <artifactId>cilicili-user</artifactId>
-  
-  <properties>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.cilicili</groupId>
+		<artifactId>cilicili-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>cilicili-user</artifactId>
+
+	<properties>
 		<java.version>1.8</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -15,9 +17,15 @@
 			1.58版本默认的thymeleaf的版本是2.X的，所以我们还要将thymeleaf设置成3.0版本，具体代码如下,还是在pom.xml里： -->
 		<!-- <thymeleaf.version>3.0.0.RELEASE</thymeleaf.version> <thymeleaf-layout-dialect.version>2.0.0</thymeleaf-layout-dialect.version> -->
 	</properties>
-
+  
 	<dependencies>
-
+	
+        <dependency>
+		<groupId>com.cilicili</groupId>
+		<artifactId>cilicili-common</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -44,7 +52,7 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!--shiro核心类库 -->
+		 <!--shiro核心类库 -->
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-core</artifactId>
@@ -74,9 +82,9 @@
 
 		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
 		<dependency>
-		    <groupId>com.alibaba</groupId>
-		    <artifactId>fastjson</artifactId>
-		    <version>1.2.54</version>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.54</version>
 		</dependency>
 
 
@@ -128,6 +136,34 @@
 			<version>3.2.1</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>4.1.3</version>
+		</dependency>
+		
+		<!-- shiro整合cas单点 -->
+    <!-- <dependency> 
+      <groupId>org.apache.shiro</groupId> 
+      <artifactId>shiro-cas</artifactId> 
+      <version>1.2.4</version> 
+    </dependency>  -->
+
+
+<!-- 百度AI SDK人脸识别 -->
+	<dependency>
+		<groupId>com.baidu.aip</groupId>
+		<artifactId>java-sdk</artifactId>
+		<version>4.10.0</version>
+	</dependency>
+	
+	
+	<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-redis</artifactId>
+	</dependency>
+
 	</dependencies>
 
 
@@ -152,6 +188,6 @@
 
 		</plugins>
 	</build>
-  
+
 
 </project>

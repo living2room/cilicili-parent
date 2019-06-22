@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cilicili.user.mapper.user.PermissionMapper">
   <resultMap id="BaseResultMap" type="com.cilicili.user.domain.user.Permission">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="permission_id" jdbcType="VARCHAR" property="permissionId" />
+    <id column="permission_id" jdbcType="VARCHAR" property="permissionId" />
     <result column="permission_name" jdbcType="VARCHAR" property="permissionName" />
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="url" jdbcType="VARCHAR" property="url" />
@@ -15,6 +14,9 @@
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <collection property="roleList" javaType="java.util.List"
+			ofType="com.cilicili.user.domain.user.Role"
+			resultMap="com.cilicili.user.mapper.user.RoleMapper.BaseResultMap"/>
   </resultMap>
  
 </mapper>

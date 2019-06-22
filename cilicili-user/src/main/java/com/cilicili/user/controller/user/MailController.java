@@ -19,13 +19,14 @@ public class MailController {
 	    @ResponseBody
 	    public String getCheckCode(String email){
 	        String checkCode = String.valueOf(new Random().nextInt(899999) + 100000);
-	        String message = "您的注册验证码为："+checkCode;
+	        String message = "欢迎注册Cilicili,您的注册验证码为："+checkCode;
 	        try {
-	            mailService.sendSimpleMail(email, "注册验证码", message);
+	            mailService.sendSimpleMail(email, "Cilicili注册验证码", message);
+	            System.out.println("8688");
 	        }catch (Exception e){
 	            return "";
 	        }
-	        return checkCode;
+	        return checkCode;   
 	    }
 
 }

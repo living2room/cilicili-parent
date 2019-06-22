@@ -13,8 +13,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @MapperScan("com.cilicili")
 @ComponentScan("com.cilicili")
 public class CiliciliWebApplication {
-
+  
 	public static void main(String[] args) {
 		SpringApplication.run(CiliciliWebApplication.class, args);
+
 	}
+
 }

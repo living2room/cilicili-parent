@@ -21,12 +21,10 @@ public class MailService {
 
 	  @Value("${spring.mail.username}")
 	    private String from;
+
 	    @Autowired
 	    private JavaMailSender mailSender;
 	    
-	/*
-	 * private static final Logger log = LoggerFactory.getLogger(MailService.class);
-	 */
 
 	    Logger logger = LoggerFactory.getLogger(this.getClass());
 	 
