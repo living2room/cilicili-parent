@@ -5,7 +5,7 @@
 
 	<select id="findByUserName" resultMap="BaseResultMap">
 		select * from
-		tb_u_admin_user where user_name = #{userName}
+		tb_admin_user where user_name = #{userName}
 	</select>
 
 	<!-- 根据user_id查当前用户的所有角色及角色的所有权限 -->

@@ -1,209 +1,383 @@
-<!doctype html>
-<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
-	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
-<meta charset="utf-8">
-<title>用户登录</title>
-<style>
-#header_box {
-	width: 80px;
-	height: 80px;
-	border: 1px solid #fff;
-	border-radius: 100%;
-	position: relative;
-}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="robots" content="all">
+<title></title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="stylesheet" type="text/css" href="../css/ycbootstrap.css" />
+<link rel="stylesheet" type="text/css" href="../css/reset2.css" />
+<link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="../css/style.css" />
 
-#header_box img, input {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	border-radius: 100%;
-}
-
-input:hover, img:hover {
-	cursor: pointer;
-}
-
-input {
-	opacity: 0;
-	z-index: 100;
-}
-
-img {
-	background-color: #ececec;
-}
-</style>
+<script src="../js/jquery-1.9.1.js" type="text/javascript"></script>
+<script src="../plugins/cover_js/iscroll-zoom.js" type="text/javascript"
+	charset="utf-8"></script>
+<script src="../plugins/cover_js/hammer.js" type="text/javascript"
+	charset="utf-8"></script>
+<script src="../plugins/cover_js/lrz.all.bundle.js"
+	type="text/javascript" charset="utf-8"></script>
+<script src="../plugins/cover_js/jquery.photoClip.min.js"
+	type="text/javascript" charset="utf-8"></script>
 
 </head>
-
 <body>
-	<h3 align="left">个人信息</h3>
-	<div id="" align="left">
-		<form method="post" enctype="multipart/form-data" action="/message/upLoad">
-			<fieldset>
-				上传头像:
-				<div id="header_box">
-					<img src="#" alt="" id="user" /> <input type="file" name="file" id="file" />
+	<div class="top">
+		<div class="nav">
+			<div class="logo">
+				<img src="../img/LOGO01.png">
+			</div>
+			<div id="box">
+				<input type="text" id="box_sousuo" name="search"
+					placeholder="请输入关键字">
+				<div id="search">搜索</div>
+			</div>
+			<div class="nav_right">
+				<div class="shouye">
+					<div class="tubiao">
+						<img src="../img/zhuye_an.png">
+					</div>
+					<div class="nav_text">
+						<a href="index.html">首页</a>
+					</div>
 				</div>
-
-				昵称: <input type="text" name="" /> <br> 性别: <input type="text"
-					name="sex" id=""> <br> 出生日期: <input type="text" name="age"
-					id=""> <br> QQ: <input type="text" name="qq" /> <br>
-				家乡: <input type="text" name="home" /> <br>
-				<button type="submit">确定修改</button>
-			</fieldset>
-		</form>
+				<div class="shcngchuan">
+					<div class="tubiao">
+						<img src="../img/shangchuan.png">
+					</div>
+					<div class="nav_text">
+						<a href="#">上传</a>
+					</div>
+				</div>
+				<div class="shcngchuan">
+					<div class="tubiao">
+						<img src="../img/tuiguang.png">
+					</div>
+					<div class="nav_text">
+						<a href="#">推广</a>
+					</div>
+				</div>
+				<div class="shcngchuan">
+					<div class="tubiao">
+						<img src="../img/huiyuan.png">
+					</div>
+					<div class="nav_text">
+						<a href="#">会员</a>
+					</div>
+				</div>
+				<div class="shcngchuan">
+					<div class="tubiao">
+						<img src="../img/yonghu.png">
+					</div>
+					<div class="nav_text">
+						<a href="Login.html">登录</a>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
+
+	<div class="ziliao_img"></div>
+
+
+
+	<!-- <form method="post" enctype="multipart/form-data"
+		action="/message/upUsersMessage"> -->
+	<!------------------------- 上传封面开始	 ------------------------>
+	<div class="ycupload-mainbox" style="margin-top: 30px;">
+		<div class="ycupload-line"></div>
+		<div style="min-height: 1px;">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-xs-12"
+						style="padding-right: 0; padding-left: 200px;">
+
+						<!--<a href="javascript:void(0);" class="cover-uploadBtn">
+												<img src="img/yc_uploadimg_06.png"/>
+												<div id="clipArea"></div>
+												<input type="file" id="file">
+												<button id="clipBtn">截取</button>
+											</a>
+											<div id="view"></div>-->
+						<div
+							style="min-height: 1px; line-height: 160px; text-align: center; position: relative; padding-left: 340px;"
+							ontouchstart="">
+							<div class="cover-wrap"
+								style="display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); z-index: 10000000; text-align: center;">
+								<div class=""
+									style="width: 900px; height: 600px; margin: 100px auto; background-color: #FFFFFF; overflow: hidden; border-radius: 4px;">
+									<div id="clipArea" style="margin: 10px; height: 520px;"></div>
+									<div class=""
+										style="height: 56px; line-height: 36px; text-align: center; padding-top: 8px;">
+										<button id="clipBtn" type="button"
+											style="width: 120px; height: 36px; border-radius: 4px; background-color: #00a1d6; color: #FFFFFF; font-size: 14px; text-align: center; line-height: 36px; outline: none;">确认裁剪</button>
+									</div>
+								</div>
+							</div>
+
+
+
+							<div id="view"
+								style="width: 118px; height: 118px; border-radius: 50%;"
+								title="请上传 321*321 的封面图片">
+
+								<!-- background-image:url(../img/d99b4e0a60ab4c2c89eeb92234bf64f3.jpg); -->
+
+
+							</div>
+							<div style="height: 10px;"></div>
+							<div class=""
+								style="width: 100px; height: 32px; border-radius: 4px; background-color: #fff; color: #FFFFFF; font-size: 14px; text-align: center; line-height: 32px; outline: none; position: relative; color: #333; border: solid 1px #b8b8b8; margin-left: 8px;">
+								选择头像 <input type="file" name="file" id="file"
+									style="cursor: pointer; opacity: 0; filter: alpha(opacity = 0); width: 100%; height: 100%; position: absolute; top: 0; left: 0;">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!------------------------- 上传封面结束	 ------------------------>
+
+	<!-- 	<form method="post" enctype="multipart/form-data"
+			action="/message/upUsersMessage"> -->
+
+	<div class="ziliao_con">
+
+		<div class="input-group" style="margin-left: 26px;">
+			<span class="input-group-addon" th:utext="${userName}"
+				style="border: none; background: #fff; font-size: 18px;">昵称:&nbsp;&nbsp;</span>
+			<input type="hidden" id="userName" name="userName"
+				th:value="${userName}">
+		</div>
+
+		<div class="input-group " style="margin-left: 26px; margin-top: 30px;">
+			<span class="input-group-addon"
+				style="border: none; background: #fff; font-size: 18px;">性别:&nbsp;&nbsp;</span>
+			<!-- <input id="man" type="radio" checked="checked" name="1" />男<input id="woman" type="radio"  name="1"/>女 -->
+			<label class="radio-inline" style="font-size: 18px; margin-top: 3px;">
+				<input id="man" type="radio" name="sex" value="1"
+				style="margin-top: 7px;">男神
+			</label> <label class="radio-inline"
+				style="font-size: 18px; margin-top: 3px; margin-left: 30px;">
+
+				<input id="woman" type="radio" name="sex" value="2"
+				style="margin-top: 7px;">女神
+			</label>
+		</div>
+
+		<div class="input-group " style="margin-left: 26px; margin-top: 30px;">
+			<span class="input-group-addon"
+				style="border: none; background: #fff; font-size: 18px;">年龄:&nbsp;&nbsp;</span>
+			<input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')"
+				onafterpaste="this.value=this.value.replace(/\D/g,'')"
+				class="form-control" name="age" id="age" th:value="${age}"
+				placeholder="请输入&nbsp;1-150&nbsp;之间的数字" style="width: 280px;">
+		</div>
+
+		<div class="input-group " style="margin-left: 26px; margin-top: 30px;">
+			<span class="input-group-addon"
+				style="border: none; background: #fff; font-size: 18px;">手机:&nbsp;&nbsp;</span>
+			<input type="text" id="phone" name="phone" th:value="${phone}"
+				class="form-control" placeholder="请输入您的手机号码" style="width: 280px;"><label
+				id="l" title="asdf "></label>
+		</div>
+
+		<div class="input-group " style="margin-left: 26px; margin-top: 30px;">
+			<span class="input-group-addon"
+				style="border: none; background: #fff; font-size: 18px;">Q&nbsp;Q:&nbsp;&nbsp;</span>
+			<input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')"
+				onafterpaste="this.value=this.value.replace(/\D/g,'')" id="qq"
+				name="qq" th:value="${qq}" class="form-control"
+				placeholder="请输入您的QQ号码" style="width: 280px;">
+		</div>
+
+		<div class="input-group " style="margin-left: 26px; margin-top: 30px;">
+			<span class="input-group-addon"
+				style="border: none; background: #fff; font-size: 18px;">家乡:&nbsp;&nbsp;</span>
+			<input type="text"
+				onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')"
+				onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))"
+				id="home" class="form-control" name="home" th:value="${home}"
+				placeholder="例:&nbsp;&nbsp;&nbsp;广西-玉林" style="width: 280px;">
+		</div>
+
+
+		<div class="shuoming_con1"
+			style="margin-top: 30px; margin-left: 62px;">
+			<button type="button" id="ok" class="btn btn-primary"
+				style="height: 40px; width: 120px; background: #00a1d6; font-size: 16px; border: none; float: left;">保存</button>
+			<button type="reset" class="btn btn-primary"
+				style="height: 40px; width: 120px; background: #00a1d6; font-size: 16px; border: none; margin-left: 50px; float: left;">清空</button>
+		</div>
+
+	</div>
+	<input id="base64" name="base64" type="hidden">
+
+	<!-- </form> -->
+
+	<input type="hidden" id="sexvalue" th:value="${sex}">
+	<input type="hidden" id="img" th:value="${url1}">
+
+
+	<script type="text/javascript">			
+		
+		$("#phone").blur(function(){
+			
+  　  	    var phone = document.getElementById('phone').value;
+  　  	    if(phone==""){
+  　  	    	$("#l").text("");
+ 　  	    	 return true;
+ 　  	    	}
+  　  	   else  if(!(/^1[3456789]\d{9}$/.test(phone))){ 
+  　  	        //alert("手机号码有误，请重填");
+  　  	        $("#phone").focus();
+  　  	        $("#l").text("请输入正确的电话号码");
+  　  	        return false; 
+  　  	    }
+  　  	    else{
+  　  	    	$("#l").text("");
+  　  	    	 return true;
+  　  	    	}
+  　  	    
+		});	 
+		
+        
+		$("#ok").click(function() {
+			
+			
+			var pattern = /0?(13|14|15|17|18|19)[0-9]{9}/,
+     		str = '144455552';
+  　  	   		console.log(pattern.test(str));	
+  　  	    
+  　  	    
+			var userName = $("#userName").val();
+			var sex =	$('input[name=sex]:checked').val();	
+			console.log(sex)
+			var base64 = $("#base64").val();
+			var home = $("#home").val();
+			var phone = $("#phone").val();
+	  　  	    /*  if(phone==""){
+	  　  	    	$("#l").text("");
+	  　  	    	 return true;
+	  　  	    	}
+	  　  	    else */ //if(!(/^1[3456789]\d{9}$/.test(phone))){ 
+	  　  	        //alert("手机号码有误，请重填");
+	  　  	 /*        $("#phone").focus();
+	  　  	        $("#l").text("请输入正确的电话号码");
+	  　  	        return false; 
+	  　  	    }
+	  　  	    else{
+	  　  	    	$("#l").text("");
+	  　  	    	 return true;
+	  　  	    	} */
+	  　  	    
 	
-<img src="/images/52b1dc6c04434c229da574e0965bb21d.jpg" />
-<!-- 	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-	<script>
-		$("#file").on("change", function(e) {
-			/*console.log(e.target.files[0])又能得到什么呢
-			 *得到的是第一张input选择的图片的一些参数，得到的这些参数可以根据自己的需要提取，
-			 *比如我现在需要的是size参数，e.target.files[0].size就可以拿到了,得到的单位是b哈
-			 */
-			var file = e.target.files[0];
-			var maxSize = 2048;//设置图片上传最大值为2M
-			var name = file.name;
-			var size = (file.size / 1024).toFixed(2);
-			var type = file.type;
-			var reader = new FileReader();
-			reader.readAsDataURL(file);
-
-			reader.onload = function(e) {
-				var result = e.target.result;
-				var image = new Image();
-				image.src = result;
-
-				image.onload = function() {
-					if (size > maxSize) { //判断图像大小，大于2M则压缩后上传 ，小于2M直接上传无需压缩
-						var img64 = compress(image, 100, 100, 0.7);
-						$("#user").attr("src",img64); //实现图片预览功能
-
-						//调用后台上传接口 ，把img64当参数传给接口，接口调用成功则返回头像上传成功后的服务器的访问地址，把接口返回的图片地址赋值给页面上img的src即可
-						uploadImg(img64);
-					} else {
-						$("#user").attr("src", result); //实现图片预览功能
-						//调用后台上传接口 ，把result当参数传给接口，接口调用成功则返回头像上传成功后的服务器的访问地址，把接口返回的图片地址赋值给页面上img的src即可
-						//121			
-						//uploadImg(result);
-					}
+			
+			
+			
+			if($("#age").val()=="无" ||$("#age").val()==''){
+				var age = 0;	
+			}else{
+				var age = $("#age").val();
 				}
+			var qq = $("#qq").val();
+		 		$.ajax({
+					type : "POST",
+					url : "/message/upUsersMessage",
+					data : {
+						"userName" :userName,
+						"base64" :base64,
+						"home" : home,
+						"phone" : phone,
+						"age" : age,
+						"qq" : qq,
+						"sex" : sex	
+					}, 
+					
+					dataType : "json",
 
-			};
-
+					success : function(data) {
+						if (data["msg"] == 1) {
+							alert("修改成功");
+							(function() {
+								location.href = "/message/usersMessage?userName="+$("#userName").val();
+							})();
+						} else{
+							alert("修改失败");					
+						} 
+					},
+					error : function(data) {
+						alert("提交失败");
+					}	
+	 			}); 
 		});
+	</script>
 
-		/**canvas图片压缩函数
-		 * @params
-		 * img:需要压缩的图片对象
-		 * width:压缩后的宽度
-		 * height:压缩后的高
-		 * ratio:图片压缩质量(0-1);
-		 * */
-		 function compress(img, width, height, ratio) {
-			var canvas, ctx, img64;
-			canvas = document.createElement('canvas');
-			canvas.width = width;
-			canvas.height = height;
-			ctx = canvas.getContext("2d");
-			ctx.drawImage(img, 0, 0, width, height);
-			img64 = canvas.toDataURL("image/jpeg", ratio);
-			return img64;
-		} 
 
-		/**定义模拟图片上传接口函数
-		 * @params
-		 * img:传递给接口的图片的file类型的字符串
-		 */
-		 function uploadImg(img) {
-			var params = {
-				imgPath : img
-			};
-			$.ajax({
-				url : "/message/upLoad",
-				data : params,
-				type : "post",
-				success : function(data) {
-					if (data["code"] == 1) { //成功
-						var imgPath = data["imgPath"];//假设接口返回的地址为imgPath
-						$("#img").attr("src", imgPath);
-						alert("7"+imgPath);
-					}
-				},
-				error : function(data){
-				alert("6"+params);
-				
-			}
-			})
-		} 
-	</script> -->
 
-	<!-- 
-	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
 	<script type="text/javascript">
-        swfobject.addDomLoadEvent(function () {
-            var swf = new fullAvatarEditor("/Content/UploadPic/logoupload/fullAvatarEditor.swf", "/Content/UploadPic/logoupload/expressInstall.swf", "swfContainer", {
-                //此处的swfContainer是容器的id
-                id: 'swf',
-                upload_url: '@Url.Action("Upload")',
-                //avatar_sizes: "290*150",
-                //avatar_sizes_desc: "290*150像素", 
-                src_upload: 2,//是否上传原图片的选项，有以下值：    0 ---不上传 1 ---上传 2 ---显示复选框由用户选择
-                tab_visible:false,//是否显示选项卡
-                //browse_box_border_color:"#000",//图片选择框的边框颜色。格式如：#888，#888888
-                //browse_box_align:"center",
-                src_size: "2MB",//选择的本地图片文件所允许的最大值，必须带单位，如888Byte，88KB，8MB
-                browse_button: "上传图片",//选择图片时的按钮文本
-                //avatar_intro_font:"裁剪后图片",
-                isShowUploadResultIcon: true,//在上传完成时（无论成功和失败），是否显示表示上传结果的图标。
-                src_size_over_limit: '文件大小超出限制（2MB）\n请重新上传',
-            }, function (msg) {
-                switch (msg.code) {
-                    case 1: document.title="页面成功加载了组件！"; break;
-                    case 2: document.title="已成功加载默认指定的图片到编辑面板。"; break;
-                    case 3:
-                        if (msg.type == 0) {
-                            document.title = "摄像头已准备就绪且用户已允许使用。";
-                        }
-                        else if (msg.type == 1) {
-                            document.title="摄像头已准备就绪但用户未允许使用！";
-                        }
-                        else {
-                            document.title = "摄像头被占用！";
-                        }
-                        break;
-                    case 5:
-                        if (msg.type == 0) {
-                            if (msg.content.sourceUrl) {
-                                document.title = "原图已成功保存至服务器，url为：\n" + msg.content.sourceUrl;
-                            }
-                            document.title = "头像已成功保存至服务器，url为：\n" + msg.content.avatarUrls.join("\n");
-                        }
-                        break;
-                }
-            }
-            );
-       
-        });
+		$(function() {
+			//var username = $("#email").val();
+			var sex = $("#sexvalue").val();
+			if (sex == 2) {
+				$("#woman").attr("checked", "checked");
+				//$("#man").attr("checked", "false");
+				//$("#man").addClass("layui-btn-disabled");
+
+			} else if (sex == 1) {
+				$("#man").attr("checked", "checked");
+				//$("#woman").attr("checked", "false");
+			}
+		});
+		var img1 = $("#img").val();
+		var img3 ="url("+img1+")";
+		$('#view').css('background-image',img3);	
+	</script>
 
 
-    </script>
+	<script type="text/javascript">
+		//var img = localStorage.getItem('dataUrl');
+		//var img1 = "url(" + img + ")";
+		//console.log(img1);
+		//console.log(localStorage.getItem('dataUrl'));		 
+		//$('#view').css('background-image','url(../img/d99b4e0a60ab4c2c89eeb92234bf64f3.jpg)');
+		//$('#view').css('background-image', img1);
 
-	
-
-	 <div style="width:630px;margin: 0 auto;">
-        <h1 style="text-align:center">富头像上传编辑器演示</h1>
-        <div>
-         
-            <p id="swfContainer">
-            
-            </p>
-        </div>
-        <button id="upload">上传</button>
-    </div> -->
-
+		//上传封面
+		//document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+		var clipArea = new bjj.PhotoClip("#clipArea", {
+			size : [ 321, 321 ],// 截取框的宽和高组成的数组。默认值为[260,260]
+			outputSize : [ 321, 321 ], // 输出图像的宽和高组成的数组。默认值为[0,0]，表示输出图像原始大小
+			//outputType: "jpg", // 指定输出图片的类型，可选 "jpg" 和 "png" 两种种类型，默认为 "jpg"
+			file : "#file", // 上传图片的<input type="file">控件的选择器或者DOM对象
+			view : "#view", // 显示截取后图像的容器的选择器或者DOM对象
+			ok : "#clipBtn", // 确认截图按钮的选择器或者DOM对象
+			loadStart : function(file) {
+				// 开始加载的回调函数。this指向 fileReader 对象，并将正在加载的 file 对象作为参数传入
+				$('.cover-wrap').fadeIn();//fadeIn（渐显）
+				console.log("照片读取中");
+			},
+			loadComplete : function(src) {
+				// 加载完成的回调函数。this指向图片对象，并将图片地址作为参数传入
+				console.log("照片读取完成");
+			},
+			//loadError: function(event) {}, // 加载失败的回调函数。this指向 fileReader 对象，并将错误事件的 event 对象作为参数传入
+			clipFinish : function(dataURL) {
+				// 裁剪完成的回调函数。this指向图片对象，会将裁剪出的图像数据DataURL作为参数传入
+				$('.cover-wrap').fadeOut();//（渐隐）
+				$('#view').css('background-size', '100% 100%');
+				//localStorage.setItem('dataUrl', dataURL);
+				document.getElementById('base64').value = dataURL;
+				var img ="url("+dataURL+")";
+				$('#view').css('background-image',img);
+			}
+		});
+		//clipArea.destroy();
+	</script>
 </body>
 </html>

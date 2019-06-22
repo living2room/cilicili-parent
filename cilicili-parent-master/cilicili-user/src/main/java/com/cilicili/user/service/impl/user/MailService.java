@@ -25,9 +25,6 @@ public class MailService {
 	    @Autowired
 	    private JavaMailSender mailSender;
 	    
-	/*
-	 * private static final Logger log = LoggerFactory.getLogger(MailService.class);
-	 */
 
 	    Logger logger = LoggerFactory.getLogger(this.getClass());
 	 

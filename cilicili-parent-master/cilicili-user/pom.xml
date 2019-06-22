@@ -17,9 +17,15 @@
 			1.58版本默认的thymeleaf的版本是2.X的，所以我们还要将thymeleaf设置成3.0版本，具体代码如下,还是在pom.xml里： -->
 		<!-- <thymeleaf.version>3.0.0.RELEASE</thymeleaf.version> <thymeleaf-layout-dialect.version>2.0.0</thymeleaf-layout-dialect.version> -->
 	</properties>
-
+  
 	<dependencies>
-
+	
+        <dependency>
+		<groupId>com.cilicili</groupId>
+		<artifactId>cilicili-common</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -46,7 +52,7 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!--shiro核心类库 -->
+		 <!--shiro核心类库 -->
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-core</artifactId>
@@ -144,6 +150,19 @@
       <version>1.2.4</version> 
     </dependency>  -->
 
+
+<!-- 百度AI SDK人脸识别 -->
+	<dependency>
+		<groupId>com.baidu.aip</groupId>
+		<artifactId>java-sdk</artifactId>
+		<version>4.10.0</version>
+	</dependency>
+	
+	
+	<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-redis</artifactId>
+	</dependency>
 
 	</dependencies>
 

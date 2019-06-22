@@ -8,7 +8,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>cilicili-web</artifactId>
-   
+        
 	<dependencies>
 		<dependency>
 			<groupId>com.cilicili</groupId>

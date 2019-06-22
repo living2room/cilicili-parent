@@ -2,25 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.cilicili.user.mapper.user.UsersMessageMapper">
+	
+	<insert id="addMessage">
+		insert into  tb_u_users_message
+		(user_id,user_name) values
+		(#{userId},#{userName})
+	</insert>
 	<select id="findByUserName" resultMap="BaseResultMap">
-		select * from
+		select user_id,user_name,sex,phone,qq,home,age from
 		tb_u_users_message where user_name = #{userName}
 	</select>
 	<update id="upUsersMessage"
 		parameterType="com.cilicili.user.domain.user.UsersMessage">
 		update tb_u_users_message
-		<set>
+		<set> 
 			<if test="phone != null">
 				phone = #{phone},
 			</if>
-			<if test="sex != 0">
-				sex = #{sex}
+			<if test="imgUrl != null">
+				img_url = #{imgUrl},
 			</if>
-			<if test="home != 0">
-				home = #{home}
+			<if test="sex != null">
+				sex = #{sex},
 			</if>
-			<if test="age != 0">
-				age = #{age}
+			<if test="qq != null">
+				qq = #{qq},
+			</if>
+			<if test="home != null">
+				home = #{home},
+			</if>
+			<if test="age != null">
+				age = #{age},
 			</if>
 		</set>
 		where user_name = #{userName}

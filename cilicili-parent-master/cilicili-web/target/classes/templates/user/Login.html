@@ -80,7 +80,7 @@
 		<div class="" style="height: 425px; width: 420px; margin-left: 370px;">
 			<div style="height: 140px;"></div>
 			<div class="input-group " style="margin-left: 60px;">
-				<span class="input-group-addon"><b>账号</b></span> <input type="text"
+				<span class="input-group-addon"><b>账号</b></span> <input type="email"
 					name="email" id="email" class="form-control" style="width: 80%;"
 					placeholder="请输入您的邮箱">
 			</div>
@@ -95,7 +95,7 @@
 				<label> <input type="checkbox" name="isRememberMe" value="1"
 					id="oo" style="float: left;" />记住密码
 					<div id="yhzc" style="float: right; margin-left: 166px;">
-						<a href="#" style="color: #080808;">忘记密码</a>
+						<a href="/user/toUnknown" style="color: #080808;">忘记密码</a>
 					</div>
 				</label>
 			</div>
@@ -105,7 +105,11 @@
 					style="height: 40px; width: 300px; margin-left: 44px; background: #1266f1; font-size: 16px;">登录</button>
 			</div>
 			<br>
-			<div class="center-block" style="text-align: center">
+
+
+			<div class="center-block" style="text-align: center;">
+				<a href="/">>刷脸登录<</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				没有帐号？<a href="/user/toRegister">立即注册</a>
 			</div>
 		</div>
@@ -113,51 +117,60 @@
 
 
 	<script type="text/javascript">
-			$("#login").click(function() {
-				var username = $("#email").val();
-				var userPassword = $("#userPassword").val();
-				if (username == "" || username == null) {
-					$("#email").focus();
-					$("#email").css("color", "red");
-					$("#email").html("请输入邮箱");
-					return false;
-				} else if (userPassword == "" || userPassword == null) {
-					$("#userPassword").focus();
-					$("#userPassword").css("color", "red");
-					$("#userPassword").html("请输入密码");
-					return false;
+		$("#login").click(function() {
+			var username = $("#email").val();
+			var userPassword = $("#userPassword").val();
+			//document.getElementById("chec"+i).checked=false;
+			var checkbox = document.getElementById("oo");
+			var isRememberMe = "";
+			if (username == "" || username == null) {
+				$("#email").focus();
+				$("#email").css("color", "red");
+				$("#email").html("请输入邮箱");
+				return false;
+			} else if (userPassword == "" || userPassword == null) {
+				$("#userPassword").focus();
+				$("#userPassword").css("color", "red");
+				$("#userPassword").html("请输入密码");
+				return false;
+			} else {
+
+				if (checkbox.checked) {
+					isRememberMe = checkbox.value;
 				} else {
-					$.ajax({
-						type : "POST",
-						url : "/user/login",
-						data : {
-							"email" : $("#email").val(),
-							"userPassword" : $("#userPassword").val(),
-							"isRememberMe" : $("#isRememberMe").val(),
-						},
-						dataType : "json", 
-						
-						 success : function(data) {
-							if (data["aa"] == 1) {								
-								(function() {
-									location.href = "/user/index";
-								})();
-							} else if(data["aa"] == 0){
-									alert("账号或密码错误");								
-							}
-							 else if(data["aa"] == -1){
-									alert("账号已被禁用，请您联系客服");								
-							}
-						},
-						error : function(data) {
-								//alert("邮箱或密码错误");	
-								alert("提交失败"+data);	
-						} 
-
-					});
-
+					isRememberMe = 0;
 				}
-			});
+
+				$.ajax({
+					type : "POST",
+					url : "/user/login",
+					data : {
+						"email" : $("#email").val(),
+						"userPassword" : $("#userPassword").val(),
+						"isRememberMe" : isRememberMe,
+					},
+					dataType : "json",
+
+					success : function(data) {
+						if (data["aa"] == 1) {
+							(function() {
+								location.href = "/user/index";
+							})();
+						} else if (data["aa"] == 0) {
+							alert("账号或密码错误");
+						} else if (data["aa"] == -1) {
+							alert("账号已被禁用，请您联系客服");
+						}
+					},
+					error : function(data) {
+						//alert("邮箱或密码错误");	
+						alert("提交失败" + data);
+					}
+
+				});
+
+			}
+		});
 	</script>
 </body>
 
