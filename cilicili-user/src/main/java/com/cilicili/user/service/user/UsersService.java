@@ -2,7 +2,7 @@ package com.cilicili.user.service.user;
 
 import java.util.List;
 
-import com.cilicili.user.domain.user.Users;
+import com.cilicili.domain.user.user.Users;
 
 public interface UsersService {
 

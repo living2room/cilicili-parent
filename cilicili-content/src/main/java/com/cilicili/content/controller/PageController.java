@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cilicili.bean.content.Type;
 import com.cilicili.common.dto.TvAdDto;
 import com.cilicili.common.dto.TypeDto;
 import com.cilicili.common.dto.VideoReviewDto;
@@ -24,6 +23,7 @@ import com.cilicili.content.service.RankService;
 import com.cilicili.content.service.ReviewService;
 import com.cilicili.content.service.TypeService;
 import com.cilicili.content.service.VideoService;
+import com.cilicili.domain.content.Type;
 /**
  * 页面导航的Controller
  * 

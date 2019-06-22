@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.cilicili.user.domain.admin.AdminPermission;
+import com.cilicili.domain.user.admin.AdminPermission;
 
 @Mapper
 public interface AdminPermissionMapper {

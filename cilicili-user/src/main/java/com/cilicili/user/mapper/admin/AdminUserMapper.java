@@ -5,8 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.cilicili.user.domain.admin.AdminRole;
-import com.cilicili.user.domain.admin.AdminUser;
+import com.cilicili.domain.user.admin.AdminRole;
+import com.cilicili.domain.user.admin.AdminUser;
 
 @Mapper
 public interface AdminUserMapper {

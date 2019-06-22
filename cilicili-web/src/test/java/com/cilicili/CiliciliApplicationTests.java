@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.cilicili.user.domain.user.Users;
+import com.cilicili.domain.user.user.Users;
 import com.cilicili.user.mapper.admin.AdminRoleMapper;
 import com.cilicili.user.mapper.admin.AdminUserMapper;
 import com.cilicili.user.mapper.user.RoleMapper;

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cilicili.common.utils.RedisUtil;
-import com.cilicili.user.domain.user.UsersMessage;
+import com.cilicili.domain.user.user.UsersMessage;
 import com.cilicili.user.service.impl.user.UsersMessageServiceImpl;
 
 @Controller

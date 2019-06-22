@@ -1,4 +1,4 @@
-package com.cilicili.user.domain.user;
+package com.cilicili.domain.user.user;
 
 public class UserRole {
     private Integer id;

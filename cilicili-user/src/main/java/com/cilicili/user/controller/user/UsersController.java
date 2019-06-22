@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cilicili.common.utils.RedisUtil;
-import com.cilicili.user.domain.user.Users;
+import com.cilicili.domain.user.user.Users;
 import com.cilicili.user.service.impl.user.UsersMessageServiceImpl;
 import com.cilicili.user.service.impl.user.UsersServiceImpl;
 import com.cilicili.user.shiro.ultra.JudgeUsernamePasswordToken;
@@ -202,7 +202,6 @@ public class UsersController {
 					Session session = currentUser.getSession();
 					session.setAttribute("user", user);
 					session.setAttribute("userName", user.getUserName());
-					12123131313213
 					Users userR = (Users) redisUtil.get(user.getUserId());
 					if (userR == null) {
 						boolean b = redisUtil.set(user.getUserId(),user);

@@ -8,8 +8,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.cilicili.bean.content.VideoInfo;
-import com.cilicili.bean.content.VideoUrl;
+import com.cilicili.domain.content.VideoInfo;
+import com.cilicili.domain.content.VideoUrl;
 
 /**
  * @author 李明睿 2019年5月24日

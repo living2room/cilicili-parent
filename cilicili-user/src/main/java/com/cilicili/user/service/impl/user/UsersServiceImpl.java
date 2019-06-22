@@ -9,8 +9,8 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cilicili.user.domain.user.Role;
-import com.cilicili.user.domain.user.Users;
+import com.cilicili.domain.user.user.Role;
+import com.cilicili.domain.user.user.Users;
 import com.cilicili.user.mapper.user.RoleMapper;
 import com.cilicili.user.mapper.user.UsersMapper;
 import com.cilicili.user.service.user.UsersService;

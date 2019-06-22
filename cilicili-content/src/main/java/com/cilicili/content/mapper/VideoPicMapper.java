@@ -6,7 +6,7 @@ package com.cilicili.content.mapper;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.cilicili.bean.content.VideoPic;
+import com.cilicili.domain.content.VideoPic;
 
 /**
  * @author 李明睿

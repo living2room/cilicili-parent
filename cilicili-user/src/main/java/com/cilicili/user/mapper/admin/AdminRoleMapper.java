@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.cilicili.user.domain.admin.AdminRole;
+import com.cilicili.domain.user.admin.AdminRole;
 
 @Mapper
 public interface AdminRoleMapper {

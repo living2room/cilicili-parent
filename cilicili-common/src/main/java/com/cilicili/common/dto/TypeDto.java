@@ -5,7 +5,7 @@ package com.cilicili.common.dto;
 
 import java.util.List;
 
-import com.cilicili.bean.content.Type;
+import com.cilicili.domain.content.Type;
 
 import lombok.Data;
 

@@ -1,6 +1,6 @@
 package com.cilicili.user.service.user;
 
-import com.cilicili.user.domain.user.Role;
+import com.cilicili.domain.user.user.Role;
 
 public interface RoleService {
 

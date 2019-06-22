@@ -27,11 +27,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.cilicili.bean.content.Type;
 import com.cilicili.common.dto.UploadJsonObj;
 import com.cilicili.common.dto.VideoReviewDto;
 import com.cilicili.common.utils.RedisUtil;
 import com.cilicili.content.service.VideoService;
+import com.cilicili.domain.content.Type;
 
 /**
  * @author 李明睿 2019年5月23日

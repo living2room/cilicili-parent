@@ -2,7 +2,7 @@ package com.cilicili.user.service.admin;
 
 import java.util.List;
 
-import com.cilicili.user.domain.admin.AdminPermission;
+import com.cilicili.domain.user.admin.AdminPermission;
 
 
 public interface AdminPermissionService {

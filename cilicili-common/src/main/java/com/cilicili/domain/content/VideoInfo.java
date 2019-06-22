@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cilicili.bean.content;
+package com.cilicili.domain.content;
 
 import java.util.Date;
 

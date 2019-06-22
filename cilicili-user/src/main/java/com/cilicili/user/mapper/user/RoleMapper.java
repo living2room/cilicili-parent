@@ -2,7 +2,7 @@ package com.cilicili.user.mapper.user;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.cilicili.user.domain.user.Role;
+import com.cilicili.domain.user.user.Role;
 
 @Mapper
 public interface RoleMapper {

@@ -12,7 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.cilicili.user.domain.user.Users;
+import com.cilicili.domain.user.user.Users;
 import com.cilicili.user.service.impl.user.UsersServiceImpl;
 
 

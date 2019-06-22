@@ -4,7 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.cilicili.user.domain.user.UsersMessage;
+import com.cilicili.domain.user.user.UsersMessage;
 import com.cilicili.user.mapper.user.UsersMessageMapper;
 import com.cilicili.user.service.user.UsersMessageService;
 

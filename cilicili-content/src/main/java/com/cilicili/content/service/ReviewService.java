@@ -12,15 +12,15 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.cilicili.bean.content.VideoInfo;
-import com.cilicili.bean.content.VideoPic;
-import com.cilicili.bean.content.VideoUrl;
-import com.cilicili.bean.content.VideoUser;
 import com.cilicili.common.dto.VideoReviewDto;
 import com.cilicili.content.mapper.VideoInfoMapper;
 import com.cilicili.content.mapper.VideoPicMapper;
 import com.cilicili.content.mapper.VideoUrlMapper;
 import com.cilicili.content.mapper.VideoUserMapper;
+import com.cilicili.domain.content.VideoInfo;
+import com.cilicili.domain.content.VideoPic;
+import com.cilicili.domain.content.VideoUrl;
+import com.cilicili.domain.content.VideoUser;
 
 /**视频审查的业务层
  * @author 李明睿

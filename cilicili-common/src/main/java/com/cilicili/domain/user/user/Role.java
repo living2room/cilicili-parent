@@ -1,9 +1,9 @@
-package com.cilicili.user.domain.user;
+package com.cilicili.domain.user.user;
 
 import java.util.Date;
 import java.util.List;
 
-import com.cilicili.user.domain.admin.AdminPermission;
+import com.cilicili.domain.user.admin.AdminPermission;
 
 public class Role {
 

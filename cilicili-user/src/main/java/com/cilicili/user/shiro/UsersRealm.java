@@ -17,9 +17,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.cilicili.user.domain.user.Permission;
-import com.cilicili.user.domain.user.Role;
-import com.cilicili.user.domain.user.Users;
+import com.cilicili.domain.user.user.Permission;
+import com.cilicili.domain.user.user.Role;
+import com.cilicili.domain.user.user.Users;
 import com.cilicili.user.service.impl.user.UsersServiceImpl;
 import com.cilicili.user.shiro.ultra.JudgeUsernamePasswordToken;
 import com.cilicili.user.shiro.ultra.LoginType;

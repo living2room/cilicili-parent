@@ -4,7 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.cilicili.user.domain.user.Role;
+import com.cilicili.domain.user.user.Role;
 import com.cilicili.user.mapper.user.RoleMapper;
 import com.cilicili.user.service.user.RoleService;
 @Service

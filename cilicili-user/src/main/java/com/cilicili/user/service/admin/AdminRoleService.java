@@ -1,6 +1,6 @@
 package com.cilicili.user.service.admin;
 
-import com.cilicili.user.domain.admin.AdminRole;
+import com.cilicili.domain.user.admin.AdminRole;
 
 public interface AdminRoleService {
 

@@ -16,9 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cilicili.user.domain.admin.AdminPermission;
-import com.cilicili.user.domain.admin.AdminRole;
-import com.cilicili.user.domain.admin.AdminUser;
+import com.cilicili.domain.user.admin.AdminPermission;
+import com.cilicili.domain.user.admin.AdminRole;
+import com.cilicili.domain.user.admin.AdminUser;
 import com.cilicili.user.service.impl.admin.AdminPermissionServiceImpl;
 import com.cilicili.user.service.impl.admin.AdminRoleServiceImpl;
 import com.cilicili.user.service.impl.admin.AdminUserServiceImpl;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cilicili.bean.content;
+package com.cilicili.domain.content;
 
 import java.sql.Timestamp;
 import java.util.Date;

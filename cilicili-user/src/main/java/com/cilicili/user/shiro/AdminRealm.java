@@ -17,9 +17,9 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.cilicili.user.domain.admin.AdminPermission;
-import com.cilicili.user.domain.admin.AdminRole;
-import com.cilicili.user.domain.admin.AdminUser;
+import com.cilicili.domain.user.admin.AdminPermission;
+import com.cilicili.domain.user.admin.AdminRole;
+import com.cilicili.domain.user.admin.AdminUser;
 import com.cilicili.user.service.impl.admin.AdminUserServiceImpl;
 import com.cilicili.user.shiro.ultra.JudgeUsernamePasswordToken;
 import com.cilicili.user.shiro.ultra.LoginType;

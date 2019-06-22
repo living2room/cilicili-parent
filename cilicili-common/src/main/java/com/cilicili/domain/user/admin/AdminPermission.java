@@ -1,10 +1,10 @@
-package com.cilicili.user.domain.admin;
+package com.cilicili.domain.user.admin;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import com.cilicili.user.domain.user.Role;
+import com.cilicili.domain.user.user.Role;
 
 /*
  * 权限表的设计

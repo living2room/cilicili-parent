@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Select;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.cilicili.bean.content.VideoType;
+import com.cilicili.domain.content.VideoType;
 
 /**
  * @author 李明睿

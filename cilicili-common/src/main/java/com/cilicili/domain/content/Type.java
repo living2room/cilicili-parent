@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cilicili.bean.content;
+package com.cilicili.domain.content;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

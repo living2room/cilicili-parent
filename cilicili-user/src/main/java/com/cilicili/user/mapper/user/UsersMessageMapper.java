@@ -3,7 +3,7 @@ package com.cilicili.user.mapper.user;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.cilicili.user.domain.user.UsersMessage;
+import com.cilicili.domain.user.user.UsersMessage;
 
 @Mapper
 public interface UsersMessageMapper {

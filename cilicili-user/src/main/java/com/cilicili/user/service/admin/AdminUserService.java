@@ -2,8 +2,8 @@ package com.cilicili.user.service.admin;
 
 import java.util.List;
 
-import com.cilicili.user.domain.admin.AdminRole;
-import com.cilicili.user.domain.admin.AdminUser;
+import com.cilicili.domain.user.admin.AdminRole;
+import com.cilicili.domain.user.admin.AdminUser;
 
 public interface AdminUserService {
 

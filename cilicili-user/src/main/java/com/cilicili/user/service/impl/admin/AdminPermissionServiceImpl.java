@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.cilicili.user.domain.admin.AdminPermission;
+import com.cilicili.domain.user.admin.AdminPermission;
 import com.cilicili.user.mapper.admin.AdminPermissionMapper;
 import com.cilicili.user.service.admin.AdminPermissionService;
 

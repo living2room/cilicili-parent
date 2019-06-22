@@ -4,7 +4,7 @@
 package com.cilicili.content.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.cilicili.bean.content.Type;
+import com.cilicili.domain.content.Type;
 
 /**
  * @author 李明睿

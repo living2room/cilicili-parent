@@ -11,12 +11,6 @@ import org.springframework.transaction.event.TransactionalEventListener;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.cilicili.bean.content.Type;
-import com.cilicili.bean.content.VideoData;
-import com.cilicili.bean.content.VideoInfo;
-import com.cilicili.bean.content.VideoPic;
-import com.cilicili.bean.content.VideoType;
-import com.cilicili.bean.content.VideoUrl;
 import com.cilicili.common.dto.TvAdDto;
 import com.cilicili.content.mapper.TypeMapper;
 import com.cilicili.content.mapper.VideoDataMapper;
@@ -24,6 +18,12 @@ import com.cilicili.content.mapper.VideoInfoMapper;
 import com.cilicili.content.mapper.VideoPicMapper;
 import com.cilicili.content.mapper.VideoTypeMapper;
 import com.cilicili.content.mapper.VideoUrlMapper;
+import com.cilicili.domain.content.Type;
+import com.cilicili.domain.content.VideoData;
+import com.cilicili.domain.content.VideoInfo;
+import com.cilicili.domain.content.VideoPic;
+import com.cilicili.domain.content.VideoType;
+import com.cilicili.domain.content.VideoUrl;
 
 /**
  * 页面展示的服务层

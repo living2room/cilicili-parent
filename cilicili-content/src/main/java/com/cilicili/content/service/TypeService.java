@@ -14,9 +14,9 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.cilicili.bean.content.Type;
 import com.cilicili.common.dto.TypeTreeJsonObj;
 import com.cilicili.content.mapper.TypeMapper;
+import com.cilicili.domain.content.Type;
 
 /**
  * @author 李明睿
