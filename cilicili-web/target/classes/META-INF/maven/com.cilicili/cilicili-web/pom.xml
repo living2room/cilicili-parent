@@ -8,7 +8,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>cilicili-web</artifactId>
-
+        
 	<dependencies>
 		<dependency>
 			<groupId>com.cilicili</groupId>
@@ -45,5 +45,14 @@
 			<artifactId>cilicili-social</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<version>2.1.4.RELEASE</version><!--$NO-MVN-MAN-VER$-->
+			<scope>test</scope>
+		</dependency>
+ 
 	</dependencies>
 </project>
