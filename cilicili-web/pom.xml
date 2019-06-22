@@ -62,11 +62,12 @@
 			<artifactId>druid</artifactId>
 			<version>1.1.10</version>
 		</dependency>
-
+	
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-test</artifactId>
+		    <scope>test</scope>
 		</dependency>
 		<!-- WebJars -->
 		<!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->

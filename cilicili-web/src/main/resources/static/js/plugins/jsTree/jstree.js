@@ -3702,7 +3702,7 @@
 		 * @trigger rename_node.jstree
 		 */
 		rename_node : function (obj, val) {
-
+            alert("aaaa");
 			var t1, t2, old;
 			if($.isArray(obj)) {
 				obj = obj.slice();
@@ -3714,13 +3714,13 @@
 			obj = this.get_node(obj);
 			if(!obj || obj.id === $.jstree.root) { return false; }
 			old = obj.text;
-
+            alert("bbb");
 			if(!this.check("rename_node", obj, this.get_parent(obj), val)) {
-
+                alert("mmm");
 				this.settings.core.error.call(this, this._data.core.last_error);
 				return false;
 			}
-
+            alert("ccc");
 			this.set_text(obj, val); // .apply(this, Array.prototype.slice.call(arguments))
 			/**
 			 * triggered when a node is renamed

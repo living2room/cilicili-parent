@@ -3,6 +3,8 @@ package com.cilicili.payment.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,11 @@ import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.cilicili.payment.config.AlipayConfig;
 import com.cilicili.payment.config.AlipayReturnConfig;
+import com.cilicili.payment.domain.OpenVip;
+import com.cilicili.payment.domain.VipEndTime;
+import com.cilicili.payment.service.AlreadyPaymentService;
+import com.cilicili.payment.service.OpenVipService;
+import com.cilicili.payment.service.VipEndTimeService;
 
 
 @Controller
@@ -59,6 +66,13 @@ public class PaymentToAlipay {
 		return "payment/alipay/payPage.html";
 	}
 	
+	@Resource 
+	private VipEndTimeService vipEndTimeService;
+	@Resource 
+	private OpenVipService openVipService;
+	@Resource
+	private AlreadyPaymentService alreadyPaymentService;
+	
 	//验证收款
 	@RequestMapping("AlipayReturn")
 	public String AlipayReturn(AlipayReturnConfig alipayReturnConfig, Model model) {
@@ -85,6 +99,28 @@ public class PaymentToAlipay {
 			
 			model.addAttribute("status","failure");
 			if(signVerified) {
+				OpenVip openVip=openVipService.select(Long.parseLong(alipayReturnConfig.getOut_trade_no()));
+				Long vipEndTime=openVip.getVipTime()+System.currentTimeMillis()/1000;
+				VipEndTime Db_vipEndTime=vipEndTimeService.select(openVip.getUserID());
+				if(Db_vipEndTime==null) {
+					//说明数据库中没有该用户信息，即该用户不是vip用户
+					vipEndTimeService.insert(openVip.getUserID(),vipEndTime);
+				}else{
+					//数据库中存在该用户数据
+					if(Db_vipEndTime.getVipEndTime()>=(System.currentTimeMillis() / 1000)) {
+						//说明该用户vip没有过期
+						//增加时间
+						vipEndTimeService.update(openVip.getVipTime()+Db_vipEndTime.getVipEndTime(), openVip.getUserID());
+					}else {
+						//该用户vip已经过期（现在不是vip）
+						vipEndTimeService.update(vipEndTime,openVip.getUserID());
+					}
+					
+				}
+				
+				
+				alreadyPaymentService.insert(Long.parseLong(alipayReturnConfig.getOut_trade_no()), alipayReturnConfig.getTrade_no());
+				
 				//订单号
 				model.addAttribute("out_trade_no",alipayReturnConfig.getOut_trade_no());
 				//支付宝交易号
@@ -92,6 +128,7 @@ public class PaymentToAlipay {
 				//付款金额
 				model.addAttribute("total_amount",alipayReturnConfig.getTotal_amount());
 				model.addAttribute("status","success");
+				
 			}
 		} catch (AlipayApiException e) {
 			// TODO Auto-generated catch block

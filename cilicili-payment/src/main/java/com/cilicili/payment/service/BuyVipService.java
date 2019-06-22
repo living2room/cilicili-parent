@@ -1,5 +1,7 @@
 package com.cilicili.payment.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -17,6 +19,10 @@ public class BuyVipService {
 	@Transactional(propagation=Propagation.REQUIRED,readOnly=true)
 	public BuyVip select(Integer vipID) {
 		return buyVipMapper.select(vipID);
+	} 
+	@Transactional(propagation=Propagation.REQUIRED,readOnly=true)
+	public List<BuyVip> findAll() {
+		return buyVipMapper.findAll();
 	} 
 	
 	

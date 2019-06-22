@@ -1,7 +1,5 @@
 package com.cilicili.payment.domain;
 
-import java.util.Date;
-
 
 public class VipType {
 //	VipID	int

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @MapperScan("com.cilicili")
 @ComponentScan("com.cilicili")
+//@MapperScan(basePackages = {"com.cilicili.payment.mapper"})
 public class CiliciliWebApplication {
   
 	public static void main(String[] args) {

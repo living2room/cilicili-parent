@@ -16,39 +16,39 @@ import com.cilicili.payment.domain.VipType;
 @Mapper
 public interface VipTypeMapper {
 	
-	@Insert(value = "insert into viptype (VipPrice, VipName, VipDescribe,VipTime) "
+	@Insert(value = "insert into tb_vip_type (vip_price, vip_name, vip_describe,vip_time) "
 		          + "values(#{VipPrice, jdbcType=DOUBLE}, #{VipName, jdbcType=VARCHAR}, #{VipDescribe, jdbcType=VARCHAR}, #{VipTime ,jdbcType=DOUBLE})")
 	int insert(VipType vipType);
 	
-	@Select(value="select * from viptype")
+	@Select(value="select * from tb_vip_type")
 	@Results(value= {
-			@Result(column="VipID",property="VipID",jdbcType=JdbcType.INTEGER),
-			@Result(column="VipPrice",property="VipPrice",jdbcType=JdbcType.DECIMAL),
-			@Result(column="VipName",property="VipName",jdbcType=JdbcType.VARCHAR),
-			@Result(column="VipDescribe",property="VipDescribe",jdbcType=JdbcType.VARCHAR),
-			@Result(column="VipTime",property="VipTime",jdbcType=JdbcType.DOUBLE)
+			@Result(column="vip_id",property="VipID",jdbcType=JdbcType.INTEGER),
+			@Result(column="vip_price",property="VipPrice",jdbcType=JdbcType.DECIMAL),
+			@Result(column="vip_name",property="VipName",jdbcType=JdbcType.VARCHAR),
+			@Result(column="vip_describe",property="VipDescribe",jdbcType=JdbcType.VARCHAR),
+			@Result(column="vip_time",property="VipTime",jdbcType=JdbcType.DOUBLE)
 	})
 	List<VipType> findAll();
 	
-	@Delete(value="DELETE FROM viptype where VipID="
+	@Delete(value="DELETE FROM tb_vip_type where vip_id="
 				  + "#{VipID, jdbcType=INTEGER}")
 	int delete(String VipID);
 	
-	@Select(value="select * from viptype where VipID="
+	@Select(value="select * from tb_vip_type where vip_id="
 				 +"#{VipID,jdbcType=INTEGER}")
 	@Results(value= {
-			@Result(column="VipID",property="VipID",jdbcType=JdbcType.INTEGER),
-			@Result(column="VipPrice",property="VipPrice",jdbcType=JdbcType.DECIMAL),
-			@Result(column="VipName",property="VipName",jdbcType=JdbcType.VARCHAR),
-			@Result(column="VipDescribe",property="VipDescribe",jdbcType=JdbcType.VARCHAR),
-			@Result(column="VipTime",property="VipTime",jdbcType=JdbcType.DOUBLE)
+			@Result(column="vip_id",property="VipID",jdbcType=JdbcType.INTEGER),
+			@Result(column="vip_price",property="VipPrice",jdbcType=JdbcType.DECIMAL),
+			@Result(column="vip_name",property="VipName",jdbcType=JdbcType.VARCHAR),
+			@Result(column="vip_describe",property="VipDescribe",jdbcType=JdbcType.VARCHAR),
+			@Result(column="vip_time",property="VipTime",jdbcType=JdbcType.DOUBLE)
 	})
 	VipType selectById(String VipId);
 	
-	@Update(value="update viptype set VipPrice=#{VipPrice,jdbcType=DECIMAL},"
-				+ "VipName=#{VipName,jdbcType=VARCHAR},"
-				+ "VipDescribe=#{VipDescribe,jdbcType=VARCHAR},"
-				+ "VipTime=#{VipTime,jdbcType=DOUBLE}"
-				+ "where VipID=#{VipID,jdbcType=INTEGER}")
+	@Update(value="update tb_vip_type set vip_price=#{VipPrice,jdbcType=DECIMAL},"
+				+ "vip_name=#{VipName,jdbcType=VARCHAR},"
+				+ "vip_describe=#{VipDescribe,jdbcType=VARCHAR},"
+				+ "vip_time=#{VipTime,jdbcType=DOUBLE}"
+				+ "where vip_id=#{VipID,jdbcType=INTEGER}")
 	int updateDo(VipType vipType);
 }
