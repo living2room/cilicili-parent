@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.cilicili.advertisement.mapper")
+//@MapperScan(basePackages = {"com.cilicili.payment.mapper"})
 public class CiliciliWebApplication {
 
 	public static void main(String[] args) {

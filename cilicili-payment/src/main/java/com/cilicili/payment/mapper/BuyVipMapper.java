@@ -1,5 +1,7 @@
 package com.cilicili.payment.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -10,18 +12,34 @@ import com.cilicili.payment.domain.BuyVip;
 
 @Mapper
 public interface BuyVipMapper {
-	@Select(value="select * from viptype left join discount on VipID=vipTypeID where VipID=#{VipID,jdbcType=INTEGER}")
+	@Select(value="select * from tb_vip_type left join tb_discount on vip_id=vip_type_id where vip_id=#{VipID,jdbcType=INTEGER}")
 	@Results(value= {
-			@Result(column="VipID",property="VipID",jdbcType=JdbcType.INTEGER),
-			@Result(column="VipPrice",property="VipPrice",jdbcType=JdbcType.DECIMAL),
-			@Result(column="VipName",property="VipName",jdbcType=JdbcType.VARCHAR),
-			@Result(column="VipDescribe",property="VipDescribe",jdbcType=JdbcType.VARCHAR),
-			@Result(column="VipTime",property="VipTime",jdbcType=JdbcType.DOUBLE),
-			@Result(column="discountID",property="discountID",jdbcType=JdbcType.INTEGER),
-			@Result(column="discountName",property="discountName",jdbcType=JdbcType.VARCHAR),
-			@Result(column="vipTypeID",property="vipTypeID",jdbcType=JdbcType.INTEGER),
-			@Result(column="discountValue",property="discountValue",jdbcType=JdbcType.INTEGER),
+			@Result(column="vip_id",property="VipID",jdbcType=JdbcType.INTEGER),
+			@Result(column="vip_price",property="VipPrice",jdbcType=JdbcType.DECIMAL),
+			@Result(column="vip_name",property="VipName",jdbcType=JdbcType.VARCHAR),
+			@Result(column="vip_describe",property="VipDescribe",jdbcType=JdbcType.VARCHAR),
+			@Result(column="vip_time",property="VipTime",jdbcType=JdbcType.DOUBLE),
+			@Result(column="discount_id",property="discountID",jdbcType=JdbcType.INTEGER),
+			@Result(column="discount_name",property="discountName",jdbcType=JdbcType.VARCHAR),
+			@Result(column="vip_type_id",property="vipTypeID",jdbcType=JdbcType.INTEGER),
+			@Result(column="discount_value",property="discountValue",jdbcType=JdbcType.INTEGER),
 			
 	})
-	BuyVip select(Integer VipID);
+	
+	BuyVip select(Integer vipID);
+	
+	@Select(value="select * from tb_vip_type left join tb_discount on vip_id=vip_type_id")
+	@Results(value= {
+			@Result(column="vip_id",property="VipID",jdbcType=JdbcType.INTEGER),
+			@Result(column="vip_price",property="VipPrice",jdbcType=JdbcType.DECIMAL),
+			@Result(column="vip_name",property="VipName",jdbcType=JdbcType.VARCHAR),
+			@Result(column="vip_describe",property="VipDescribe",jdbcType=JdbcType.VARCHAR),
+			@Result(column="vip_time",property="VipTime",jdbcType=JdbcType.DOUBLE),
+			@Result(column="discount_id",property="discountID",jdbcType=JdbcType.INTEGER),
+			@Result(column="discount_name",property="discountName",jdbcType=JdbcType.VARCHAR),
+			@Result(column="vip_type_id",property="vipTypeID",jdbcType=JdbcType.INTEGER),
+			@Result(column="discount_value",property="discountValue",jdbcType=JdbcType.INTEGER),
+			
+	})
+	List<BuyVip> findAll();
 }

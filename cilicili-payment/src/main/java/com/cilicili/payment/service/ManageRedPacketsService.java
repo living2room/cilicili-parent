@@ -22,8 +22,12 @@ public class ManageRedPacketsService {
 	}
 	
 	@Transactional(propagation=Propagation.REQUIRED,readOnly=true)
-	public List<RedPackets> selectByUserID(Integer UserID){
+	public List<RedPackets> selectByUserID(String UserID){
 		return redPacketsMapper.selectByUserID( UserID);
 	}
 	
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor= {Exception.class})
+	public int delete(int id){
+		return redPacketsMapper.delete(id);
+	}
 }
