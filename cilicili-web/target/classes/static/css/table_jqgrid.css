@@ -1,0 +1,10 @@
+body{
+	margin:0px auto;
+}
+#reseacher{width:80%;margin:0px auto;}
+#reseacher a{width:30%;margin-right:100px;align:right;}
+#advertise{
+	width:140px;
+	height:25px;
+	text-align:center;
+}
