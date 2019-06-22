@@ -3,13 +3,14 @@ package com.cilicili.advertisement.mapper;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.cilicili.advertisement.domin.Buttle_Adv;
+import com.cilicili.advertisement.domain.ButtleAdv;
 
 
 
 
 @Mapper
-public interface ButtleMapper extends BaseMapper<Buttle_Adv> {
+public interface ButtleMapper extends BaseMapper<ButtleAdv> {
+
 
 //	public void addAdv(List<Buttle_Adv> ButtleList);//批量添加
 //	public void addAdvByOne(Buttle_Adv one);//单条添加

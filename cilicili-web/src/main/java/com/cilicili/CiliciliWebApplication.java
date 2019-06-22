@@ -8,11 +8,11 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
+
 @EnableAspectJAutoProxy
 @EnableTransactionManagement
 @MapperScan("com.cilicili")
 @ComponentScan("com.cilicili")
-//@MapperScan(basePackages = {"com.cilicili.payment.mapper"})
 public class CiliciliWebApplication {
   
 	public static void main(String[] args) {

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>jqGird</title>
+	<!-- 删除确认 -->
+	<script type="text/javascript" src="/js/simpleAlert.js"></script>
+	<link rel="stylesheet" type="text/css" href="/css/simpleAlert.css">
+	
+	
+    <link rel="shortcut icon" href="favicon.ico"> <link href="/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <!-- jqgrid-->
+    <link href="/css/plugins/jqgrid/ui.jqgrid.css" rel="stylesheet">
+
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="/css/style.css?v=4.1.0" rel="stylesheet">
+
+
+	<link href="/css/table_jqgrid.css?v=4.1.0" rel="stylesheet"><!-- 自定义 -->
+    <style>
+        /* Additional style to fix warning dialog position */
+
+        #alertmod_table_list_2 {
+            top: 900px !important;
+        }
+    </style>
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content  animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox ">
+                    <div class="ibox-title">
+                        <h5>标题</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div id="research">
+						<form action="" id="form1" style="display:inline;text-align:center;">
+							<tr><td>广告类别:</td>
+							<td><select id="advertise">
+								<option th:each="type,userStat:${session.typelist}"
+									th:value="${type.controllerPath}" th:text="${type.typeName}"></option>
+							</select></td>
+							</tr>
+							<tr>
+								<td>时间：</td>
+							</tr>
+							<tr>
+								<td>从：</td>
+								<td><input type="date" name="toCreateTime" id="tocreate"></td>
+							</tr>
+							<tr>
+								<td>至：</td>
+								<td><input type="date" name="toFinalTime" id="tofinal"></td>
+							</tr>
+							<tr>
+								<td><input type="button" id="but" value="生成表格" class="btn btn-info"></td>
+							</tr>
+							<tr>
+							<!--  -->
+								<td><input type="hidden" value="selectall" id="typeId"></td>
+							</tr>
+						</form>
+							<a th:href="@{/advertisetype/pub}" type="button" class="btn btn-primary" style="display:inline;">发布广告</a>
+                            <a href="javascript:;" id="delmore" type="button" class="btn btn-primary" style="display:inline;">批量删除</a>
+                            <a href="javascript:;" id="outPutExcel" type="button" class="btn btn-primary" style="display:inline;" onclick="exportExcel()">导出表格</a>
+                        </div>
+                        <div class="jqGrid_wrapper">
+                            
+                            <table id="table_list_2"></table>
+                            <div id="pager_list_2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 全局js -->
+    <script src="/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/js/bootstrap.min.js?v=3.3.6"></script>
+    <!-- Peity -->
+    <script src="/js/plugins/peity/jquery.peity.min.js"></script>
+    <!-- jqGrid -->
+    <script src="/js/plugins/jqgrid/i18n/grid.locale-cn.js"></script>
+    <script src="/js/plugins/jqgrid/jquery.jqGrid.min.js"></script>
+    <!-- 自定义js -->
+    <script src="/js/content.js?v=1.0.0"></script>
+    <!-- Page-Level Scripts -->
+    <script src="/js/plugins/layer/layer.min.js"></script>
+    <script>
+    	
+$(function () {
+   jqgridform();
+   var mydata={};
+   var addr;
+   var tocreate;
+   var tofinal;
+        	
+   function jqgridform(){
+   if(typeof(addr)=="undefined")
+        {addr="center";}
+        $.jgrid.defaults.styleUI = 'Bootstrap';
+
+        $('#table_list_2').jqGrid('clearGridData');
+       	$('#table_list_2').jqGrid('setGridParam', {url: '/'+addr+'/'+typeId.value+"?toCreateTime="+tocreate+"&toFinalTime="+tofinal}).trigger('reloadGrid');
+    	$("#table_list_2").jqGrid({
+    		   data: mydata,
+    		   url: '/'+addr+'/'+typeId.value+"?toCreateTime="+tocreate+"&toFinalTime="+tofinal,
+    		   datatype: "json",
+    		   height: 450,
+    		   autowidth: true,
+    		   autoScroll: true,
+    		   shrinkToFit: true,
+    		   rowNum: 5,
+    		   rowList: [5, 10, 20, 30],
+    		   colNames: ['序号', '链接', '图片地址', '图片描述', '图片信息', '发布时间', '修改信息时间', '发布人id', '广告状态','图片','操作'],
+    		   colModel: [
+    		        {name: 'id',index: 'id',editable: true,width: 60,sorttype: "int",search: true},
+    		        {name: 'url',index: 'url',editable: true,width: 90},
+    		        {name: 'imgSrc',index: 'imgSrc',editable: true,width: 100},
+    		        {name: 'alt',index: 'alt',editable: true,width: 80,align: "right"},
+    		        {name: 'remark',index: 'remark',editable: true,width: 80,align: "right"},
+    		        {name: 'createTime',index: 'createTime',editable: true,width: 80,align: "right"},
+    		        {name: 'updateTime',index: 'updateTime', editable: true,width: 100,sorttype: "date",formatter: "time" },
+    		        {name: 'operatorId',index: 'operatorId',editable: true,width: 100,sortable: false},
+    		        {name: 'status',index: 'status',editable: true,width: 100},
+    		        {name: 'imgSrc', index: 'imgSrc', width: 100, align: "center", sortable: false, editable: false, formatter: imageFormat},
+    		        {name : 'act',index : 'act',width : 75,sortable : false}//操作
+    		        ],
+    		   pager: "#pager_list_2",
+    		   viewrecords: true,
+    		   multiselect:'true',
+    		   gridComplete : function() {
+	    		   var ids = jQuery("#table_list_2").jqGrid('getDataIDs');
+	    		   for ( var i = 0; i < ids.length; i++) {
+	    		      var cl = ids[i];
+	    		      be = "<a style='height:22px;width:20px;' href='/"+addr+"/isUse?operator=3&isNormal=0&advid="+cl+"' >禁用</a>&nbsp;";
+	    		      se = "<a style='height:22px;width:20px;' href='/"+addr+"/isUse?operator=3&isNormal=1&advid="+cl+"' >启用</a>&nbsp;";
+	    		      ce = "<a style='height:22px;width:20px;' href='/"+addr+"/tomodify?advid="+cl+"' >修改</a>";
+	    		      jQuery("#table_list_2").jqGrid('setRowData', ids[i],
+	    		           {
+	    		            act : be + se + ce
+	    		           });
+	    		        }
+	    		      },
+    		  caption: "数据测试",
+    		  add: true,
+    		  edit: true,
+    		  addtext: 'Add',
+    		  edittext: 'Edit',
+    		  //editurl: '/'+addr+'/modify',    // flag指提交给controller时对应的增删改处理，然后删除时还要去拿一个id
+    		  hidegrid: false
+    		            });
+    			
+   function showPicture(cellvalue, options, rowObject){
+    				
+    		return "<img src='" +cellvalue  + "' height='50' width='50' />";
+    	}
+    	    	
+    	       // var newUrl = '/'+addr+'/'+typeId.value;    //设置新提交地址
+                // Add selection
+      $("#table_list_2").setSelection(4, true);
+    	       
+                // Setup buttons
+      $("#table_list_2").jqGrid('navGrid', '#pager_list_2', {
+         edit: false,
+         add: false,
+         del: false,
+         search: true
+        }, {
+            height: 200,
+            reloadAfterSubmit: true
+         });
+                
+       }
+   
+            	/*获取ids,批量删除*/
+   	  $("#delmore").click(function(){
+    	var ids = $("#table_list_2").jqGrid("getGridParam","selarrrow");
+    	
+    				
+    				//console.log(confirm("dd"));
+    				//下面的ajax根据自己的情况写
+    				//var b = confirm("批量删除后不可恢复，谨慎操作!");
+    	var dblChoseAlert = simpleAlert({
+    			"content":"确定要批量删除吗!",
+    			"buttons":{
+    				"确定":function () {
+    					$.ajax({
+    						type: 'POST',
+    						url: '/'+addr+'/'+'delmore?ids='+ids,
+    						success: function (data) {
+    							location.reload();//页面刷新 
+    							},
+    						error: function (data) {
+    							console.log(data.msg);
+    							},
+    					  });
+    						dblChoseAlert.close();
+    					},
+    				"取消":function () {
+    						dblChoseAlert.close();
+    					},
+    				},
+    			  }); 
+    			});
+                //删除在上面
+      $("#but").click(function(){//收索在下面
+	   	   addr = advertise.value;
+	   	   tocreate = $("#tocreate").val();
+	   	   tofinal = $("#tofinal").val();
+   	       //alert(addr+"--"+tocreate+"--"+tofinal);
+    	     	
+    	   var _arrGlobalData = new Array(); //全局的缓存变量，存储所选的id
+		   jqgridform()
+
+                // Add responsive to jqGrid
+           $(window).bind('resize', function () {
+           var width = $('.jqGrid_wrapper').width();
+           $('#table_list_2').setGridWidth(width);
+                });
+    	});
+	
+        //转成Excle文件js方法
+                $("#outPutExcel").click(function(){
+                	var ids = $("#table_list_2").jqGrid("getGridParam","selarrrow");
+                	if(ids=="")
+                		parent.layer.msg('未选择打印信息',{shift:6})
+                	else
+               		{
+               			location.href = "/"+addr+"/outPutExcel?ids="+ids;
+               		}
+                });
+ 	}); 
+      
+	function imageFormat( cellvalue, options, rowObject ){
+	        return '<img src="'+cellvalue+ '"  style="width:50px;height:50px;" />';
+		}
+
+    </script>
+
+</body>
+
+</html>

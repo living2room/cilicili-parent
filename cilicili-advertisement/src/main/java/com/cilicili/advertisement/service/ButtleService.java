@@ -1,12 +1,14 @@
 package com.cilicili.advertisement.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cilicili.advertisement.domin.Buttle_Adv;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.cilicili.advertisement.domain.ButtleAdv;
 import com.cilicili.advertisement.mapper.ButtleMapper;
 
 
@@ -18,27 +20,37 @@ public class ButtleService {
 	
 	public void play() {
 		System.out.println("11111119999");
-		Buttle_Adv one = new Buttle_Adv();
+		ButtleAdv one = new ButtleAdv();
 //		buttleDao.addAdvByOne(one);
 		buttleDao.insert(one);
 		
 	}
 	
 	//单条添加
-	public void addAdvByOne(Buttle_Adv but) {
-		
-		buttleDao.insert(but);
+	public void addAdvByOne(ButtleAdv butt) {
+	
+		buttleDao.insert(butt);
 	}
 	
 	//查询所有
-	public List<Buttle_Adv> selAdvAll(){
-		
-		List<Buttle_Adv> list = buttleDao.selectList(null);
+	public List<ButtleAdv> selAdvAll(){
+		List<ButtleAdv> list = buttleDao.selectList(null);
 		return list;
 	}
 	
+	//多条件查询
+		public List<ButtleAdv> selAdvByMoreCon(QueryWrapper<ButtleAdv> queryWrapper){
+			List<ButtleAdv> list = buttleDao.selectList(queryWrapper);
+			return list;
+		}
+	//多条件分页查询
+	public IPage<ButtleAdv> selAdvByMoreConByPage(Page<ButtleAdv> page, QueryWrapper<ButtleAdv> queryWrapper){
+		return buttleDao.selectPage(page,queryWrapper);
+		}
+	
+	
 	//查询单条
-	public Buttle_Adv selAdvById(int id) {
+	public ButtleAdv selAdvById(int id) {
 		return buttleDao.selectById(id);
 	}
 	
@@ -54,12 +66,20 @@ public class ButtleService {
 	}
 	
 	//修改广告
-	public void upAdvByOBJ(Buttle_Adv but) {
+	public void upAdvByOBJ(ButtleAdv but) {
 		buttleDao.updateById(but);
 	}
 	
 	//禁用广告
-	public void isUse(List<Buttle_Adv> ButtleList,int operator,int isNormal) {
+	public void isUse(List<ButtleAdv> ButtleList,int operator,int isNormal) {
 		
+	}
+
+	public ButtleAdv selectmore(int id) {
+		return buttleDao.selectById(id);
+	}
+	
+	public int selectCount() {
+		return buttleDao.selectCount(null);
 	}
 }

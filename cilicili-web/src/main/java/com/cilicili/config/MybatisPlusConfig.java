@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.cilicili.config;
 
 import java.util.Properties;
@@ -41,6 +38,5 @@ public class MybatisPlusConfig {
     public PaginationInterceptor paginationInterceptor() {
         return new PaginationInterceptor();
     }
-
 
 }

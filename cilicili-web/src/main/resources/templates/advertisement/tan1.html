@@ -1,0 +1,102 @@
+<!doctype html>
+<!--[if IE 7 ]> <html class="ie7"> <![endif]-->
+<!--[if IE 8 ]> <html class="ie8"> <![endif]-->
+<!--[if IE 9 ]> <html class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html> <!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>jQuery漂浮横幅图片广告代码 - A5源码</title>
+<meta name="viewport" id="viewport" content="width=device-width, user-scalable=yes, initial-scale=0.5, maximum-scale=2.0, minimum-scale=0.5">  
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+
+<style>
+.mask {
+	position: fixed;
+	bottom: 0;
+	left:100%;
+	width: 100%;
+	height: 128px;
+ 	background: url("/image/adv1/img1.jpg")  no-repeat scroll center;
+	/* background-color:green; */
+	z-index: 1001;
+}
+.closeee{
+	background: url("/image/adv1/img2.png")  no-repeat center center;
+}
+.mask .gotoCenter {
+	display: block;
+	width: 1000px;
+	height: 140px;
+	margin: 0 auto;
+}
+.mask .closeee {
+	position: absolute;
+	top: 0;
+	left: 20px;
+	margin-left: 0px;
+	width: 40px;
+	height: 100%;
+	cursor: pointer;
+}
+.clickarea{
+	position: absolute;
+	top: 0;
+	left: 200px;
+	margin-left: 0px;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+}
+.thumbnail {
+	position: fixed;
+	right: 0px;
+	bottom: 0px;
+	width: 184px;
+	height: 124px;
+	cursor: pointer;
+	/*display: none;*/
+}
+@-webkit-keyframes rotate {
+	from {-webkit-transform:rotate(0deg);}
+	to {-webkit-transform:rotate(360deg);}
+}
+</style>
+
+</head>
+<body>
+
+<!-- 活动角标 -->
+<div class="mask">
+    <span class="closeee"></span>
+    <a href="http://www.baidu.com"><span class="clickarea"></span></a>
+     <div class="thumbnail">
+      	<img src="/image/adv1/img3.png">
+     </div>
+</div>
+<script>
+setTimeout(function(){
+	$('.thumbnail').trigger('click')
+},1000)
+// 底部广告栏的收起与展开
+$('.thumbnail').on("click", function () {
+	$(this).animate({"right": -146},400,function () {
+		$(this).hide();
+		$('.mask').animate({"left": 0}, 600);
+	});
+});
+$('.closeee').on("click", function () {
+	//var thumbWidth = $('.thumbnail').width();
+	$('.mask').animate({
+		"left": "100%"
+		}, 600, function() {
+		$('.thumbnail').show().animate({"right": 0},400);
+	});
+});
+</script>
+<div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
+<p>适用浏览器：IE8、360、FireFox、Chrome、Safari、Opera、傲游、搜狗、世界之窗.</p>
+<p>来源：<a href="http://down.admin5.com/" target="_blank">A5源码</a></p>
+</div>
+</body>
+</html>
