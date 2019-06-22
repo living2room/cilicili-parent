@@ -1,0 +1,27 @@
+<!doctype html>
+
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+	<h3>
+		登录
+		<h3>
+			<h3 style="color: red" th:utext="${msg}"></h3>
+			<form method="post" action="/admin/login">
+				用户名:<input type="text" name="userName" id="userName"><br>
+				密码:<input type="text" name="userPassword" id="userPassword"><br>
+				<input type="submit" value="登录" />
+			</form>
+
+			<!-- <li><a shiro:hasPermission="user:add"
+				data-href="admin_list.html" data-title="用户管理"
+				href="javascript:void(0)">用户管理</a></li>
+			<li><a shiro:hasPermission="sys:role:role"
+				data-href="admin_role.html" data-title="角色管理"
+				href="javascript:void(0)">角色管理</a></li> -->
+</body>
+</html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.cilicili.user.mapper.admin.AdminUserMapper">
+
+	<select id="findByUserName" resultMap="BaseResultMap">
+		select * from
+		tb_admin_user where user_name = #{userName}
+	</select>
+
+	<!-- 根据user_id查当前用户的所有角色及角色的所有权限 -->
+	<!-- <select id="findByUserId" resultMap="BaseResultMap"> select * from 
+		admin_user where user_name = #{userName} </select> -->
+
+    <!-- 根据userId查询用户的所有角色 -->
+	<select id="findById" parameterType="int"
+		resultMap="BaseResultMap" >
+		select * from tb_admin_user left JOIN tb_admin_user_role on
+		tb_admin_user_role.user_id = tb_admin_user.user_id left JOIN tb_admin_role on tb_admin_user_role.role_id = tb_admin_role.role_id
+		 WHERE tb_admin_user.user_id = #{userId}
+	</select>
+
+	<resultMap id="BaseResultMap"
+		type="com.cilicili.user.domain.admin.AdminUser">
+		<id column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="user_name" jdbcType="VARCHAR"
+			property="userName" />
+		<result column="user_password" jdbcType="VARCHAR"
+			property="userPassword" />
+		<result column="locked" jdbcType="INTEGER" property="locked" />
+		<result column="salt" jdbcType="VARCHAR" property="salt" />
+		<result column="email" jdbcType="VARCHAR" property="email" />
+		<result column="phone" jdbcType="VARCHAR" property="phone" />
+		<result column="sex" jdbcType="INTEGER" property="sex" />
+		<result column="age" jdbcType="INTEGER" property="age" />
+		<result column="status" jdbcType="INTEGER" property="status" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="update_time" jdbcType="TIMESTAMP"
+			property="updateTime" />
+		<result column="last_login_time" jdbcType="TIMESTAMP"
+			property="lastLoginTime" />
+		<collection property="adminRoleList" javaType="java.util.List"
+			ofType="com.cilicili.user.domain.admin.AdminRole"
+			resultMap="com.cilicili.user.mapper.admin.AdminRoleMapper.BaseResultMap"/>
+	</resultMap>
+
+</mapper>
