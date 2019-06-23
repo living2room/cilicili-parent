@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cilicili.payment.domain.BuyVip;
+import com.cilicili.domain.payment.BuyVip;
 import com.cilicili.payment.mapper.BuyVipMapper;
 
 @Service

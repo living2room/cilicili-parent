@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baidu.aip.face.AipFace;
+import com.cilicili.common.dto.FacePageBean;
+import com.cilicili.common.dto.FacePageResponse;
+import com.cilicili.common.dto.response.FaceSerachResponse;
 import com.cilicili.common.utils.FactoryUtil;
-import com.cilicili.user.controller.user.vo.FacePageBean;
-import com.cilicili.user.controller.user.vo.FacePageResponse;
-import com.cilicili.user.controller.user.vo.response.FaceSerachResponse;
 
 /**
  * 人脸照片注册方法

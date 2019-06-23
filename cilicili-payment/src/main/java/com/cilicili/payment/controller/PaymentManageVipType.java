@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.cilicili.payment.domain.VipType;
+import com.cilicili.domain.payment.VipType;
 import com.cilicili.payment.service.VipTypeService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

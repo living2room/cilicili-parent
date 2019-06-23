@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.type.JdbcType;
 
-import com.cilicili.payment.domain.BuyVip;
+import com.cilicili.domain.payment.BuyVip;
 
 @Mapper
 public interface BuyVipMapper {

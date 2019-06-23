@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cilicili.payment.domain.RedPackets;
+import com.cilicili.domain.payment.RedPackets;
 import com.cilicili.payment.mapper.RedPacketsMapper;
 
 @Service

@@ -2,6 +2,7 @@ package com.cilicili.config;
 
 import java.util.Properties;
 
+
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

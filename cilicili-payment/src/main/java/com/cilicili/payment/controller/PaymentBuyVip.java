@@ -1,8 +1,6 @@
 package com.cilicili.payment.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -10,8 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cilicili.payment.domain.BuyVip;
-import com.cilicili.payment.domain.RedPackets;
+import com.cilicili.domain.payment.BuyVip;
+import com.cilicili.domain.payment.RedPackets;
 import com.cilicili.payment.service.BuyVipService;
 import com.cilicili.payment.service.ManageDiscountService;
 import com.cilicili.payment.service.ManageRedPacketsService;

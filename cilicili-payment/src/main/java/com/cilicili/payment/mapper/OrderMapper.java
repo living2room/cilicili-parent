@@ -3,7 +3,7 @@ package com.cilicili.payment.mapper;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 
-import com.cilicili.payment.domain.Orders;
+import com.cilicili.domain.payment.Orders;
 
 @Mapper
 public interface OrderMapper {

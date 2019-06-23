@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.type.JdbcType;
 
-import com.cilicili.payment.domain.RedPackets;
+import com.cilicili.domain.payment.RedPackets;
 
 @Mapper
 public interface RedPacketsMapper {

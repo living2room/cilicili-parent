@@ -8,10 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cilicili.payment.domain.Discount;
-import com.cilicili.payment.domain.VipType;
+import com.cilicili.domain.payment.Discount;
 import com.cilicili.payment.service.ManageDiscountService;
-import com.cilicili.payment.service.VipTypeService;
 
 @Controller
 @RequestMapping("PaymentManageDiscount")

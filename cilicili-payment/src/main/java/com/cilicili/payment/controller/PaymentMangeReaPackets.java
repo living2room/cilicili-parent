@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cilicili.payment.domain.RedPackets;
+import com.cilicili.domain.payment.RedPackets;
 import com.cilicili.payment.service.ManageRedPacketsService;
 import com.cilicili.payment.service.RedPacketsService;
 

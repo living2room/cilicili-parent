@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.type.JdbcType;
 
-import com.cilicili.payment.domain.VipType;
+import com.cilicili.domain.payment.VipType;
 
 @Mapper
 public interface VipTypeMapper {

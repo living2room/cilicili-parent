@@ -11,10 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cilicili.social.domain.Message;
-import com.cilicili.social.domain.MessageBox;
 import com.cilicili.social.mapper.Tb_u_usersMapper;
 import com.cilicili.social.service.MessageService;
+import com.cilicilil.domain.social.Message;
+import com.cilicilil.domain.social.MessageBox;
 
 @Controller
 @RequestMapping("Message")

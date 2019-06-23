@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cilicili.social.domain.Tb_subscribe;
 import com.cilicili.social.mapper.Tb_subscribeMapper;
+import com.cilicilil.domain.social.Tb_subscribe;
 
 @Service
 public class SubscribeService {

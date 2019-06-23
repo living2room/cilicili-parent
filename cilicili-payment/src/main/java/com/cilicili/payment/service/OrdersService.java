@@ -4,7 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.cilicili.payment.domain.Orders;
+import com.cilicili.domain.payment.Orders;
 import com.cilicili.payment.mapper.OrderMapper;
 
 @Service

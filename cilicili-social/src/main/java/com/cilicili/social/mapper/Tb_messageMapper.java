@@ -7,8 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-import com.cilicili.social.domain.Message;
-import com.cilicili.social.domain.MessageBox;
+import com.cilicilil.domain.social.Message;
+import com.cilicilil.domain.social.MessageBox;
 
 @Mapper
 public interface Tb_messageMapper {

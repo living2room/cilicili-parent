@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cilicili.payment.domain.VipEndTime;
+import com.cilicili.domain.payment.VipEndTime;
 import com.cilicili.payment.mapper.VipEndTimeMapper;
 
 @Service

@@ -3,12 +3,9 @@ package com.cilicili.payment.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.type.JdbcType;
 
-import com.cilicili.payment.domain.ManageOrders;
+import com.cilicili.domain.payment.ManageOrders;
 
 @Mapper
 public interface ManageOrdersMapper {

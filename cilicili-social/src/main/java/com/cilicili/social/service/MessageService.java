@@ -1,17 +1,18 @@
 package com.cilicili.social.service;
 
+
+
 import java.util.List;
 
-import javax.annotation.Resource;
 
+import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.cilicili.social.domain.Message;
-import com.cilicili.social.domain.MessageBox;
 import com.cilicili.social.mapper.Tb_messageMapper;
 import com.cilicili.social.mapper.Tb_u_usersMapper;
+import com.cilicilil.domain.social.Message;
+import com.cilicilil.domain.social.MessageBox;
 
 @Service
 public class MessageService {

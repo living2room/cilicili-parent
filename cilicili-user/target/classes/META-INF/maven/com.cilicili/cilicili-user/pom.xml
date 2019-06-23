@@ -106,48 +106,21 @@
 			<artifactId>ehcache</artifactId>
 		</dependency>
 
-		<!-- mybatis的相关依赖 -->
-		<!-- 阿里巴巴的连接池 -->
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>druid</artifactId>
-			<version>1.0.9</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-
-		<!-- SpringBoot的Mybatis启动器 -->
-		<dependency>
-			<groupId>org.mybatis.spring.boot</groupId>
-			<artifactId>mybatis-spring-boot-starter</artifactId>
-			<version>1.1.1</version>
-		</dependency>
-
-
-		<!-- https://mvnrepository.com/artifact/org.webjars.bower/jquery -->
-		<dependency>
-			<groupId>org.webjars.bower</groupId>
-			<artifactId>jquery</artifactId>
-			<version>3.2.1</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>bootstrap</artifactId>
-			<version>4.1.3</version>
-		</dependency>
 
 		<!-- shiro整合cas单点 -->
 		<!-- <dependency> <groupId>org.apache.shiro</groupId> <artifactId>shiro-cas</artifactId> 
 			<version>1.2.4</version> </dependency> -->
 
-
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-boot-starter</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-generator</artifactId>
+			<version>3.1.0</version>
+		</dependency>
 		<!-- 百度AI SDK人脸识别 -->
 		<dependency>
 			<groupId>com.baidu.aip</groupId>
@@ -163,24 +136,11 @@
 
 	</dependencies>
 
-
-
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-
-			<!-- 逆向工程需要的插件 -->
-			<plugin>
-				<groupId>org.mybatis.generator</groupId>
-				<artifactId>mybatis-generator-maven-plugin</artifactId>
-				<configuration>
-					<configurationFile>src/main/resources/generator/generatorConfig.xml</configurationFile>
-					<overwrite>true</overwrite>
-					<verbose>true</verbose>
-				</configuration>
 			</plugin>
 
 		</plugins>

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cilicili.payment.domain.ManageOrders;
+import com.cilicili.domain.payment.ManageOrders;
 import com.cilicili.payment.mapper.ManageOrdersMapper;
 
 import jxl.Workbook;

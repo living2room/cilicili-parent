@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.type.JdbcType;
 
-import com.cilicili.payment.domain.VipEndTime;
+import com.cilicili.domain.payment.VipEndTime;
 
 @Mapper
 public interface VipEndTimeMapper {

@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
-import com.cilicili.social.domain.Tb_subscribe;
+import com.cilicilil.domain.social.Tb_subscribe;
 
 @Mapper
 public interface Tb_subscribeMapper {

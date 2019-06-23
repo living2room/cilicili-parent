@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.type.JdbcType;
 
-import com.cilicili.payment.domain.OpenVip;
+import com.cilicili.domain.payment.OpenVip;
 
 @Mapper
 public interface OpenVipMapper {
