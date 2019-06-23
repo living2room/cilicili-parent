@@ -32,7 +32,7 @@ public class FaceController {
 	//人脸模块对象，人脸登录
 	@RequestMapping(method=RequestMethod.GET)
 	public String index(){
-		return "face";
+		return "user/face";
 	}
 	
 	//注册人脸
