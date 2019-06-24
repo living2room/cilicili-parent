@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/3.4.1/css/bootstrap.min.css">
+<script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/jquery-form/4.2.2/jquery.form.min.js"></script>
+        <!-- layer javascript -->
+        <script src="/js/plugins/layer/layer.min.js"></script>
+</head>
+<script type="text/javascript">
+	$(function() {
+		$("#updatetype").on("submit", function() {
+			$(this).ajaxSubmit({
+				url : "/t/update",
+				async: false,
+				success : function(data) {
+					console.log(data);
+					if (data == "1") {
+						parent.layer.msg('添加成功', {icon: 1});
+					} else {
+						parent.layer.msg('添加失败', {shift: 6});
+					}
+				},
+			});
+             var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+			 parent.layer.close(index); //再执行关闭
+			return false;
+		})
+		$("#addtype").on("submit", function() {
+			$(this).ajaxSubmit({
+				url : "/t/new",
+				async: false,
+				success : function(data) {
+					console.log(data);
+					if (data == "1") {
+						parent.layer.msg('添加成功', {icon: 1});
+						var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+						 parent.layer.close(index); //再执行关闭
+					} else {
+						parent.layer.msg('添加失败', {shift: 6});
+					}
+				},
+			});
+
+			return false;
+		})
+		/*             var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+		 parent.layer.close(index); //再执行关闭    */
+	})
+</script>
+<body>
+	<div class="row">
+		<div class="col-md-12">
+
+			<form th:if="${result}" id="updatetype" method="post"
+				accept-charset="utf-8">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">数据库字段名：</label>
+					<div class="col-sm-9">
+						<p class="form-control-static">字段信息</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">ID：</label>
+					<div class="col-sm-9">
+						<input th:value="${result.id}" type="text" name="id"
+							readonly="true" class="form-control" placeholder="id"> <span
+							class="help-block m-b-none"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">type：</label>
+					<div class="col-sm-9">
+						<input th:value="${result.type}" type="text" name="type"
+							class="form-control" placeholder="类型名称"> <span
+							class="help-block m-b-none"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">type_rating：</label>
+					<div class="col-sm-9">
+						<input th:value="${result.typeRating}" type="text"
+							name="typeRating" class="form-control" placeholder="类型级别">
+						<span class="help-block m-b-none"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">father_rating_id：</label>
+					<div class="col-sm-9">
+						<input th:value="${result.fatherRatingId}" type="text"
+							name="fatherRatingId" class="form-control" placeholder="父级类型ID">
+						<span class="help-block m-b-none"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">type_url：</label>
+					<div class="col-sm-9">
+						<input th:value="${result.typeUrl}" type="text" name="typeUrl"
+							class="form-control" placeholder="请求url"> <span
+							class="help-block m-b-none"></span>
+					</div>
+				</div>
+				<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<div class="col-sm-4 col-sm-offset-2">
+						<button class="btn btn-primary" type="submit">保存内容</button>
+						<button class="btn btn-white">取消</button>
+					</div>
+				</div>
+			</form>
+
+			<form th:unless="${result}" id="addtype" method="post"
+				accept-charset="utf-8">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">数据库字段名：</label>
+					<div class="col-sm-9">
+						<p class="form-control-static">字段信息</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">type：</label>
+					<div class="col-sm-9">
+						<input type="text" name="type" class="form-control"
+							placeholder="类型名称"> <span class="help-block m-b-none"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">type_rating：</label>
+					<div class="col-sm-9">
+						<input type="text" name="typeRating" class="form-control"
+							placeholder="类型级别"> <span class="help-block m-b-none"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">father_rating_id：</label>
+					<div class="col-sm-9">
+						<input type="text" name="fatherRatingId" class="form-control"
+							placeholder="父级类型ID"> <span class="help-block m-b-none"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">type_url：</label>
+					<div class="col-sm-9">
+						<input type="text" name="typeUrl" class="form-control"
+							placeholder="请求url"> <span class="help-block m-b-none"></span>
+					</div>
+				</div>
+				<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<div class="col-sm-4 col-sm-offset-2">
+						<button class="btn btn-primary" type="submit" >保存内容</button>
+					</div>
+				</div>
+			</form>
+
+		</div>
+	</div>
+</body>
+</html>

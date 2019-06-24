@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>收银台</title>
+</head>
+
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<div align="center"><h2>收银台</h2></div>
+	<form method="post" action="/PaymentOrder/create">
+	<table width="800" border="1" cellspacing="0" cellpadding="0" align="center">
+		<tr>
+			<td>
+				<div th:text="${buyVip.VipName}"></div>
+				<div th:text="${buyVip.VipDescribe}"></div>
+				<div th:text="${buyVip.VipTime}/24/60/60+'天'"></div>
+				<div th:if="${buyVip.discountValue}==10" th:text="没有折扣"></div>
+				<div th:if="${buyVip.discountValue}!=10" th:text="${buyVip.discountValue}+'折'"></div>
+				价 格: <span id="payMoney" th:text="${buyVip.VipPrice*buyVip.discountValue*0.1}"></span> 元				
+				<input type="hidden" name="vipID" th:value="${buyVip.VipID}">
+			</td>	
+		</tr>
+	</table>
+	<br/>
+	<div align="center">可使用的红包</div>
+	<table width="800" border="1" cellspacing="0" cellpadding="0" align="center">
+		<tr align="center" th:each="redPacket:${redPacketsList}">
+			<td><input type="radio" name="redPacketsID" th:value="${redPacket.redPacketsID}"></td>
+			<td th:text="${redPacket.redPacketsName}"></td>
+			<td th:text="${redPacket.redPacketsDescribe}"></td>
+			<td>红包金额:<span id="redPackets" th:text="${redPacket.redPacketsPrice}"></span></td>
+		</tr>
+		<tr>
+			<td colspan="4"><input checked="checked" type="radio" name="redPacketsID" value="0"><span hidden="hidden" id="redPackets" >0</span>不使用红包</td>
+			<input type="hidden" name="userID" th:value="${userID}">
+		</tr>
+		<tr>
+			<td align="center" colspan="4"><input type="submit" value="付   款"></td>
+		</tr>
+	</table>
+	</form>
+	
+<script>
+$(function(){
+	var paymoney=$("#payMoney").text();
+	$(":radio").click(function(){
+		var trIndex=$(this).parent().parent().index()+1;
+		var paymoneyCaculate=paymoney-$("tr:eq("+trIndex+")").find("#redPackets").text();
+		$("#payMoney").text(paymoneyCaculate);
+		console.log();
+	});
+});
+</script>
+</body>
+</html>
