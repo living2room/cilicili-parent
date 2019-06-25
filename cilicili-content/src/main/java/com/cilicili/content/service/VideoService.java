@@ -381,12 +381,19 @@ public class VideoService {
 		vType.setTypeId(Integer.valueOf(tn));
 		vTypeMapper.insert(vType );
 		
-		Users user = (Users) session.getAttribute("user");
-		
+//		Users user = (Users) session.getAttribute("user");
+		//目前session里面没有User
 		VideoUser uVi = new VideoUser();
-		uVi.setUserId(user.getId());
+//		uVi.setUserId(user.getId());
 		uVi.setVideoId(videoInfoId);
 		vUserMapper.insert(uVi );
+		
+		VideoData vData = new VideoData();
+		vData.setVideoId(videoInfoId);
+		vData.setVideoPlayed(0L);
+		vData.setLikedNum(0L);
+		vData.setBulletScreenNum(0L);
+		vDataMapper.insert(vData );
 		
 		// 将封面图片放进redis里
 		redisUtil.set(videoInfoId,base64);

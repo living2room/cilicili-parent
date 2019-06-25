@@ -203,7 +203,7 @@ public class CenterController {
 		productofJson.setTotal(total);
 		
 		System.out.println(selAdvAll.getRecords());
-		String jsonString = JSON.toJSONString(productofJson);
+		String jsonString = JSON.toJSONStringWithDateFormat(productofJson, "YYYY-MM-DD hh:mm:ss");
 		 //String jsonString = JSON.toJSONString(selAdvAll);
 //		model.addAttribute("advlist", selAdvAll);
 		model.addAttribute("controller", "中间的广告位");

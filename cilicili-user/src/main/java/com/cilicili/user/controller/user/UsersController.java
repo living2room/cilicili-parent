@@ -202,10 +202,10 @@ public class UsersController {
 					Session session = currentUser.getSession();
 					session.setAttribute("user", user);
 					session.setAttribute("userName", user.getUserName());
-					Users userR = (Users) redisUtil.get(user.getUserId());
-					if (userR == null) {
-						boolean b = redisUtil.set(user.getUserId(),user);
-					}
+//					Users userR = (Users) redisUtil.get(user.getUserId());
+//					if (userR == null) {
+//						boolean b = redisUtil.set(user.getUserId(),user);
+//					}
 					// ServletContext application=this.getServletContext();
 					// 为了踢掉旧用户，需要拦截器的相关配置
 					/*

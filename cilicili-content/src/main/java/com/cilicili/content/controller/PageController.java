@@ -153,7 +153,7 @@ public class PageController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/to/b/review/edit/{text}")
+	@RequestMapping("/b/review/edit/{text}")
 	public String toReviewPup(@PathVariable String text, Model model) {
 		List<VideoReviewDto> vrDto = revService.getReviewInfo(text);
 		return "";

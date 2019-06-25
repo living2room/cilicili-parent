@@ -178,7 +178,7 @@ public class ButtleController {
 		productofJson.setTotal(total);
 		
 		System.out.println(selAdvAll.getRecords());
-		String jsonString = JSON.toJSONString(productofJson);
+		String jsonString = JSON.toJSONStringWithDateFormat(productofJson, "YYYY-MM-DD hh:mm:ss");
 		model.addAttribute("controller", "弹出广告位");
 		return jsonString;
 	}

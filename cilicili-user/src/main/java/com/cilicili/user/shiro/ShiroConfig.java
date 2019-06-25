@@ -80,7 +80,7 @@ public class ShiroConfig {
 		// 管理员，需要角色权限 “admin”
 		// filterMap.put("/admin/background", "roles[admin]");
 		// filterMap.put("/admin/background", "roles[lhy]");
-		filterMap.put("/to/b/index", "roles[lhy]");
+//		filterMap.put("/to/b/index", "roles[lhy]");
 		/*
 		 * 
 		 * 这里需要给一个if判断，是管理员登的就跳管理员登录页 否则就是用户登录页

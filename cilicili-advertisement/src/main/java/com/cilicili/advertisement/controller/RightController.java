@@ -157,7 +157,8 @@ public class RightController {
 		productofJson.setTotal(total);
 		
 		System.out.println(selAdvAll.getRecords());
-		String jsonString = JSON.toJSONString(productofJson);
+		String jsonString = JSON.toJSONStringWithDateFormat(productofJson, "YYYY-MM-DD hh:mm:ss");
+
 //		model.addAttribute("advlist", selAdvAll);
 		model.addAttribute("controller", "右侧广告位");
 //		for (RightAdv centerAdv : selAdvAll) {

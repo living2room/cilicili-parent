@@ -67,11 +67,11 @@ public class PageService {
 			infoList.add(info);
 			QueryWrapper<VideoPic> queryWrapperVP = new QueryWrapper<>();
 			queryWrapperVP.eq("video_id", info.getId());
+			queryWrapperVP.eq("pic_type", 1);
 			VideoPic one = vPicMapper.selectOne(queryWrapperVP);
 			picList.add(one);
 			QueryWrapper<VideoData> queryWrapperVD = new QueryWrapper<>();
 			queryWrapperVD.eq("video_id", info.getId());
-			queryWrapperVD.eq("pic_type", 1);
 			VideoData videoData = vDataMapper.selectOne(queryWrapperVD);
 			dataList.add(videoData);
 		}
