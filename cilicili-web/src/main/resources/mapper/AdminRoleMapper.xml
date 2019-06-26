@@ -20,10 +20,6 @@
 		<result column="description" jdbcType="VARCHAR"
 			property="description" />
 		<result column="status" jdbcType="INTEGER" property="status" />
-		<result column="create_time" jdbcType="TIMESTAMP"
-			property="createTime" />
-		<result column="update_time" jdbcType="TIMESTAMP"
-			property="updateTime" />
 		<collection property="adminPermission"
 			javaType="java.util.List"
 			ofType="com.cilicili.domain.user.admin.AdminRolePermission"

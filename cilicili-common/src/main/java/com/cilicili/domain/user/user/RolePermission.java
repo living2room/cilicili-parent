@@ -1,37 +1,37 @@
 package com.cilicili.domain.user.user;
 
 public class RolePermission {
-	
-	//id	int	
-    private Integer id;
-    
-   // role_id	varchar	角色id
-    private String roleId;
-    
-    //permission_id 权限id
-    private String permissionId;
 
-    public Integer getId() {
-        return id;
-    }
+	// id int
+	private Integer id;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	// role_id varchar 角色id
+	private String roleId;
 
-    public String getRoleId() {
-        return roleId;
-    }
+	// permission_id 权限id
+	private String permissionId;
 
-    public void setRoleId(String roleId) {
-        this.roleId = roleId == null ? null : roleId.trim();
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getPermissionId() {
-        return permissionId;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setPermissionId(String permissionId) {
-        this.permissionId = permissionId == null ? null : permissionId.trim();
-    }
+	public String getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(String roleId) {
+		this.roleId = roleId == null ? null : roleId.trim();
+	}
+
+	public String getPermissionId() {
+		return permissionId;
+	}
+
+	public void setPermissionId(String permissionId) {
+		this.permissionId = permissionId == null ? null : permissionId.trim();
+	}
 }

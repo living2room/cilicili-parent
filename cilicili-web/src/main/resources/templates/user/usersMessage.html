@@ -172,31 +172,36 @@
 		<div class="input-group " style="margin-left: 26px; margin-top: 30px;">
 			<span class="input-group-addon"
 				style="border: none; background: #fff; font-size: 18px;">年龄:&nbsp;&nbsp;</span>
-			<input type="text" class="form-control" name="age" id="age" th:value="${age}"
-				placeholder="请输入&nbsp;1-150&nbsp;之间的数字" style="width: 280px;">
-		</div><label id="a" style="margin-left: 100px;"></label>
+			<input type="text" class="form-control" name="age" id="age"
+				th:value="${age}" placeholder="请输入&nbsp;1-150&nbsp;之间的数字"
+				style="width: 280px;">
+		</div>
+		<label id="a" style="margin-left: 100px;"></label>
 
 		<div class="input-group " style="margin-left: 26px; margin-top: 30px;">
 			<span class="input-group-addon"
 				style="border: none; background: #fff; font-size: 18px;">手机:&nbsp;&nbsp;</span>
 			<input type="text" id="phone" name="phone" th:value="${phone}"
 				class="form-control" placeholder="请输入您的手机号码" style="width: 280px;">
-		</div><label id="p" style="margin-left: 100px;"></label>
+		</div>
+		<label id="p" style="margin-left: 100px;"></label>
 
 		<div class="input-group " style="margin-left: 26px; margin-top: 30px;">
 			<span class="input-group-addon"
 				style="border: none; background: #fff; font-size: 18px;">Q&nbsp;Q:&nbsp;&nbsp;</span>
-			<input type="text" id="qq"
-				name="qq" th:value="${qq}" class="form-control"
-				placeholder="请输入您的QQ号码" style="width: 280px;">				
-		</div><label id="q" style="margin-left: 100px;"></label>
+			<input type="text" id="qq" name="qq" th:value="${qq}"
+				class="form-control" placeholder="请输入您的QQ号码" style="width: 280px;">
+		</div>
+		<label id="q" style="margin-left: 100px;"></label>
 
 		<div class="input-group " style="margin-left: 26px; margin-top: 30px;">
 			<span class="input-group-addon"
 				style="border: none; background: #fff; font-size: 18px;">家乡:&nbsp;&nbsp;</span>
-			<input type="text" id="home" class="form-control" name="home" th:value="${home}"
-				placeholder="例:&nbsp;&nbsp;&nbsp;广西-玉林" style="width: 280px;">
-		</div><label id="h" style="margin-left: 100px;"></label>
+			<input type="text" id="home" class="form-control" name="home"
+				th:value="${home}" placeholder="例:&nbsp;&nbsp;&nbsp;广西-玉林"
+				style="width: 280px;">
+		</div>
+		<label id="h" style="margin-left: 100px;"></label>
 
 
 		<div class="shuoming_con1"
@@ -285,21 +290,22 @@
 	
 	
 			
-			var pattern = /0?(13|14|15|17|18|19)[0-9]{9}/,
-     		str = document.getElementById('phone').value;
-  　  	   		console.log(pattern.test(str));	
+			//var pattern = /0?(13|14|15|17|18|19)[0-9]{9}/,
+     		//str = document.getElementById('phone').value;
   　  	    
   　  	    
 			var userName = $("#userName").val();
 			var sex =	$('input[name=sex]:checked').val();	
-			console.log(sex)
 			var base64 = $("#base64").val();
 			var home = $("#home").val();
 			var phone = $("#phone").val();
+			var qq = $("#qq").val();
 			
 			
 			
 			
+			var pattern3 =/^(?:0|[1-9][0-9]?|120)$/;
+			var pattern2 =/^[1-9][0-9]{4,11}$/;
 			
 			
 	  　  	    if(phone==""){
@@ -320,13 +326,12 @@
 			//});	 
 		
 		//var b = $("#qq").blur(function(){	
-			var pattern2 =/^[1-9][0-9]{4,11}$/;
 			//var pattern2 = /^\d+$|^\d+[.]?\d+$/;
-			if(qq==""){
+			else if(qq==""){
 	  	    	$("#q").text("");
 	 	    	 return true;
 	 	    	}
-			if(!pattern2.test(qq)){
+			else if(!pattern2.test(qq)){
 				$("#qq").focus();
 	  	        $("#q").text("请输入正确的qq号码");
 	  	        return false; 	
@@ -338,35 +343,26 @@
 		//});
 		
 		//var c =$("#age").blur(function(){		
-			var pattern3 =/^(?:0|[1-9][0-9]?|120)$/;
-			if(age==""){
+			else if(age==""){
 	  	    	$("#a").text("");
 	 	    	 return true;
 	 	    	}
-			if(!pattern3.test(age)){
+			else if($("#age").val()=="无" ||$("#age").val()==''){
+				var age = 0;
+				 return true; 
+			}/* else{
+				var age = $("#age").val();
+				} */
+			else if(!pattern3.test(age)){
 				 $("#age").focus();
 	  	        $("#a").text("请输入正确的年龄");
 	  	        return false; 	
-				} 
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			if($("#age").val()=="无" ||$("#age").val()==''){
-				var age = 0;	
-			}else{
-				var age = $("#age").val();
-				}
-			var qq = $("#qq").val();
-			
-			
-		 		$.ajax({
+				} 	
+			else if(pattern3.test(age)){
+	  	        $("#a").text("");
+	  	        return true; 	
+				} else{	
+					$.ajax({
 					type : "POST",
 					url : "/message/upUsersMessage",
 					data : {
@@ -395,7 +391,7 @@
 						alert("提交失败");
 					}	
 	 			}); 
-              
+			}
 		});
 		
 		

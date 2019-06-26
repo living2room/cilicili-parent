@@ -62,8 +62,7 @@ public class UsersRealm extends AuthorizingRealm {
 		// return new SimpleAuthenticationInfo(user, user.getUserpassword(),
 		// "")中的第一个参数user
 		
-		//sdgsdg
-		//bug出在这里
+		
 		Users user = (Users) subject.getPrincipal();
 		// String perms = userService.findByUserName(user.getUsername()).getPerms();
 		// info.addStringPermission(perms);

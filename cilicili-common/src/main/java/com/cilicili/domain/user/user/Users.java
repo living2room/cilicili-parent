@@ -13,43 +13,33 @@ public class Users implements Serializable {
 	// user_id varchar 用户id
 	private String userId;
 
-	//	user_name	varchar	用户名
+	// user_name varchar 用户名
 	private String userName;
 
-	//	user_password	varchar	密码	
+	// user_password varchar 密码
 	private String userPassword;
 
-	//	locked	tinyint 是否锁定
+	// locked tinyint 是否锁定
 	private int locked;
-	
-	//	salt	varchar加密盐值		
+
+	// salt varchar加密盐值
 	private String salt;
 
-	//	email	varchar邮箱	
+	// email varchar邮箱
 	private String email;
 
-	//	phone	varchar	联系方式
+	// phone varchar 联系方式
 	private String phone;
 
-	//	sex	int	性别：1男2女
+	// sex int 性别：1男2女
 	private Integer sex;
 
-	//	age	int	年龄
+	// age int 年龄
 	private Integer age;
 
-	//	status	int	用户状态：1有效; 2删除
+	// status int 用户状态：1有效; 2删除
 	private Integer status;
-
-	// create_time datetime 创建时间
-	private Date createTime;
-
-	//	update_time	datetime 更新时间
-	private Date updateTime;
-
-	//	last_login_time	datetime 最后登录时间
-	private Date lastLoginTime;
-	
-	//一个用户有多个角色
+	// 一个用户有多个角色
 	private List<Role> roleList;
 
 	public int getId() {
@@ -140,30 +130,6 @@ public class Users implements Serializable {
 		this.status = status;
 	}
 
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
-
-	public Date getLastLoginTime() {
-		return lastLoginTime;
-	}
-
-	public void setLastLoginTime(Date lastLoginTime) {
-		this.lastLoginTime = lastLoginTime;
-	}
-
 	public List<Role> getRoleList() {
 		return roleList;
 	}
@@ -177,8 +143,7 @@ public class Users implements Serializable {
 	}
 
 	public Users(int id, String userId, String userName, String userPassword, int locked, String salt, String email,
-			String phone, Integer sex, Integer age, Integer status, Date createTime, Date updateTime,
-			Date lastLoginTime, List<Role> roleList) {
+			String phone, Integer sex, Integer age, Integer status, List<Role> roleList) {
 		super();
 		this.id = id;
 		this.userId = userId;
@@ -191,9 +156,6 @@ public class Users implements Serializable {
 		this.sex = sex;
 		this.age = age;
 		this.status = status;
-		this.createTime = createTime;
-		this.updateTime = updateTime;
-		this.lastLoginTime = lastLoginTime;
 		this.roleList = roleList;
 	}
 
@@ -202,15 +164,11 @@ public class Users implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	  @Override public String toString() { return "Users [id=" + id + ", userId=" +
-	  userId + ", userName=" + userName + ", userPassword=" + userPassword +
-	  ", locked=" + locked + ", salt=" + salt + ", email=" + email + ", phone=" +
-	  phone + ", sex=" + sex + ", age=" + age + ", status=" + status +
-	  ", createTime=" + createTime + ", updateTime=" + updateTime +
-	  ", lastLoginTime=" + lastLoginTime + ", roleList=" + roleList + "]"; }
-	 
-
-	
+	@Override
+	public String toString() {
+		return "Users [id=" + id + ", userId=" + userId + ", userName=" + userName + ", userPassword=" + userPassword
+				+ ", locked=" + locked + ", salt=" + salt + ", email=" + email + ", phone=" + phone + ", sex=" + sex
+				+ ", age=" + age + ", status=" + status + ", roleList=" + roleList + "]";
+	}
 
 }

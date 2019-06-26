@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class AdminRole implements Serializable{
+public class AdminRole implements Serializable {
 
 	/**
 	 * 
@@ -20,16 +20,10 @@ public class AdminRole implements Serializable{
 	// description varchar 角色描述
 	private String description;
 
-	// status int  状态：1有效；2删除
+	// status int 状态：1有效；2删除
 	private Integer status;
 
-	// create_time datetime 创建时间
-	private Date createTime;
-
-	// update_time datetime 更新时间
-	private Date updateTime;
-	
-	//一个角色有多个权限          
+	// 一个角色有多个权限
 	private List<AdminPermission> adminPermission;
 
 	public Integer getRoleId() {
@@ -64,22 +58,6 @@ public class AdminRole implements Serializable{
 		this.status = status;
 	}
 
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
-
 	public List<AdminPermission> getAdminPermission() {
 		return adminPermission;
 	}
@@ -88,15 +66,14 @@ public class AdminRole implements Serializable{
 		this.adminPermission = adminPermission;
 	}
 
-	public AdminRole(Integer roleId, String roleName, String description, Integer status, Date createTime,
-			Date updateTime, List<AdminPermission> adminPermission) {
+	public AdminRole(Integer roleId, String roleName, String description, Integer status,
+			List<AdminPermission> adminPermission) {
 		super();
 		this.roleId = roleId;
 		this.roleName = roleName;
 		this.description = description;
 		this.status = status;
-		this.createTime = createTime;
-		this.updateTime = updateTime;
+
 		this.adminPermission = adminPermission;
 	}
 
@@ -108,9 +85,7 @@ public class AdminRole implements Serializable{
 	@Override
 	public String toString() {
 		return "AdminRole [roleId=" + roleId + ", roleName=" + roleName + ", description=" + description + ", status="
-				+ status + ", createTime=" + createTime + ", updateTime=" + updateTime + ", adminPermission="
-				+ adminPermission + "]";
+				+ status + ", adminPermission=" + adminPermission + "]";
 	}
 
-	
 }

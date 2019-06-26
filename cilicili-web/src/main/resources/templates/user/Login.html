@@ -6,7 +6,7 @@
 	content=" width=device-width, inittial-scale=1,maximum-scale=1" />
 <title></title>
 <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
-<link rel="stylesheet" type="text/css" href="../css/stylef.css" />
+<link rel="stylesheet" type="text/css" href="../css/style22.css" />
 <script src="../css/bootstrap.css"></script>
 <script src="../js/jquery.min.js"></script>
 <!-- <script src="js/jquery.js"></script> -->
@@ -62,13 +62,10 @@
 						</div>
 						<div class="shcngchuan">
 							<div class="tubiao">
-								<img th:if="${session.user}" src="../img/yonghu.png">
-								<img th:unless="${session.user}" src="../img/yonghu.png">
+								<img src="../img/yonghu.png">
 							</div>
 							<div class="nav_text">
-
-								<a th:if="${session.user}" th:href="Login.html">[[${session.userName}]]</a>
-								<a th:unless="${session.user}" th:href="Login.html">登录</a>
+								<a href="Login.html">登录</a>
 							</div>
 						</div>
 					</div>
@@ -157,7 +154,7 @@
 					success : function(data) {
 						if (data["aa"] == 1) {
 							(function() {
-								location.href = "/to/home";
+								location.href = "/user/index";
 							})();
 						} else if (data["aa"] == 0) {
 							$("#u").html("账号或密码错误");
@@ -166,7 +163,7 @@
 						}
 					},
 					error : function(data) {
-						//alert("邮箱或密码错误");
+						//alert("邮箱或密码错误");	
 						$("#u").html("提交失败" + data);
 					}
 
