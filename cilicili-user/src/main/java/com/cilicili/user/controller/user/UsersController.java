@@ -21,16 +21,17 @@ import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cilicili.common.utils.RedisUtil;
 import com.cilicili.domain.user.user.Users;
 import com.cilicili.user.service.impl.user.UsersMessageServiceImpl;
 import com.cilicili.user.service.impl.user.UsersServiceImpl;
+import com.cilicili.user.service.user.RedisService;
 import com.cilicili.user.shiro.ultra.JudgeUsernamePasswordToken;
 import com.cilicili.user.shiro.ultra.LoginType;
 
@@ -42,29 +43,17 @@ public class UsersController {
 	private UsersServiceImpl usersServiceImpl;
 	@Resource
 	private UsersMessageServiceImpl usersMessageServiceImpl;
-	@Resource
-	private RedisUtil redisUtil;
-
+	/*
+	 * @Resource private RedisUtil redisUtil;
+	 */
+	/*
+	 * @Autowired JedisPool jedisPool;
+	 */
+	@Autowired
+    private RedisService redisService ;
+	
 	@RequestMapping("/toLogin")
 	public String toLogin(HttpServletRequest request) {
-
-		/*
-		 * // 判断用户是否已经记住密码 Cookie[] cookies = request.getCookies();// 这样便可以获取一个cookie数组
-		 * String html = null; if (null != cookies) {
-		 * 
-		 * // for(Cookie cookie : cookies){ cookieMap.put(cookie.getName(), cookie); } }
-		 * 
-		 * 
-		 * for (Cookie cookie : cookies) { if (cookie.getName().equals("usercookie")) {
-		 * String usercookie = cookie.getValue();// get the cookie name if
-		 * (usercookie.equals("usercookie")) { html = "index";
-		 * System.out.println(html+"11"); } } else { html = "index"; } }
-		 * 
-		 * 
-		 * 
-		 * }
-		 */
-
 		// 判断用户是否已经记住密码 Cookie[] cookies = request.getCookies();// 这样便可以获取一个cookie数组
 		Cookie[] cookies = request.getCookies();
 		String token = "";
@@ -89,34 +78,32 @@ public class UsersController {
 				Users users = this.usersServiceImpl.findByUserName(userName);
 				int status = users.getStatus();
 				if (status == 2) {
-					return "Login";
+					return "user/Login";
 				}
+				
+				//单点的设置
 				/*
-				 * sdafasdfasfafasfasdfasfaff status要存值进去 不然出bug
+				 * InetAddress addr; try { addr = InetAddress.getLocalHost(); String ip =
+				 * addr.getHostAddress().toString(); // 获取本机ip Jedis jedis =
+				 * jedisPool.getResource(); jedis.set(users.getUserName(),ip); } catch
+				 * (UnknownHostException e) { e.printStackTrace(); }
 				 */
+				//redisService.set(users.getUserName(), ip);
+				
 				// 不能直接跳到index页面 ，因为没有走login session的值没有存 出现后面找不到session的userName
-				return "index";
+				return "user/index";
 
 			} else {
-				return "Login";
+				return "user/Login";
 			}
 
 		} else {
 			System.out.println("cookies为空了");
-			return "Login";
+			return "user/Login";
 		}
 	}
 
-	/*
-	 * 这是代码。
-	 * 
-	 * @RequestMapping("/searchGood") public String
-	 * searchGood(@RequestParam("goodName") String goodname, ModelMap
-	 * m,HttpServletResponse response, HttpServletRequest request) throws Exception
-	 * { Cookie cookie = new Cookie("goodName",goodname); cookie.setPath("/");
-	 * cookie.setMaxAge(3600); response.addCookie(cookie); m.put("list",
-	 * searchservice.search(goodname)); return "search"; }
-	 */
+
 
 	/*
 	 * ！！！！！！！！！！！！！！！！ 用户的禁用需要把cookie改 在登录的时候查status是否等于1 如果等于1 禁用 并把cookie删掉
@@ -183,7 +170,8 @@ public class UsersController {
 				 */
 
 				// 当认证成功后将shiro中保存的用户对象去出来，全部对象信息
-				Users user = (Users) currentUser.getPrincipal();
+				//Users user = (Users) currentUser.getPrincipal();
+				Users user = this.usersServiceImpl.findByEmail(email);
 
 				// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 				if (isRememberMe == 1) {
@@ -198,14 +186,28 @@ public class UsersController {
 				try {
 					InetAddress addr = InetAddress.getLocalHost();
 					String ip = addr.getHostAddress().toString(); // 获取本机ip
+					
+					//单点的设置
+					/*
+					 * Jedis jedis = jedisPool.getResource(); jedis.set(user.getUserName(),ip);
+					 */
+					//redisService.set(user.getUserName(), ip);
+					
+					
+					//redisUtil.set(users.getUserName(),ip+"123321");
+					/*
+					 * String aa = (String) redisUtil.get(users.getUserName());
+					 * System.out.println("redis::"+aa);
+					 */
+					
 
 					Session session = currentUser.getSession();
 					session.setAttribute("user", user);
 					session.setAttribute("userName", user.getUserName());
-//					Users userR = (Users) redisUtil.get(user.getUserId());
-//					if (userR == null) {
-//						boolean b = redisUtil.set(user.getUserId(),user);
-//					}
+					/*
+					 * Users userR = (Users) redisUtil.get(user.getUserId()); if (userR == null) {
+					 * boolean b = redisUtil.set(user.getUserId(),user); }
+					 */
 					// ServletContext application=this.getServletContext();
 					// 为了踢掉旧用户，需要拦截器的相关配置
 					/*
@@ -272,7 +274,7 @@ public class UsersController {
 
 	@RequestMapping("/toRegister")
 	public String toRegister() {
-		return "registered";
+		return "user/registered";
 	}
 
 	/*
@@ -334,7 +336,7 @@ public class UsersController {
 
 	@RequestMapping("/toUpPassword")
 	public String toUpPassword() {
-		return "upPassword";
+		return "user/upPassword";
 	}
 
 	// 修改密码
@@ -366,7 +368,7 @@ public class UsersController {
 	// 忘记密码
 	@RequestMapping("/toUnknown")
 	public String toUnknown() {
-		return "unknownPassword";
+		return "user/unknownPassword";
 	}
 
 	// 查数据库里面是否有这个邮箱的注册
@@ -390,7 +392,7 @@ public class UsersController {
 	@RequestMapping("/wangjimima")
 	public String wangjimima(String email, Model model) {
 		model.addAttribute("email", email);
-		return "wangjimima";
+		return "user/wangjimima";
 	}
 
 	// 新密码提交的页面
@@ -426,39 +428,39 @@ public class UsersController {
 	@RequestMapping("/testThymeleaf")
 	public String testThymeleaf(Model model) {
 		model.addAttribute("user", "123");
-		return "test";
+		return "user/test";
 	}
 
 	@RequestMapping("/add")
 	public String add(Model model) {
 		model.addAttribute("user", "123");
-		return "face";
+		return "user/face";
 	}
 
 	@RequestMapping("/update")
 	public String update(Model model) {
 		model.addAttribute("user", "123");
-		return "Login";
+		return "user/Login";
 	}
 
 	@RequestMapping("/noAuth")
 	public String noAuth() {
-		return "noAuth";
+		return "user/noAuth";
 	}
 
 	@RequestMapping("/userlogin")
 	public String background() {
-		return "userlogin";
+		return "user/userlogin";
 	}
 
 	@RequestMapping("/index")
 	public String index() {
-		return "index";
+		return "user/index";
 	}
 
 	@RequestMapping("/toPassword03")
 	public String toPassword03() {
-		return "password03";
+		return "user/password03";
 	}
 
 }

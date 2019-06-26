@@ -81,7 +81,7 @@ public class UsersMessageController {
 			e.printStackTrace();
 		}
 
-		return "usersMessage";
+		return "user/usersMessage";
 	}
 
 	/*

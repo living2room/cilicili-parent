@@ -51,6 +51,7 @@ public class ShiroConfig {
 		// filterMap.put("/**", "user"); //把authc改成user，防止访问index时跳转登录页
 		// filterMap.put("/user/index", "authc");
 
+		filterMap.put("../static/**", "anon");
 		filterMap.put("/user/index", "user");
 
 		filterMap.put("/user/add", "authc");
@@ -68,8 +69,8 @@ public class ShiroConfig {
 
 		// 授权过滤器,该角色需要拥有相关的权限才可以访问，这里会执行UserRealm那边的授权执行逻辑
 		// 注意：当授权被拦截之后，会自动跳转到未授权页面
-		filterMap.put("/user/add", "perms[/user/add]");
-		filterMap.put("/user/update", "perms[/user/update]");
+		filterMap.put("/admin/add", "perms[/admin/add]");
+		filterMap.put("/admin/update", "perms[/admin/update]");
 		// filterMap.put("/user/indexed", "perms[user:update]");
 		// filterMap.put("/user/index", "roles[admin]");
 
@@ -80,7 +81,7 @@ public class ShiroConfig {
 		// 管理员，需要角色权限 “admin”
 		// filterMap.put("/admin/background", "roles[admin]");
 		// filterMap.put("/admin/background", "roles[lhy]");
-//		filterMap.put("/to/b/index", "roles[lhy]");
+		filterMap.put("/to/b/index", "roles[lhy]");
 		/*
 		 * 
 		 * 这里需要给一个if判断，是管理员登的就跳管理员登录页 否则就是用户登录页

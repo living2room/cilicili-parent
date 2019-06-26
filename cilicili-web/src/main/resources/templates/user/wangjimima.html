@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<title></title>
 		<link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
-		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/style22.css"/>
 		<script src="/webjars/jquery/3.2.1/dist/jquery.min.js"></script>
 	</head>
 	
@@ -51,13 +51,13 @@
 		<div class="input-group " style="margin-left: 750px;">
 			<span class="input-group-addon">新密码</span>
 			<input type="password" name="userPassword" id="userPassword" class="form-control" placeholder="请输入您要新密码" style="width: 330px;" >
-		</div>
+		</div><label id="np"></label>
 		<br />
 		<div class="input-group" style="margin-left: 750px;">
 			<span class="input-group-addon"> &nbsp;确&nbsp;认&nbsp;</span>
 			<input type="password" name="userPassword2" id="userPassword2" class="form-control" placeholder="请您再次确认您的密码" style="width: 330px;">
-		</div>
-		<p id="p1"></p>
+		</div><label id="np2"></label>
+		
 		<br />
 		<br />
 		<button type="button" id="a" class="btn btn-primary" style="height: 40px;width: 300px;background: #00a1d6;font-size: 16px;margin-left: 810px;border: none;">确认修改</button>
@@ -71,17 +71,17 @@
 		if (userPassword == "" || userPassword == null) {
 			$("#userPassword").focus();
 			$("#userPassword").css("color", "red");
-			$("#p1").text("请输入密码");
+			$("#np").text("请输入密码");
 			return false;
 		} else if (userPassword2 == "" || userPassword2 == null) {
 			$("#userPassword2").focus();
 			$("#userPassword2").css("color", "red");
-			$("#p1").text("请再次输入密码");
+			$("#np2").text("请再次输入密码");
 			return false;
 		} else if(userPassword != userPassword2 ){
 			$("#userPassword").focus();
 			$("#userPassword").css("color", "red");
-			$("#p1").text("两次密码输入不一致").css("color", "red");
+			$("#np2").text("两次密码输入不一致");
 			return false;
 		}else if (userPassword == userPassword2) {
 			 $.ajax({
@@ -94,16 +94,16 @@
 				dataType : "json",
 				success : function(data) {
 					if ("1" == data["msg"]) {
-						$("#p1").text("修改密码成功").css("color", "red");
+						$("#np2").text("修改密码成功");
 						window.location.href = "/user/toPassword03";
 					} else if("-1" == data["msg"]) {
-						$("#p1").text("您的邮箱没有注册！").css("color", "red");
+						$("#np2").text("您的邮箱没有注册！");
 					}else {
-						$("#p1").text("修改密码失败").css("color", "red");
+						$("#np2").text("修改密码失败");
 					}
 				},
 				error : function(data) {
-					alert(data + "400");
+					$("#np2").text(data + "400");
 				}
 			});		 
 		}

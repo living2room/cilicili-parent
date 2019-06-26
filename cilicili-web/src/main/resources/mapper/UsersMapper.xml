@@ -42,7 +42,7 @@
 	
 	<!--   查找所有用户（给管理员） -->
 	<select id="findAll" resultMap="BaseResultMap">
-		select user_id,user_name,email,status,last_login_time from tb_u_users 	
+		select user_id,user_name,email,status from tb_u_users 	
 	</select>
 	
 	<!--  禁用用户（给管理员） -->

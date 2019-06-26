@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.cilicili.domain.user.admin.AdminPermission;
 import com.cilicili.domain.user.admin.AdminRole;
 import com.cilicili.domain.user.admin.AdminUser;
+import com.cilicili.domain.user.user.Users;
 import com.cilicili.user.service.impl.admin.AdminPermissionServiceImpl;
 import com.cilicili.user.service.impl.admin.AdminRoleServiceImpl;
 import com.cilicili.user.service.impl.admin.AdminUserServiceImpl;
+import com.cilicili.user.service.impl.user.UsersServiceImpl;
 import com.cilicili.user.shiro.ultra.JudgeUsernamePasswordToken;
 import com.cilicili.user.shiro.ultra.LoginType;
 
@@ -32,13 +34,15 @@ public class AdminController {
 	@Resource
 	private AdminUserServiceImpl adminUserServiceImpl;
 	@Resource
+	private UsersServiceImpl usersServiceImpl;
+	@Resource
 	private AdminRoleServiceImpl adminRoleServiceImpl;
 	@Resource
 	private AdminPermissionServiceImpl adminPermissionServiceImpl;
 
 	@RequestMapping("/toLogin")
 	public String toLogin() {
-		return "adminlogin";
+		return "user/adminlogin";
 	}
 
 	/*
@@ -141,53 +145,66 @@ public class AdminController {
 				 * session.setAttribute("adminPermissionList3", adminPermissionList3);
 				 */
 
-				return "index";
+				return "user/superIndex";
 
 			} catch (UnknownAccountException uae) {
 				model.addAttribute("msg", "用户名不存在");
-				return "adminlogin";
+				return "user/adminlogin";
 			} catch (IncorrectCredentialsException ice) {
 				model.addAttribute("msg", "密码错误");
-				return "adminlogin";
+				return "user/adminlogin";
 			} catch (LockedAccountException lae) {
 				model.addAttribute("msg", "用户名被禁用");
-				return "adminlogin";
+				return "user/adminlogin";
 			} catch (AuthenticationException ae) {
 				model.addAttribute("msg", "其他错误");
 				ae.printStackTrace();
-				return "adminlogin";
+				return "user/adminlogin";
 			}
 
 		}
-		return "index";
+		return "user/superIndex";
 
 	}
 
 	@RequestMapping("/testThymeleaf")
 	public String testThymeleaf(Model model) {
 		model.addAttribute("user", "123");
-		return "test";
+		return "user/test";
 	}
 
 	@RequestMapping("/add")
 	public String add(Model model) {
 		model.addAttribute("user", "123");
-		return "add";
+		return "user/test";
 	}
 
 	@RequestMapping("/update")
 	public String update(Model model) {
 		model.addAttribute("user", "123");
-		return "update";
+		return "user/test";
 	}
 
 	@RequestMapping("/noAuth")
 	public String noAuth() {
-		return "noAuth";
+		return "user/noAuth";
 	}
 
 	@RequestMapping("/background")
 	public String background() {
-		return "background";
+		return "user/background";
+	}
+	
+	@RequestMapping("/toTable")
+	public String toTable() {
+		return "redirect:/admin/table";
+	}
+	
+	@RequestMapping("/table")
+	public String table(Model model) {
+		
+		List<Users> usersList =	usersServiceImpl.findAll();
+		model.addAttribute("usersList", usersList);
+		return "user/table_data_tables.html";
 	}
 }
