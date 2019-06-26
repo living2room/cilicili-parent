@@ -5,14 +5,14 @@
 	<properties>
 		<start-class>com.cilicili.CiliciliWebApplication</start-class>
 	</properties>
-
+  
 	<parent>
 		<groupId>com.cilicili</groupId>
 		<artifactId>cilicili-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>cilicili-web</artifactId>
-
+ 
 	<dependencies>
 		<dependency>
 			<groupId>com.cilicili</groupId>
@@ -54,9 +54,10 @@
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
 		<dependency>
-		   <groupId>com.alibaba</groupId>
-			<artifactId>druid-spring-boot-starter</artifactId>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
 			<version>1.1.10</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
@@ -123,6 +124,14 @@
 			<groupId>com.baomidou</groupId>
 			<artifactId>mybatis-plus-boot-starter</artifactId>
 			<version>3.1.0</version>
+		</dependency>
+		
+
+		
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-generator</artifactId>
+			<version>3.1.0</version> 
 		</dependency>
 
 	</dependencies>
