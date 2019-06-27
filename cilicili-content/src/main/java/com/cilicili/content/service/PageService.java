@@ -83,8 +83,8 @@ public class PageService {
 			adDto.setVideoDuration(String.valueOf(infoList.get(i).getVideoDuration()));
 			adDto.setIsVip(infoList.get(i).getVideoIsvip());
 			adDto.setPicPath(picList.get(i).getPicActualUrl());
-			adDto.setBulletScreenNum(dataList.get(i).getBulletScreenNum());
-			adDto.setVideoPlayedNum(dataList.get(i).getVideoPlayed());
+//			adDto.setBulletScreenNum(dataList.get(i).getBulletScreenNum());
+//			adDto.setVideoPlayedNum(dataList.get(i).getVideoPlayed());
 			tvAdDtos.add(adDto);
 //			adDto.setPicPath(list.get(i).);
 		}

@@ -12,17 +12,15 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.net.ftp.FTPClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.cilicili.common.dto.UploadJsonObj;
 import com.cilicili.common.dto.VideoReviewDto;
 import com.cilicili.common.utils.PictureMerge;
 import com.cilicili.common.utils.RedisUtil;
@@ -36,7 +34,6 @@ import com.cilicili.content.mapper.VideoTypeMapper;
 import com.cilicili.content.mapper.VideoUrlMapper;
 import com.cilicili.content.mapper.VideoUserMapper;
 import com.cilicili.domain.content.Type;
-import com.cilicili.domain.content.Users;
 import com.cilicili.domain.content.VideoData;
 import com.cilicili.domain.content.VideoExamine;
 import com.cilicili.domain.content.VideoInfo;
@@ -44,12 +41,12 @@ import com.cilicili.domain.content.VideoPic;
 import com.cilicili.domain.content.VideoType;
 import com.cilicili.domain.content.VideoUrl;
 import com.cilicili.domain.content.VideoUser;
+import com.cilicili.domain.user.user.Users;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.extra.ftp.Ftp;
-import org.apache.commons.net.ftp.FTPClient;
 /**
  * @author 李明睿 2019年5月23日
  */
@@ -148,9 +145,6 @@ public class VideoService {
 			entity.setVideoSize((String) videoInfo.get("Size"));
 			entity.setVideoUploadTime(DateUtil.date());
 			entity.setVideoIsAvailable(1);
-			// entity.setIsVip(jsonObj.getVip());
-			// entity.setVideoTitle(jsonObj.getTitle());
-			// entity.setVideoDescribe(jsonObj.getDescribe());
 			i = infoMapper.insert(entity);
 		} catch (Exception e1) {
 			e1.printStackTrace();
@@ -164,27 +158,10 @@ public class VideoService {
 		videoUrl.setRequestUrl(String.valueOf(id));
 		int j = vUrlMapper.insert(videoUrl);
 
-		// VideoUser videoUser = new VideoUser();
-		// Users user = (Users) session.getAttribute("user");
-		// id = snowflake.nextId();
-		// videoUser.setId(id);
-		// videoUser.setUserId(user.getId());
-		// videoUser.setVideoId(nextId);
-		//// videoUser.setIsVip(jsonObj.getVip());
-		// int k = vUserMapper.insert(videoUser);
-
-		// VideoType videoType = new VideoType();
-		// id = snowflake.nextId();
-		// videoType.setId(id);
-		// Type type = new Type();
-		//// type.setId(jsonObj.getTypeId());
-		// videoType.setTypeId(type.getId());
-		// videoType.setVideoId(nextId);
-		// int l = vTypeMapper.insert(videoType);
-
 		VideoExamine videoExam = new VideoExamine();
 		videoExam.setVideoStatus(0);
 		int n = veMapper.insert(videoExam);
+		
 		if (2 == i + j) {
 			System.out.println("接收完毕");
 			return nextId;
@@ -381,10 +358,10 @@ public class VideoService {
 		vType.setTypeId(Integer.valueOf(tn));
 		vTypeMapper.insert(vType );
 		
-//		Users user = (Users) session.getAttribute("user");
+		Users user = (Users) session.getAttribute("user");
 		//目前session里面没有User
 		VideoUser uVi = new VideoUser();
-//		uVi.setUserId(user.getId());
+		uVi.setUserId(user.getUserId());
 		uVi.setVideoId(videoInfoId);
 		vUserMapper.insert(uVi );
 		

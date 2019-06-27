@@ -18,8 +18,6 @@
     <result column="order_num" jdbcType="INTEGER" property="orderNum" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
     <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <collection property="adminRoleList" javaType="java.util.List"
 			ofType="com.cilicili.domain.user.admin.AdminRole"
 			resultMap="com.cilicili.user.mapper.admin.AdminRoleMapper.BaseResultMap"/>

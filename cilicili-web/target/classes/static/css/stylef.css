@@ -1061,6 +1061,15 @@
 	float: left;
 }
 
+.mover1{
+	width: 352px;
+	height: 202px;
+	border-radius: 10px;
+	border: #ffffff solid 6px;
+	background: #00C3FF;
+	box-shadow: darkgrey 1px 1px 3px 1px; 
+}
+
 .mover2{
 	width: 352px;
 	height: 202px;
@@ -1089,7 +1098,8 @@
 }
 
 #box97{
-	height: 25px;
+	width: 600px;
+	height: 50px;
 }
 
 .con4{
@@ -1105,6 +1115,12 @@
 	height: 28px;
 	
 	font-family: "Microsoft Yahei";
+}
+
+.index_mover_left{
+	width: 352px;
+	height: 302px;
+	float: left;
 }
 
 .beizhu_title{

@@ -62,13 +62,10 @@
 						</div>
 						<div class="shcngchuan">
 							<div class="tubiao">
-								<img th:if="${session.user}" src="../img/yonghu.png">
-								<img th:unless="${session.user}" src="../img/yonghu.png">
+								<img src="../img/yonghu.png">
 							</div>
 							<div class="nav_text">
-
-								<a th:if="${session.user}" th:href="Login.html">[[${session.userName}]]</a>
-								<a th:unless="${session.user}" th:href="Login.html">登录</a>
+								<a href="Login.html">登录</a>
 							</div>
 						</div>
 					</div>

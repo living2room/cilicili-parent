@@ -4,6 +4,7 @@
 package com.cilicili.domain.content;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.cilicili.domain.user.user.Users;
 
 import lombok.Data;
 

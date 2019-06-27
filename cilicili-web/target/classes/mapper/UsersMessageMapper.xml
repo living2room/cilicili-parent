@@ -47,10 +47,6 @@
 		<result column="sex" jdbcType="INTEGER" property="sex" />
 		<result column="home" jdbcType="VARCHAR" property="home" />
 		<result column="age" jdbcType="INTEGER" property="age" />
-		<result column="create_time" jdbcType="TIMESTAMP"
-			property="createTime" />
-		<result column="last_login_time" jdbcType="TIMESTAMP"
-			property="lastLoginTime" />
 		<result column="id_card" jdbcType="VARCHAR" property="idCard" />
 		<result column="qq" jdbcType="INTEGER" property="qq" />
 		<result column="img_url" jdbcType="VARCHAR" property="imgUrl" />

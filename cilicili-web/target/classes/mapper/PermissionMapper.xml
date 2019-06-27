@@ -12,8 +12,6 @@
     <result column="order_num" jdbcType="INTEGER" property="orderNum" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
     <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <collection property="roleList" javaType="java.util.List"
 			ofType="com.cilicili.domain.user.user.Role"
 			resultMap="com.cilicili.user.mapper.user.RoleMapper.BaseResultMap"/>

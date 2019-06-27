@@ -60,7 +60,7 @@
 						</a>
 					</div>
 					<div class="shcngchuan">
-						<a href="shangchuan.html">
+						<a href="/to/up">
 							<div class="tubiao"><img src="/img/shangchuan.png" ></div>
 							<div class="nav_text">上传</div>
 						</a>
@@ -68,7 +68,7 @@
 					<div class="shcngchuan">
 						<a href="#">
 							<div class="tubiao"><img src="/img/tuiguang.png" ></div>
-							<div class="nav_text">推广</div>
+							<div class="nav_text">消息</div>
 						</a>
 					</div>
 					<div class="shcngchuan">
@@ -81,7 +81,8 @@
 					<div class="shcngchuan">
 						<a href="Login.html">
 							<div class="tubiao"><img src="/img/yonghu.png" ></div>
-							<div class="nav_text">登录</div>
+							<div th:unless="${session.user}" class="nav_text">登录</div>
+							<div th:if="${session.user}" class="nav_text">[[${session.userName}]]</div>
 						</a>
 					</div>
 				</div>
@@ -257,68 +258,106 @@
 						<div class="mover2"></div>
 					</div>
 
-					<div class="con3">
+				<div class="con3" th:each="tvad1:${PageContent}">
+					<!-- <div th:text="${tvad1.key}"></div> -->
+					<div>
 						<div class="con3_01">
-								<div class="con3_left">
-									<div class="tubiao1"><img src="/img/tubiao02.png" ></div>
-									<div class="text1">动画</div>
-									<div class="gengduo"><a href="#">查看更多<span style="margin-left: 7px; "><img src="/img/jiantou.png" alt=""></span></a></div>
+							<div class="con3_left">
+								<!--  -->
+								<div class="tubiao1">
+									<img src="/img/tubiao02.png">
+								</div>
+								<div class="text1" th:text="${tvad1.key}">动画</div>
+								<div class="gengduo">
+									<a href="#">查看更多<span style="margin-left: 7px;"><img
+											src="/img/jiantou.png" alt=""></span></a>
+								</div>
+							</div>
+							<div id="box97"></div>
+							<div class="con3_02" th:each="tvad2:${tvad1.value}" style="display:inline;">
+								<div class="index_mover_left">
+									<div class="mover1"  style="background:url('/img/a2.jpg')"></div>
+									<div class="beizhu" style="margin-top: 20px;">
+										<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
+										<div class="beizhu_tubiao">
+											<img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span
+												style="margin-left: 22px;"><img src="/img/danmu.png"
+												alt="">&nbsp;&nbsp;332</span>
+										</div>
+									</div>
+									<div class="beizhu_text">大型虫洞控制权（上集）</div>
+								</div>
+								<!-- 	<div class="con2">
+									<div id="box97"></div>
+									<div class="mover" style="background:url('/img/a2.jpg')"></div>
+									<div class="mover2" ></div>
 								</div>
 
-								<div class="con3_02">
-									<div class="con2">
-										<div id="box97"></div>
-										<div class="mover"></div>
-										<div class="mover2"></div>
-									</div>
-
-									<div class="con4">
-										<div class="beizhu">
-											<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
-											<div class="beizhu_tubiao"><img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span style="margin-left: 22px;"><img src="/img/danmu.png" alt="">&nbsp;&nbsp;332</span></div>
+								<div class="con4">
+									<div class="beizhu">
+										<div class="beizhu_title" th:text="${tvad2.picAlt}">斗破苍穹&nbsp;&nbsp;第二季</div>
+										<div class="beizhu_tubiao">
+											<img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span
+												style="margin-left: 22px;"><img src="/img/danmu.png"
+												alt="">&nbsp;&nbsp;332</span>
 										</div>
-										<div class="beizhu_text">大型虫洞控制权（上集）</div>
 									</div>
+									<div class="beizhu_text" th:text="${tvad2.name}">大型虫洞控制权（上集）</div>
+								</div> -->
 
-									<div class="con4" style="margin-left: 30px;">
-										<div class="beizhu">
-											<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
-											<div class="beizhu_tubiao"><img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span style="margin-left: 22px;"><img src="/img/danmu.png" alt="">&nbsp;&nbsp;332</span></div>
+								<!-- <div class="con4" style="margin-left: 30px;">
+									<div class="beizhu">
+										<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
+										<div class="beizhu_tubiao">
+											<img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span
+												style="margin-left: 22px;"><img src="/img/danmu.png"
+												alt="">&nbsp;&nbsp;332</span>
 										</div>
-										<div class="beizhu_text">大型虫洞控制权（上集）</div>
 									</div>
+									<div class="beizhu_text">大型虫洞控制权（上集）</div>
+								</div> -->
+							</div>
+
+
+							<!-- <div class="con3_02">
+								<div class="con2">
+									<div class="mover"></div>
+									<div class="mover2"></div>
 								</div>
 
-
-								<div class="con3_02">
-									<div class="con2">
-										<div class="mover"></div>
-										<div class="mover2"></div>
-									</div>
-
-									<div class="con4">
-										<div class="beizhu">
-											<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
-											<div class="beizhu_tubiao"><img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span style="margin-left: 22px;"><img src="/img/danmu.png" alt="">&nbsp;&nbsp;332</span></div>
+								<div class="con4">
+									<div class="beizhu">
+										<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
+										<div class="beizhu_tubiao">
+											<img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span
+												style="margin-left: 22px;"><img src="/img/danmu.png"
+												alt="">&nbsp;&nbsp;332</span>
 										</div>
-										<div class="beizhu_text">大型虫洞控制权（上集）</div>
 									</div>
-
-									<div class="con4" style="margin-left: 30px;">
-										<div class="beizhu">
-											<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
-											<div class="beizhu_tubiao"><img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span style="margin-left: 22px;"><img src="/img/danmu.png" alt="">&nbsp;&nbsp;332</span></div>
-										</div>
-										<div class="beizhu_text">大型虫洞控制权（上集）</div>
-									</div>
+									<div class="beizhu_text">大型虫洞控制权（上集）</div>
 								</div>
 
+								<div class="con4" style="margin-left: 30px;">
+									<div class="beizhu">
+										<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
+										<div class="beizhu_tubiao">
+											<img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span
+												style="margin-left: 22px;"><img src="/img/danmu.png"
+												alt="">&nbsp;&nbsp;332</span>
+										</div>
+									</div>
+									<div class="beizhu_text">大型虫洞控制权（上集）</div>
+								</div>
+							</div>
+ -->
 
 						</div>
 
 						<div class="paihang">
 							<div class="paihang_title">
-								<div class="tubiao1"><img src="/img/tubiao03.png" alt=""></div>
+								<div class="tubiao1">
+									<img src="/img/tubiao03.png" alt="">
+								</div>
 								<div class="text1">排行</div>
 								<div class="paihang_null"></div>
 								<div class="paihang_con">
@@ -365,11 +404,11 @@
 								</div>
 							</div>
 						</div>
+					</div>	<!--  -->
+				</div>
 
-					</div>
 
-
-					<div class="con3">
+				<!-- <div class="con3">
 						<div class="con3_01">
 								<div class="con3_left">
 									<div class="tubiao1"><img src="/img/tubiao04.png" ></div>
@@ -442,7 +481,8 @@
 										</div>
 
 										<div class="top02">
-											<div class="top01_xuhao">2</div>性感女上司无尽的诱惑</div>
+											<div class="top01_xuhao">2</div>
+											<div class="top02_text">《黑夜》&nbsp;之性感女上司无尽的诱惑</div>
 										</div>
 
 										<div class="top02">
@@ -466,7 +506,6 @@
 										</div>
 
 										<div class="top02">
-                                            <div class="top02_text">《黑夜》&nbsp;之
 											<div class="top01_xuhao" style="background: #b6b6b6">7</div>
 											<div class="top02_text">《黑夜》&nbsp;之性感女上司无尽的诱惑</div>
 										</div>
@@ -478,10 +517,10 @@
 							</div>
 						</div>
 
-					</div>
+					</div> -->
 
 
-					<div class="con3">
+					<!-- <div class="con3">
 						<div class="con3_01">
 								<div class="con3_left">
 									<div class="tubiao1"><img src="/img/tubiao02.png" ></div>
@@ -590,10 +629,10 @@
 							</div>
 						</div>
 
-					</div>
+					</div> -->
 
 
-					<div class="con3">
+					<!-- <div class="con3">
 						<div class="con3_01">
 								<div class="con3_left">
 									<div class="tubiao1"><img src="/img/tubiao02.png" ></div>
@@ -702,7 +741,7 @@
 							</div>
 						</div>
 
-					</div>
+					</div> -->
 
 					<div id="box95"></div>
 
@@ -755,6 +794,7 @@
 
 		<!-------------------------------------- 轮播图的动效 --------------------------------------------------->
 		<script type="text/javascript">
+			$(".index_mover_left:odd").css("margin-left","30px");
                      $("#box_sousuo").bsSuggest({
                         emptyTip: '未检索到匹配的数据',
                         allowNoKeyword: false,   //是否允许无关键字时请求数据。为 false 则无输入时不执行过滤请求
