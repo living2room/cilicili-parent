@@ -23,5 +23,5 @@ public class VideoExamine {
 	private Date videoLastExamineTime;
 	private Date videoApprovalTime;
 	private AdminUser adminId;
-	private Integer resonId;
+	private Integer reasonId;
 }

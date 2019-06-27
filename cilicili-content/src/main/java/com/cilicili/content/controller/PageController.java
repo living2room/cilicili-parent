@@ -75,6 +75,7 @@ public class PageController {
 		}
 		//所有类型及其子类型
 		model.addAttribute("PageType",typelist);
+		
 		//所有内容按类型封装
 		model.addAttribute("PageContent", map);
 		
@@ -200,6 +201,7 @@ public class PageController {
 	 @GetMapping("vi/{id}")
 	 public String toVideoPage(Model model,@PathVariable("id") String videoPath) {
 		 vService.getThisVideo(videoPath);
+		 
 		 return "/content/video";
 		}
 

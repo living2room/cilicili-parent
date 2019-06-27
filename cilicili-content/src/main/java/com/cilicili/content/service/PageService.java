@@ -12,6 +12,7 @@ import org.springframework.transaction.event.TransactionalEventListener;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cilicili.common.dto.TvAdDto;
+import com.cilicili.common.utils.RedisUtil;
 import com.cilicili.content.mapper.TypeMapper;
 import com.cilicili.content.mapper.VideoDataMapper;
 import com.cilicili.content.mapper.VideoInfoMapper;
@@ -44,6 +45,8 @@ public class PageService {
 	private VideoTypeMapper vtypeMapper;
 	@Resource
 	private TypeMapper tMapper;
+	@Resource
+	private RedisUtil redisUtil;
 	// TODO 换Map来实现随机插入
 
 	/**根据类型拿到首页视频服务层
@@ -74,6 +77,7 @@ public class PageService {
 			queryWrapperVD.eq("video_id", info.getId());
 			VideoData videoData = vDataMapper.selectOne(queryWrapperVD);
 			dataList.add(videoData);
+
 		}
 		//组装为对象
 		for (int i = 0; i <= infoList.size()-1; i++) {
@@ -82,11 +86,11 @@ public class PageService {
 			adDto.setName(infoList.get(i).getVideoTitle());
 			adDto.setVideoDuration(String.valueOf(infoList.get(i).getVideoDuration()));
 			adDto.setIsVip(infoList.get(i).getVideoIsvip());
-			adDto.setPicPath(picList.get(i).getPicActualUrl());
+			adDto.setPicPath((String)redisUtil.get(infoList.get(i).getId()));
 //			adDto.setBulletScreenNum(dataList.get(i).getBulletScreenNum());
 //			adDto.setVideoPlayedNum(dataList.get(i).getVideoPlayed());
+//			adDto.setLink(dataList.get(i).getVideoId());
 			tvAdDtos.add(adDto);
-//			adDto.setPicPath(list.get(i).);
 		}
 		return tvAdDtos;
 	}

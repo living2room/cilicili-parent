@@ -5,8 +5,6 @@ package com.cilicili.common.dto;
 
 import java.util.Date;
 
-import com.cilicili.domain.content.Users;
-
 import lombok.Data;
 
 /**

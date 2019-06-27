@@ -20,7 +20,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.cilicili.common.dto.VideoDetail;
 import com.cilicili.common.dto.VideoReviewDto;
 import com.cilicili.common.utils.PictureMerge;
 import com.cilicili.common.utils.RedisUtil;
@@ -159,6 +161,7 @@ public class VideoService {
 		int j = vUrlMapper.insert(videoUrl);
 
 		VideoExamine videoExam = new VideoExamine();
+		videoExam.setVideoId(nextId);
 		videoExam.setVideoStatus(0);
 		int n = veMapper.insert(videoExam);
 		
@@ -170,36 +173,31 @@ public class VideoService {
 	}
 
 	/**
-	 * 制预览图并上传
+	 * 制预览图
 	 * 
 	 * @param toFile 视频文件
 	 * @param req
 	 * @return 图片路径
 	 */
-	public String previewupload(File toFile, HttpServletRequest req) {
-		Ftp ftp = new Ftp(ftpAddr, ftpport);
-		ftp.setMode(cn.hutool.extra.ftp.FtpMode.Active);
+	public String previewupload(String id, HttpServletRequest req) {
+		 QueryWrapper<VideoUrl> queryWrapper = new  QueryWrapper<VideoUrl>();
+		 queryWrapper.eq("video_id", id);
+		VideoUrl videoUrl = vUrlMapper.selectOne(queryWrapper);
+		 String actualUrl = videoUrl.getActualUrl();
+		 
 		String localPath = req.getSession().getServletContext().getRealPath("")
 				+ "temp" + File.separator + "thumbnail"
 				+ File.separator;
-		File localPathFile = new File(localPath);
-		if(!localPathFile.exists())
-			localPathFile.mkdirs();
-		String pic = IdUtil.simpleUUID() + ".jpg";
-		String picPath =  "/data/imgs/preview";
-		VideoResolution.getVideoPic(toFile, localPath + pic, 20);
-		File file = new File(localPath + pic);
-		boolean c = ftp.cd(localPath); 
-		boolean b = ftp.upload(picPath, file.getName(), file);
-		if (b&&c) {
-			System.out.println("上传预览图成功");
-		}
-		try {
-			ftp.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return pic;
+		Ftp ftp = new Ftp(ftpAddr, ftpport);
+		ftp.setMode(cn.hutool.extra.ftp.FtpMode.Active);
+		String outFile = req.getSession().getServletContext().getRealPath("")
+				+ "temp" + File.separator + "video"
+				+ File.separator;
+		File file = new File(outFile);
+		file.mkdir();
+		ftp.download(actualUrl, file );
+		VideoResolution.getVideoMiddlePic(file, localPath);
+		return localPath;
 	}
 	/**
 	 * 预览图插入数据库
@@ -379,20 +377,30 @@ public class VideoService {
 	/**拿到该视频的信息
 	 * @param videoPath
 	 */
-	public void getThisVideo(String videoPath) {
-		VideoUrl videoUrl = vUrlMapper.selectById(videoPath);
+	public VideoDetail getThisVideo(String videoPath) {
+		VideoDetail detail = new VideoDetail();
+		QueryWrapper<VideoUrl> queryWrapper = new QueryWrapper<VideoUrl>();
+		queryWrapper.eq("video_id", videoPath);
+		VideoUrl videoUrl = vUrlMapper.selectOne(queryWrapper );
 		VideoInfo videoInfo = infoMapper.selectById(videoUrl.getVideoId());
 		
-		QueryWrapper<VideoPic> queryWrapper = new QueryWrapper<VideoPic>();
-		queryWrapper.eq("video_id", videoInfo.getId());
-		queryWrapper.eq("pic_type", 1);
-		VideoPic videoPic = vPicMapper.selectOne(queryWrapper );
+		String pic = (String)redisUtil.get(videoPath);
 		
 		QueryWrapper<VideoData> dqueryWrapper = new QueryWrapper<VideoData>();
 		dqueryWrapper.eq("video_id", videoInfo.getId());
 		VideoData videoData = vDataMapper.selectOne(dqueryWrapper );
-		videoData.setLikedNum(videoData.getLikedNum()+1);
+		videoData.setVideoPlayed(videoData.getVideoPlayed()+1);
 		vDataMapper.updateById(videoData);
+		detail.setActualUrl(videoUrl.getActualUrl());
+		detail.setBulletScreenNum(videoData.getBulletScreenNum());
+		detail.setLikedNum(videoData.getLikedNum());
+		//detail.setPicUrl(pic);
+		detail.setVideoDescribe(videoInfo.getVideoDescribe());
+		detail.setVideoId(videoData.getVideoId());
+		detail.setVideoPlayed(videoData.getVideoPlayed());
+		detail.setVideoTitle(videoInfo.getVideoTitle());
+		detail.setVideoUploadTime(videoInfo.getVideoUploadTime());
+		return detail;
 		
 	}
 

@@ -2,20 +2,21 @@
 * @Author: name
 * @Date:   2019-05-31 08:35:18
 * @Last Modified by:   name
-* @Last Modified time: 2019-05-31 11:01:50
+* @Last Modified time: 2019-06-27 11:39:13
 */
 //滑动导航栏
 function scroll_scroll(){
     $(window).scroll(function(event){
       var current = $(window).scrollTop()
-      if (current < $(".con1").offset().top) {$(".ECode-floatBar").hide()}
-      else if (current >= $(".clockimg").offset().top&&current < $(".middle3").offset().top) {$(".ECode-floatBar").show();$(".list li:eq(0)").addClass("on").siblings().removeClass("on")}
-      else if (current >= $(".middle3").offset().top&&current < $(".middle4").offset().top){$(".ECode-floatBar").show();$(".list li:eq(1)").addClass("on").siblings().removeClass("on")}
-      else if (current >= $(".middle4").offset().top&&current < $(".middle5").offset().top){$(".ECode-floatBar").show();$(".list li:eq(2)").addClass("on").siblings().removeClass("on")}
-      else if (current >= $(".middle5").offset().top&&current < $(".middle6").offset().top){$(".ECode-floatBar").show();$(".list li:eq(3)").addClass("on").siblings().removeClass("on")}
-      else if (current >= $(".middle6").offset().top&&current < $(".middle7").offset().top){$(".ECode-floatBar").show();$(".list li:eq(4)").addClass("on").siblings().removeClass("on")}
-      else if (current >= $(".middle7").offset().top) {$(".ECode-floatBar").show();$(".list li:eq(5)").addClass("on").siblings().removeClass("on")}
-      console.log(current,p1);
+      var conNum= $(".con3").index()
+      for (var i = 0; i <= conNum; i++) {
+        if (current < $(".con1").offset().top) {$(".ECode-floatBar").hide()}
+        else if (current == $(".con1").offset().top) {$(".ECode-floatBar").show();$(".list li:eq("+i+")").addClass("on").siblings().removeClass("on")}
+        else if (current >= $(".con3:eq("+i+")").offset().top&&current < $(".con3:eq("+(i+1)+")").offset().top)
+          {$(".ECode-floatBar").show();$(".list li:eq("+i+")").addClass("on").siblings().removeClass("on")}
+        else if(current >= $(".con3:eq("+conNum+")").offset().top)
+          {$(".ECode-floatBar").show();$(".list li:eq("+conNum+")").addClass("on").siblings().removeClass("on")}
+      };
     // $(".list li:eq(0)").addClass("on").siblings().removeClass("on")
     });
 }
@@ -23,23 +24,20 @@ function scroll_scroll(){
 function scroll_cilck(){
   $(".list li").click(function(){
     var index = $(this).index()
-    if (index == 0) {var scroll_offset = $(".con1").offset().top;}
-    else if (index == 1) {var scroll_offset = $(".middle3").offset().top;}
-    else if (index == 2) {var scroll_offset = $(".middle4").offset().top;}
-    else if (index == 3) {var scroll_offset = $(".middle5").offset().top;}
-    else if (index == 4) {var scroll_offset = $(".middle6").offset().top;}
-    else if (index == 5) {var scroll_offset = $(".middle7").offset().top;}
+    var conNum= $(".con3").index()
+    for (var i = 0; i <= conNum; i++) {if (index == i) {var scroll_offset = $(".con3:eq("+i+")").offset().top;}
+    };
+
     $("body,html").stop().animate({
       scrollTop: scroll_offset
        }, 600);
     $(this).addClass("on").siblings().removeClass("on")
-    console.log(index);
   });
 }
 // 滚动
  function movedome(){
 
-   var stop=false;
+  var stop=false;
   $(".middle1-3-1").hover(function(){
        $(this).css("cursor","pointer");
           stop=true;

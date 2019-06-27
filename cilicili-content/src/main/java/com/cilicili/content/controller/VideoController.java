@@ -44,16 +44,13 @@ public class VideoController {
 		}
 		return "failed";
 	}
-	/**
-	 * 上传成后回调方法
-	 */
-	@PostMapping("afterup")
-	public void uploadSuccess() {
-	}
 	
-	@PostMapping("picThumb")
-	public void picThumb(String src) {
-		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+	/**拿到封面
+	 * @param src
+	 */
+	@PostMapping("picPreview/{id}")
+	public void picThumb(@PathVariable("id")String id,HttpServletRequest req) {
+		vService.previewupload(id, req);
 	}
 	
 	
@@ -85,11 +82,9 @@ public class VideoController {
 		}else if(t1 != null){
 			vService.addvideoInfo(session,videoInfoId, base64, videoName, videoDescribe,t1);
 		}
-		
-		
 		// 根据videoInfoId获取相应的封面图
 //		String path = redisUtil.get(videoInfoId).toString();
-		return  "";
+		return  "1";
 	}
 	
 }

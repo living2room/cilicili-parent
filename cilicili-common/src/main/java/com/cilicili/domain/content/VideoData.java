@@ -14,7 +14,6 @@ import lombok.Data;
 @Data
 @TableName("tb_video_data")
 public class VideoData {
-	private Integer id;
 	private	String videoId;
 	private Long videoPlayed;
 	private Long collectionNum;

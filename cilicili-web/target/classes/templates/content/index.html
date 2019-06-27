@@ -15,7 +15,7 @@
 		<link rel="stylesheet" type="text/css" href="/css/stylef.css"/>
 		<link rel="stylesheet" type="text/css" href="/css/reset.css">
 		<link rel="stylesheet" type="text/css" href="/css/common.css">
-         <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
+        <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
 
 
         <!-- 全局js -->
@@ -79,7 +79,7 @@
 
 					</div>
 					<div class="shcngchuan">
-						<a href="Login.html">
+						<a href="/user/toLogin">
 							<div class="tubiao"><img src="/img/yonghu.png" ></div>
 							<div th:unless="${session.user}" class="nav_text">登录</div>
 							<div th:if="${session.user}" class="nav_text">[[${session.userName}]]</div>
@@ -219,14 +219,11 @@
 		</nav>
 		<!-------------------------------------------- 小导航栏结束 ------------------------------------------------->
   		<!-------------------------------------------- 右边栏 ------------------------------------------------->
-        <div class="ECode-floatBar" style="position: fixed; top: 50%; left: 50%; z-index: 1000; right: auto; margin-left: -670px; margin-top: -159.5px; display: block;">
+        <div class="ECode-floatBar" style="position: fixed; top: 50%; left: 50%; z-index: 1000; right: auto; margin-left: -670px; margin-top: -159.5px; display: none;">
             <div class="floatbar" id="indexFloat">
                 <div class="float-bg"></div>
                 <!-- 图标 -->
                 <ul class="list">
-                    <li  class="">
-                        <a href="javascript:;">本站推荐</a>
-                    </li>
                     <li th:each="list : ${PageType}" class="">
                         <a  th:text="${list.type.type}"  href="javascript:;"  ></a>
                     </li>
@@ -275,47 +272,20 @@
 							</div>
 							<div id="box97"></div>
 							<div class="con3_02" th:each="tvad2:${tvad1.value}" style="display:inline;">
+								<a th:href="${tvad2.link}">
 								<div class="index_mover_left">
-									<div class="mover1"  style="background:url('/img/a2.jpg')"></div>
+									<div class="mover1" th:style="background:url('@{${tvad2.picPath}}')"></div>
 									<div class="beizhu" style="margin-top: 20px;">
-										<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
+										<div th:text="${tvad2.name}" class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
 										<div class="beizhu_tubiao">
-											<img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span
+											<img src="/img/shiping.png" alt="">&nbsp;&nbsp;[[${tvad2.videoPlayedNum}]]<span
 												style="margin-left: 22px;"><img src="/img/danmu.png"
-												alt="">&nbsp;&nbsp;332</span>
+												alt="">&nbsp;&nbsp;[[${tvad2.bulletScreenNum}]]</span>
 										</div>
 									</div>
 									<div class="beizhu_text">大型虫洞控制权（上集）</div>
-								</div>
-								<!-- 	<div class="con2">
-									<div id="box97"></div>
-									<div class="mover" style="background:url('/img/a2.jpg')"></div>
-									<div class="mover2" ></div>
-								</div>
+								</div></a>
 
-								<div class="con4">
-									<div class="beizhu">
-										<div class="beizhu_title" th:text="${tvad2.picAlt}">斗破苍穹&nbsp;&nbsp;第二季</div>
-										<div class="beizhu_tubiao">
-											<img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span
-												style="margin-left: 22px;"><img src="/img/danmu.png"
-												alt="">&nbsp;&nbsp;332</span>
-										</div>
-									</div>
-									<div class="beizhu_text" th:text="${tvad2.name}">大型虫洞控制权（上集）</div>
-								</div> -->
-
-								<!-- <div class="con4" style="margin-left: 30px;">
-									<div class="beizhu">
-										<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
-										<div class="beizhu_tubiao">
-											<img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span
-												style="margin-left: 22px;"><img src="/img/danmu.png"
-												alt="">&nbsp;&nbsp;332</span>
-										</div>
-									</div>
-									<div class="beizhu_text">大型虫洞控制权（上集）</div>
-								</div> -->
 							</div>
 
 
@@ -794,6 +764,8 @@
 
 		<!-------------------------------------- 轮播图的动效 --------------------------------------------------->
 		<script type="text/javascript">
+			scroll_scroll()
+			scroll_cilck()
 			$(".index_mover_left:odd").css("margin-left","30px");
                      $("#box_sousuo").bsSuggest({
                         emptyTip: '未检索到匹配的数据',

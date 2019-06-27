@@ -11,11 +11,50 @@
 	src="/webjars/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script type="text/javascript"
 	src="/webjars/jquery-form/4.2.2/jquery.form.min.js"></script>
-        <!-- layer javascript -->
-        <script src="/js/plugins/layer/layer.min.js"></script>
+    <!-- layer javascript -->
+    <script src="/js/plugins/layer/layer.min.js"></script>
+    <!-- jQuery Validation plugin javascript-->
+    <script src="/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="/js/plugins/validate/messages_zh.min.js"></script>
 </head>
 <script type="text/javascript">
+
 	$(function() {
+		var icon = "<i class='fa fa-times-circle'></i> ";
+		$("#updatetype").validate();
+		$("#addtype").validate();
+        $("#addtype").validate({
+                rules: {
+                    id: "required",
+                    type: "required",
+                    typeRating:"required",
+                    fatherRatingId:"required",
+                    typeUrl:"required"
+                },
+                messages: {
+                    id: icon+"required",
+                    type: icon+"required",
+                    typeRating:icon+"required",
+                    fatherRatingId:icon+"required",
+                    typeUrl:icon+"required"
+                    }
+            })
+        $("#updatetype").validate({
+                rules: {
+                    id: "required",
+                    type: "required",
+                    typeRating:"required",
+                    fatherRatingId:"required",
+                    typeUrl:"required"
+                },
+                messages: {
+                    type: icon+"required",
+                    typeRating:icon+"required",
+                    fatherRatingId:icon+"required",
+                    typeUrl:icon+"required"
+                    }
+            })
+
 		$("#updatetype").on("submit", function() {
 			$(this).ajaxSubmit({
 				url : "/t/update",
@@ -111,7 +150,6 @@
 				<div class="form-group">
 					<div class="col-sm-4 col-sm-offset-2">
 						<button class="btn btn-primary" type="submit">保存内容</button>
-						<button class="btn btn-white">取消</button>
 					</div>
 				</div>
 			</form>

@@ -50,7 +50,9 @@
 						</div>
 						<div class="shcngchuan">
 							<div class="tubiao"><img src="/img/yonghu.png" ></div>
-							<div class="nav_text"><a href="Login.html">登录</a></div>
+								<div th:unless="${session.user}" class="nav_text">登录</div>
+								<div th:if="${session.user}" class="nav_text">[[${session.userName}]]</div>
+							<div class="nav_text"><a href="/user/toLogin">登录</a></div>
 						</div>
 					</div>
 				</div>
@@ -89,6 +91,10 @@
 										        		点击上传
 										        		<input  type="file" id="file" style="cursor:pointer;opacity:0;filter:alpha(opacity=0);width:100%;height:100%;position:absolute;top:0;left:0;">
 										        	</div>
+<!-- 							        				<div class="" style="margin-top: 25px;width:100px;height:32px;border-radius: 4px;background-color:#fff;color: #FFFFFF;font-size: 14px;text-align:center;line-height:32px;outline:none;position:relative;color: #333;border: solid 1px #b8b8b8;">
+										        		生成封面
+										        		<button  type="button" id="btnGen" style="cursor:pointer;opacity:0;filter:alpha(opacity=0);width:100%;height:100%;position:absolute;top:0;left:0;">
+										        	</div> -->
 									        	</div>
 								        	</div>
 							        	</div>
@@ -166,6 +172,20 @@
 			}
 
 		});
+		$("#btnGen").click(function(){
+			$.ajax({
+				url: '/v/picPreview/'+vid,
+				async:false,
+				type: 'POST',
+				dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+			})
+			.done(function(data) {
+				console.log("success");
+				$('#view').css('background-image', img3);
+			})
+
+		})
+
 		//clipArea.destroy();
 		//
 	function getJsonLength(jsonData){
@@ -201,6 +221,7 @@
 					console.log(data);
 					if (data == "1") {
 						parent.layer.msg('添加成功', {icon: 1});
+						window.location.href="/to/vi/"+vid;
 					} else {
 						parent.layer.msg('添加失败', {shift: 6});
 					}
