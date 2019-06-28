@@ -186,6 +186,7 @@ public class AdminRealm extends AuthorizingRealm {
 		/*
 		 * if(用户和管理员分开)
 		 */
+	
 		AdminUser adminUser = this.adminUserService.findByUserName(userName);
 		System.out.println("11" + userName);
 		System.out.println("22" + adminUser.getUserName());

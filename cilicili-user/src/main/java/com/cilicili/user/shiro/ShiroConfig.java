@@ -52,40 +52,44 @@ public class ShiroConfig {
 		// filterMap.put("/user/index", "authc");
 
 		filterMap.put("../static/**", "anon");
+		
+		//geliangjie
+		filterMap.put("/PaymentBuyVip/Buy", "authc");
+		filterMap.put("/Message/SendMessage", "authc");
+		filterMap.put("/Message/lookMessage", "authc");
+		filterMap.put("/Message/reveiceBox", "authc");
+		filterMap.put("/MessagendBoxDelete", "authc");
+		filterMap.put("/Message/reveiceBoxDelete", "authc");
+		
+	
+		
 		filterMap.put("/user/index", "user");
-
 		filterMap.put("/user/add", "authc");
 		filterMap.put("/user/update", "authc");
 		filterMap.put("/user/testThymeleaf", "authc");
 		filterMap.put("/user/login", "anon");
 		filterMap.put("/user/toLogin", "anon");
 		filterMap.put("/user/*", "anon");
-		filterMap.put("/admin/add", "authc");
-		filterMap.put("/admin/update", "authc");
-		filterMap.put("/admin/testThymeleaf", "authc");
 
 		// 配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
 		// filterChainDefinitionMap.put("/logout", "logout");
-
 		// 授权过滤器,该角色需要拥有相关的权限才可以访问，这里会执行UserRealm那边的授权执行逻辑
 		// 注意：当授权被拦截之后，会自动跳转到未授权页面
-		filterMap.put("/admin/add", "perms[/admin/add]");
-		filterMap.put("/admin/update", "perms[/admin/update]");
-		// filterMap.put("/user/indexed", "perms[user:update]");
-		// filterMap.put("/user/index", "roles[admin]");
+		//filterMap.put("/admin/add", "perms[/admin/add]");
+		//filterMap.put("/admin/update", "perms[/admin/update]");
+	
+		//去后台页面
+		filterMap.put("/to/b/index", "roles[admin]");
+		filterMap.put("/test/th02", "roles[admin]");
+		filterMap.put("/PaymentManageVipType/index", "roles[admin]");
+		filterMap.put("/PaymentManageDiscount/index", "roles[admin]");
+		filterMap.put("/PaymentManageRedPackets/index", "roles[admin]");
+		filterMap.put("/PaymentManageOrders/findAll", "roles[admin]");
+		filterMap.put("/to/b/review", "roles[admin]");
+		filterMap.put("/to/b/type", "roles[admin]");
+		filterMap.put("/admin/toTable", "roles[admin]");
 
-		/// 用户，需要角色权限 “user”
-		// filterMap.put("/user/testThymeleaf", "roles[user]");
-		// filterMap.put("/user/testThymeleaf", "roles[lhy]");
-
-		// 管理员，需要角色权限 “admin”
-		// filterMap.put("/admin/background", "roles[admin]");
-		// filterMap.put("/admin/background", "roles[lhy]");
-//		filterMap.put("/to/b/index", "roles[lhy]");
-		/*
-		 * 
-		 * 这里需要给一个if判断，是管理员登的就跳管理员登录页 否则就是用户登录页
-		 */
+		
 		// 修改调整的登陆页面
 		shiroFilterFactoryBean.setLoginUrl("/user/toLogin");
 		// 设置未授权页面

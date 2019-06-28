@@ -49,7 +49,7 @@
 	<update id="disable">
 	 update tb_u_users set status = #{status} where user_name = #{userName}
 	</update>
-
+	
 	<resultMap id="BaseResultMap"
 		type="com.cilicili.domain.user.user.Users">
 		<id column="user_id" jdbcType="VARCHAR" property="userId" />

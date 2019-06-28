@@ -82,7 +82,15 @@ public class UsersController {
 					addr = InetAddress.getLocalHost();
 					String ip = addr.getHostAddress().toString(); // 获取本机ip
 					redisTemplate.opsForValue().set(users.getEmail(), ip);
-					return "user/index";				
+					
+					
+					//给一个原始头像
+					redisTemplate.opsForValue().set(userName, "../img/shangchuan01.png");
+					String path=redisTemplate.opsForValue().get(users.getUserName());
+					//头像
+					session.setAttribute("url1", path);
+					
+					return "redirect:/to/home";				
 				} catch (UnknownHostException e) {
 					e.printStackTrace();
 					// 不能直接跳到index页面 ，因为没有走login session的值没有存 出现后面找不到session的userName
@@ -170,12 +178,22 @@ public class UsersController {
 					String ip = addr.getHostAddress().toString(); // 获取本机ip
 					// 单点的设置
 					redisTemplate.opsForValue().set(user.getEmail(), ip);
+					
+					
+					//给一个原始头像
+					redisTemplate.opsForValue().set(user.getUserName(), "../img/shangchuan01.png");
+					String path=redisTemplate.opsForValue().get(user.getUserName());
+					
+					
 					String userName22 = redisTemplate.opsForValue().get(user.getEmail());
 					System.out.println("redisde:" + userName22);	
 					Session session = currentUser.getSession();
 					session.setAttribute("user", user);
 					session.setAttribute("userName", user.getUserName());
 					session.setAttribute("userID", user.getUserId());
+					
+					//头像
+					session.setAttribute("url1", path);
 				} catch (UnknownHostException e) {
 					e.printStackTrace();
 				}
@@ -197,7 +215,7 @@ public class UsersController {
 			} catch (AuthenticationException ae) {
 				model.addAttribute("msg", "其他错误");
 				map.put("aa", 0);
-				ae.printStackTrace();
+				//ae.printStackTrace();
 				return map;
 			}
 		}
@@ -350,12 +368,6 @@ public class UsersController {
 		}
 
 		return map;
-	}
-
-	@RequestMapping("/testThymeleaf")
-	public String testThymeleaf(Model model) {
-		model.addAttribute("user", "123");
-		return "user/test";
 	}
 
 	@RequestMapping("/add")

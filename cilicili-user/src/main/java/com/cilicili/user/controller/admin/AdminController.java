@@ -101,15 +101,15 @@ public class AdminController {
 						if (adminPermissionList2.getParentId() == 0) {
 							adminPermissionList3.add(adminPermissionList2);
 							// 二级菜单的集合
-						} 
+						}
 					}
 				}
 
 				for (AdminPermission adminPermission : adminPermissionList3) {
-					
-				    int	parentId = adminPermission.getPermissionId();
-				    List<AdminPermission> adminPermissionList22 = this.adminPermissionServiceImpl.Two(parentId);
-				    adminPermission.setAdminPermission(adminPermissionList22);
+
+					int parentId = adminPermission.getPermissionId();
+					List<AdminPermission> adminPermissionList22 = this.adminPermissionServiceImpl.Two(parentId);
+					adminPermission.setAdminPermission(adminPermissionList22);
 				}
 
 				/*
@@ -145,66 +145,61 @@ public class AdminController {
 				 * session.setAttribute("adminPermissionList3", adminPermissionList3);
 				 */
 
-				return "user/superIndex";
+				// return "user/superIndex";
+				return "redirect:/to/b/index";
 
 			} catch (UnknownAccountException uae) {
-				model.addAttribute("msg", "用户名不存在");
+				model.addAttribute("msg", "用户名或密码错误");
 				return "user/adminlogin";
 			} catch (IncorrectCredentialsException ice) {
-				model.addAttribute("msg", "密码错误");
+				model.addAttribute("msg", "用户名或密码错误");
 				return "user/adminlogin";
 			} catch (LockedAccountException lae) {
-				model.addAttribute("msg", "用户名被禁用");
+				model.addAttribute("msg", "用户名或密码错误");
 				return "user/adminlogin";
 			} catch (AuthenticationException ae) {
-				model.addAttribute("msg", "其他错误");
-				ae.printStackTrace();
+				model.addAttribute("msg", "用户名或密码错误");
+				//ae.printStackTrace();
 				return "user/adminlogin";
 			}
 
 		}
-		return "user/superIndex";
+		return "redirect:/to/b/index";
 
-	}
-
-	@RequestMapping("/testThymeleaf")
-	public String testThymeleaf(Model model) {
-		model.addAttribute("user", "123");
-		return "user/test";
-	}
-
-	@RequestMapping("/add")
-	public String add(Model model) {
-		model.addAttribute("user", "123");
-		return "user/test";
-	}
-
-	@RequestMapping("/update")
-	public String update(Model model) {
-		model.addAttribute("user", "123");
-		return "user/test";
-	}
-
-	@RequestMapping("/noAuth")
-	public String noAuth() {
-		return "user/noAuth";
 	}
 
 	@RequestMapping("/background")
 	public String background() {
 		return "user/background";
 	}
-	
+
 	@RequestMapping("/toTable")
 	public String toTable() {
 		return "redirect:/admin/table";
 	}
-	
+
 	@RequestMapping("/table")
 	public String table(Model model) {
-		
-		List<Users> usersList =	usersServiceImpl.findAll();
+
+		List<Users> usersList = usersServiceImpl.findAll();
 		model.addAttribute("usersList", usersList);
-		return "user/table_data_tables.html";
+		return "user/table_data_tables";
 	}
+
+	// 禁用用户
+	@RequestMapping("/lock")
+	public String lock(Model model, String userName) {
+		int status = 2;
+		int user = usersServiceImpl.disable(userName, status);
+		return "redirect:/admin/table";
+	}
+
+	// 启用用户
+	@RequestMapping("/unlock")
+	public String unlock(Model model, String userName) {
+		int status = 1;
+		int user = usersServiceImpl.disable(userName, status);
+		return "redirect:/admin/table";
+	}
+
 }

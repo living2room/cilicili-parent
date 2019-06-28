@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +29,8 @@ public class FaceController {
 	
 	@Resource
 	private UsersServiceImpl usersServiceImpl;
-	
+	@Autowired
+	private RedisTemplate<String, String> redisTemplate;
 	
 	//人脸模块对象，人脸登录
 	@RequestMapping(method=RequestMethod.GET)
@@ -55,12 +58,20 @@ public class FaceController {
 			try {
 				InetAddress addr = InetAddress.getLocalHost();
 				String ip = addr.getHostAddress().toString(); // 获取本机ip
-
+				redisTemplate.opsForValue().set(user.getEmail(), ip);
+				
+				//给一个原始头像
+				redisTemplate.opsForValue().set(userName, "../img/shangchuan01.png");
+				String path=redisTemplate.opsForValue().get(user.getUserName());
+				
+				
 				HttpSession session = request.getSession();
 				session.setAttribute("user", user);
 				session.setAttribute("userName", user.getUserName());
 				session.setAttribute("userID", user.getUserId());
 				session.setAttribute("userName", user.getUserName());
+				//头像
+				session.setAttribute("url1", path);
 				// ServletContext application=this.getServletContext();
 				// 为了踢掉旧用户，需要拦截器的相关配置
 				/*

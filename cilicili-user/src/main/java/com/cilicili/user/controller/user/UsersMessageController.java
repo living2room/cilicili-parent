@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -33,7 +35,7 @@ public class UsersMessageController {
 	 * 通过昵称查它的所有基本信息(usersMessage)
 	 */
 	@RequestMapping("/usersMessage")
-	public String usersMessage(@RequestParam("userName") String userName, Model model) {
+	public String usersMessage(@RequestParam("userName") String userName, Model model,HttpServletRequest request) {
 
 		try {
 			UsersMessage usersMessage = this.usersMessageServiceImpl.findByUserName(userName);
@@ -53,7 +55,14 @@ public class UsersMessageController {
 			// String imgUrl = usersMessage.getImgUrl();
 			String path = redisTemplate.opsForValue().get(userName);
 			//String path = System.getProperty(userName);
-			model.addAttribute("url1", path);
+			
+			
+			
+			//头像
+			HttpSession session = request.getSession();
+			session.setAttribute("url1", path);
+			
+			//model.addAttribute("url1", path);
 
 			model.addAttribute("userName", userName);
 			model.addAttribute("home", home);
@@ -63,7 +72,7 @@ public class UsersMessageController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+ 
 		return "user/usersMessage";
 	}
 	// 更改用户基本信息
