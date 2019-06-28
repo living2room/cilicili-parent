@@ -20,6 +20,7 @@ public class PaymentMangeReaPackets {
 	@RequestMapping("index")
 	public String index(Model model) {
 		List<RedPackets> redPacketsList=manageRedPacketsService.select();
+		System.out.println("asas");
 		model.addAttribute("redPacketsList", redPacketsList);
 		return "payment/manageRedPackets/index";
 	}
