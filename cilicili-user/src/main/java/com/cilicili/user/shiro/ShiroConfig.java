@@ -58,7 +58,7 @@ public class ShiroConfig {
 		filterMap.put("/Message/SendMessage", "authc");
 		filterMap.put("/Message/lookMessage", "authc");
 		filterMap.put("/Message/reveiceBox", "authc");
-		filterMap.put("/MessagendBoxDelete", "authc");
+		filterMap.put("/Message/ndBoxDelete", "authc");
 		filterMap.put("/Message/reveiceBoxDelete", "authc");
 		
 	

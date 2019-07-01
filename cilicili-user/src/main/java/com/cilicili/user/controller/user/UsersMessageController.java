@@ -80,7 +80,7 @@ public class UsersMessageController {
 	@ResponseBody
 	public Map<String,Object> updateUsersMessage(UsersMessage usersMessage, Model model,
 			String base64/* , @RequestParam("file") MultipartFile file */) {
-		
+		System.out.println("*&*&*&*&*&&*&*"+usersMessage);
 		Map<String,Object> map = new HashMap<String,Object>();
 		// 把每个用户的头像地址存到项目里面去
 		String userName = usersMessage.getUserName();

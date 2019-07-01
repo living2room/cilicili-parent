@@ -79,16 +79,34 @@
 
 					</div>
 					<div class="shcngchuan">
-						<a href="/user/toLogin">
-							<div class="tubiao"><img src="/img/yonghu.png" ></div>
-							<div th:unless="${session.user}" class="nav_text">登录</div>
-							<div th:if="${session.user}" class="nav_text">[[${session.userName}]]</div>
-						</a>
+					
+					<div th:if="${session.user}">
+					<a th:href="@{'/message/usersMessage?userName='+${session.userName}}"><div id="view1" style="width: 50px;
+					 height: 50px;-moz-background-size:100% 100%; background-size:100% 100%; border-radius: 50%;">
+					</div></a>
+
+					</div>
+						<div th:unless="${session.user}">
+							<a href="/user/toLogin">
+								<div class="tubiao">
+									<img src="/img/yonghu.png">
+								</div>
+								<div class="nav_text">登录</div>
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
 
 		</div>
+					<input type="hidden" id="img" th:value="${session.url1}">
+					<!-- 登录按钮替换为头像 -->
+					<script type="text/javascript">
+					var img6 = $("#img").val();
+					var img5 ="url("+img6+")";
+					$("#view1").css('background-image',img5);	
+					</script>
+		
 		<!-------------------------------------------- 导航栏 ------------------------------------------------->
 
 

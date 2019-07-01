@@ -85,7 +85,7 @@ public class UsersController {
 					
 					
 					//给一个原始头像
-					redisTemplate.opsForValue().set(userName, "../img/shangchuan01.png");
+					redisTemplate.opsForValue().set(userName, "../img/xixi.jpg");
 					String path=redisTemplate.opsForValue().get(users.getUserName());
 					//头像
 					session.setAttribute("url1", path);
@@ -181,7 +181,7 @@ public class UsersController {
 					
 					
 					//给一个原始头像
-					redisTemplate.opsForValue().set(user.getUserName(), "../img/shangchuan01.png");
+					redisTemplate.opsForValue().set(user.getUserName(), "../img/xixi.jpg");
 					String path=redisTemplate.opsForValue().get(user.getUserName());
 					
 					

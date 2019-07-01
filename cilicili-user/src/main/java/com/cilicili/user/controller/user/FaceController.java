@@ -61,7 +61,7 @@ public class FaceController {
 				redisTemplate.opsForValue().set(user.getEmail(), ip);
 				
 				//给一个原始头像
-				redisTemplate.opsForValue().set(userName, "../img/shangchuan01.png");
+				redisTemplate.opsForValue().set(userName, "../img/xixi.jpg");
 				String path=redisTemplate.opsForValue().get(user.getUserName());
 				
 				
