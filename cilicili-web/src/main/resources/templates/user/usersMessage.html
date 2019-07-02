@@ -72,11 +72,14 @@
 					
 					
 					<!-- <img src="../img/yonghu.png"> -->
-					<a href="/message/usersMessage?userName="+${session.userName}><div id="view1" style="width: 50px; height: 50px; border-radius: 50%;"title="请上传 321*321 的封面图片">
+					<a th:href="@{'/message/usersMessage?userName='+${session.userName}}"><div id="view1" style="width: 50px; height: 50px;-moz-background-size:100% 100%; background-size:100% 100%; border-radius: 50%;">
 					</div></a>
-
-			
 					</div>	
+					
+					
+					
+					
+					
 								
 					<!-- <div class="nav_text">
 						<a href="Login.html">登录</a>
@@ -181,7 +184,7 @@
 			<span class="input-group-addon"
 				style="border: none; background: #fff; font-size: 18px;">年龄:&nbsp;&nbsp;</span>
 			<input type="text" class="form-control" name="age" id="age"
-				th:value="${age}" placeholder="请输入&nbsp;1-150&nbsp;之间的数字"
+				th:value="${age}" placeholder="请输入&nbsp;1-120&nbsp;之间的数字"
 				style="width: 280px;">
 		</div>
 		<label id="a" style="margin-left: 100px;"></label>
@@ -235,7 +238,6 @@
 	
 		
 		$("#ok").click(function() {
-			
 			
 			
 			//var a =$("#phone").blur(function(){	
@@ -302,24 +304,51 @@
 			//var pattern = /0?(13|14|15|17|18|19)[0-9]{9}/,
      		//str = document.getElementById('phone').value;
   　  	    
-  　  	    
+  　  	    //alert("1");
 			var userName = $("#userName").val();
 			var sex =	$('input[name=sex]:checked').val();	
 			var base64 = $("#base64").val();
 			var home = $("#home").val();
 			var phone = $("#phone").val();
 			var qq = $("#qq").val();
+			var age = $("#age").val();
 			
 			
-			
-			
-			var pattern3 =/^(?:0|[1-9][0-9]?|120)$/;
+			//alert("2");
+			//var pattern3 =/^(?:0|[1-9][0-9]?|120)$/;
+			var pattern3 =/^(?:[1-9][0-9]?|1[01][0-9]|120)$/;
 			var pattern2 =/^[1-9][0-9]{4,11}$/;
 			
 			
+			//年龄
+			if(age==""){
+	  	    	$("#a").text("");
+	 	    	 //return true;
+	 	    	}
+			else if($("#age").val()=="无" ||$("#age").val()==''){
+				//alert("age");
+				var age = 0;
+				 //return true; 
+			}/* else{
+				var age = $("#age").val();
+				} */
+			else if(!pattern3.test(age)){
+				//alert("flase");
+				 $("#age").focus();
+	  	        $("#a").text("请输入正确的年龄");
+	  	        return false; 
+				} 
+			else if(pattern3.test(age)){
+				//alert("true");
+	  	        $("#a").text("");
+	  	        //return true;
+				}
+			
+			
+			//alert("3");
 	  　  	    if(phone==""){
 	  　  	    	$("#p").text("");
-	 　  	    	 return true;
+	 　  	    	 //return true;
 	 　  	    	}
 	  　  	   else  if(!(/^1[3456789]\d{9}$/.test(phone))){ 
 	  　  	        //alert("手机号码有误，请重填");
@@ -327,6 +356,7 @@
 	  　  	        $("#p").text("请输入正确的电话号码");
 	  　  	        return false; 
 	  　  	    }
+	  　  	    //alert("");
 	  　  	  //  else{
 	  　  	    //	$("#p").text("");
 	  　  	    //	 return true;
@@ -336,15 +366,17 @@
 		
 		//var b = $("#qq").blur(function(){	
 			//var pattern2 = /^\d+$|^\d+[.]?\d+$/;
-			else if(qq==""){
+			if(qq==""){
 	  	    	$("#q").text("");
-	 	    	 return true;
+	 	    	 //return true;
 	 	    	}
 			else if(!pattern2.test(qq)){
 				$("#qq").focus();
 	  	        $("#q").text("请输入正确的qq号码");
 	  	        return false; 	
-				} 
+				}else{
+					$("#q").text("");
+				}
 			//else{
 	  　  	    //	$("#q").text("");
 	 　  	    	// return true;
@@ -352,26 +384,9 @@
 		//});
 		
 		//var c =$("#age").blur(function(){		
-			else if(age==""){
-	  	    	$("#a").text("");
-	 	    	 return true;
-	 	    	}
-			else if($("#age").val()=="无" ||$("#age").val()==''){
-				var age = 0;
-				 return true; 
-			}/* else{
-				var age = $("#age").val();
-				} */
-			else if(!pattern3.test(age)){
-				 $("#age").focus();
-	  	        $("#a").text("请输入正确的年龄");
-	  	        return false; 	
-				} 	
-			else if(pattern3.test(age)){
-	  	        $("#a").text("");
-	  	        return true; 	
-				} else{	
-					$.ajax({
+		
+					
+			$.ajax({
 					type : "POST",
 					url : "/message/upUsersMessage",
 					data : {
@@ -398,9 +413,9 @@
 					},
 					error : function(data) {
 						alert("提交失败");
-					}	
-	 			}); 
-			}
+					}
+	 			});
+			
 		});
 		
 		
@@ -410,8 +425,9 @@
 	<script type="text/javascript">
 	var img6 = $("#img").val();
 	var img5 ="url("+img6+")";
-	$("#img1").css('background-image',img5);	
+	$("#view1").css('background-image',img5);	
 	</script>
+	
 
 	<script type="text/javascript">
 		$(function() {
