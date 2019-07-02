@@ -2032,8 +2032,8 @@ tr:nth-child(2n){
 						<td th:text="${message.message_title}"></td>			
 						<td th:text="${message.user_name}"></td>
 						<td>
-						<button type="submit" class="btn btn-primary" style="background: #00a1d6;border: none;"><a style="color:#FFFFFF;" href="/">查看</a></button>
-						<button type="submit" class="btn btn-primary" style="background: #00a1d6;border: none;"><a style="color:#FFFFFF;" href="/">删除</a></button>
+						<button type="submit" class="btn btn-primary" style="background: #00a1d6;border: none;"><a style="color:#FFFFFF;" th:href="@{lookMessage?message_ID={message_id}(message_id=${message.message_id})}">查看</a></button>
+						<button type="submit" class="btn btn-primary" style="background: #00a1d6;border: none;"><a style="color:#FFFFFF;" th:href="@{sendBoxDelete?message_id={message_id}(message_id=${message.message_id})}">删除</a></button>
 						</td>
 					</tr>		
 				</table>

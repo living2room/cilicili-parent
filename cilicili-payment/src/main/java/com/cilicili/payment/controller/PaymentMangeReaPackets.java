@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cilicili.domain.payment.RedPackets;
 import com.cilicili.payment.service.ManageRedPacketsService;
@@ -18,10 +19,11 @@ public class PaymentMangeReaPackets {
 	@Resource 
 	private ManageRedPacketsService manageRedPacketsService;
 	@RequestMapping("index")
-	public String index(Model model) {
+	public String index(Model model ,String alert) {
 		List<RedPackets> redPacketsList=manageRedPacketsService.select();
-		System.out.println("asas");
 		model.addAttribute("redPacketsList", redPacketsList);
+		model.addAttribute("alert",alert);
+		System.out.println(redPacketsList);
 		return "payment/manageRedPackets/index";
 	}
 	@Resource
@@ -39,5 +41,16 @@ public class PaymentMangeReaPackets {
 		redPacketsService.insert(redPacketsName, redPacketsDescribe, Double.parseDouble(redPacketsValue));
 		model.addAttribute("javascript","<script>alert('添加成功!');location='index';</script>");
 		return "payment/manageRedPackets/redirect";
+	}
+	
+	@RequestMapping("getRedPackets")
+	@ResponseBody
+	public String getRedPackets(String userID,String red_packets_id) {
+		if(redPacketsService.get_red_packets(Integer.parseInt(red_packets_id),userID)==1) {
+			return "success";
+		}else {
+			return "failure";
+		}
+		
 	}
 }

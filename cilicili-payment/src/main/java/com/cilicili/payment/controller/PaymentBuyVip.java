@@ -3,6 +3,8 @@ package com.cilicili.payment.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,11 +36,14 @@ public class PaymentBuyVip {
 	@Resource 
 	private BuyVipService buyVipService;
 	@RequestMapping("Buy")
-	public String BuyDo(String userID ,Model model) {
+	public String BuyDo(Model model,HttpServletRequest request) {
 //		if(Integer.parseInt(userID)==0) {
 //			//如果用户ID或者VipID不合法那么执行以下代码
 //			
 //		}
+		HttpSession session = request.getSession();
+		
+		String userID =(String) session.getAttribute("userID");
 		
 		List<RedPackets> redPacketsList= manageRedPacketsService.selectByUserID(userID);
 		model.addAttribute("redPacketsList", redPacketsList);

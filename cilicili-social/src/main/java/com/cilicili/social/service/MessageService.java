@@ -68,4 +68,8 @@ public class MessageService {
 	public int reveiceBoxDelete(int message_id) {
 		return tb_messageMapper.receiveBoxDelete(message_id);
 	}
+	
+	public List<MessageBox> queryAll(){
+		return tb_messageMapper.query1();
+	}
 }

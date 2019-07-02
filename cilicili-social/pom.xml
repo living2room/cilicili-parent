@@ -13,7 +13,7 @@
 			<groupId>com.cilicili</groupId>
 			<artifactId>cilicili-common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+		</dependency>  
 		<dependency>
 			<groupId>com.baomidou</groupId>
 			<artifactId>mybatis-plus-boot-starter</artifactId>

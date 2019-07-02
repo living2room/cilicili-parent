@@ -42,4 +42,6 @@ public interface RedPacketsMapper {
 	@Insert(value="insert into tb_red_packets(red_packets_name,red_packets_describe,red_packets_price)values(#{redPacketsName,jdbcType=VARCHAR},#{redPacketsDescribe,jdbcType=VARCHAR},#{redPacketsValue,jdbcType=DOUBLE})")
 	int insert(String redPacketsName,String redPacketsDescribe,double redPacketsValue);
 	
+	@Insert(value="insert into tb_get_red_packets(red_packets_id,user_id)values(#{red_packets_id,jdbcType=INTEGER},#{user_id,jdbcType=VARCHAR})")
+	int get_red_packets(int red_packets_id,String user_id);
 }
