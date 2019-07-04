@@ -17,7 +17,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		//registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**").excludePathPatterns("/a.do");
 		// addPathPatterns和excludePathPatterns可以分别指定要拦截的请求和排除的请求，参数也可以是一个List<String>
 
-		//registry.addInterceptor(new MyInterceptor()).addPathPatterns("/");
+		registry.addInterceptor(new MyInterceptor()).addPathPatterns("/");
 		//registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**").excludePathPatterns("/user/toLogin",
 		//		"/admin/toLogin");
 	}

@@ -22,7 +22,12 @@
         <script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
         <script type="text/javascript" src="/webjars/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"></script>
+        
+        
+        <!-- 搜索框的 -->
         <script type="text/javascript" src="/js/bootstrap-suggest.min.js"></script>
+        <!-- 搜索框的 -->
+        
         <!-- 自定义js -->
         <script type="text/javascript" src="/js/banner.js"></script>
         <script type="text/javascript" src="/js/sidebar.js"></script>
@@ -40,6 +45,11 @@
 			<div class="top">
 			<div class="nav">
 				<div class="logo"><img src="/img/LOGO01.png" ></div>
+				
+				
+				
+				
+				<!-- 搜索框的 -->
 				<div id="box">
 					<div class="input-group" style="width: 175px;">
 	                    <input type="text" class="form-control" id="box_sousuo" placeholder="嗖(。≖ˇェˇ≖｡)...">
@@ -52,6 +62,12 @@
 	                    <!-- /btn-group -->
 	                </div>
 				</div>
+				<!-- 搜索框的 -->
+				
+				
+				
+				
+				
 				<div class="nav_right">
 					<div class="shouye">
 							<div class="tubiao">
@@ -86,7 +102,7 @@
 							</div>
 						</div>
 				<div class="shcngchuan">
-					<
+
 					<!-- div class="tubiao"><img src="../img/yonghu.png" ></div>
 						<div class="nav_text"><a href="Login.html">登录</a></div> -->
 					<div th:if="${session.user}">
@@ -108,6 +124,43 @@
 				</div>
 				</div>
 			</div>
+
+
+
+
+<!---------------------------- 弹窗开始 --------------------------------->
+			<div class="tanchuang" style="display:none;width: 100px;height: 104px;background: #fFF;z-index: 1000;position: absolute;top: 80px;left: 1494px;opacity:0.6;border-radius: 10px;">
+			
+			<div class="lianjie1" style="height: 20px;width: 100px;line-height: 24px;margin-left: 18px;margin-top: 6px;">
+				<div class="dayuhao" style="float: left;color: #00a1d6;font-weight: bolder">></div> 
+				<a href="#" style="margin-left: 14px;">
+					<em>第一链接<i></i></em>
+				</a>
+			</div><br>
+			
+			<div class="lianjie1" style="height: 20px;width: 100px;line-height: 24px;margin-left: 18px;">
+				<div class="dayuhao" style="float: left;color: #00a1d6;font-weight: bolder">></div> 
+				<a href="#" style="margin-left: 14px;">
+					<em>第一链接<i></i></em>
+				</a>
+			</div><br>
+			
+			<div class="lianjie1" style="height: 20px;width: 100px;line-height: 24px;margin-left: 18px;">
+				<div class="dayuhao" style="float: left;color: #00a1d6;font-weight: bolder">></div> 
+				<a href="#" style="margin-left: 14px;">
+					<em>第一链接<i></i></em>
+				</a>
+			</div>
+			
+			
+		</div>
+		<!---------------------------- 弹窗结束 --------------------------------->
+
+
+
+
+
+
 
 		</div>
 					<input type="hidden" id="img" th:value="${session.url1}">
@@ -796,6 +849,9 @@
 			scroll_scroll()
 			scroll_cilck()
 			$(".index_mover_left:odd").css("margin-left","30px");
+			
+			
+					<!-- 搜索框的 -->
                      $("#box_sousuo").bsSuggest({
                         emptyTip: '未检索到匹配的数据',
                         allowNoKeyword: false,   //是否允许无关键字时请求数据。为 false 则无输入时不执行过滤请求
@@ -850,14 +906,48 @@
                             });
                         };
                     })
+                    <!-- 搜索框的 -->
+                    
+                    
+                    
+                    
+                    
 			/*
 			** 只填两个必要参数也是可以的
 			*/
 			var banenr2 = new FragmentBanner({
 				container : "#banner2",//选择容器 必选
 				imgs : ['/img/a1.png','/img/a2.png','/img/a3.png','/img/a4.png','/img/a5.png'],//图片集合
-			});
+			}); 
 
+		</script>
+		
+		
+		
+<!-------------------------------------- 轮播图的动效 --------------------------------------------------->
+<!-------------------------------------- 轮播图的动效 --------------------------------------------------->
+		<script type="text/javascript">
+			
+			$( ".shcngchuan:eq(3),.tanchuang" ).hover(function() {
+				$( ".tanchuang" ).stop().fadeIn( 500 );
+				// $(".tanchuang").show()
+			  }, function() {
+				// $(".tanchuang").hide()
+				$( ".tanchuang" ).stop().fadeOut( 100 );
+			  }
+			);
+	
+// 			$(".lianjie1").onmouseover(function(){
+// 				
+// 			})
+			/*
+			** 只填两个必要参数也是可以的
+			*/
+			/* var banenr2 = new FragmentBanner({
+				container : "#banner2",//选择容器 必选
+				imgs : ['img/a1.png','img/a2.png','img/a3.png','img/a4.png','img/a5.png'],//图片集合 
+			}); */
+		
 		</script>
 	</body>
 </html>
