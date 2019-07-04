@@ -13,6 +13,9 @@
 <link rel="stylesheet" type="text/css" href="../css/stylef.css" />
 
 <script src="../js/jquery-1.9.1.js" type="text/javascript"></script>
+<!-- 搜索框的 -->
+<script type="text/javascript" src="/js/bootstrap-suggest.min.js"></script>
+<!-- 搜索框的 -->
 <script src="../plugins/cover_js/iscroll-zoom.js" type="text/javascript"
 	charset="utf-8"></script>
 <script src="../plugins/cover_js/hammer.js" type="text/javascript"
@@ -30,11 +33,22 @@
 			<div class="logo">
 				<img src="../img/LOGO01.png">
 			</div>
-			<div id="box">
-				<input type="text" id="box_sousuo" name="search"
-					placeholder="请输入关键字">
-				<div id="search">搜索</div>
-			</div>
+		<!-- 搜索框的 -->
+				<div id="box">
+					<div class="input-group" style="width: 175px;">
+						<input type="text" class="form-control" id="box_sousuo"
+							placeholder="嗖(。≖ˇェˇ≖｡)...">
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default dropdown-toggle"
+								data-toggle="dropdown">
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+						</div>
+						<!-- /btn-group -->
+					</div>
+				</div>
+				<!-- 搜索框的 -->
 			<div class="nav_right">
 				<div class="shouye">
 					<div class="tubiao">
@@ -489,5 +503,76 @@
 		});
 		//clipArea.destroy();
 	</script>
+	
+	<script type="text/javascript">
+		<!-- 搜索框的 -->
+			$("#box_sousuo").bsSuggest({
+				emptyTip : '未检索到匹配的数据',
+				allowNoKeyword : false, //是否允许无关键字时请求数据。为 false 则无输入时不执行过滤请求
+				ignorecase : true,
+				showBtn : false, //不显示下拉按钮
+				multiWord : true, //以分隔符号分割的多关键字支持
+				separator : ",", //多关键字支持时的分隔符，默认为空格
+				getDataMethod : "url", //获取数据的方式，总是从 URL 获取
+				url : 'http://unionsug.baidu.com/su?p=3&wd=', //优先从url ajax 请求 json 帮助数据，注意最后一个参数为关键字请求参数
+				jsonp : 'cb', //如果从 url 获取数据，并且需要跨域，则该参数必须设置
+				fnProcessData : function(json) { // url 获取数据时，对数据的处理，作为 fnGetData 的回调函数
+					var index, len, data = {
+						value : []
+					};
+					if (!json || !json.s || json.s.length === 0) {
+						return false;
+					}
+
+					len = json.s.length;
+
+					for (index = 0; index < len; index++) {
+						data.value.push({
+							word : json.s[index]
+						});
+					}
+					data.defaults = 'baidu';
+
+					//字符串转化为 js 对象
+					return data;
+				}
+			}).on('onDataRequestSuccess', function(e, result) {
+				console.log('onDataRequestSuccess: ', result);
+			}).on('onSetSelectValue', function(e, keyword, data) {
+				console.log('onSetSelectValue: ', keyword, data);
+				//有时间实现ajax调用后台查询，并跳转到查询结果页
+				//没时间就暂时跳到百度页面
+				//询问框
+
+			}).on('onUnsetSelectValue', function() {
+				console.log("onUnsetSelectValue");
+			});
+			//回车搜索
+			$("#box_sousuo")
+					.on(
+							'keypress',
+							function(e) {
+								if (e.keyCode == 13) {
+									var text = $(this).val()
+									layer
+											.confirm(
+													'C酱不会搜索,帮您到度娘那里问问,可以吗',
+													{
+														btn : [ '确定', '再想想' ], //按钮
+														shade : false
+													//不显示遮罩
+													},
+													function(index) {
+														window
+																.open('https://www.baidu.com/s?ie=utf-8&wd='
+																		+ text);
+														//https://www.baidu.com/s?ie=utf-8&wd=%E6%97%A5%E6%9C%AC&si=163.com&ct=2097152
+														layer.close(index);
+													}, function() {
+													});
+								}
+								;
+							})<!-- 搜索框的 -->
+		</script>
 </body>
 </html>

@@ -1,204 +1,356 @@
 
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-		<link rel="stylesheet" type="text/css" href="/css/style.css"/>
-		<link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
-		<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
-	</head>
+<head>
+<meta charset="utf-8">
+<title></title>
+<link rel="stylesheet" type="text/css" href="/css/stylef.css" />
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+<script src="/js/jquery.min.js"></script>
+<!-- 搜索框的 -->
+<script type="text/javascript" src="/js/bootstrap-suggest.min.js"></script>
+<!-- 搜索框的 -->
+</head>
+
+<style type="text/css">
+.footer_lianjie ul li {
+	list-style: none;
+}
+</style>
+
+<body>
 	
-	<style type="text/css">
-		.footer_lianjie ul li{
-			list-style: none;
-		}
-	</style>
-	
-	<body>
-	<script src="/js/jquery.min.js"></script><!-- 引入jQuery -->		
-		<div class="huiyuan_box">
-			<!-------------------------------------------- 导航栏 ------------------------------------------------->
-			<div class="top">
-				<div class="nav">
-					<div class="logo"><img src="/img/LOGO01.png" ></div>
-					<div id="box">
-						<input type="text" id="box_sousuo" name="search" placeholder="请输入关键字">
-						<div id="search">搜索</div> 
+
+	<div class="huiyuan_box">
+		<!-------------------------------------------- 导航栏 ------------------------------------------------->
+		<div class="top">
+			<div class="nav">
+				<div class="logo">
+					<img src="/img/LOGO01.png">
+				</div>
+				<!-- 搜索框的 -->
+				<div id="box">
+					<div class="input-group" style="width: 175px;">
+						<input type="text" class="form-control" id="box_sousuo"
+							placeholder="嗖(。≖ˇェˇ≖｡)...">
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default dropdown-toggle"
+								data-toggle="dropdown">
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+						</div>
+						<!-- /btn-group -->
 					</div>
-					<div class="nav_right">
-						<div class="shouye">
-							<div class="tubiao"><img src="/img/zhuye_an.png"></div>
-							<div class="nav_text"><a href="index.html"  >首页</a></div>
+				</div>
+				<!-- 搜索框的 -->
+				<div class="nav_right">
+					<div class="shouye">
+						<div class="tubiao">
+							<img src="/img/zhuye_an.png">
 						</div>
-						<div class="shcngchuan">
-							<div class="tubiao"><img src="/img/shangchuan.png" ></div>
-							<div class="nav_text"><a href="#">上传</a></div>
+						<div class="nav_text">
+							<a href="/to/home">首页</a>
 						</div>
-						<div class="shcngchuan">
-							<div class="tubiao"><img src="/img/tuiguang.png" ></div>
-							<div class="nav_text"><a href="#">推广</a></div>
+					</div>
+					<div class="shcngchuan">
+						<div class="tubiao">
+							<img src="/img/shangchuan.png">
 						</div>
-						<div class="shcngchuan">
-							<div class="tubiao"><img src="/img/huiyuan_liang.png"></div>
-							<div class="nav_text"><a href="#" style="color: #00b7ee;">会员</a></div>
+						<div class="nav_text">
+							<a href="/to/up">上传</a>
 						</div>
-						<div class="shcngchuan">
-							<div class="tubiao"><img src="/img/yonghu.png" ></div>
-							<div class="nav_text"><a href="Login.html">登录</a></div>
+					</div>
+					<div class="shcngchuan">
+						<div class="tubiao">
+							<img src="/img/tuiguang.png">
 						</div>
+						<div class="nav_text">
+							<a href="/Message/reveiceBox">消息</a>
+						</div>
+					</div>
+					<div class="shcngchuan">
+						<div class="tubiao">
+							<img src="/img/huiyuan_liang.png">
+						</div>
+						<div class="nav_text">
+							<a href="/PaymentBuyVip/Buy" style="color: #00b7ee;">会员</a>
+						</div>
+					</div>
+					<div class="shcngchuan">
+
+						
+						<div th:if="${session.user}">
+							<a
+								th:href="@{'/message/usersMessage?userName='+${session.userName}}"><div
+									id="view1"
+									style="width: 50px; height: 50px; -moz-background-size: 100% 100%; background-size: 100% 100%; border-radius: 50%;">
+								</div></a>
+						</div>
+						<div th:unless="${session.user}">
+							<a href="/user/toLogin">
+								<div class="tubiao">
+									<img src="/img/yonghu.png">
+								</div>
+								<div class="nav_text">登录</div>
+							</a>
+						</div>
+
 					</div>
 				</div>
 			</div>
-			
-			<!----------------------------------------- 支付内容部分 ---------------------------------------------->
-			<div class="huiyuan_con">
-				<div class="huiyuan_con2">
-					<div class="huiyuan_xinxi">
-						<div class="huiyuan_touxiang"></div>
-						<div class="huiyuan_text">
-							<span style="font-size: 22px;">cilicili工作室</span></br>
-							<span style="color: #adadae;font-size: 14px;">升级会员福利多多哟</span>
-						</div>
+		</div>
+
+		<!----------------------------------------- 支付内容部分 ---------------------------------------------->
+		<div class="huiyuan_con">
+			<div class="huiyuan_con2">
+				<div class="huiyuan_xinxi">
+					<div class="huiyuan_touxiang"></div>
+					<div class="huiyuan_text">
+						<span style="font-size: 22px;">cilicili工作室</span></br> <span
+							style="color: #adadae; font-size: 14px;">升级会员福利多多哟</span>
 					</div>
-					<div id="box_null93"></div>
-					<div class="huiyuan_jiage">
-						<div class="huiyuan_jiage01" style="margin-left:15px ; margin-top:5px ;" th:each="buyVip:${buyVipList}">
-							<input type="hidden" id="vipID" th:value="${buyVip.VipID}">
-							<span id="Price" style="font-size: 32px;color: #333;" th:text="${buyVip.VipPrice*buyVip.discountValue*0.1}">现价</span>元&nbsp;&nbsp;&nbsp;<span style="color: #b6b6b6;font-size: 20px;"><del th:text="${buyVip.VipPrice}+'元'">原价</del></span><br>
-							<span style="font-size: 18px;color: #b6b6b6;" th:utext="'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+${buyVip.VipName}+'('+${buyVip.VipTime/60/60/24}+'天)'">名称以及时间</span>
-						</div>
+				</div>
+				<div id="box_null93"></div>
+				<div class="huiyuan_jiage">
+					<div class="huiyuan_jiage01"
+						style="margin-left: 15px; margin-top: 5px;"
+						th:each="buyVip:${buyVipList}">
+						<input type="hidden" id="vipID" th:value="${buyVip.VipID}">
+						<span id="Price" style="font-size: 32px; color: #333;"
+							th:text="${buyVip.VipPrice*buyVip.discountValue*0.1}">现价</span>元&nbsp;&nbsp;&nbsp;<span
+							style="color: #b6b6b6; font-size: 20px;"><del
+								th:text="${buyVip.VipPrice}+'元'">原价</del></span><br> <span
+							style="font-size: 18px; color: #b6b6b6;"
+							th:utext="'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+${buyVip.VipName}+'('+${buyVip.VipTime/60/60/24}+'天)'">名称以及时间</span>
 					</div>
-					<div id="box_null93" style="clear:both"></div>
-<!-- 					<div class="xufei" style="font-size: 18px;color: #8d8d8d;">
+				</div>
+				<div id="box_null93" style="clear: both"></div>
+				<!-- 					<div class="xufei" style="font-size: 18px;color: #8d8d8d;">
 						<input name="auto" id="auto" type="checkbox" onClick="auto_ck(this);" checked>&nbsp;&nbsp;&nbsp;到期自动续费更享优惠，可随时取消
 					</div> -->
-					
-					<form>
-						<div class="xufei" style="font-size: 18px;color: #8d8d8d;margin-top: 10px;">
-							<!-- <input name="auto" id="auto" type="checkbox" onClick="auto_ck(this);" checked>&nbsp;&nbsp;&nbsp; -->使用红包抵用券
-								<select style="width: 140px;font-size: 16px;margin-left: 13px;color: #333;border:solid 1px #8d8d8d ;background: #fff;border-radius: 6px;">
-									<option value="0|0">不使用红包抵用券</option>
-									<option th:each="redPacket:${redPacketsList}" th:value="${redPacket.redPacketsPrice} + '|' + ${redPacket.redPacketsID}" th:text="${redPacket.redPacketsName}+'  '+${redPacket.redPacketsPrice}+'元'">1</option>
-<!-- 									<option value ="2">2</option>
+
+				<form>
+					<div class="xufei"
+						style="font-size: 18px; color: #8d8d8d; margin-top: 10px;">
+						<!-- <input name="auto" id="auto" type="checkbox" onClick="auto_ck(this);" checked>&nbsp;&nbsp;&nbsp; -->
+						使用红包抵用券 <select
+							style="width: 140px; font-size: 16px; margin-left: 13px; color: #333; border: solid 1px #8d8d8d; background: #fff; border-radius: 6px;">
+							<option value="0|0">不使用红包抵用券</option>
+							<option th:each="redPacket:${redPacketsList}"
+								th:value="${redPacket.redPacketsPrice} + '|' + ${redPacket.redPacketsID}"
+								th:text="${redPacket.redPacketsName}+'  '+${redPacket.redPacketsPrice}+'元'">1</option>
+							<!-- 									<option value ="2">2</option>
 									<option value="3">3</option>
 									<option value="4">4</option> -->
-								</select>
-								<!-- <input type="submit" name="" id="hongbao_shiyong" value="使用"> -->
-								
-						</div>
+						</select>
+						<!-- <input type="submit" name="" id="hongbao_shiyong" value="使用"> -->
+
+					</div>
+				</form>
+				<div id="box_null93" style="height: 60px;"></div>
+				<div class="zonghe">
+					<span
+						style="font-size: 26px; color: #333; line-height: 60px; float: left;">应付总额：</span>
+					<div class="zongjia" style="font-size: 26px;">10</div>
+					<!-- <span style="color:#2aabd7;font-size: 46px;line-height: 0;"><strong>15</strong></span> -->
+					<span
+						style="font-size: 26px; color: #333; line-height: 60px; margin-left: 20px;">元</span>
+
+					<form method="post" action="/PaymentOrder/create">
+						<input type="hidden" id="submitredPacketsID" name="redPacketsID"
+							value=""> <input type="hidden" id="submitVipID"
+							name="vipID" value=""> <input type="hidden" name="userID"
+							th:value="${userID}"> <input type="submit" name=""
+							id="zonghe_zhifu" value="支付" style="border: none;">
 					</form>
-					<div id="box_null93" style="height: 60px;"></div>
-					<div class="zonghe">
-						<span style="font-size: 26px;color: #333;line-height: 60px;float: left;">应付总额：</span>
-						<div class="zongjia" style="font-size: 26px;">10</div>
-						<!-- <span style="color:#2aabd7;font-size: 46px;line-height: 0;"><strong>15</strong></span> -->
-						<span style="font-size: 26px;color: #333;line-height: 60px; margin-left:20px;">元</span>
-						
-						<form method="post" action="/PaymentOrder/create">
-							<input type="hidden" id="submitredPacketsID"  name="redPacketsID" value="">
-							<input type="hidden" id="submitVipID" name="vipID" value="">
-							<input type="hidden" name="userID" th:value="${userID}">
-							<input type="submit" name="" id="zonghe_zhifu" value="支付" style="border: none;" >
-						</form>
-					</div>		
-					<div id="box_null93" style="height: 60px;"></div>
-					<div class="huiyuan_tequan">会员特权：</div>
-					<div id="box_null93" style="height: 41px;"></div>
-					<div class="tequan_img">
-						<div  class="tequan_img1"><img src="/img/tequan1.png"></div>
-						<div  class="tequan_img2"><img src="/img/tequan2.png"></div>
-						<div  class="tequan_img3"><img src="/img/tequan3.png"></div>
-						<div  class="tequan_img4"><img src="/img/tequan4.png"></div>
-						<div  class="tequan_img5"><img src="/img/tequan5.png"></div>
-					</div>
-					
-						
 				</div>
-			</div>
-			
-			
-			<div class="footer">
-				<div id="box94"></div>
-				<div class="footer_con">
-					<form>
-						<div class="footer_con1">
-							<input type="text" name="" id="footer_text" style="border: none;" value="" />
-							<div class="footer_button">
-								<input type="reset" id="chongzhi" style="border: none;" value="清空内容" />
-								<input type="submit" id="tijiao" style="border: none;" value="提交建议" />
-							</div>
-							
-						</div>
-					</form>	
-					<div class="footer_lianjie">
-						<ul>
-							<li>友情链接：</li>
-							<li><a href="http://www.gxstnu.edu.cn/">广西科技师范学院</a></li>
-							<li><a href="https://ai.taobao.com/">淘宝网</a></li>
-							<li><a href="https://www.jd.com/">京东商城</a></li>
-							<li><a href="https://www.bilibili.com/">哔哩哔哩</a></li>
-							<li><a href="http://www.iqiyi.com/">爱奇艺</a></li>
-							<li><a href="https://v.qq.com/">腾讯视频</a></li>
-							<li><a href="https://pan.baidu.com/">百度云</a></li>
-							<li><a href="https://www.tmall.com/">天猫超市</a></li>
-							<li><a href="https://nba.hupu.com/">虎扑体育</a></li>
-							<li><a href="https://music.163.com/">网易云音乐</a></li>
-							<li><a href="https://www.youku.com/">优酷</a></li>
-							<li><a href="https://www.baidu.com/">百度</a></li>
-						</ul>
+				<div id="box_null93" style="height: 60px;"></div>
+				<div class="huiyuan_tequan">会员特权：</div>
+				<div id="box_null93" style="height: 41px;"></div>
+				<div class="tequan_img">
+					<div class="tequan_img1">
+						<img src="/img/tequan1.png">
+					</div>
+					<div class="tequan_img2">
+						<img src="/img/tequan2.png">
+					</div>
+					<div class="tequan_img3">
+						<img src="/img/tequan3.png">
+					</div>
+					<div class="tequan_img4">
+						<img src="/img/tequan4.png">
+					</div>
+					<div class="tequan_img5">
+						<img src="/img/tequan5.png">
 					</div>
 				</div>
+
+
 			</div>
-			
-			
-			
-			
 		</div>
-		<!-- 以下为jQuery代码 -->
-		<script>
-			$(function(){
-				$(".huiyuan_jiage01:first").css("border","solid 5px #1e9fcb");
-				var vipPrice=$(".huiyuan_jiage01:first").find("#Price").text();				
-				var vipID=$(".huiyuan_jiage01:first").find("#vipID").val();
-				var options=$("select option:selected"); //可以获取到选中的option
-				var redPacketStr=options.val();
-				var redPacketPrice=redPacketStr.substring(0,redPacketStr.indexOf('|'));
-				var redPacketID=redPacketStr.substring(redPacketStr.indexOf('|')+1);
-				
-				$(".zongjia").text(vipPrice-redPacketPrice);
-				$("#submitredPacketsID").val(redPacketID);
-				$("#submitVipID").val(vipID);
-				
-				
-				$(".huiyuan_jiage01").click(function(){
-					$(".huiyuan_jiage01").css("border","solid 2px #dcdcdc");
-					$(this).css("border","solid 5px #1e9fcb");
-					vipPrice=$(this).find("#Price").text();
-					var options=$("select option:selected"); //可以获取到选中的option
-					var redPacketStr=options.val();
-					redPacketPrice=redPacketStr.substring(0,redPacketStr.indexOf('|'));
-					$(".zongjia").text(vipPrice-redPacketPrice);
-					vipID=$(this).find("#vipID").val();
-					$("#submitredPacketsID").val(redPacketID);
-					$("#submitVipID").val(vipID);
-					
+
+
+		<div class="footer">
+			<div id="box94"></div>
+			<div class="footer_con">
+				<form>
+					<div class="footer_con1">
+						<input type="text" name="" id="footer_text" style="border: none;"
+							value="" />
+						<div class="footer_button">
+							<input type="reset" id="chongzhi" style="border: none;"
+								value="清空内容" /> <input type="submit" id="tijiao"
+								style="border: none;" value="提交建议" />
+						</div>
+
+					</div>
+				</form>
+				<div class="footer_lianjie">
+					<ul>
+						<li>友情链接：</li>
+						<li><a href="http://www.gxstnu.edu.cn/">广西科技师范学院</a></li>
+						<li><a href="https://ai.taobao.com/">淘宝网</a></li>
+						<li><a href="https://www.jd.com/">京东商城</a></li>
+						<li><a href="https://www.bilibili.com/">哔哩哔哩</a></li>
+						<li><a href="http://www.iqiyi.com/">爱奇艺</a></li>
+						<li><a href="https://v.qq.com/">腾讯视频</a></li>
+						<li><a href="https://pan.baidu.com/">百度云</a></li>
+						<li><a href="https://www.tmall.com/">天猫超市</a></li>
+						<li><a href="https://nba.hupu.com/">虎扑体育</a></li>
+						<li><a href="https://music.163.com/">网易云音乐</a></li>
+						<li><a href="https://www.youku.com/">优酷</a></li>
+						<li><a href="https://www.baidu.com/">百度</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+
+
+
+	</div>
+	<!-- 以下为jQuery代码 -->
+	<script>
+		$(function() {
+			$(".huiyuan_jiage01:first").css("border", "solid 5px #1e9fcb");
+			var vipPrice = $(".huiyuan_jiage01:first").find("#Price").text();
+			var vipID = $(".huiyuan_jiage01:first").find("#vipID").val();
+			var options = $("select option:selected"); //可以获取到选中的option
+			var redPacketStr = options.val();
+			var redPacketPrice = redPacketStr.substring(0, redPacketStr
+					.indexOf('|'));
+			var redPacketID = redPacketStr
+					.substring(redPacketStr.indexOf('|') + 1);
+
+			$(".zongjia").text(vipPrice - redPacketPrice);
+			$("#submitredPacketsID").val(redPacketID);
+			$("#submitVipID").val(vipID);
+
+			$(".huiyuan_jiage01").click(
+					function() {
+						$(".huiyuan_jiage01")
+								.css("border", "solid 2px #dcdcdc");
+						$(this).css("border", "solid 5px #1e9fcb");
+						vipPrice = $(this).find("#Price").text();
+						var options = $("select option:selected"); //可以获取到选中的option
+						var redPacketStr = options.val();
+						redPacketPrice = redPacketStr.substring(0, redPacketStr
+								.indexOf('|'));
+						$(".zongjia").text(vipPrice - redPacketPrice);
+						vipID = $(this).find("#vipID").val();
+						$("#submitredPacketsID").val(redPacketID);
+						$("#submitVipID").val(vipID);
+
+					});
+
+			$("select").change(
+					function() {
+						//var options=$("select option:selected"); //可以获取到选中的option
+						//$(".huiyuan_jiage01").css("border","solid 2px #dcdcdc");
+						//$(this).css("border","solid 5px #1e9fcb");
+						//vipPrice=$(this).find("#Price").text();
+						var options = $("select option:selected"); //可以获取到选中的option
+						var redPacketStr = options.val();
+						redPacketPrice = redPacketStr.substring(0, redPacketStr
+								.indexOf('|'));
+						redPacketID = redPacketStr.substring(redPacketStr
+								.indexOf('|') + 1);
+						$(".zongjia").text(vipPrice - redPacketPrice);
+						$("#submitredPacketsID").val(redPacketID);
+						$("#submitVipID").val(vipID);
+					});
+		});
+	</script>
+
+	<script type="text/javascript">
+	<!-- 搜索框的 -->
+		$("#box_sousuo").bsSuggest({
+			emptyTip : '未检索到匹配的数据',
+			allowNoKeyword : false, //是否允许无关键字时请求数据。为 false 则无输入时不执行过滤请求
+			ignorecase : true,
+			showBtn : false, //不显示下拉按钮
+			multiWord : true, //以分隔符号分割的多关键字支持
+			separator : ",", //多关键字支持时的分隔符，默认为空格
+			getDataMethod : "url", //获取数据的方式，总是从 URL 获取
+			url : 'http://unionsug.baidu.com/su?p=3&wd=', //优先从url ajax 请求 json 帮助数据，注意最后一个参数为关键字请求参数
+			jsonp : 'cb', //如果从 url 获取数据，并且需要跨域，则该参数必须设置
+			fnProcessData : function(json) { // url 获取数据时，对数据的处理，作为 fnGetData 的回调函数
+				var index, len, data = {
+					value : []
+				};
+				if (!json || !json.s || json.s.length === 0) {
+					return false;
+				}
+
+				len = json.s.length;
+
+				for (index = 0; index < len; index++) {
+					data.value.push({
+						word : json.s[index]
+					});
+				}
+				data.defaults = 'baidu';
+
+				//字符串转化为 js 对象
+				return data;
+			}
+		}).on('onDataRequestSuccess', function(e, result) {
+			console.log('onDataRequestSuccess: ', result);
+		}).on('onSetSelectValue', function(e, keyword, data) {
+			console.log('onSetSelectValue: ', keyword, data);
+			//有时间实现ajax调用后台查询，并跳转到查询结果页
+			//没时间就暂时跳到百度页面
+			//询问框
+
+		}).on('onUnsetSelectValue', function() {
+			console.log("onUnsetSelectValue");
+		});
+		//回车搜索
+		$("#box_sousuo").on('keypress', function(e) {
+			if (e.keyCode == 13) {
+				var text = $(this).val()
+				layer.confirm('C酱不会搜索,帮您到度娘那里问问,可以吗', {
+					btn : [ '确定', '再想想' ], //按钮
+					shade : false
+				//不显示遮罩
+				}, function(index) {
+					window.open('https://www.baidu.com/s?ie=utf-8&wd=' + text);
+					//https://www.baidu.com/s?ie=utf-8&wd=%E6%97%A5%E6%9C%AC&si=163.com&ct=2097152
+					layer.close(index);
+				}, function() {
 				});
-				
-				$("select").change(function(){
-					//var options=$("select option:selected"); //可以获取到选中的option
-					//$(".huiyuan_jiage01").css("border","solid 2px #dcdcdc");
-					//$(this).css("border","solid 5px #1e9fcb");
-					//vipPrice=$(this).find("#Price").text();
-					var options=$("select option:selected"); //可以获取到选中的option
-					var redPacketStr=options.val();
-					redPacketPrice=redPacketStr.substring(0,redPacketStr.indexOf('|'));
-					redPacketID=redPacketStr.substring(redPacketStr.indexOf('|')+1);
-					$(".zongjia").text(vipPrice-redPacketPrice);
-					$("#submitredPacketsID").val(redPacketID);
-					$("#submitVipID").val(vipID);
-				});
-			});
+			}
+			;
+		})<!-- 搜索框的 -->
+	</script>
+	
+	<input type="hidden" id="img" th:value="${session.url1}">
+		<!-- 登录按钮替换为头像 -->
+		<script type="text/javascript">
+			var img6 = $("#img").val();
+			var img5 = "url(" + img6 + ")";
+			$("#view1").css('background-image', img5);
 		</script>
-	</body>
+</body>
 </html>

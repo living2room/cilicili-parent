@@ -32,28 +32,46 @@
 						<div id="search">搜索</div>
 					</div>
 					<div class="nav_right">
-						<div class="shouye">
-							<div class="tubiao"><img src="/img/zhuye_an.png" ></div>
-							<div class="nav_text"><a href="index.html">首页</a></div>
+					<div class="shouye">
+							<div class="tubiao">
+								<img src="/img/shouye.png">
+							</div>
+							<div class="nav_text">
+								<a href="jumpbeforechange('/to/home')" style="color: #00b7ee;">首页</a>
+							</div>
 						</div>
 						<div class="shcngchuan">
-							<div class="tubiao"><img src="/img/shangchuan.png" ></div>
-							<div class="nav_text"><a href="#"   style="color: #00b7ee;">上传</a></div>
+							<div class="tubiao">
+								<img src="/img/shangchuan.png">
+							</div>
+							<div class="nav_text">
+								<a href="jumpbeforechange('/to/up')">上传</a>
+							</div>
 						</div>
 						<div class="shcngchuan">
-							<div class="tubiao"><img src="/img/tuiguang.png" ></div>
-							<div class="nav_text"><a href="#">消息</a></div>
+							<div class="tubiao">
+								<img src="/img/tuiguang.png">
+							</div>
+							<div class="nav_text">
+								<a href="jumpbeforechange('/Message/reveiceBox')">消息</a>
+							</div>
 						</div>
 						<div class="shcngchuan">
-							<div class="tubiao"><img src="/img/huiyuan.png" ></div>
-							<div class="nav_text"><a href="#">会员</a></div>
+							<div class="tubiao">
+								<img src="/img/huiyuan.png">
+							</div>
+							<div class="nav_text">
+								<a href="jumpbeforechange('/PaymentBuyVip/Buy')">会员</a>
+							</div>
 						</div>
 						<div class="shcngchuan">
-							<div class="tubiao"><img src="/img/yonghu.png" ></div>
-								<div th:unless="${session.user}" class="nav_text">登录</div>
-								<div th:if="${session.user}" class="nav_text">[[${session.userName}]]</div>
-							<div class="nav_text"><a href="/user/toLogin">登录</a></div>
+							<div class="tubiao">
+								<img src="/img/yonghu.png">
+							</div>
+							<div class="nav_text">
+								<a href="/user/toLogin">登录</a>
 						</div>
+					</div>
 					</div>
 				</div>
 			</div>
@@ -136,6 +154,19 @@
 			</div>
 
   <script type="text/javascript">
+  		window.onbeforeunload = function(){
+		    return "您之前的操作尚未保存，是否保存？";
+		}
+	  	function jumpbeforechange(url){
+                        layer.confirm('操作尚未完成，确定离开吗?', {
+                                btn: ['确定','再想想'], //按钮
+                                shade: true //不显示遮罩
+                            }, function(index){
+                            	window.location.href=url;
+                               layer.close(index);
+                            }, function(){
+                            });
+	  	}
   		var img1 = $("#img").val();
 		var img3 = "url(" + img1 + ")";
 		$('#view').css('background-image', img3);

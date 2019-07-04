@@ -1,175 +1,194 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-		<link rel="shortcut icon" href="/favicon.ico">
-		<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/3.4.1/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="/webjars/font-awesome/5.8.1/css/all.min.css"/>
-		    <!--自定义css  -->
-		<link rel="stylesheet" type="text/css" href="/css/stylef.css"/>
-		<link rel="stylesheet" type="text/css" href="/css/reset.css">
-		<link rel="stylesheet" type="text/css" href="/css/common.css">
+<head>
+<meta charset="utf-8">
+<title></title>
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.8.1/css/all.min.css" />
+<!--自定义css  -->
+<link rel="stylesheet" type="text/css" href="/css/stylef.css" />
+<link rel="stylesheet" type="text/css" href="/css/reset.css">
+<link rel="stylesheet" type="text/css" href="/css/common.css">
 
-		<script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
-		<script type="text/javascript" src="/webjars/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-		        <!-- layer javascript -->
-        <script src="/js/plugins/layer/layer.min.js"></script>
-        <script type="text/javascript" src="/js/bootstrap-suggest.min.js"></script>
-        <script type="text/javascript">
-            $(function(){
-                     $("#box_sousuo").bsSuggest({
-                        emptyTip: '未检索到匹配的数据',
-                        allowNoKeyword: false,   //是否允许无关键字时请求数据。为 false 则无输入时不执行过滤请求
-                        ignorecase: true,
-                        showBtn: false,     //不显示下拉按钮
-                        multiWord: true,         //以分隔符号分割的多关键字支持
-                        separator: ",",          //多关键字支持时的分隔符，默认为空格
-                        getDataMethod: "url",    //获取数据的方式，总是从 URL 获取
-                        url: 'http://unionsug.baidu.com/su?p=3&wd=', //优先从url ajax 请求 json 帮助数据，注意最后一个参数为关键字请求参数
-                        jsonp: 'cb',                        //如果从 url 获取数据，并且需要跨域，则该参数必须设置
-                        fnProcessData: function (json) {    // url 获取数据时，对数据的处理，作为 fnGetData 的回调函数
-                            var index, len, data = {value: []};
-                            if (!json || !json.s || json.s.length === 0) {
-                                return false;
-                            }
+<script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!-- layer javascript -->
+<script src="/js/plugins/layer/layer.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap-suggest.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#box_sousuo").bsSuggest({
+			emptyTip : '未检索到匹配的数据',
+			allowNoKeyword : false, //是否允许无关键字时请求数据。为 false 则无输入时不执行过滤请求
+			ignorecase : true,
+			showBtn : false, //不显示下拉按钮
+			multiWord : true, //以分隔符号分割的多关键字支持
+			separator : ",", //多关键字支持时的分隔符，默认为空格
+			getDataMethod : "url", //获取数据的方式，总是从 URL 获取
+			url : 'http://unionsug.baidu.com/su?p=3&wd=', //优先从url ajax 请求 json 帮助数据，注意最后一个参数为关键字请求参数
+			jsonp : 'cb', //如果从 url 获取数据，并且需要跨域，则该参数必须设置
+			fnProcessData : function(json) { // url 获取数据时，对数据的处理，作为 fnGetData 的回调函数
+				var index, len, data = {
+					value : []
+				};
+				if (!json || !json.s || json.s.length === 0) {
+					return false;
+				}
 
-                            len = json.s.length;
+				len = json.s.length;
 
-                            for (index = 0; index < len; index++) {
-                                data.value.push({
-                                    word: json.s[index]
-                                });
-                            }
-                            data.defaults = 'baidu';
+				for (index = 0; index < len; index++) {
+					data.value.push({
+						word : json.s[index]
+					});
+				}
+				data.defaults = 'baidu';
 
-                            //字符串转化为 js 对象
-                            return data;
-                        }
-                    }).on('onDataRequestSuccess', function (e, result) {
-                        console.log('onDataRequestSuccess: ', result);
-                    }).on('onSetSelectValue', function (e, keyword, data) {
-                        console.log('onSetSelectValue: ', keyword, data);
-                        //有时间实现ajax调用后台查询，并跳转到查询结果页
-                        //没时间就暂时跳到百度页面
-                        //询问框
+				//字符串转化为 js 对象
+				return data;
+			}
+		}).on('onDataRequestSuccess', function(e, result) {
+			console.log('onDataRequestSuccess: ', result);
+		}).on('onSetSelectValue', function(e, keyword, data) {
+			console.log('onSetSelectValue: ', keyword, data);
+			//有时间实现ajax调用后台查询，并跳转到查询结果页
+			//没时间就暂时跳到百度页面
+			//询问框
 
-                    }).on('onUnsetSelectValue', function () {
-                        console.log("onUnsetSelectValue");
-                    });
-                    //回车搜索
-                    $("#box_sousuo").on('keypress',function(e){
-                        if (e.keyCode == 13) {
-                            var text = $(this).val()
-                            layer.confirm('C酱不会搜索,帮您到度娘那里问问,可以吗', {
-                                btn: ['确定','再想想'], //按钮
-                                shade: false //不显示遮罩
-                            }, function(index){
-                               window.open('https://www.baidu.com/s?ie=utf-8&wd='+text);
-                               //https://www.baidu.com/s?ie=utf-8&wd=%E6%97%A5%E6%9C%AC&si=163.com&ct=2097152
-                               layer.close(index);
-                            }, function(){
-                            });
-                        };
-                    })
-                    // $("#search").click(function(){
-                    //         var text = $("#box_sousuo").val()
-                    //         layer.confirm('C酱不会搜索,帮您到度娘那里问问,可以吗', {
-                    //             btn: ['确定','再想想'], //按钮
-                    //             shade: false //不显示遮罩
-                    //         }, function(index){
-                    //            window.open('https://www.baidu.com/s?ie=utf-8&wd='+text);
-                    //            //https://www.baidu.com/s?ie=utf-8&wd=%E6%97%A5%E6%9C%AC&si=163.com&ct=2097152
-                    //            layer.close(index);
-                    //         }, function(){
-                    //         });
-                    // })
-            })
+		}).on('onUnsetSelectValue', function() {
+			console.log("onUnsetSelectValue");
+		});
+		//回车搜索
+		$("#box_sousuo").on('keypress', function(e) {
+			if (e.keyCode == 13) {
+				var text = $(this).val()
+				layer.confirm('C酱不会搜索,帮您到度娘那里问问,可以吗', {
+					btn : [ '确定', '再想想' ], //按钮
+					shade : false
+				//不显示遮罩
+				}, function(index) {
+					window.open('https://www.baidu.com/s?ie=utf-8&wd=' + text);
+					//https://www.baidu.com/s?ie=utf-8&wd=%E6%97%A5%E6%9C%AC&si=163.com&ct=2097152
+					layer.close(index);
+				}, function() {
+				});
+			}
+			;
+		})
+		// $("#search").click(function(){
+		//         var text = $("#box_sousuo").val()
+		//         layer.confirm('C酱不会搜索,帮您到度娘那里问问,可以吗', {
+		//             btn: ['确定','再想想'], //按钮
+		//             shade: false //不显示遮罩
+		//         }, function(index){
+		//            window.open('https://www.baidu.com/s?ie=utf-8&wd='+text);
+		//            //https://www.baidu.com/s?ie=utf-8&wd=%E6%97%A5%E6%9C%AC&si=163.com&ct=2097152
+		//            layer.close(index);
+		//         }, function(){
+		//         });
+		// })
+	})
+</script>
+</head>
 
-        </script>
-	</head>
 
-
-	<body>
-		<div class="h404">
-				<div class="top">
-					<div class="nav">
-						<div class="logo"><img src="/img/LOGO01.png" ></div>
-						<div id="box">
-                            <div class="input-group"  >
-                                <input type="text" class="form-control" name="search" id="box_sousuo" placeholder=" 嗖(。≖ˇェˇ≖｡)...">
-                                <div class="input-group-btn" >
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-right" role="menu" ></ul>
-                                </div>
-                                <!-- /btn-group -->
-                            </div>
-<!-- 							<input type="text" id="box_sousuo" name="search" placeholder="请输入关键字">
+<body>
+	<div class="h404">
+		<div class="top">
+			<div class="nav">
+				<div class="logo">
+					<img src="/img/LOGO01.png">
+				</div>
+				<div id="box">
+					<div class="input-group">
+						<input type="text" class="form-control" name="search"
+							id="box_sousuo" placeholder=" 嗖(。≖ˇェˇ≖｡)...">
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default dropdown-toggle"
+								data-toggle="dropdown">
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+						</div>
+						<!-- /btn-group -->
+					</div>
+					<!-- 							<input type="text" id="box_sousuo" name="search" placeholder="请输入关键字">
 							<div id="search">搜索</div> -->
-						</div>
-						<div class="nav_right">
+				</div>
+				<div class="nav_right">
 					<div class="shouye">
-							<div class="tubiao">
-								<img src="../img/shouye.png">
-							</div>
-							<div class="nav_text">
-								<a href="/to/home" style="color: #00b7ee;">首页</a>
-							</div>
+						<div class="tubiao">
+							<img src="../img/shouye.png">
 						</div>
-						<div class="shcngchuan">
-							<div class="tubiao">
-								<img src="../img/shangchuan.png">
-							</div>
-							<div class="nav_text">
-								<a href="/to/up">上传</a>
-							</div>
+						<div class="nav_text">
+							<a href="/to/home" style="color: #00b7ee;">首页</a>
 						</div>
-						<div class="shcngchuan">
-							<div class="tubiao">
-								<img src="../img/tuiguang.png">
-							</div>
-							<div class="nav_text">
-								<a href="/Message/reveiceBox">消息</a>
-							</div>
-						</div>						
-						<div class="shcngchuan">
-							<div class="tubiao">
-								<img src="../img/huiyuan.png">
-							</div>
-							<div class="nav_text">
-								<a href="/PaymentBuyVip/Buy">会员</a>
-							</div>
-						</div>
-				<div class="shcngchuan">
-					<
-					<!-- div class="tubiao"><img src="../img/yonghu.png" ></div>
-						<div class="nav_text"><a href="Login.html">登录</a></div> -->
-					<div th:if="${session.user}">
-						<a
-							th:href="@{'/message/usersMessage?userName='+${session.userName}}"><div
-								id="view1"
-								style="width: 50px; height: 50px; -moz-background-size: 100% 100%; background-size: 100% 100%; border-radius: 50%;">
-							</div></a>
 					</div>
-					<div th:unless="${session.user}">
-						<a href="/user/toLogin">
-							<div class="tubiao">
-								<img src="/img/yonghu.png">
-							</div>
-							<div class="nav_text">登录</div>
-						</a>
+					<div class="shcngchuan">
+						<div class="tubiao">
+							<img src="../img/shangchuan.png">
+						</div>
+						<div class="nav_text">
+							<a href="/to/up">上传</a>
+						</div>
 					</div>
+					<div class="shcngchuan">
+						<div class="tubiao">
+							<img src="../img/tuiguang.png">
+						</div>
+						<div class="nav_text">
+							<a href="/Message/reveiceBox">消息</a>
+						</div>
+					</div>
+					<div class="shcngchuan">
+						<div class="tubiao">
+							<img src="../img/huiyuan.png">
+						</div>
+						<div class="nav_text">
+							<a href="/PaymentBuyVip/Buy">会员</a>
+						</div>
+					</div>
+					<div class="shcngchuan">
 
-				</div>
+						<!-- div class="tubiao"><img src="../img/yonghu.png" ></div>
+						<div class="nav_text"><a href="Login.html">登录</a></div> -->
+						<div th:if="${session.user}">
+							<a
+								th:href="@{'/message/usersMessage?userName='+${session.userName}}"><div
+									id="view1"
+									style="width: 50px; height: 50px; -moz-background-size: 100% 100%; background-size: 100% 100%; border-radius: 50%;">
+								</div></a>
 						</div>
+						<div th:unless="${session.user}">
+							<a href="/user/toLogin">
+								<div class="tubiao">
+									<img src="/img/yonghu.png">
+								</div>
+								<div class="nav_text">登录</div>
+							</a>
+						</div>
+
 					</div>
 				</div>
-				<div class="shuaxin">
-					<button type="button" class="shuaxin_but" >刷新重试</button>
-				</div>
+			</div>
 		</div>
-	</body>
+		<div class="shuaxin">
+			<button type="button" class="shuaxin_but">刷新重试</button>
+		</div>
+	</div>
+	
+	
+	<input type="hidden" id="img" th:value="${session.url1}">
+		<!-- 登录按钮替换为头像 -->
+		<script type="text/javascript">
+			var img6 = $("#img").val();
+			var img5 = "url(" + img6 + ")";
+			$("#view1").css('background-image', img5);
+		</script>
+</body>
 
 </html>

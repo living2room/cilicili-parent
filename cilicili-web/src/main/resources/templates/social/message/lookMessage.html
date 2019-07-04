@@ -6,7 +6,10 @@
 		<title></title>
 		<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
 		<!-- <link rel="stylesheet" type="text/css" href="css/style.css"/> -->
-		
+		<script src="../js/jquery.min.js"></script>
+<!-- 搜索框的 -->
+<script type="text/javascript" src="/js/bootstrap-suggest.min.js"></script>
+<!-- 搜索框的 -->
 		<style>		
 #boxall{
 	padding: 0;
@@ -1989,10 +1992,23 @@ tr:nth-child(2n){
 		<div class="top">
 			<div class="nav">
 				<div class="logo"><img src="/img/LOGO01.png" ></div>
+				<!-- 搜索框的 -->
 				<div id="box">
-					<input type="text" id="box_sousuo" name="search" placeholder="请输入关键字">
-					<div id="search">搜索</div> 
+					<div class="input-group" style="width: 175px;">
+						<input type="text" class="form-control" id="box_sousuo"
+							placeholder="嗖(。≖ˇェˇ≖｡)...">
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default dropdown-toggle"
+								data-toggle="dropdown">
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+						</div>
+						<!-- /btn-group -->
+					</div>
 				</div>
+				<!-- 搜索框的 -->
+
 				<div class="nav_right">
 					<div class="shouye">
 						<div class="tubiao"><img src="/img/zhuye_an.png" ></div>
@@ -2011,12 +2027,25 @@ tr:nth-child(2n){
 						<div class="nav_text"><a href="#">会员</a></div>
 					</div>
 					<div class="shcngchuan">
-						<div class="nav_text">
-								<div class="tubiao"><img src="/img/yonghu.png" ></div>
-								<a th:if="${session.user}" th:href="Login.html">[[${session.userName}]]</a>
-								<a th:unless="${session.user}" th:href="Login.html">登录</a>
+
+						
+						<div th:if="${session.user}">
+							<a
+								th:href="@{'/message/usersMessage?userName='+${session.userName}}"><div
+									id="view1"
+									style="width: 50px; height: 50px; -moz-background-size: 100% 100%; background-size: 100% 100%; border-radius: 50%;">
+								</div></a>
 						</div>
-					</div>
+						<div th:unless="${session.user}">
+							<a href="/user/toLogin">
+								<div class="tubiao">
+									<img src="/img/yonghu.png">
+								</div>
+								<div class="nav_text">登录</div>
+							</a>
+						</div>
+
+					</div>v
 				</div>
 			</div>
 		</div>
@@ -2035,6 +2064,83 @@ tr:nth-child(2n){
 			</form>
 		</div>
 		
+		<script type="text/javascript">
+		<!-- 搜索框的 -->
+			$("#box_sousuo").bsSuggest({
+				emptyTip : '未检索到匹配的数据',
+				allowNoKeyword : false, //是否允许无关键字时请求数据。为 false 则无输入时不执行过滤请求
+				ignorecase : true,
+				showBtn : false, //不显示下拉按钮
+				multiWord : true, //以分隔符号分割的多关键字支持
+				separator : ",", //多关键字支持时的分隔符，默认为空格
+				getDataMethod : "url", //获取数据的方式，总是从 URL 获取
+				url : 'http://unionsug.baidu.com/su?p=3&wd=', //优先从url ajax 请求 json 帮助数据，注意最后一个参数为关键字请求参数
+				jsonp : 'cb', //如果从 url 获取数据，并且需要跨域，则该参数必须设置
+				fnProcessData : function(json) { // url 获取数据时，对数据的处理，作为 fnGetData 的回调函数
+					var index, len, data = {
+						value : []
+					};
+					if (!json || !json.s || json.s.length === 0) {
+						return false;
+					}
+
+					len = json.s.length;
+
+					for (index = 0; index < len; index++) {
+						data.value.push({
+							word : json.s[index]
+						});
+					}
+					data.defaults = 'baidu';
+
+					//字符串转化为 js 对象
+					return data;
+				}
+			}).on('onDataRequestSuccess', function(e, result) {
+				console.log('onDataRequestSuccess: ', result);
+			}).on('onSetSelectValue', function(e, keyword, data) {
+				console.log('onSetSelectValue: ', keyword, data);
+				//有时间实现ajax调用后台查询，并跳转到查询结果页
+				//没时间就暂时跳到百度页面
+				//询问框
+
+			}).on('onUnsetSelectValue', function() {
+				console.log("onUnsetSelectValue");
+			});
+			//回车搜索
+			$("#box_sousuo")
+					.on(
+							'keypress',
+							function(e) {
+								if (e.keyCode == 13) {
+									var text = $(this).val()
+									layer
+											.confirm(
+													'C酱不会搜索,帮您到度娘那里问问,可以吗',
+													{
+														btn : [ '确定', '再想想' ], //按钮
+														shade : false
+													//不显示遮罩
+													},
+													function(index) {
+														window
+																.open('https://www.baidu.com/s?ie=utf-8&wd='
+																		+ text);
+														//https://www.baidu.com/s?ie=utf-8&wd=%E6%97%A5%E6%9C%AC&si=163.com&ct=2097152
+														layer.close(index);
+													}, function() {
+													});
+								}
+								;
+							})<!-- 搜索框的 -->
+		</script>
 		
+		<input type="hidden" id="img" th:value="${session.url1}">
+		<!-- 登录按钮替换为头像 -->
+		<script type="text/javascript">
+			var img6 = $("#img").val();
+			var img5 = "url(" + img6 + ")";
+			$("#view1").css('background-image', img5);
+		</script>
 	</body>
 </html>

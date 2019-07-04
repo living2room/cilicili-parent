@@ -1,160 +1,170 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="utf-8" />
-	    <!--[if lt IE 9]>
+<head>
+<meta charset="utf-8" />
+<!--[if lt IE 9]>
 	    <meta http-equiv="refresh" content="1;ie.html" />
 	    <![endif]-->
-		<title>嘻哩嘻哩 (^o^)c旦`` 喝咖啡~-cilicili</title>
-        <!-- 全局css -->
-        <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/3.4.1/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css">
-        <link rel="stylesheet" type="text/css" href="/webjars/font-awesome/5.8.1/css/all.min.css"/>
-        <link rel="stylesheet" type="text/css" href="/css/animate.css"/>
-        <!--自定义css  -->
-		<link rel="stylesheet" type="text/css" href="/css/stylef.css"/>
-		<link rel="stylesheet" type="text/css" href="/css/reset.css">
-		<link rel="stylesheet" type="text/css" href="/css/common.css">
-        <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
+<title>嘻哩嘻哩 (^o^)c旦`` 喝咖啡~-cilicili</title>
+<!-- 全局css -->
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/font-awesome/5.8.1/css/all.min.css" />
+<link rel="stylesheet" type="text/css" href="/css/animate.css" />
+<!--自定义css  -->
+<link rel="stylesheet" type="text/css" href="/css/stylef.css" />
+<link rel="stylesheet" type="text/css" href="/css/reset.css">
+<link rel="stylesheet" type="text/css" href="/css/common.css">
+<link rel="stylesheet" type="text/css" href="/css/sidebar.css">
 
 
-        <!-- 全局js -->
-        <script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
-        <script type="text/javascript" src="/webjars/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"></script>
-        
-        
-        <!-- 搜索框的 -->
-        <script type="text/javascript" src="/js/bootstrap-suggest.min.js"></script>
-        <!-- 搜索框的 -->
-        
-        <!-- 自定义js -->
-        <script type="text/javascript" src="/js/banner.js"></script>
-        <script type="text/javascript" src="/js/sidebar.js"></script>
-        <script type="text/javascript" th:src="@{/js/coverdjs.js}"></script>
-        <!-- layer javascript -->
-        <script src="/js/plugins/layer/layer.min.js"></script>
+<!-- 全局js -->
+<script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
+<script src="../js/jquery.min.js"></script>
+<!-- 搜索框的 -->
+<script type="text/javascript" src="/js/bootstrap-suggest.min.js"></script>
+<!-- 搜索框的 -->
 
-
-	<body>
+<!-- 自定义js -->
+<script type="text/javascript" src="/js/banner.js"></script>
+<script type="text/javascript" src="/js/sidebar.js"></script>
+<script type="text/javascript" th:src="@{/js/coverdjs.js}"></script>
+<!-- layer javascript -->
+<script src="/js/plugins/layer/layer.min.js"></script>
+<body>
 
 	<div id="boxall">
 
 
 		<!-------------------------------------------- 导航栏 ------------------------------------------------->
-			<div class="top">
+		<div class="top">
 			<div class="nav">
-				<div class="logo"><img src="/img/LOGO01.png" ></div>
-				
-				
-				
-				
+				<div class="logo">
+					<img src="/img/LOGO01.png">
+				</div>
+
+
+
+
 				<!-- 搜索框的 -->
 				<div id="box">
 					<div class="input-group" style="width: 175px;">
-	                    <input type="text" class="form-control" id="box_sousuo" placeholder="嗖(。≖ˇェˇ≖｡)...">
-	                    <div class="input-group-btn">
-	                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-	                            <span class="caret"></span>
-	                        </button>
-	                        <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
-	                    </div>
-	                    <!-- /btn-group -->
-	                </div>
+						<input type="text" class="form-control" id="box_sousuo"
+							placeholder="嗖(。≖ˇェˇ≖｡)...">
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default dropdown-toggle"
+								data-toggle="dropdown">
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+						</div>
+						<!-- /btn-group -->
+					</div>
 				</div>
 				<!-- 搜索框的 -->
-				
-				
-				
-				
-				
+
+
+
+
+
 				<div class="nav_right">
 					<div class="shouye">
-							<div class="tubiao">
-								<img src="../img/shouye.png">
-							</div>
-							<div class="nav_text">
-								<a href="/to/home" style="color: #00b7ee;">首页</a>
-							</div>
+						<div class="tubiao">
+							<img src="../img/shouye.png">
 						</div>
-						<div class="shcngchuan">
-							<div class="tubiao">
-								<img src="../img/shangchuan.png">
-							</div>
-							<div class="nav_text">
-								<a href="/to/up">上传</a>
-							</div>
+						<div class="nav_text">
+							<a href="/to/home" style="color: #00b7ee;">首页</a>
 						</div>
-						<div class="shcngchuan">
-							<div class="tubiao">
-								<img src="../img/tuiguang.png">
-							</div>
-							<div class="nav_text">
-								<a href="/Message/reveiceBox">消息</a>
-							</div>
-						</div>						
-						<div class="shcngchuan">
-							<div class="tubiao">
-								<img src="../img/huiyuan.png">
-							</div>
-							<div class="nav_text">
-								<a href="/PaymentBuyVip/Buy">会员</a>
-							</div>
-						</div>
-				<div class="shcngchuan">
-
-					<!-- div class="tubiao"><img src="../img/yonghu.png" ></div>
-						<div class="nav_text"><a href="Login.html">登录</a></div> -->
-					<div th:if="${session.user}">
-						<a
-							th:href="@{'/message/usersMessage?userName='+${session.userName}}"><div
-								id="view1"
-								style="width: 50px; height: 50px; -moz-background-size: 100% 100%; background-size: 100% 100%; border-radius: 50%;">
-							</div></a>
 					</div>
-					<div th:unless="${session.user}">
-						<a href="/user/toLogin">
-							<div class="tubiao">
-								<img src="/img/yonghu.png">
-							</div>
-							<div class="nav_text">登录</div>
-						</a>
+					<div class="shcngchuan">
+						<div class="tubiao">
+							<img src="../img/shangchuan.png">
+						</div>
+						<div class="nav_text">
+							<a href="/to/up">上传</a>
+						</div>
 					</div>
+					<div class="shcngchuan">
+						<div class="tubiao">
+							<img src="../img/tuiguang.png">
+						</div>
+						<div class="nav_text">
+							<a href="/Message/reveiceBox">消息</a>
+						</div>
+					</div>
+					<div class="shcngchuan">
+						<div class="tubiao">
+							<img src="../img/huiyuan.png">
+						</div>
+						<div class="nav_text">
+							<a href="/PaymentBuyVip/Buy">会员</a>
+						</div>
+					</div>
+					<div class="shcngchuan">
 
-				</div>
+						
+						<div th:if="${session.user}">
+							<a
+								th:href="@{'/message/usersMessage?userName='+${session.userName}}"><div
+									id="view1"
+									style="width: 50px; height: 50px; -moz-background-size: 100% 100%; background-size: 100% 100%; border-radius: 50%;">
+								</div></a>
+						</div>
+						<div th:unless="${session.user}">
+							<a href="/user/toLogin">
+								<div class="tubiao">
+									<img src="/img/yonghu.png">
+								</div>
+								<div class="nav_text">登录</div>
+							</a>
+						</div>
+
+					</div>
 				</div>
 			</div>
 
 
 
 
-<!---------------------------- 弹窗开始 --------------------------------->
-			<div class="tanchuang" style="display:none;width: 100px;height: 104px;background: #fFF;z-index: 1000;position: absolute;top: 80px;left: 1494px;opacity:0.6;border-radius: 10px;">
-			
-			<div class="lianjie1" style="height: 20px;width: 100px;line-height: 24px;margin-left: 18px;margin-top: 6px;">
-				<div class="dayuhao" style="float: left;color: #00a1d6;font-weight: bolder">></div> 
-				<a href="#" style="margin-left: 14px;">
-					<em>第一链接<i></i></em>
-				</a>
-			</div><br>
-			
-			<div class="lianjie1" style="height: 20px;width: 100px;line-height: 24px;margin-left: 18px;">
-				<div class="dayuhao" style="float: left;color: #00a1d6;font-weight: bolder">></div> 
-				<a href="#" style="margin-left: 14px;">
-					<em>第一链接<i></i></em>
-				</a>
-			</div><br>
-			
-			<div class="lianjie1" style="height: 20px;width: 100px;line-height: 24px;margin-left: 18px;">
-				<div class="dayuhao" style="float: left;color: #00a1d6;font-weight: bolder">></div> 
-				<a href="#" style="margin-left: 14px;">
-					<em>第一链接<i></i></em>
-				</a>
+			<!---------------------------- 弹窗开始 --------------------------------->
+			<div class="tanchuang"
+				style="display: none; width: 100px; height: 104px; background: #fFF; z-index: 1000; position: absolute; top: 80px; left: 1494px; opacity: 0.6; border-radius: 10px;">
+
+				<div class="lianjie1"
+					style="height: 20px; width: 100px; line-height: 24px; margin-left: 18px; margin-top: 6px;">
+					<div class="dayuhao"
+						style="float: left; color: #00a1d6; font-weight: bolder">></div>
+					<a href="#" style="margin-left: 14px;"> <em>第一链接<i></i></em>
+					</a>
+				</div>
+				<br>
+
+				<div class="lianjie1"
+					style="height: 20px; width: 100px; line-height: 24px; margin-left: 18px;">
+					<div class="dayuhao"
+						style="float: left; color: #00a1d6; font-weight: bolder">></div>
+					<a href="#" style="margin-left: 14px;"> <em>第一链接<i></i></em>
+					</a>
+				</div>
+				<br>
+
+				<div class="lianjie1"
+					style="height: 20px; width: 100px; line-height: 24px; margin-left: 18px;">
+					<div class="dayuhao"
+						style="float: left; color: #00a1d6; font-weight: bolder">></div>
+					<a href="#" style="margin-left: 14px;"> <em>第一链接<i></i></em>
+					</a>
+				</div>
+
+
 			</div>
-			
-			
-		</div>
-		<!---------------------------- 弹窗结束 --------------------------------->
+			<!---------------------------- 弹窗结束 --------------------------------->
 
 
 
@@ -163,69 +173,56 @@
 
 
 		</div>
-					<input type="hidden" id="img" th:value="${session.url1}">
-					<!-- 登录按钮替换为头像 -->
-					<script type="text/javascript">
+		<input type="hidden" id="img" th:value="${session.url1}">
+		<!-- 登录按钮替换为头像 -->
+		<script type="text/javascript">
 					var img6 = $("#img").val();
 					var img5 ="url("+img6+")";
 					$("#view1").css('background-image',img5);	
 					</script>
-		
+
 		<!-------------------------------------------- 导航栏 ------------------------------------------------->
 
 
 		<!-------------------------------------- 轮播图 --------------------------------------------------->
 		<div class="banner" id="banner2" style="margin: 0 auto;">
-				<div class="banner-view"></div>
-				<div class="banner-btn"></div>
-				<div class="banner-number"></div>
-				<div class="banner-progres"></div>
+			<div class="banner-view"></div>
+			<div class="banner-btn"></div>
+			<div class="banner-number"></div>
+			<div class="banner-progres"></div>
 		</div>
 
 
 
 
-			<!-------------------------------------------- 小导航栏 ------------------------------------------------->
-			<nav id="nav">
+		<!-------------------------------------------- 小导航栏 ------------------------------------------------->
+		<nav id="nav">
 			<div class="page-width clearfix">
 				<ul class="nav-list">
-					<li class="item item-home">
-						<a href="#" class="link">首页</a>
-					</li>
-                        <li th:each="list : ${PageType}" class="item">
-                            <a  th:utext="|<div  class='num'><i>887</i></div>${list.type.type}|"   class="link">
-<!--                                 	<div  class="num"><i>887</i></div>
+					<li class="item item-home"><a href="#" class="link">首页</a></li>
+					<li th:each="list : ${PageType}" class="item"><a
+						th:utext="|<div  class='num'><i>887</i></div>${list.type.type}|"
+						class="link"> <!--                                 	<div  class="num"><i>887</i></div>
 &lt;div  class='num'&gt;&lt;i&gt;887&lt;/i&gt;&lt;/div&gt;${list.type.type}
                                 		<div th:text="${list.type.type}"></div> -->
-                            </a>
-                            <ul  class="nav-item__hover">
-                                <li th:each="sublist : ${list.typeDtolist}">
-                                    <a  href="#" >
-                                        <em  th:text="${sublist.type.type}">MAD·AMV<i></i></em>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-					<li class="item">
-						<a href="#" class="link">
-							<div class="num"><i>916</i></div>
-							影视
-						</a>
+					</a>
 						<ul class="nav-item__hover">
-							<li>
-								<a href="#">
-									<em>电影<i></i></em>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<em>电视剧<i></i></em>
-								</a>
-							</li>
-						</ul>
-					</li>
-					<li class="item item-square">
-						<a href="#" class="link">广场</a>
+							<li th:each="sublist : ${list.typeDtolist}"><a href="#">
+									<em th:text="${sublist.type.type}">MAD·AMV<i></i></em>
+							</a></li>
+						</ul></li>
+					<li class="item"><a href="#" class="link">
+							<div class="num">
+								<i>916</i>
+							</div> 影视
+					</a>
+						<ul class="nav-item__hover">
+							<li><a href="#"> <em>电影<i></i></em>
+							</a></li>
+							<li><a href="#"> <em>电视剧<i></i></em>
+							</a></li>
+						</ul></li>
+					<li class="item item-square"><a href="#" class="link">广场</a>
 						<div class="nav-square__hover">
 							<ul>
 								<li><a href="#"><i class="icon-activity"></i>活动中心</a></li>
@@ -233,109 +230,80 @@
 								<li><a href="#"><i class="icon-news"></i>新闻中心</a></li>
 								<li><a href="#"><i class="icon-friend"></i>画友</a></li>
 								<li><a href="#"><i class="icon-tv"></i>芒果TV</a></li>
-							</ul><!--
+							</ul>
+							<!--
 							<a href="#" class="activity"><img src="images/cont/nav-square__img.jpg" alt="#"></a> -->
-						</div>
-					</li>
-					<li class="item item-live">
-						<a href="#" class="link">直播</a>
+						</div></li>
+					<li class="item item-live"><a href="#" class="link">直播</a>
 						<ul class="nav-item__hover">
-							<li>
-								<a href="#">
-									<em>推荐主播<i></i></em>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<em>手机直播<i></i></em>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<em>绘画专区<i></i></em>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<em>唱见舞见<i></i></em>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<em>御宅文化<i></i></em>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<em>单机联机<i></i></em>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<em>网络游戏<i></i></em>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<em>电子竞技<i></i></em>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<em>手游直播<i></i></em>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<em>放映厅<i></i></em>
-								</a>
-							</li>
-						</ul>
-					</li>
-					<li class="item item-room">
-						<a href="#" class="link">小黑屋</a>
-					</li>
+							<li><a href="#"> <em>推荐主播<i></i></em>
+							</a></li>
+							<li><a href="#"> <em>手机直播<i></i></em>
+							</a></li>
+							<li><a href="#"> <em>绘画专区<i></i></em>
+							</a></li>
+							<li><a href="#"> <em>唱见舞见<i></i></em>
+							</a></li>
+							<li><a href="#"> <em>御宅文化<i></i></em>
+							</a></li>
+							<li><a href="#"> <em>单机联机<i></i></em>
+							</a></li>
+							<li><a href="#"> <em>网络游戏<i></i></em>
+							</a></li>
+							<li><a href="#"> <em>电子竞技<i></i></em>
+							</a></li>
+							<li><a href="#"> <em>手游直播<i></i></em>
+							</a></li>
+							<li><a href="#"> <em>放映厅<i></i></em>
+							</a></li>
+						</ul></li>
+					<li class="item item-room"><a href="#" class="link">小黑屋</a></li>
 				</ul>
-				<div class="nav-gif"><img src="/img/nav_img.gif" alt="求领养"></div>
+				<div class="nav-gif">
+					<img src="/img/nav_img.gif" alt="求领养">
+				</div>
 			</div>
 		</nav>
 		<!-------------------------------------------- 小导航栏结束 ------------------------------------------------->
-  		<!-------------------------------------------- 右边栏 ------------------------------------------------->
-        <div class="ECode-floatBar" style="position: fixed; top: 50%; left: 50%; z-index: 1000; right: auto; margin-left: -670px; margin-top: -159.5px; display: none;">
-            <div class="floatbar" id="indexFloat">
-                <div class="float-bg"></div>
-                <!-- 图标 -->
-                <ul class="list">
-                    <li th:each="list : ${PageType}" class="">
-                        <a  th:text="${list.type.type}"  href="javascript:;"  ></a>
-                    </li>
-                </ul>
-                <a href="#"></a>
-            </div>
-        </div>
+		<!-------------------------------------------- 右边栏 ------------------------------------------------->
+		<div class="ECode-floatBar"
+			style="position: fixed; top: 50%; left: 50%; z-index: 1000; right: auto; margin-left: -670px; margin-top: -159.5px; display: none;">
+			<div class="floatbar" id="indexFloat">
+				<div class="float-bg"></div>
+				<!-- 图标 -->
+				<ul class="list">
+					<li th:each="list : ${PageType}" class=""><a
+						th:text="${list.type.type}" href="javascript:;"></a></li>
+				</ul>
+				<a href="#"></a>
+			</div>
+		</div>
 
-			<!--------------------------------------------- 内容模块开始 ---------------------------------------------------->
+		<!--------------------------------------------- 内容模块开始 ---------------------------------------------------->
 
 
 
-			<!--------------------------------------------- 本站推荐 ---------------------------------------------------->
-			<div id="content">
-				<div class="con_left">
-					<div class="con1">
-							<div class="tubiao1"></div>
-							<div class="text1">本站推荐</div>
-							<div class="gengduo"><a href="#">查看更多<span style="margin-left: 7px; "><img src="/img/jiantou.png" alt=""></span></a></div>
+		<!--------------------------------------------- 本站推荐 ---------------------------------------------------->
+		<div id="content">
+			<div class="con_left">
+				<div class="con1">
+					<div class="tubiao1"></div>
+					<div class="text1">本站推荐</div>
+					<div class="gengduo">
+						<a href="#">查看更多<span style="margin-left: 7px;"><img
+								src="/img/jiantou.png" alt=""></span></a>
 					</div>
-					<div class="con2">
-						<div class="mover"></div>
-						<div class="mover2"></div>
-						<div class="mover2"></div>
-					</div>
-					<div class="con2">
-						<div class="mover"></div>
-						<div class="mover2"></div>
-						<div class="mover2"></div>
-					</div>
+				</div>
+				<div class="con2">
+					<div class="mover"></div>
+					<div class="mover2"></div>
+					<div class="mover2"></div>
+				</div>
+				<div class="con2">
+					<div class="mover"></div>
+					<div class="mover2"></div>
+					<div class="mover2"></div>
+				</div>
 
 				<div class="con3" th:each="tvad1:${PageContent}">
 					<!-- <div th:text="${tvad1.key}"></div> -->
@@ -353,20 +321,23 @@
 								</div>
 							</div>
 							<div id="box97"></div>
-							<div class="con3_02" th:each="tvad2:${tvad1.value}" style="display:inline;">
+							<div class="con3_02" th:each="tvad2:${tvad1.value}"
+								style="display: inline;">
 								<a th:href="${tvad2.link}">
-								<div class="index_mover_left">
-									<div class="mover1" th:style="|background:url('@{${tvad2.picPath}}')|"></div>
-									<div class="beizhu" style="margin-top: 20px;">
-										<div th:text="${tvad2.name}" class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
-										<div class="beizhu_tubiao">
-											<img src="/img/shiping.png" alt="">&nbsp;&nbsp;[[${tvad2.videoPlayedNum}]]<span
-												style="margin-left: 22px;"><img src="/img/danmu.png"
-												alt="">&nbsp;&nbsp;[[${tvad2.bulletScreenNum}]]</span>
+									<div class="index_mover_left">
+										<div class="mover1"
+											th:style="|background:url('@{${tvad2.picPath}}')|"></div>
+										<div class="beizhu" style="margin-top: 20px;">
+											<div th:text="${tvad2.name}" class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
+											<div class="beizhu_tubiao">
+												<img src="/img/shiping.png" alt="">&nbsp;&nbsp;[[${tvad2.videoPlayedNum}]]<span
+													style="margin-left: 22px;"><img src="/img/danmu.png"
+													alt="">&nbsp;&nbsp;[[${tvad2.bulletScreenNum}]]</span>
+											</div>
 										</div>
+										<div class="beizhu_text">大型虫洞控制权（上集）</div>
 									</div>
-									<div class="beizhu_text">大型虫洞控制权（上集）</div>
-								</div></a>
+								</a>
 
 							</div>
 
@@ -456,7 +427,8 @@
 								</div>
 							</div>
 						</div>
-					</div>	<!--  -->
+					</div>
+					<!--  -->
 				</div>
 
 
@@ -572,7 +544,7 @@
 					</div> -->
 
 
-					<!-- <div class="con3">
+				<!-- <div class="con3">
 						<div class="con3_01">
 								<div class="con3_left">
 									<div class="tubiao1"><img src="/img/tubiao02.png" ></div>
@@ -684,7 +656,7 @@
 					</div> -->
 
 
-					<!-- <div class="con3">
+				<!-- <div class="con3">
 						<div class="con3_01">
 								<div class="con3_left">
 									<div class="tubiao1"><img src="/img/tubiao02.png" ></div>
@@ -795,12 +767,12 @@
 
 					</div> -->
 
-					<div id="box95"></div>
+				<div id="box95"></div>
 
-
-				</div>
 
 			</div>
+
+		</div>
 
 
 		<div class="footer">
@@ -810,8 +782,8 @@
 					<div class="footer_con1">
 						<input type="text" name="" id="footer_text" value="" />
 						<div class="footer_button">
-							<input type="reset" id="chongzhi" value="清空内容" />
-							<input type="submit" id="tijiao" value="提交建议" />
+							<input type="reset" id="chongzhi" value="清空内容" /> <input
+								type="submit" id="tijiao" value="提交建议" />
 						</div>
 
 					</div>
@@ -844,8 +816,8 @@
 
 
 
-		<!-------------------------------------- 轮播图的动效 --------------------------------------------------->
-		<script type="text/javascript">
+	<!-------------------------------------- 轮播图的动效 --------------------------------------------------->
+	<script type="text/javascript">
 			scroll_scroll()
 			scroll_cilck()
 			$(".index_mover_left:odd").css("margin-left","30px");
@@ -921,12 +893,12 @@
 			}); 
 
 		</script>
-		
-		
-		
-<!-------------------------------------- 轮播图的动效 --------------------------------------------------->
-<!-------------------------------------- 轮播图的动效 --------------------------------------------------->
-		<script type="text/javascript">
+
+
+
+	<!-------------------------------------- 轮播图的动效 --------------------------------------------------->
+	<!-------------------------------------- 轮播图的动效 --------------------------------------------------->
+	<script type="text/javascript">
 			
 			$( ".shcngchuan:eq(3),.tanchuang" ).hover(function() {
 				$( ".tanchuang" ).stop().fadeIn( 500 );
@@ -949,5 +921,5 @@
 			}); */
 		
 		</script>
-	</body>
+</body>
 </html>
