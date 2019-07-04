@@ -124,7 +124,11 @@ public class AdminController {
 				// 权限，菜单
 				Session session = currentUser.getSession();
 				session.setAttribute("adminPermissionList3", adminPermissionList3);
+				
+				//用户名
+				session.setAttribute("adminName",adminUser.getUserName());
 
+				
 				/*
 				 * AdminUser adminUser2 = this.adminUserServiceImpl.all(userId); List<AdminRole>
 				 * adminRoleList = adminUser2.getAdminRoleList(); //List<AdminPermission>

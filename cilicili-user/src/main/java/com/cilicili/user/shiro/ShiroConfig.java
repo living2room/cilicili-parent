@@ -61,6 +61,9 @@ public class ShiroConfig {
 		filterMap.put("/Message/ndBoxDelete", "authc");
 		filterMap.put("/Message/reveiceBoxDelete", "authc");
 		
+		
+		//limingrui
+		filterMap.put("/to/up", "authc");
 	
 		
 		filterMap.put("/user/index", "user");

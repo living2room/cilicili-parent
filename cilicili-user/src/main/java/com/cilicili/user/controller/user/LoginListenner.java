@@ -9,7 +9,9 @@ import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 
 import com.cilicili.domain.user.user.Users;
-
+/*
+ * 单点登录的配置
+ */
 @WebListener
 public class LoginListenner implements HttpSessionAttributeListener {
 	/**
@@ -23,7 +25,9 @@ public class LoginListenner implements HttpSessionAttributeListener {
 	@Override
 	public void attributeAdded(HttpSessionBindingEvent event) {
 		String name = event.getName();
-		 //USER_SESSION为登录时存入session的名字
+		
+		System.out.println(name+"是啥？");
+		 //user为登录时存入session的名字
         if (name.equals("user")) {
             Users user = (Users) event.getValue();
             if (map.get(user.getUserName()) != null) {
@@ -44,6 +48,7 @@ public class LoginListenner implements HttpSessionAttributeListener {
 	@Override
 	public void attributeRemoved(HttpSessionBindingEvent event) {
 		String name = event.getName();
+		System.out.println(name+"是啥？");
         if (name.equals("loginuser")) {
             Users user = (Users) event.getValue();
             map.remove(user.getUserName());
