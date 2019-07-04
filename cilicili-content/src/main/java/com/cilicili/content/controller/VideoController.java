@@ -83,7 +83,7 @@ public class VideoController {
 		List<VideoReviewDto> videoByTypeName = vService.getVideoByTypeName(text);
 		System.out.println("( _ )"+videoByTypeName);
 		model.addAttribute("list",videoByTypeName);
-		String videoJson = JSONArray.toJSONStringWithDateFormat(videoByTypeName, "YYYY-MM-DD hh:mm:ss");
+		String videoJson = JSONArray.toJSONStringWithDateFormat(videoByTypeName, " yyyy-MM-dd HH:mm:ss");
 		System.out.println("&&&&&&&&"+videoJson);
 		return videoJson;
 	}
