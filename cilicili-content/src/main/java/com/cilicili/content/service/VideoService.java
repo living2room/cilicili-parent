@@ -82,8 +82,11 @@ public class VideoService {
 	private String username;
 	@Value("${FTP.PASSWORD}")
 	private String password;
-	@Value("${FTP.BASE_PATH}")
+	@Value("FTP.REQUEST_PATH")
+	private String reqPath;
+	@Value("FTP.BASE_PATH")
 	private String ftpPath;
+	
 
 	/**
 	 * 用户上传的视频 WebUploader 转到FTP
@@ -160,8 +163,8 @@ public class VideoService {
 		long id = snowflake.nextId();
 		videoUrl.setId(id);
 		videoUrl.setVideoId(nextId);
-		videoUrl.setActualUrl(ftpPath+"video/"+localFile.getName());//存放问题
-		videoUrl.setRequestUrl(String.valueOf(id));
+		videoUrl.setActualUrl(ftpPath+"data/video/"+localFile.getName());//存放问题
+		videoUrl.setRequestUrl(reqPath+"data/video/"+localFile.getName());
 		int j = vUrlMapper.insert(videoUrl);
 
 		// VideoUser videoUser = new VideoUser();

@@ -156,7 +156,7 @@ public class PageController {
 	@RequestMapping("/to/b/review/edit/{text}")
 	public String toReviewPup(@PathVariable String text, Model model) {
 		List<VideoReviewDto> vrDto = revService.getReviewInfo(text);
-		return "";
+		return "content/bg_reviewdetial";
 	}
 	/**IE支持页
 	 * @return

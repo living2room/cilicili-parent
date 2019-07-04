@@ -80,7 +80,9 @@ public class VideoController {
 		List<VideoReviewDto> videoByTypeName = vService.getVideoByTypeName(text);
 		System.out.println(videoByTypeName);
 		model.addAttribute("list",videoByTypeName);
-		return "success";
+		String videoJson = JSONArray.toJSONStringWithDateFormat(videoByTypeName, "yyyy-MM-dd HH:mm:ss");
+		System.out.println("&&&&&&&&"+videoJson);
+		return videoJson;
 	}
 	
 	@GetMapping("/v/player/{vi}")
