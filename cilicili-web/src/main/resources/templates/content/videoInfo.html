@@ -34,24 +34,38 @@
 					<div class="nav_right">
 						<div class="shouye">
 							<div class="tubiao"><img src="/img/zhuye_an.png" ></div>
-							<div class="nav_text"><a href="index.html">首页</a></div>
+							<div class="nav_text"><a href="jumpbeforesave('/to/home')">首页</a></div>
 						</div>
 						<div class="shcngchuan">
 							<div class="tubiao"><img src="/img/shangchuan.png" ></div>
-							<div class="nav_text"><a href="#"   style="color: #00b7ee;">上传</a></div>
+							<div class="nav_text"><a href="jumpbeforesave('/to/up')"   style="color: #00b7ee;">上传</a></div>
 						</div>
 						<div class="shcngchuan">
 							<div class="tubiao"><img src="/img/tuiguang.png" ></div>
-							<div class="nav_text"><a href="#">推广</a></div>
+
+							<div class="nav_text"><a href=jumpbeforesave('/Message/reveiceBox')">消息</a></div>
 						</div>
 						<div class="shcngchuan">
 							<div class="tubiao"><img src="/img/huiyuan.png" ></div>
-							<div class="nav_text"><a href="#">会员</a></div>
+							<div class="nav_text"><a href=jumpbeforesave('/PaymentBuyVip/Buy')">会员</a></div>
 						</div>
-						<div class="shcngchuan">
-							<div class="tubiao"><img src="/img/yonghu.png" ></div>
-							<div class="nav_text"><a href="Login.html">登录</a></div>
-						</div>
+                <div class="shcngchuan">
+
+                    <div th:if="${session.user}">
+                    <a th:href="@{'/message/usersMessage?userName='+${session.userName}}"><div id="view1" style="width: 50px;
+                     height: 50px;-moz-background-size:100% 100%; background-size:100% 100%; border-radius: 50%;">
+                    </div></a>
+
+                    </div>
+                        <div th:unless="${session.user}">
+                            <a href="/user/toLogin">
+                                <div class="tubiao">
+                                    <img src="/img/yonghu.png">
+                                </div>
+                                <div class="nav_text">登录</div>
+                            </a>
+                        </div>
+                    </div>
 					</div>
 				</div>
 			</div>
@@ -130,6 +144,22 @@
 			</div>
 
   <script type="text/javascript">
+  	window.onbeforeunload = function() {
+	    return "您之前的操作尚未保存，确定关闭?";
+	}
+	//未保存跳转提示
+	function jumpbeforesave(url){
+	            layer.confirm('上传进度尚未保存，确定跳转吗?', {
+	                btn: ['确定','再想想'], //按钮
+	                shade: true //不显示遮罩
+	            }, function(index){
+	               window.location.href = url
+	               layer.close(index);
+	            }, function(){
+	            });
+	        };
+	    })
+	}
   		var img1 = $("#img").val();
 		var img3 = "url(" + img1 + ")";
 		$('#view').css('background-image', img3);

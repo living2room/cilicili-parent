@@ -32,7 +32,7 @@
 				</div>
 				<div class="nav_right">
 					<div class="shouye">
-						<a href="index.html"  >
+						<a href="/to/home"  >
 							<div class="tubiao"><img src="/img/zhuye_an.png"></div>
 							<div class="nav_text">首页</div>
 						</a>
@@ -44,23 +44,34 @@
 						</a>
 					</div>
 					<div class="shcngchuan">
-						<a href="#">
+						<a href="/Message/reveiceBox">
 							<div class="tubiao"><img src="/img/tuiguang.png" ></div>
 							<div class="nav_text">推广</div>
 						</a>
 					</div>
 					<div class="shcngchuan">
-						<a href="huiyuan.html" >
+						<a href="/PaymentBuyVip/Buy" >
 							<div class="tubiao"><img src="/img/huiyuan.png"></div>
 							<div class="nav_text">会员</div>
 						</a>
 					</div>
-					<div class="shcngchuan">
-						<a href="Login.html">
-							<div class="tubiao"><img src="/img/yonghu.png" ></div>
-							<div class="nav_text">登录</div>
-						</a>
-					</div>
+                <div class="shcngchuan">
+
+                    <div th:if="${session.user}">
+                    <a th:href="@{'/message/usersMessage?userName='+${session.userName}}"><div id="view1" style="width: 50px;
+                     height: 50px;-moz-background-size:100% 100%; background-size:100% 100%; border-radius: 50%;">
+                    </div></a>
+
+                    </div>
+                        <div th:unless="${session.user}">
+                            <a href="/user/toLogin">
+                                <div class="tubiao">
+                                    <img src="/img/yonghu.png">
+                                </div>
+                                <div class="nav_text">登录</div>
+                            </a>
+                        </div>
+                    </div>
 				</div>
 			</div>
 		</div>
