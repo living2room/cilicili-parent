@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script src="/js/jquery.min.js"></script>
+	<input type="hidden" id="user_id" value="121111111">
+	<input type="hidden" id="to_user_id" value="2222">
+	<input type="submit" id="subscribe_button">
+	
+	<script>
+		var user_id;
+		var to_user_id;
+		var form_data = new FormData();
+		form_data.append('user_id',"");
+		form_data.append('to_user_id',"");
+		
+		$(function(){
+			user_id =$("#user_id").val();
+			to_user_id=$("#to_user_id").val();
+			///Add();
+			Find();
+			
+			$("#subscribe_button").click(function(){
+				if($(this).val()=="订阅"){
+					Add();
+					$(this).val("已订阅");
+				}else{
+					Remove();
+					$(this).val("订阅");
+				}
+			});
+		});
+		
+		
+		
+		function Add(){
+			var xhr = new XMLHttpRequest();
+			form_data.set('user_id',user_id);
+			form_data.set('to_user_id',to_user_id);
+			
+			xhr.open('POST','/Subscribe/Add',true)
+			xhr.onreadystatechange  = function () {
+				if(xhr.readyState==4){
+					//console.log(xhr.responseText);
+				}
+			}
+			xhr.send(form_data);
+		}
+		
+		function Remove(){
+			var xhr = new XMLHttpRequest();
+			form_data.set('user_id',user_id);
+			form_data.set('to_user_id',to_user_id);
+			
+			xhr.open('POST','/Subscribe/Remove',true)
+			xhr.onreadystatechange  = function () {
+				if(xhr.readyState==4){
+					//console.log(xhr.responseText);
+				}
+			}
+			xhr.send(form_data);
+		}
+		
+		function Find(){
+			//alert("Find");
+			console.log("Find");
+			var xhrFind = new XMLHttpRequest();
+			form_data.set('user_id',user_id);
+			form_data.set('to_user_id',to_user_id);
+			
+			xhrFind.open('POST','/Subscribe/Find',true)
+			xhrFind.onreadystatechange  = function () {
+				if(xhrFind.readyState==4){
+					if(xhrFind.responseText=="subscribed"){
+						$(function(){
+							console.log("已订阅");
+							$("#subscribe_button").val("已订阅")
+						});
+					}else{
+						$(function(){
+							$("#subscribe_button").val("订阅")
+							console.log("订阅");
+						});
+					}
+				}
+			}
+			xhrFind.send(form_data);
+		}
+	</script>
+</body>
+</html>

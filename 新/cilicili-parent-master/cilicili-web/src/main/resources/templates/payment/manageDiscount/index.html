@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="shortcut icon" href="favicon.ico">
+<link href="/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+<link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+<!-- Data Tables -->
+<link href="/css/plugins/dataTables/dataTables.bootstrap.css"
+	rel="stylesheet">
+
+<link href="/css/animate.css" rel="stylesheet">
+<link href="/css/style.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<table
+							class="table table-striped table-bordered table-hover dataTables-example">
+							<tbody>
+								<tr class="gradeX">
+									<td colspan="3" align="center"><h3>vip折扣修改</h3></td>
+								</tr>
+								<tr th:each="discount:${discountList}">
+									<td align="center"><span th:text="${discount.VipName}"></span></td>
+									<td align="center">
+										<form action="/PaymentManageDiscount/update" method="post">
+											<input type="hidden" th:value="${discount.VipID}"
+												name="VipID" /> <input
+												th:if="${discount.discountName} !=null" name="discountName"
+												th:value="${discount.discountName}+'&nbsp;&nbsp'" /> <input
+												th:if="${discount.discountName} ==null" name="discountName" />
+											<select name="discountValue">
+												<option value="10">无折扣</option>
+												<option th:if="${discount.discountValue} eq 9"
+													th:selected="seleced" value="9">9折</option>
+												<option th:if="${discount.discountValue} ne 9" value="9">9折</option>
+												<option th:if="${discount.discountValue} eq 8"
+													th:selected="seleced" value="8">8折</option>
+												<option th:if="${discount.discountValue} ne 8" value="8">8折</option>
+												<option th:if="${discount.discountValue} eq 7"
+													th:selected="seleced" value="7">7折</option>
+												<option th:if="${discount.discountValue} ne 7" value="7">7折</option>
+												<option th:if="${discount.discountValue} eq 6"
+													th:selected="seleced" value="6">6折</option>
+												<option th:if="${discount.discountValue} ne 6" value="6">6折</option>
+												<option th:if="${discount.discountValue} eq 5"
+													th:selected="seleced" value="4">5折</option>
+												<option th:if="${discount.discountValue} ne 5" value="5">5折</option>
+												<option th:if="${discount.discountValue} eq 4"
+													th:selected="seleced" value="4">4折</option>
+												<option th:if="${discount.discountValue} ne 4" value="4">4折</option>
+												<option th:if="${discount.discountValue} eq 3"
+													th:selected="seleced" value="3">3折</option>
+												<option th:if="${discount.discountValue} ne 3" value="3">3折</option>
+												<option th:if="${discount.discountValue} eq 2"
+													th:selected="seleced" value="2">2折</option>
+												<option th:if="${discount.discountValue} ne 2" value="2">2折</option>
+												<option th:if="${discount.discountValue} eq 1"
+													th:selected="seleced" value="1">1折</option>
+												<option th:if="${discount.discountValue} ne 1" value="1">1折</option>
+											</select> <span><input type="submit" value="修  改"></span>
+										</form>
+									</td>
+								</tr>
+
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 全局js -->
+	<script src="js/jquery.min.js?v=2.1.4"></script>
+	<script src="js/bootstrap.min.js?v=3.3.6"></script>
+
+
+
+	<script src="js/plugins/jeditable/jquery.jeditable.js"></script>
+
+	<!-- Data Tables -->
+	<script src="js/plugins/dataTables/jquery.dataTables.js"></script>
+	<script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+	<!-- 自定义js -->
+	<script src="js/content.js?v=1.0.0"></script>
+
+
+	<!-- Page-Level Scripts -->
+	<script>
+		$(document).ready(function() {
+			$('.dataTables-example').dataTable();
+
+			/* Init DataTables */
+			var oTable = $('#editable').dataTable();
+
+			/* Apply the jEditable handlers to the table */
+			oTable.$('td').editable('../example_ajax.php', {
+				"callback" : function(sValue, y) {
+					var aPos = oTable.fnGetPosition(this);
+					oTable.fnUpdate(sValue, aPos[0], aPos[1]);
+				},
+				"submitdata" : function(value, settings) {
+					return {
+						"row_id" : this.parentNode.getAttribute('id'),
+						"column" : oTable.fnGetPosition(this)[2]
+					};
+				},
+
+				"width" : "90%",
+				"height" : "100%"
+			});
+
+		});
+
+		function fnClickAddRow() {
+			$('#editable').dataTable()
+					.fnAddData(
+							[ "Custom row", "New row", "New row", "New row",
+									"New row" ]);
+
+		}
+	</script>
+
+
+</body>
+
+</html>

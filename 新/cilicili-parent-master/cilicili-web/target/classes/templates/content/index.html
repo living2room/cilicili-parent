@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+	    <!--[if lt IE 9]>
+	    <meta http-equiv="refresh" content="1;ie.html" />
+	    <![endif]-->
+		<title>嘻哩嘻哩 (^o^)c旦`` 喝咖啡~-cilicili</title>
+        <!-- 全局css -->
+        <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css">
+        <link rel="stylesheet" type="text/css" href="/webjars/font-awesome/5.8.1/css/all.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/animate.css"/>
+        <!--自定义css  -->
+		<link rel="stylesheet" type="text/css" href="/css/stylef.css"/>
+		<link rel="stylesheet" type="text/css" href="/css/reset.css">
+		<link rel="stylesheet" type="text/css" href="/css/common.css">
+         <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
+
+
+        <!-- 全局js -->
+        <script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="/webjars/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/js/bootstrap-suggest.min.js"></script>
+        <!-- 自定义js -->
+        <script type="text/javascript" src="/js/banner.js"></script>
+        <script type="text/javascript" src="/js/sidebar.js"></script>
+        <script type="text/javascript" th:src="@{/js/coverdjs.js}"></script>
+        <!-- layer javascript -->
+        <script src="/js/plugins/layer/layer.min.js"></script>
+
+
+	<body>
+
+	<div id="boxall">
+
+
+		<!-------------------------------------------- 导航栏 ------------------------------------------------->
+			<div class="top">
+			<div class="nav">
+				<div class="logo"><img src="/img/LOGO01.png" ></div>
+				<div id="box">
+					<div class="input-group" style="width: 175px;">
+	                    <input type="text" class="form-control" id="box_sousuo" placeholder="嗖(。≖ˇェˇ≖｡)...">
+	                    <div class="input-group-btn">
+	                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+	                            <span class="caret"></span>
+	                        </button>
+	                        <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+	                    </div>
+	                    <!-- /btn-group -->
+	                </div>
+				</div>
+				<div class="nav_right">
+					<div class="shouye">
+						<a href="index.html"  >
+							<div class="tubiao"><img src="/img/shouye.png"></div>
+							<div class="nav_text" style="color: #00b7ee;">首页</div>
+						</a>
+					</div>
+					<div class="shcngchuan">
+						<a href="shangchuan.html">
+							<div class="tubiao"><img src="/img/shangchuan.png" ></div>
+							<div class="nav_text">上传</div>
+						</a>
+					</div>
+					<div class="shcngchuan">
+						<a href="#">
+							<div class="tubiao"><img src="/img/tuiguang.png" ></div>
+							<div class="nav_text">推广</div>
+						</a>
+					</div>
+					<div class="shcngchuan">
+						<a href="huiyuan.html" >
+							<div class="tubiao"><img src="/img/huiyuan.png"></div>
+							<div class="nav_text">会员</div>
+						</a>
+
+					</div>
+					<div class="shcngchuan">
+						<a href="Login.html">
+							<div class="tubiao"><img src="/img/yonghu.png" ></div>
+							<div class="nav_text">登录</div>
+						</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-------------------------------------------- 导航栏 ------------------------------------------------->
+
+
+		<!-------------------------------------- 轮播图 --------------------------------------------------->
+		<div class="banner" id="banner2" style="margin: 0 auto;">
+				<div class="banner-view"></div>
+				<div class="banner-btn"></div>
+				<div class="banner-number"></div>
+				<div class="banner-progres"></div>
+		</div>
+
+
+
+
+			<!-------------------------------------------- 小导航栏 ------------------------------------------------->
+			<nav id="nav">
+			<div class="page-width clearfix">
+				<ul class="nav-list">
+					<li class="item item-home">
+						<a href="#" class="link">首页</a>
+					</li>
+                        <li th:each="list : ${PageType}" class="item">
+                            <a  th:utext="|<div  class='num'><i>887</i></div>${list.type.type}|"   class="link">
+<!--                                 	<div  class="num"><i>887</i></div>
+&lt;div  class='num'&gt;&lt;i&gt;887&lt;/i&gt;&lt;/div&gt;${list.type.type}
+                                		<div th:text="${list.type.type}"></div> -->
+                            </a>
+                            <ul  class="nav-item__hover">
+                                <li th:each="sublist : ${list.typeDtolist}">
+                                    <a  href="#" >
+                                        <em  th:text="${sublist.type.type}">MAD·AMV<i></i></em>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+					<li class="item">
+						<a href="#" class="link">
+							<div class="num"><i>916</i></div>
+							影视
+						</a>
+						<ul class="nav-item__hover">
+							<li>
+								<a href="#">
+									<em>电影<i></i></em>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<em>电视剧<i></i></em>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="item item-square">
+						<a href="#" class="link">广场</a>
+						<div class="nav-square__hover">
+							<ul>
+								<li><a href="#"><i class="icon-activity"></i>活动中心</a></li>
+								<li><a href="#"><i class="icon-game"></i>游戏中心</a></li>
+								<li><a href="#"><i class="icon-news"></i>新闻中心</a></li>
+								<li><a href="#"><i class="icon-friend"></i>画友</a></li>
+								<li><a href="#"><i class="icon-tv"></i>芒果TV</a></li>
+							</ul><!--
+							<a href="#" class="activity"><img src="images/cont/nav-square__img.jpg" alt="#"></a> -->
+						</div>
+					</li>
+					<li class="item item-live">
+						<a href="#" class="link">直播</a>
+						<ul class="nav-item__hover">
+							<li>
+								<a href="#">
+									<em>推荐主播<i></i></em>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<em>手机直播<i></i></em>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<em>绘画专区<i></i></em>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<em>唱见舞见<i></i></em>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<em>御宅文化<i></i></em>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<em>单机联机<i></i></em>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<em>网络游戏<i></i></em>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<em>电子竞技<i></i></em>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<em>手游直播<i></i></em>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<em>放映厅<i></i></em>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="item item-room">
+						<a href="#" class="link">小黑屋</a>
+					</li>
+				</ul>
+				<div class="nav-gif"><img src="/img/nav_img.gif" alt="求领养"></div>
+			</div>
+		</nav>
+		<!-------------------------------------------- 小导航栏结束 ------------------------------------------------->
+  		<!-------------------------------------------- 右边栏 ------------------------------------------------->
+        <div class="ECode-floatBar" style="position: fixed; top: 50%; left: 50%; z-index: 1000; right: auto; margin-left: -670px; margin-top: -159.5px; display: block;">
+            <div class="floatbar" id="indexFloat">
+                <div class="float-bg"></div>
+                <!-- 图标 -->
+                <ul class="list">
+                    <li  class="">
+                        <a href="javascript:;">本站推荐</a>
+                    </li>
+                    <li th:each="list : ${PageType}" class="">
+                        <a  th:text="${list.type.type}"  href="javascript:;"  ></a>
+                    </li>
+                </ul>
+                <a href="#"></a>
+            </div>
+        </div>
+
+			<!--------------------------------------------- 内容模块开始 ---------------------------------------------------->
+
+
+
+			<!--------------------------------------------- 本站推荐 ---------------------------------------------------->
+			<div id="content">
+				<div class="con_left">
+					<div class="con1">
+							<div class="tubiao1"></div>
+							<div class="text1">本站推荐</div>
+							<div class="gengduo"><a href="#">查看更多<span style="margin-left: 7px; "><img src="/img/jiantou.png" alt=""></span></a></div>
+					</div>
+					<div class="con2">
+						<div class="mover"></div>
+						<div class="mover2"></div>
+						<div class="mover2"></div>
+					</div>
+					<div class="con2">
+						<div class="mover"></div>
+						<div class="mover2"></div>
+						<div class="mover2"></div>
+					</div>
+
+					<div class="con3">
+						<div class="con3_01">
+								<div class="con3_left">
+									<div class="tubiao1"><img src="/img/tubiao02.png" ></div>
+									<div class="text1">动画</div>
+									<div class="gengduo"><a href="#">查看更多<span style="margin-left: 7px; "><img src="/img/jiantou.png" alt=""></span></a></div>
+								</div>
+
+								<div class="con3_02">
+									<div class="con2">
+										<div id="box97"></div>
+										<div class="mover"></div>
+										<div class="mover2"></div>
+									</div>
+
+									<div class="con4">
+										<div class="beizhu">
+											<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
+											<div class="beizhu_tubiao"><img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span style="margin-left: 22px;"><img src="/img/danmu.png" alt="">&nbsp;&nbsp;332</span></div>
+										</div>
+										<div class="beizhu_text">大型虫洞控制权（上集）</div>
+									</div>
+
+									<div class="con4" style="margin-left: 30px;">
+										<div class="beizhu">
+											<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
+											<div class="beizhu_tubiao"><img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span style="margin-left: 22px;"><img src="/img/danmu.png" alt="">&nbsp;&nbsp;332</span></div>
+										</div>
+										<div class="beizhu_text">大型虫洞控制权（上集）</div>
+									</div>
+								</div>
+
+
+								<div class="con3_02">
+									<div class="con2">
+										<div class="mover"></div>
+										<div class="mover2"></div>
+									</div>
+
+									<div class="con4">
+										<div class="beizhu">
+											<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
+											<div class="beizhu_tubiao"><img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span style="margin-left: 22px;"><img src="/img/danmu.png" alt="">&nbsp;&nbsp;332</span></div>
+										</div>
+										<div class="beizhu_text">大型虫洞控制权（上集）</div>
+									</div>
+
+									<div class="con4" style="margin-left: 30px;">
+										<div class="beizhu">
+											<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
+											<div class="beizhu_tubiao"><img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span style="margin-left: 22px;"><img src="/img/danmu.png" alt="">&nbsp;&nbsp;332</span></div>
+										</div>
+										<div class="beizhu_text">大型虫洞控制权（上集）</div>
+									</div>
+								</div>
+
+
+						</div>
+
+						<div class="paihang">
+							<div class="paihang_title">
+								<div class="tubiao1"><img src="/img/tubiao03.png" alt=""></div>
+								<div class="text1">排行</div>
+								<div class="paihang_null"></div>
+								<div class="paihang_con">
+									<div id="paihang_con1">
+										<div class="top01">
+											<div class="top01_xuhao">1</div>
+											<div class="top01_img"></div>
+											<div class="top01_text">卫练——马特的爱情真的很甜</div>
+										</div>
+
+										<div class="top02">
+											<div class="top01_xuhao">2</div>
+											<div class="top02_text">《黑夜》&nbsp;之性感女上司无尽的诱惑</div>
+										</div>
+
+										<div class="top02">
+											<div class="top01_xuhao">3</div>
+											<div class="top02_text">《黑夜》&nbsp;之性感女上司无尽的诱惑</div>
+										</div>
+
+										<div class="top02">
+											<div class="top01_xuhao" style="background: #b6b6b6">4</div>
+											<div class="top02_text">《黑夜》&nbsp;之性感女上司无尽的诱惑</div>
+										</div>
+
+										<div class="top02">
+											<div class="top01_xuhao" style="background: #b6b6b6">5</div>
+											<div class="top02_text">《黑夜》&nbsp;之性感女上司无尽的诱惑</div>
+										</div>
+
+										<div class="top02">
+											<div class="top01_xuhao" style="background: #b6b6b6">6</div>
+											<div class="top02_text">《黑夜》&nbsp;之性感女上司无尽的诱惑</div>
+										</div>
+
+										<div class="top02">
+											<div class="top01_xuhao" style="background: #b6b6b6">7</div>
+											<div class="top02_text">《黑夜》&nbsp;之性感女上司无尽的诱惑</div>
+										</div>
+
+										<button type="button" class="paihang_gengduo">查看更多</button>
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+
+					<div class="con3">
+						<div class="con3_01">
+								<div class="con3_left">
+									<div class="tubiao1"><img src="/img/tubiao04.png" ></div>
+									<div class="text1">动画</div>
+									<div class="gengduo"><a href="#">查看更多<span style="margin-left: 7px; "><img src="/img/jiantou.png" alt=""></span></a></div>
+								</div>
+
+								<div class="con3_02">
+									<div class="con2">
+										<div id="box97"></div>
+										<div class="mover"></div>
+										<div class="mover2"></div>
+									</div>
+
+									<div class="con4">
+										<div class="beizhu">
+											<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
+											<div class="beizhu_tubiao"><img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span style="margin-left: 22px;"><img src="/img/danmu.png" alt="">&nbsp;&nbsp;332</span></div>
+										</div>
+										<div class="beizhu_text">大型虫洞控制权（上集）</div>
+									</div>
+
+									<div class="con4" style="margin-left: 30px;">
+										<div class="beizhu">
+											<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
+											<div class="beizhu_tubiao"><img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span style="margin-left: 22px;"><img src="/img/danmu.png" alt="">&nbsp;&nbsp;332</span></div>
+										</div>
+										<div class="beizhu_text">大型虫洞控制权（上集）</div>
+									</div>
+								</div>
+
+
+								<div class="con3_02">
+									<div class="con2">
+										<div class="mover"></div>
+										<div class="mover2"></div>
+									</div>
+
+									<div class="con4">
+										<div class="beizhu">
+											<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
+											<div class="beizhu_tubiao"><img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span style="margin-left: 22px;"><img src="/img/danmu.png" alt="">&nbsp;&nbsp;332</span></div>
+										</div>
+										<div class="beizhu_text">大型虫洞控制权（上集）</div>
+									</div>
+
+									<div class="con4" style="margin-left: 30px;">
+										<div class="beizhu">
+											<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
+											<div class="beizhu_tubiao"><img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span style="margin-left: 22px;"><img src="/img/danmu.png" alt="">&nbsp;&nbsp;332</span></div>
+										</div>
+										<div class="beizhu_text">大型虫洞控制权（上集）</div>
+									</div>
+								</div>
+
+
+						</div>
+
+						<div class="paihang">
+							<div class="paihang_title">
+								<div class="tubiao1"><img src="/img/tubiao03.png" alt=""></div>
+								<div class="text1">排行</div>
+								<div class="paihang_null"></div>
+								<div class="paihang_con">
+									<div id="paihang_con1">
+										<div class="top01">
+											<div class="top01_xuhao">1</div>
+											<div class="top01_img"></div>
+											<div class="top01_text">卫练——马特的爱情真的很甜</div>
+										</div>
+
+										<div class="top02">
+											<div class="top01_xuhao">2</div>
+											<div class="top02_text">《黑夜》&nbsp;之性感女上司无尽的诱惑</div>
+										</div>
+
+										<div class="top02">
+											<div class="top01_xuhao">3</div>
+											<div class="top02_text">《黑夜》&nbsp;之性感女上司无尽的诱惑</div>
+										</div>
+
+										<div class="top02">
+											<div class="top01_xuhao" style="background: #b6b6b6">4</div>
+											<div class="top02_text">《黑夜》&nbsp;之性感女上司无尽的诱惑</div>
+										</div>
+
+										<div class="top02">
+											<div class="top01_xuhao" style="background: #b6b6b6">5</div>
+											<div class="top02_text">《黑夜》&nbsp;之性感女上司无尽的诱惑</div>
+										</div>
+
+										<div class="top02">
+											<div class="top01_xuhao" style="background: #b6b6b6">6</div>
+											<div class="top02_text">《黑夜》&nbsp;之性感女上司无尽的诱惑</div>
+										</div>
+
+										<div class="top02">
+											<div class="top01_xuhao" style="background: #b6b6b6">7</div>
+											<div class="top02_text">《黑夜》&nbsp;之性感女上司无尽的诱惑</div>
+										</div>
+
+										<button type="button" class="paihang_gengduo">查看更多</button>
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+
+					<div class="con3">
+						<div class="con3_01">
+								<div class="con3_left">
+									<div class="tubiao1"><img src="/img/tubiao02.png" ></div>
+									<div class="text1">动画</div>
+									<div class="gengduo"><a href="#">查看更多<span style="margin-left: 7px; "><img src="/img/jiantou.png" alt=""></span></a></div>
+								</div>
+
+								<div class="con3_02">
+									<div class="con2">
+										<div id="box97"></div>
+										<div class="mover"></div>
+										<div class="mover2"></div>
+									</div>
+
+									<div class="con4">
+										<div class="beizhu">
+											<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
+											<div class="beizhu_tubiao"><img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span style="margin-left: 22px;"><img src="/img/danmu.png" alt="">&nbsp;&nbsp;332</span></div>
+										</div>
+										<div class="beizhu_text">大型虫洞控制权（上集）</div>
+									</div>
+
+									<div class="con4" style="margin-left: 30px;">
+										<div class="beizhu">
+											<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
+											<div class="beizhu_tubiao"><img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span style="margin-left: 22px;"><img src="/img/danmu.png" alt="">&nbsp;&nbsp;332</span></div>
+										</div>
+										<div class="beizhu_text">大型虫洞控制权（上集）</div>
+									</div>
+								</div>
+
+
+								<div class="con3_02">
+									<div class="con2">
+										<div class="mover"></div>
+										<div class="mover2"></div>
+									</div>
+
+									<div class="con4">
+										<div class="beizhu">
+											<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
+											<div class="beizhu_tubiao"><img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span style="margin-left: 22px;"><img src="/img/danmu.png" alt="">&nbsp;&nbsp;332</span></div>
+										</div>
+										<div class="beizhu_text">大型虫洞控制权（上集）</div>
+									</div>
+
+									<div class="con4" style="margin-left: 30px;">
+										<div class="beizhu">
+											<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
+											<div class="beizhu_tubiao"><img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span style="margin-left: 22px;"><img src="/img/danmu.png" alt="">&nbsp;&nbsp;332</span></div>
+										</div>
+										<div class="beizhu_text">大型虫洞控制权（上集）</div>
+									</div>
+								</div>
+
+
+						</div>
+
+						<div class="paihang">
+							<div class="paihang_title">
+								<div class="tubiao1"><img src="/img/tubiao03.png" alt=""></div>
+								<div class="text1">排行</div>
+								<div class="paihang_null"></div>
+								<div class="paihang_con">
+									<div id="paihang_con1">
+										<div class="top01">
+											<div class="top01_xuhao">1</div>
+											<div class="top01_img"></div>
+											<div class="top01_text">卫练——马特的爱情真的很甜</div>
+										</div>
+
+										<div class="top02">
+											<div class="top01_xuhao">2</div>
+											<div class="top02_text">《黑夜》&nbsp;之性感女上司无尽的诱惑</div>
+										</div>
+
+										<div class="top02">
+											<div class="top01_xuhao">3</div>
+											<div class="top02_text">《黑夜》&nbsp;之性感女上司无尽的诱惑</div>
+										</div>
+
+										<div class="top02">
+											<div class="top01_xuhao" style="background: #b6b6b6">4</div>
+											<div class="top02_text">《黑夜》&nbsp;之性感女上司无尽的诱惑</div>
+										</div>
+
+										<div class="top02">
+											<div class="top01_xuhao" style="background: #b6b6b6">5</div>
+											<div class="top02_text">《黑夜》&nbsp;之性感女上司无尽的诱惑</div>
+										</div>
+
+										<div class="top02">
+											<div class="top01_xuhao" style="background: #b6b6b6">6</div>
+											<div class="top02_text">《黑夜》&nbsp;之性感女上司无尽的诱惑</div>
+										</div>
+
+										<div class="top02">
+											<div class="top01_xuhao" style="background: #b6b6b6">7</div>
+											<div class="top02_text">《黑夜》&nbsp;之性感女上司无尽的诱惑</div>
+										</div>
+
+										<button type="button" class="paihang_gengduo">查看更多</button>
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+
+					<div class="con3">
+						<div class="con3_01">
+								<div class="con3_left">
+									<div class="tubiao1"><img src="/img/tubiao02.png" ></div>
+									<div class="text1">动画</div>
+									<div class="gengduo"><a href="#">查看更多<span style="margin-left: 7px; "><img src="/img/jiantou.png" alt=""></span></a></div>
+								</div>
+
+								<div class="con3_02">
+									<div class="con2">
+										<div id="box97"></div>
+										<div class="mover"></div>
+										<div class="mover2"></div>
+									</div>
+
+									<div class="con4">
+										<div class="beizhu">
+											<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
+											<div class="beizhu_tubiao"><img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span style="margin-left: 22px;"><img src="/img/danmu.png" alt="">&nbsp;&nbsp;332</span></div>
+										</div>
+										<div class="beizhu_text">大型虫洞控制权（上集）</div>
+									</div>
+
+									<div class="con4" style="margin-left: 30px;">
+										<div class="beizhu">
+											<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
+											<div class="beizhu_tubiao"><img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span style="margin-left: 22px;"><img src="/img/danmu.png" alt="">&nbsp;&nbsp;332</span></div>
+										</div>
+										<div class="beizhu_text">大型虫洞控制权（上集）</div>
+									</div>
+								</div>
+
+
+								<div class="con3_02">
+									<div class="con2">
+										<div class="mover"></div>
+										<div class="mover2"></div>
+									</div>
+
+									<div class="con4">
+										<div class="beizhu">
+											<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
+											<div class="beizhu_tubiao"><img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span style="margin-left: 22px;"><img src="/img/danmu.png" alt="">&nbsp;&nbsp;332</span></div>
+										</div>
+										<div class="beizhu_text">大型虫洞控制权（上集）</div>
+									</div>
+
+									<div class="con4" style="margin-left: 30px;">
+										<div class="beizhu">
+											<div class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
+											<div class="beizhu_tubiao"><img src="/img/shiping.png" alt="">&nbsp;&nbsp;556<span style="margin-left: 22px;"><img src="/img/danmu.png" alt="">&nbsp;&nbsp;332</span></div>
+										</div>
+										<div class="beizhu_text">大型虫洞控制权（上集）</div>
+									</div>
+								</div>
+
+
+						</div>
+
+						<div class="paihang">
+							<div class="paihang_title">
+								<div class="tubiao1"><img src="/img/tubiao03.png" alt=""></div>
+								<div class="text1">排行</div>
+								<div class="paihang_null"></div>
+								<div class="paihang_con">
+									<div id="paihang_con1">
+										<div class="top01">
+											<div class="top01_xuhao">1</div>
+											<div class="top01_img"></div>
+											<div class="top01_text">卫练——马特的爱情真的很甜</div>
+										</div>
+
+										<div class="top02">
+											<div class="top01_xuhao">2</div>
+											<div class="top02_text">《黑夜》&nbsp;之性感女上司无尽的诱惑</div>
+										</div>
+
+										<div class="top02">
+											<div class="top01_xuhao">3</div>
+											<div class="top02_text">《黑夜》&nbsp;之性感女上司无尽的诱惑</div>
+										</div>
+
+										<div class="top02">
+											<div class="top01_xuhao" style="background: #b6b6b6">4</div>
+											<div class="top02_text">《黑夜》&nbsp;之性感女上司无尽的诱惑</div>
+										</div>
+
+										<div class="top02">
+											<div class="top01_xuhao" style="background: #b6b6b6">5</div>
+											<div class="top02_text">《黑夜》&nbsp;之性感女上司无尽的诱惑</div>
+										</div>
+
+										<div class="top02">
+											<div class="top01_xuhao" style="background: #b6b6b6">6</div>
+											<div class="top02_text">《黑夜》&nbsp;之性感女上司无尽的诱惑</div>
+										</div>
+
+										<div class="top02">
+											<div class="top01_xuhao" style="background: #b6b6b6">7</div>
+											<div class="top02_text">《黑夜》&nbsp;之性感女上司无尽的诱惑</div>
+										</div>
+
+										<button type="button" class="paihang_gengduo">查看更多</button>
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<div id="box95"></div>
+
+
+				</div>
+
+			</div>
+
+
+		<div class="footer">
+			<div id="box94"></div>
+			<div class="footer_con">
+				<form>
+					<div class="footer_con1">
+						<input type="text" name="" id="footer_text" value="" />
+						<div class="footer_button">
+							<input type="reset" id="chongzhi" value="清空内容" />
+							<input type="submit" id="tijiao" value="提交建议" />
+						</div>
+
+					</div>
+				</form>
+				<div class="footer_lianjie">
+					<ul>
+						<li>友情链接：</li>
+						<li><a href="http://www.gxstnu.edu.cn/">广西科技师范学院</a></li>
+						<li><a href="https://ai.taobao.com/">淘宝网</a></li>
+						<li><a href="https://www.jd.com/">京东商城</a></li>
+						<li><a href="https://www.bilibili.com/">哔哩哔哩</a></li>
+						<li><a href="http://www.iqiyi.com/">爱奇艺</a></li>
+						<li><a href="https://v.qq.com/">腾讯视频</a></li>
+						<li><a href="https://pan.baidu.com/">百度云</a></li>
+						<li><a href="https://www.tmall.com/">天猫超市</a></li>
+						<li><a href="https://nba.hupu.com/">虎扑体育</a></li>
+						<li><a href="https://music.163.com/">网易云音乐</a></li>
+						<li><a href="https://www.youku.com/">优酷</a></li>
+						<li><a href="https://www.baidu.com/">百度</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+
+
+	</div>
+
+
+
+
+
+		<!-------------------------------------- 轮播图的动效 --------------------------------------------------->
+		<script type="text/javascript">
+                     $("#box_sousuo").bsSuggest({
+                        emptyTip: '未检索到匹配的数据',
+                        allowNoKeyword: false,   //是否允许无关键字时请求数据。为 false 则无输入时不执行过滤请求
+                        ignorecase: true,
+                        showBtn: false,     //不显示下拉按钮
+                        multiWord: true,         //以分隔符号分割的多关键字支持
+                        separator: ",",          //多关键字支持时的分隔符，默认为空格
+                        getDataMethod: "url",    //获取数据的方式，总是从 URL 获取
+                        url: 'http://unionsug.baidu.com/su?p=3&wd=', //优先从url ajax 请求 json 帮助数据，注意最后一个参数为关键字请求参数
+                        jsonp: 'cb',                        //如果从 url 获取数据，并且需要跨域，则该参数必须设置
+                        fnProcessData: function (json) {    // url 获取数据时，对数据的处理，作为 fnGetData 的回调函数
+                            var index, len, data = {value: []};
+                            if (!json || !json.s || json.s.length === 0) {
+                                return false;
+                            }
+
+                            len = json.s.length;
+
+                            for (index = 0; index < len; index++) {
+                                data.value.push({
+                                    word: json.s[index]
+                                });
+                            }
+                            data.defaults = 'baidu';
+
+                            //字符串转化为 js 对象
+                            return data;
+                        }
+                    }).on('onDataRequestSuccess', function (e, result) {
+                        console.log('onDataRequestSuccess: ', result);
+                    }).on('onSetSelectValue', function (e, keyword, data) {
+                        console.log('onSetSelectValue: ', keyword, data);
+                        //有时间实现ajax调用后台查询，并跳转到查询结果页
+                        //没时间就暂时跳到百度页面
+                        //询问框
+
+                    }).on('onUnsetSelectValue', function () {
+                        console.log("onUnsetSelectValue");
+                    });
+                    //回车搜索
+                    $("#box_sousuo").on('keypress',function(e){
+                        if (e.keyCode == 13) {
+                            var text = $(this).val()
+                            layer.confirm('C酱不会搜索,帮您到度娘那里问问,可以吗', {
+                                btn: ['确定','再想想'], //按钮
+                                shade: false //不显示遮罩
+                            }, function(index){
+                               window.open('https://www.baidu.com/s?ie=utf-8&wd='+text);
+                               //https://www.baidu.com/s?ie=utf-8&wd=%E6%97%A5%E6%9C%AC&si=163.com&ct=2097152
+                               layer.close(index);
+                            }, function(){
+                            });
+                        };
+                    })
+			/*
+			** 只填两个必要参数也是可以的
+			*/
+			var banenr2 = new FragmentBanner({
+				container : "#banner2",//选择容器 必选
+				imgs : ['/img/a1.png','/img/a2.png','/img/a3.png','/img/a4.png','/img/a5.png'],//图片集合
+			});
+
+		</script>
+	</body>
+</html>
