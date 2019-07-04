@@ -19,16 +19,10 @@ public class Role {
 	// description varchar 角色描述
 	private String description;
 
-	// status int  状态：1有效；2删除
+	// status int 状态：1有效；2删除
 	private Integer status;
 
-	// create_time datetime 创建时间
-	private Date createTime;
-
-	// update_time datetime 更新时间
-	private Date updateTime;
-	
-	//一个角色有多个权限           
+	// 一个角色有多个权限
 	private List<Permission> permissionList;
 
 	public Integer getId() {
@@ -71,22 +65,6 @@ public class Role {
 		this.status = status;
 	}
 
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
-
 	public List<Permission> getPermissionList() {
 		return permissionList;
 	}
@@ -95,16 +73,14 @@ public class Role {
 		this.permissionList = permissionList;
 	}
 
-	public Role(Integer id, String roleId, String roleName, String description, Integer status, Date createTime,
-			Date updateTime, List<Permission> permissionList) {
+	public Role(Integer id, String roleId, String roleName, String description, Integer status,
+			List<Permission> permissionList) {
 		super();
 		this.id = id;
 		this.roleId = roleId;
 		this.roleName = roleName;
 		this.description = description;
 		this.status = status;
-		this.createTime = createTime;
-		this.updateTime = updateTime;
 		this.permissionList = permissionList;
 	}
 
@@ -113,14 +89,11 @@ public class Role {
 		// TODO Auto-generated constructor stub
 	}
 
-	 //stulist和crlist相互引用对方，导致你调用tostring的时候无限递归。去掉两者之一对对方的引用。 
-	  @Override public String toString() { return "Role [id=" + id + ", roleId=" +
-	  roleId + ", roleName=" + roleName + ", description=" + description +
-	  ", status=" + status + ", createTime=" + createTime + ", updateTime=" +
-	  updateTime + ", permissionList=" + permissionList + "]"; }
-	 
-	 
+	// stulist和crlist相互引用对方，导致你调用tostring的时候无限递归。去掉两者之一对对方的引用。
+	@Override
+	public String toString() {
+		return "Role [id=" + id + ", roleId=" + roleId + ", roleName=" + roleName + ", description=" + description
+				+ ", status=" + status + ", permissionList=" + permissionList + "]";
+	}
 
-	
-	
 }

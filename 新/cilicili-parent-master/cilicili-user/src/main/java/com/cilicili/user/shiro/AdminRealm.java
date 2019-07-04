@@ -75,9 +75,18 @@ public class AdminRealm extends AuthorizingRealm {
 			roleSet.add(roleName);
 			List<AdminPermission> adminPermissionList = adminRole.getAdminPermission();
 			for (AdminPermission adminPermissionList2 : adminPermissionList) {
-				// 多条AdminPermission记录的List集合
+				//一级的 多条AdminPermission记录的List集合
+
 				String url = adminPermissionList2.getUrl();
 				shiroPermissions.add(url);
+				//二级的url
+				/*
+				 * for (AdminPermission adminPermissionList3 :
+				 * adminPermissionList2.getAdminPermission()) { String url1 =
+				 * adminPermissionList3.getUrl(); shiroPermissions.add(url1); }
+				 */
+				
+				
 			}
 		}
 		System.out.println("url:" + shiroPermissions);
@@ -177,6 +186,7 @@ public class AdminRealm extends AuthorizingRealm {
 		/*
 		 * if(用户和管理员分开)
 		 */
+	
 		AdminUser adminUser = this.adminUserService.findByUserName(userName);
 		System.out.println("11" + userName);
 		System.out.println("22" + adminUser.getUserName());

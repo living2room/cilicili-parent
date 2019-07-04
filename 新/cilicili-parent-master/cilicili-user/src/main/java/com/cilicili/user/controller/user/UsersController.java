@@ -22,6 +22,7 @@ import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +32,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.cilicili.domain.user.user.Users;
 import com.cilicili.user.service.impl.user.UsersMessageServiceImpl;
 import com.cilicili.user.service.impl.user.UsersServiceImpl;
-import com.cilicili.user.service.user.RedisService;
 import com.cilicili.user.shiro.ultra.JudgeUsernamePasswordToken;
 import com.cilicili.user.shiro.ultra.LoginType;
 
@@ -43,15 +43,8 @@ public class UsersController {
 	private UsersServiceImpl usersServiceImpl;
 	@Resource
 	private UsersMessageServiceImpl usersMessageServiceImpl;
-	/*
-	 * @Resource private RedisUtil redisUtil;
-	 */
-	/*
-	 * @Autowired JedisPool jedisPool;
-	 */
 	@Autowired
-    private RedisService redisService ;
-	
+	private RedisTemplate<String, String> redisTemplate;
 	@RequestMapping("/toLogin")
 	public String toLogin(HttpServletRequest request) {
 		// 判断用户是否已经记住密码 Cookie[] cookies = request.getCookies();// 这样便可以获取一个cookie数组
@@ -74,25 +67,35 @@ public class UsersController {
 				String userName = token;
 				HttpSession session = request.getSession();
 				session.setAttribute("userName", userName);
-
 				Users users = this.usersServiceImpl.findByUserName(userName);
+				session.setAttribute("userID", users.getUserId());
+				session.setAttribute("user", users);
+				
 				int status = users.getStatus();
 				if (status == 2) {
 					return "user/Login";
 				}
-				
-				//单点的设置
-				/*
-				 * InetAddress addr; try { addr = InetAddress.getLocalHost(); String ip =
-				 * addr.getHostAddress().toString(); // 获取本机ip Jedis jedis =
-				 * jedisPool.getResource(); jedis.set(users.getUserName(),ip); } catch
-				 * (UnknownHostException e) { e.printStackTrace(); }
-				 */
-				//redisService.set(users.getUserName(), ip);
-				
-				// 不能直接跳到index页面 ，因为没有走login session的值没有存 出现后面找不到session的userName
-				return "user/index";
+				// 单点的设置
 
+				InetAddress addr;
+				try {
+					addr = InetAddress.getLocalHost();
+					String ip = addr.getHostAddress().toString(); // 获取本机ip
+					redisTemplate.opsForValue().set(users.getEmail(), ip);
+					
+					
+					//给一个原始头像
+					redisTemplate.opsForValue().set(userName, "../img/xixi.jpg");
+					String path=redisTemplate.opsForValue().get(users.getUserName());
+					//头像
+					session.setAttribute("url1", path);
+					
+					return "redirect:/to/home";				
+				} catch (UnknownHostException e) {
+					e.printStackTrace();
+					// 不能直接跳到index页面 ，因为没有走login session的值没有存 出现后面找不到session的userName
+					return "user/Login";
+				}
 			} else {
 				return "user/Login";
 			}
@@ -102,8 +105,6 @@ public class UsersController {
 			return "user/Login";
 		}
 	}
-
-
 
 	/*
 	 * ！！！！！！！！！！！！！！！！ 用户的禁用需要把cookie改 在登录的时候查status是否等于1 如果等于1 禁用 并把cookie删掉
@@ -142,25 +143,15 @@ public class UsersController {
 			map.put("aa", 0);
 			return map;
 		}
-		// Session session = currentUser.getSession();
-		// session.setAttribute("someKey", "aValue");
 		if (!currentUser.isAuthenticated()) {
 
 			// 是否认证通过
 			// isAuthenticated = subject.isAuthenticated();
-
 			// 将输入的密码加密
 			String Md5Password = new Md5Hash(userPassword, salt, 3).toString(); // 生成的密文
 			// 封装用户数据
 			JudgeUsernamePasswordToken token = new JudgeUsernamePasswordToken(email, Md5Password,
 					LoginType.USER.toString());
-
-			System.out.println("CONTROLLER2的" + LoginType.USER.toString());
-			// 记住我
-			/*
-			 * if (isRememberMe == 1) { token.setRememberMe(true); }
-			 */
-
 			// 执行登陆方法
 			try {
 				currentUser.login(token);
@@ -168,9 +159,8 @@ public class UsersController {
 				 * 把user用户数据通过Session.put放在session值栈中。SysConstant.CURRENT_USER_INFO：是一个返回的值，
 				 * 在jsp页面中可以接收到，也可以直接写一个字符串让页面接收，返回的数据可以在页面做回显等功能
 				 */
-
 				// 当认证成功后将shiro中保存的用户对象去出来，全部对象信息
-				//Users user = (Users) currentUser.getPrincipal();
+				// Users user = (Users) currentUser.getPrincipal();
 				Users user = this.usersServiceImpl.findByEmail(email);
 
 				// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -186,50 +176,31 @@ public class UsersController {
 				try {
 					InetAddress addr = InetAddress.getLocalHost();
 					String ip = addr.getHostAddress().toString(); // 获取本机ip
-					
-					//单点的设置
-					/*
-					 * Jedis jedis = jedisPool.getResource(); jedis.set(user.getUserName(),ip);
-					 */
-					//redisService.set(user.getUserName(), ip);
+					// 单点的设置
+					redisTemplate.opsForValue().set(user.getEmail(), ip);
 					
 					
-					//redisUtil.set(users.getUserName(),ip+"123321");
-					/*
-					 * String aa = (String) redisUtil.get(users.getUserName());
-					 * System.out.println("redis::"+aa);
-					 */
+					//给一个原始头像
+					redisTemplate.opsForValue().set(user.getUserName(), "../img/xixi.jpg");
+					String path=redisTemplate.opsForValue().get(user.getUserName());
 					
-
+					
+					String userName22 = redisTemplate.opsForValue().get(user.getEmail());
+					System.out.println("redisde:" + userName22);	
 					Session session = currentUser.getSession();
 					session.setAttribute("user", user);
 					session.setAttribute("userName", user.getUserName());
-					/*
-					 * Users userR = (Users) redisUtil.get(user.getUserId()); if (userR == null) {
-					 * boolean b = redisUtil.set(user.getUserId(),user); }
-					 */
-					// ServletContext application=this.getServletContext();
-					// 为了踢掉旧用户，需要拦截器的相关配置
-					/*
-					 * HttpSession session1 = request.getSession(); ServletContext application =
-					 * session1.getServletContext(); application.setAttribute("nowuser", user+ip);
-					 */
-
-					// System.out.println(application.getAttribute("nowuser")+"<iphhh");
-					System.out.println(ip + "iphhh");
+					session.setAttribute("userID", user.getUserId());
+					
+					//头像
+					session.setAttribute("url1", path);
 				} catch (UnknownHostException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
 				// 登陆成功!
-				// 跳转到test页面
-				// model.addAttribute("role", token.getUsername());
 				map.put("aa", 1);
 				return map;
-
 			} catch (UnknownAccountException uae) {
-
 				model.addAttribute("msg", "用户名不存在");
 				map.put("aa", 0);
 				return map;
@@ -244,15 +215,13 @@ public class UsersController {
 			} catch (AuthenticationException ae) {
 				model.addAttribute("msg", "其他错误");
 				map.put("aa", 0);
-				ae.printStackTrace();
+				//ae.printStackTrace();
 				return map;
 			}
-
 		}
 		map.put("aa", 1);
 		return map;
 	}
-
 	// 退出
 	@RequestMapping("/logout")
 	public String logout(HttpServletResponse response) {
@@ -261,7 +230,7 @@ public class UsersController {
 		Session session = currentUser.getSession();
 		session.removeAttribute("user");// 删除session
 		session.removeAttribute("userName");// 删除session
-
+		session.removeAttribute("userID");// 删除session
 		// 删除cookie，让它过期
 		Cookie cookie = new Cookie("usercookie", "");
 		cookie.setMaxAge(0);
@@ -271,7 +240,6 @@ public class UsersController {
 		System.out.println("退出登录！");
 		return "redirect:/user/index";
 	}
-
 	@RequestMapping("/toRegister")
 	public String toRegister() {
 		return "user/registered";
@@ -285,7 +253,6 @@ public class UsersController {
 	public Map<String, Object> register(Users user, Model model) {
 
 		Map<String, Object> hMap = new HashMap<String, Object>();
-
 		String userName = user.getUserName();
 		String email = user.getEmail();
 		String userPassword = user.getUserPassword();
@@ -295,24 +262,17 @@ public class UsersController {
 		Users users2 = this.usersServiceImpl.findByEmail(email);
 		if (users1 != null) {
 			message = "0";
-			// String message1 = JSON.toJSONString(message);
 			hMap.put("msg", message);
 			return hMap;
 		}
 		if (users2 != null) {
 			message = "-1";
-			// String message1 = JSON.toJSONString(message);
 			hMap.put("msg", message);
 			return hMap;
 		}
-
 		else if (users1 == null & users2 == null) {
-
-			/* String userPassword = user.getUserPassword(); */
 			String salt = new SecureRandomNumberGenerator().nextBytes().toHex(); // 生成盐值
 			String Md5Password = new Md5Hash(userPassword, salt, 3).toString(); // 生成的密文
-
-			/* Users user3 = new Users(); */
 			String uuid = UUID.randomUUID().toString();
 			String userId = uuid.replace("-", "");
 			user.setUserId(userId);
@@ -321,7 +281,6 @@ public class UsersController {
 			user.setEmail(email);
 			user.setSalt(salt);
 			user.setStatus(status);
-
 			this.usersServiceImpl.addUser(user);
 			// 往messge里面加数据
 			this.usersMessageServiceImpl.addMessage(userId, userName);
@@ -329,16 +288,11 @@ public class UsersController {
 			return hMap;
 		}
 		return hMap;
-		/*
-		 * return "用户已存在";
-		 */
 	}
-
 	@RequestMapping("/toUpPassword")
 	public String toUpPassword() {
 		return "user/upPassword";
 	}
-
 	// 修改密码
 	@RequestMapping("/upPassword")
 	@ResponseBody
@@ -364,13 +318,11 @@ public class UsersController {
 		}
 		return map;
 	}
-
 	// 忘记密码
 	@RequestMapping("/toUnknown")
 	public String toUnknown() {
 		return "user/unknownPassword";
 	}
-
 	// 查数据库里面是否有这个邮箱的注册
 	@RequestMapping("/verification")
 	@ResponseBody
@@ -387,25 +339,19 @@ public class UsersController {
 		// model.addAttribute("email", email);
 		return map;
 	}
-
 	// 忘记密码,要修改密码的邮箱号
 	@RequestMapping("/wangjimima")
 	public String wangjimima(String email, Model model) {
 		model.addAttribute("email", email);
 		return "user/wangjimima";
 	}
-
 	// 新密码提交的页面
 	@RequestMapping("/aa")
 	@ResponseBody
 	public Map<String, Object> wangjimima(String email, String userPassword) {
-
-		System.out.println("00"+email);
-		System.out.println("01"+userPassword);
 		Map<String, Object> map = new HashMap<String, Object>();
 		Users users = this.usersServiceImpl.findByEmail(email);
 		if (users != null) {
-
 			String salt = users.getSalt();
 			String userName = users.getUserName();
 			// 更改数据库的密码
@@ -414,7 +360,6 @@ public class UsersController {
 				this.usersServiceImpl.upPassword(userName, newMd5Password);
 				map.put("msg", 1);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				map.put("msg", 0);
 			}
@@ -423,12 +368,6 @@ public class UsersController {
 		}
 
 		return map;
-	}
-
-	@RequestMapping("/testThymeleaf")
-	public String testThymeleaf(Model model) {
-		model.addAttribute("user", "123");
-		return "user/test";
 	}
 
 	@RequestMapping("/add")

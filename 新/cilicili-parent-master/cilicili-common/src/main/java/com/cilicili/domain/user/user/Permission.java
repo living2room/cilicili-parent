@@ -40,13 +40,6 @@ public class Permission {
 
 	// status int 状态：1有效；2删除
 	private Integer status;
-
-	// create_time datetime 创建时间
-	private Date createTime;
-
-	// update_time datetime 更新时间
-	private Date updateTime;
-
 	// 对多个角色
 	private List<Role> roleList;
 
@@ -138,21 +131,6 @@ public class Permission {
 		this.status = status;
 	}
 
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
 
 	public List<Role> getRoleList() {
 		return roleList;
@@ -164,7 +142,7 @@ public class Permission {
 
 	public Permission(Integer id, String permissionId, String permissionName, String description, String url,
 			String perms, Integer parentId, Integer type, Integer orderNum, String icon, Integer status,
-			Date createTime, Date updateTime, List<Role> roleList) {
+			 List<Role> roleList) {
 		super();
 		this.id = id;
 		this.permissionId = permissionId;
@@ -177,8 +155,6 @@ public class Permission {
 		this.orderNum = orderNum;
 		this.icon = icon;
 		this.status = status;
-		this.createTime = createTime;
-		this.updateTime = updateTime;
 		this.roleList = roleList;
 	}
 

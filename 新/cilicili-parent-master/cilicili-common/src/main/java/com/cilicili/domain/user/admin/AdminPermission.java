@@ -45,32 +45,20 @@ public class AdminPermission implements Serializable {
 	// status int 状态：1有效；2删除
 	private Integer status;
 
-	// create_time datetime 创建时间
-	private Date createTime;
-
-	// update_time datetime 更新时间
-	private Date updateTime;
-
 	// 对多个角色
 	private List<AdminRole> adminRoleList;
-	
-	//一级菜单的二级列表
+
+	// 一级菜单的二级列表
 	private List<AdminPermission> adminPermission;
-	
-
-
 
 	public AdminPermission() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-
-
-
 	public AdminPermission(Integer permissionId, String permissionName, String pDescription, String url, String perms,
-			Integer parentId, Integer type, Integer orderNum, String icon, Integer status, Date createTime,
-			Date updateTime, List<AdminRole> adminRoleList, List<AdminPermission> adminPermission) {
+			Integer parentId, Integer type, Integer orderNum, String icon, Integer status,
+			List<AdminRole> adminRoleList, List<AdminPermission> adminPermission) {
 		super();
 		this.permissionId = permissionId;
 		this.permissionName = permissionName;
@@ -82,224 +70,116 @@ public class AdminPermission implements Serializable {
 		this.orderNum = orderNum;
 		this.icon = icon;
 		this.status = status;
-		this.createTime = createTime;
-		this.updateTime = updateTime;
 		this.adminRoleList = adminRoleList;
 		this.adminPermission = adminPermission;
 	}
-
-
-
 
 	public Integer getPermissionId() {
 		return permissionId;
 	}
 
-
-
-
 	public void setPermissionId(Integer permissionId) {
 		this.permissionId = permissionId;
 	}
-
-
-
 
 	public String getPermissionName() {
 		return permissionName;
 	}
 
-
-
-
 	public void setPermissionName(String permissionName) {
 		this.permissionName = permissionName;
 	}
-
-
-
 
 	public String getpDescription() {
 		return pDescription;
 	}
 
-
-
-
 	public void setpDescription(String pDescription) {
 		this.pDescription = pDescription;
 	}
-
-
-
 
 	public String getUrl() {
 		return url;
 	}
 
-
-
-
 	public void setUrl(String url) {
 		this.url = url;
 	}
-
-
-
 
 	public String getPerms() {
 		return perms;
 	}
 
-
-
-
 	public void setPerms(String perms) {
 		this.perms = perms;
 	}
-
-
-
 
 	public Integer getParentId() {
 		return parentId;
 	}
 
-
-
-
 	public void setParentId(Integer parentId) {
 		this.parentId = parentId;
 	}
-
-
-
 
 	public Integer getType() {
 		return type;
 	}
 
-
-
-
 	public void setType(Integer type) {
 		this.type = type;
 	}
-
-
-
 
 	public Integer getOrderNum() {
 		return orderNum;
 	}
 
-
-
-
 	public void setOrderNum(Integer orderNum) {
 		this.orderNum = orderNum;
 	}
-
-
-
 
 	public String getIcon() {
 		return icon;
 	}
 
-
-
-
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
-
-
-
 
 	public Integer getStatus() {
 		return status;
 	}
 
-
-
-
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-
-
-
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-
-
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-
-
-
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-
-
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
-
-
-
 
 	public List<AdminRole> getAdminRoleList() {
 		return adminRoleList;
 	}
 
-
-
-
 	public void setAdminRoleList(List<AdminRole> adminRoleList) {
 		this.adminRoleList = adminRoleList;
 	}
-
-
-
 
 	public List<AdminPermission> getAdminPermission() {
 		return adminPermission;
 	}
 
-
-
-
 	public void setAdminPermission(List<AdminPermission> adminPermission) {
 		this.adminPermission = adminPermission;
 	}
-
-
-
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-
-
-
 	@Override
 	public String toString() {
-		return "AdminPermission [permissionId=" + permissionId + ", permissionName=" + permissionName + ", pDescription="
-				+ pDescription + ", url=" + url + ", perms=" + perms + ", parentId=" + parentId + ", type=" + type
-				+ ", orderNum=" + orderNum + ", icon=" + icon + ", status=" + status + ", createTime=" + createTime
-				+ ", updateTime=" + updateTime +",adminPermission=" + adminPermission + "]";
+		return "AdminPermission [permissionId=" + permissionId + ", permissionName=" + permissionName
+				+ ", pDescription=" + pDescription + ", url=" + url + ", perms=" + perms + ", parentId=" + parentId
+				+ ", type=" + type + ", orderNum=" + orderNum + ", icon=" + icon + ", status=" + status
+				+ ",adminPermission=" + adminPermission + "]";
 	}
 
 	// stulist和crlist相互引用对方，导致你调用tostring的时候无限递归。去掉两者之一对对方的引用。

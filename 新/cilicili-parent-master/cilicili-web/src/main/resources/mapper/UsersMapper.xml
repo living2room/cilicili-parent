@@ -42,14 +42,14 @@
 	
 	<!--   查找所有用户（给管理员） -->
 	<select id="findAll" resultMap="BaseResultMap">
-		select user_id,user_name,email,status,last_login_time from tb_u_users 	
+		select user_id,user_name,email,status from tb_u_users 	
 	</select>
 	
 	<!--  禁用用户（给管理员） -->
 	<update id="disable">
 	 update tb_u_users set status = #{status} where user_name = #{userName}
 	</update>
-
+	
 	<resultMap id="BaseResultMap"
 		type="com.cilicili.domain.user.user.Users">
 		<id column="user_id" jdbcType="VARCHAR" property="userId" />
@@ -64,12 +64,6 @@
 		<result column="sex" jdbcType="INTEGER" property="sex" />
 		<result column="age" jdbcType="INTEGER" property="age" />
 		<result column="status" jdbcType="INTEGER" property="status" />
-		<result column="create_time" jdbcType="TIMESTAMP"
-			property="createTime" />
-		<result column="update_time" jdbcType="TIMESTAMP"
-			property="updateTime" />
-		<result column="last_login_time" jdbcType="TIMESTAMP"
-			property="lastLoginTime" />
 		<collection property="roleList" javaType="java.util.List"
 			ofType="com.cilicili.domain.user.user.Role"
 			resultMap="com.cilicili.user.mapper.user.RoleMapper.BaseResultMap"/>

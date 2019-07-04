@@ -1,19 +1,16 @@
 package com.cilicili.user.controller.user;
 
-import java.net.InetAddress;
 /*
  * 人脸识别
  */
 import java.util.HashMap;
 import java.util.UUID;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,9 +23,6 @@ import com.cilicili.common.dto.FacePageBean;
 import com.cilicili.common.dto.FacePageResponse;
 import com.cilicili.common.dto.response.FaceSerachResponse;
 import com.cilicili.common.utils.FactoryUtil;
-import com.cilicili.user.service.impl.user.UsersServiceImpl;
-
-
 
 /**
  * 人脸照片注册方法
@@ -38,7 +32,6 @@ import com.cilicili.user.service.impl.user.UsersServiceImpl;
 @Controller
 @RequestMapping("/facemanager")
 public class FaceManagerController {
-
 	// 人脸模块对象
 	AipFace aipFace = FactoryUtil.getAipFace();
 	private static Logger log = LoggerFactory.getLogger(FaceManagerController.class);
@@ -156,17 +149,14 @@ public class FaceManagerController {
 		
 		if("0".equals(faceSerachResponse.getError_code())&&"SUCCESS".equals(faceSerachResponse.getError_msg())){
 			
-			if(faceSerachResponse.getResult().getUser_list().get(0).getScore() > 80d){
-				
+			if(faceSerachResponse.getResult().getUser_list().get(0).getScore() > 80d){	
 				//拿到对应的账号，查密码，login()
-				//faceSerachResponse.getResult().getUser_list().get(0).getUser_info();
-				
+				//faceSerachResponse.getResult().getUser_list().get(0).getUser_info();	
 				facePageResponse.setError_code(faceSerachResponse.getError_code());
 				facePageResponse.setError_msg(faceSerachResponse.getError_msg());
 				facePageResponse.setUser_info(faceSerachResponse.getResult().getUser_list().get(0).getUser_info());
 				System.out.println("yes啊");
-			 
-			}else{	 	
+			}else{ 	
 				//走了这里面去了
 				facePageResponse.setError_code("555");
 				facePageResponse.setError_msg("人脸搜索失败，请重试或请先注册");
@@ -176,9 +166,8 @@ public class FaceManagerController {
 			
 			facePageResponse.setError_code("500");
 			facePageResponse.setError_msg(faceSerachResponse.getError_msg());
-			System.out.println("50000000000啊");
-		}
-		
+			//System.out.println("50000000000啊");
+		}	
 		log.info("搜索返回的数据{}",resultObject.toString(2));
 		return facePageResponse;
 	}

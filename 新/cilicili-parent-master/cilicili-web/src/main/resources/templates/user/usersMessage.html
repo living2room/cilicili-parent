@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="../css/ycbootstrap.css" />
 <link rel="stylesheet" type="text/css" href="../css/reset2.css" />
 <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
-<link rel="stylesheet" type="text/css" href="../css/style.css" />
+<link rel="stylesheet" type="text/css" href="../css/stylef.css" />
 
 <script src="../js/jquery-1.9.1.js" type="text/javascript"></script>
 <script src="../plugins/cover_js/iscroll-zoom.js" type="text/javascript"
@@ -21,6 +21,7 @@
 	type="text/javascript" charset="utf-8"></script>
 <script src="../plugins/cover_js/jquery.photoClip.min.js"
 	type="text/javascript" charset="utf-8"></script>
+		
 
 </head>
 <body>
@@ -40,7 +41,7 @@
 						<img src="../img/zhuye_an.png">
 					</div>
 					<div class="nav_text">
-						<a href="index.html">首页</a>
+						<a href="/to/home">首页</a>
 					</div>
 				</div>
 				<div class="shcngchuan">
@@ -48,7 +49,7 @@
 						<img src="../img/shangchuan.png">
 					</div>
 					<div class="nav_text">
-						<a href="#">上传</a>
+						<a href="/to/up">上传</a>
 					</div>
 				</div>
 				<div class="shcngchuan">
@@ -56,7 +57,7 @@
 						<img src="../img/tuiguang.png">
 					</div>
 					<div class="nav_text">
-						<a href="#">推广</a>
+						<a href="/Message/reveiceBox">消息</a>
 					</div>
 				</div>
 				<div class="shcngchuan">
@@ -64,16 +65,27 @@
 						<img src="../img/huiyuan.png">
 					</div>
 					<div class="nav_text">
-						<a href="#">会员</a>
+						<a href="/PaymentBuyVip/Buy">会员</a>
 					</div>
 				</div>
 				<div class="shcngchuan">
 					<div class="tubiao">
-						<img src="../img/yonghu.png">
-					</div>
-					<div class="nav_text">
+					
+					
+					<!-- <img src="../img/yonghu.png"> -->
+					<a th:href="@{'/message/usersMessage?userName='+${session.userName}}"><div id="view1" style="width: 50px; height: 50px;-moz-background-size:100% 100%; background-size:100% 100%; border-radius: 50%;">
+					</div></a>
+					</div>	
+					
+					
+					
+					
+					
+								
+					<!-- <div class="nav_text">
 						<a href="Login.html">登录</a>
-					</div>
+					</div> -->
+					
 				</div>
 			</div>
 		</div>
@@ -172,32 +184,36 @@
 		<div class="input-group " style="margin-left: 26px; margin-top: 30px;">
 			<span class="input-group-addon"
 				style="border: none; background: #fff; font-size: 18px;">年龄:&nbsp;&nbsp;</span>
-			<input type="text" class="form-control" name="age" id="age" th:value="${age}"
-				placeholder="请输入&nbsp;1-150&nbsp;之间的数字" style="width: 280px;">
-		</div><label id="a" title=""></label>
+			<input type="text" class="form-control" name="age" id="age"
+				th:value="${age}" placeholder="请输入&nbsp;1-120&nbsp;之间的数字"
+				style="width: 280px;">
+		</div>
+		<label id="a" style="margin-left: 100px;"></label>
 
 		<div class="input-group " style="margin-left: 26px; margin-top: 30px;">
 			<span class="input-group-addon"
 				style="border: none; background: #fff; font-size: 18px;">手机:&nbsp;&nbsp;</span>
 			<input type="text" id="phone" name="phone" th:value="${phone}"
 				class="form-control" placeholder="请输入您的手机号码" style="width: 280px;">
-		</div><label
-				id="p" title=""></label>
+		</div>
+		<label id="p" style="margin-left: 100px;"></label>
 
 		<div class="input-group " style="margin-left: 26px; margin-top: 30px;">
 			<span class="input-group-addon"
 				style="border: none; background: #fff; font-size: 18px;">Q&nbsp;Q:&nbsp;&nbsp;</span>
-			<input type="text" id="qq"
-				name="qq" th:value="${qq}" class="form-control"
-				placeholder="请输入您的QQ号码" style="width: 280px;">				
-		</div><label id="q" title=""></label>
+			<input type="text" id="qq" name="qq" th:value="${qq}"
+				class="form-control" placeholder="请输入您的QQ号码" style="width: 280px;">
+		</div>
+		<label id="q" style="margin-left: 100px;"></label>
 
 		<div class="input-group " style="margin-left: 26px; margin-top: 30px;">
 			<span class="input-group-addon"
 				style="border: none; background: #fff; font-size: 18px;">家乡:&nbsp;&nbsp;</span>
-			<input type="text" id="home" class="form-control" name="home" th:value="${home}"
-				placeholder="例:&nbsp;&nbsp;&nbsp;广西-玉林" style="width: 280px;">
-		</div><label id="h" title=""></label>
+			<input type="text" id="home" class="form-control" name="home"
+				th:value="${home}" placeholder="例:&nbsp;&nbsp;&nbsp;广西-玉林"
+				style="width: 280px;">
+		</div>
+		<label id="h" style="margin-left: 100px;"></label>
 
 
 		<div class="shuoming_con1"
@@ -214,13 +230,19 @@
 	<!-- </form> -->
 
 	<input type="hidden" id="sexvalue" th:value="${sex}">
-	<input type="hidden" id="img" th:value="${url1}">
+	<!-- <input type="hidden" id="img" th:value="${url1}"> -->
+	<input type="hidden" id="img" th:value="${session.url1}">
 
 
 	<script type="text/javascript">			
 		
-	$("#phone").blur(function(){	
-  　  	    var phone = document.getElementById('phone').value;
+	
+		
+		$("#ok").click(function() {
+			
+			
+			//var a =$("#phone").blur(function(){	
+  　  	 /*    var phone = document.getElementById('phone').value;
   　  	    if(phone==""){
   　  	    	$("#p").text("");
  　  	    	 return true;
@@ -231,31 +253,15 @@
   　  	        $("#p").text("请输入正确的电话号码");
   　  	        return false; 
   　  	    }
-  　  	    else{
-  　  	    	$("#p").text("");
-  　  	    	 return true;
-  　  	    	}
+  　  	  //  else{
+  　  	    //	$("#p").text("");
+  　  	    //	 return true;
+  　  	    	//}
   　  	    
-		});	 
-	/* $("#home").blur(function(){		
-		var home = $("#home").val()
-		var pattern1 = \\w*[\u4e00-\u9fa5]+\\w*;
-		 if(home==""){
-  	    	$("#h").text("");
- 	    	 return true;
- 	    	}
-		if(!pattern1.test(home)){
-			 $("#home").focus();
-  	        $("#h").text("请输入正确的地址");
-  	        return false; 
-			} else{
-  　  	    	$("#h").text("");
- 　  	    	 return true;
- 　  	    	}
-	});	 */
+		//});	 
 	
-	$("#qq").blur(function(){	
-	var qq = $("#qq").val();
+	//var b = $("#qq").blur(function(){	
+		var qq = $("#qq").val();
 		var pattern2 =/^[1-9][0-9]{4,11}$/;
 		//var pattern2 = /^\d+$|^\d+[.]?\d+$/;
 		if(qq==""){
@@ -266,13 +272,14 @@
 			$("#qq").focus();
   	        $("#q").text("请输入正确的qq号码");
   	        return false; 	
-			} else{
-  　  	    	$("#q").text("");
- 　  	    	 return true;
- 　  	    	}
-	});
+			} 
+		//else{
+  　  	    //	$("#q").text("");
+ 　  	    	// return true;
+ 　  	    	//}
+	//});
 	
-	$("#age").blur(function(){		
+	//var c =$("#age").blur(function(){		
 		var age = $("#age").val();
 		var pattern3 =/^(?:0|[1-9][0-9]?|120)$/;
 		if(age==""){
@@ -283,35 +290,104 @@
 			 $("#age").focus();
   	        $("#a").text("请输入正确的年龄");
   	        return false; 	
-			} else{
-  　  	    	$("#a").text("");
- 　  	    	 return true;
- 　  	    	}
-	});
-	//qq home age
-	   
-        
-		$("#ok").click(function() {
+			}  */
+		//else{
+  　  	    	//$("#a").text("");
+ 　  	    	// return true;
+ 　  	    	//}
+	//}); 
 			
 			
-			var pattern = /0?(13|14|15|17|18|19)[0-9]{9}/,
-     		str = document.getElementById('phone').value;
-  　  	   		console.log(pattern.test(str));	
+			
+	
+	
+			
+			//var pattern = /0?(13|14|15|17|18|19)[0-9]{9}/,
+     		//str = document.getElementById('phone').value;
   　  	    
-  　  	    
+  　  	    //alert("1");
 			var userName = $("#userName").val();
 			var sex =	$('input[name=sex]:checked').val();	
-			console.log(sex)
 			var base64 = $("#base64").val();
 			var home = $("#home").val();
-			var phone = $("#phone").val();			
-			if($("#age").val()=="无" ||$("#age").val()==''){
-				var age = 0;	
-			}else{
-				var age = $("#age").val();
-				}
+			var phone = $("#phone").val();
 			var qq = $("#qq").val();
-		 		$.ajax({
+			var age = $("#age").val();
+			
+			
+			//alert("2");
+			//var pattern3 =/^(?:0|[1-9][0-9]?|120)$/;
+			var pattern3 =/^(?:[1-9][0-9]?|1[01][0-9]|120)$/;
+			var pattern2 =/^[1-9][0-9]{4,11}$/;
+			
+			
+			//年龄
+			if(age==""){
+	  	    	$("#a").text("");
+	 	    	 //return true;
+	 	    	}
+			else if($("#age").val()=="无" ||$("#age").val()==''){
+				//alert("age");
+				var age = 0;
+				 //return true; 
+			}/* else{
+				var age = $("#age").val();
+				} */
+			else if(!pattern3.test(age)){
+				//alert("flase");
+				 $("#age").focus();
+	  	        $("#a").text("请输入正确的年龄");
+	  	        return false; 
+				} 
+			else if(pattern3.test(age)){
+				//alert("true");
+	  	        $("#a").text("");
+	  	        //return true;
+				}
+			
+			
+			//alert("3");
+	  　  	    if(phone==""){
+	  　  	    	$("#p").text("");
+	 　  	    	 //return true;
+	 　  	    	}
+	  　  	   else  if(!(/^1[3456789]\d{9}$/.test(phone))){ 
+	  　  	        //alert("手机号码有误，请重填");
+	  　  	        $("#phone").focus();
+	  　  	        $("#p").text("请输入正确的电话号码");
+	  　  	        return false; 
+	  　  	    }
+	  　  	    //alert("");
+	  　  	  //  else{
+	  　  	    //	$("#p").text("");
+	  　  	    //	 return true;
+	  　  	    	//}
+	  　  	    
+			//});	 
+		
+		//var b = $("#qq").blur(function(){	
+			//var pattern2 = /^\d+$|^\d+[.]?\d+$/;
+			if(qq==""){
+	  	    	$("#q").text("");
+	 	    	 //return true;
+	 	    	}
+			else if(!pattern2.test(qq)){
+				$("#qq").focus();
+	  	        $("#q").text("请输入正确的qq号码");
+	  	        return false; 	
+				}else{
+					$("#q").text("");
+				}
+			//else{
+	  　  	    //	$("#q").text("");
+	 　  	    	// return true;
+	 　  	    	//}
+		//});
+		
+		//var c =$("#age").blur(function(){		
+		
+					
+			$.ajax({
 					type : "POST",
 					url : "/message/upUsersMessage",
 					data : {
@@ -338,13 +414,21 @@
 					},
 					error : function(data) {
 						alert("提交失败");
-					}	
-	 			}); 
+					}
+	 			});
+			
 		});
+		
+		
 	</script>
 
-
-
+	<!-- 登录按钮替换为头像 -->
+	<script type="text/javascript">
+	var img6 = $("#img").val();
+	var img5 ="url("+img6+")";
+	$("#view1").css('background-image',img5);	
+	</script>
+	
 
 	<script type="text/javascript">
 		$(function() {
