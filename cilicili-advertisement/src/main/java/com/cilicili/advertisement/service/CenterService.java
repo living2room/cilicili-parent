@@ -1,10 +1,12 @@
 package com.cilicili.advertisement.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -79,4 +81,34 @@ public class CenterService {
 	public IPage<CenterAdv> selAdvByMoreConByPage(Page<CenterAdv> page, QueryWrapper<CenterAdv> queryWrapper) {
 		return centerDao.selectPage(page,queryWrapper);
 	}
+	
+		//返回单条广告
+		public CenterAdv selAdvByNum() {
+			QueryWrapper<CenterAdv> queryWrapper = new QueryWrapper<>();
+			queryWrapper.eq("status",1);
+			return centerDao.selectOne(queryWrapper);
+		}
+		
+		//返回多条广告
+		public List<CenterAdv> selAdvByOddNum() {
+			List<CenterAdv> qlistCenter = new ArrayList<>();
+			List<CenterAdv> rlistCenter = new ArrayList<>();
+			QueryWrapper<CenterAdv> queryWrapper = new QueryWrapper<>();
+			queryWrapper.eq("status",1);
+			qlistCenter = centerDao.selectList(queryWrapper);
+			for(int i=1;i<qlistCenter.size();i=i+2)
+				rlistCenter.add(qlistCenter.get(i));
+			return rlistCenter;
+		}
+		//返回多条广告
+		public List<CenterAdv> selAdvByEvenNum() {
+			List<CenterAdv> qlistCenter = new ArrayList<>();
+			List<CenterAdv> rlistCenter = new ArrayList<>();
+			QueryWrapper<CenterAdv> queryWrapper = new QueryWrapper<>();
+			queryWrapper.eq("status",1);
+			qlistCenter = centerDao.selectList(queryWrapper);
+			for(int i=0;i<qlistCenter.size();i=i+2)
+				rlistCenter.add(qlistCenter.get(i));
+			return rlistCenter;
+		}
 }

@@ -2011,8 +2011,11 @@ tr:nth-child(2n){
 						<div class="nav_text"><a href="#">会员</a></div>
 					</div>
 					<div class="shcngchuan">
-						<div class="tubiao"><img src="/img/yonghu.png" ></div>
-						<div class="nav_text"><a href="Login.html">登录</a></div>
+						<div class="nav_text">
+								<div class="tubiao"><img src="/img/yonghu.png" ></div>
+								<a th:if="${session.user}" th:href="Login.html">[[${session.userName}]]</a>
+								<a th:unless="${session.user}" th:href="Login.html">登录</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -2032,8 +2035,8 @@ tr:nth-child(2n){
 						<td th:utext="${message.message_title}"></td>			
 						<td th:text="${message.user_name}"></td>
 						<td>
-						<button type="submit" class="btn btn-primary" style="background: #00a1d6;border: none;"><a style="color:#FFFFFF;" th:href="@{lookMessage?message_ID={message_id}(message_id=${message.message_id})}">查看</a></button>
-						<button type="submit" class="btn btn-primary" style="background: #00a1d6;border: none;"><a style="color:#FFFFFF;" th:href="@{reveiceBoxDelete?message_id={message_id}(message_id=${message.message_id})}">删除</a></button>
+						<button type="submit" class="btn btn-primary" style="background: #00a1d6;border: none;"><a style="color:#FFFFFF;" href="/">查看</a></button>
+						<button type="submit" class="btn btn-primary" style="background: #00a1d6;border: none;"><a style="color:#FFFFFF;" href="/">删除</a></button>
 						</td>
 					</tr>		
 				</table>

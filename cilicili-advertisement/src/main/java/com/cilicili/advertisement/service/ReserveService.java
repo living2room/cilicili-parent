@@ -1,5 +1,6 @@
 package com.cilicili.advertisement.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cilicili.advertisement.mapper.ReserveMapper;
+import com.cilicili.domain.advertisement.ButtleAdv;
 import com.cilicili.domain.advertisement.CenterAdv;
 import com.cilicili.domain.advertisement.ReserveAdv;
 
@@ -82,5 +84,34 @@ public class ReserveService {
 
 	public IPage<ReserveAdv> selAdvByMoreConByPage(Page<ReserveAdv> page, QueryWrapper<ReserveAdv> queryWrapper) {
 		return reserveDao.selectPage(page, queryWrapper);
+	}
+	//返回单条广告
+	public ReserveAdv selAdvByNum() {
+		QueryWrapper<ReserveAdv> queryWrapper = new QueryWrapper<>();
+		queryWrapper.eq("status",1);
+		return reserveDao.selectOne(queryWrapper);
+	}
+	
+	//返回多条广告
+	public List<ReserveAdv> selAdvByOddNum() {
+		List<ReserveAdv> qlistCenter = new ArrayList<>();
+		List<ReserveAdv> rlistCenter = new ArrayList<>();
+		QueryWrapper<ReserveAdv> queryWrapper = new QueryWrapper<>();
+		queryWrapper.eq("status",1);
+		qlistCenter = reserveDao.selectList(queryWrapper);
+		for(int i=1;i<qlistCenter.size();i=i+2)
+			rlistCenter.add(qlistCenter.get(i));
+		return rlistCenter;
+	}
+	//返回多条广告
+	public List<ReserveAdv> selAdvByEvenNum() {
+		List<ReserveAdv> qlistCenter = new ArrayList<>();
+		List<ReserveAdv> rlistCenter = new ArrayList<>();
+		QueryWrapper<ReserveAdv> queryWrapper = new QueryWrapper<>();
+		queryWrapper.eq("status",1);
+		qlistCenter = reserveDao.selectList(queryWrapper);
+		for(int i=0;i<qlistCenter.size();i=i+2)
+			rlistCenter.add(qlistCenter.get(i));
+		return rlistCenter;
 	}
 }

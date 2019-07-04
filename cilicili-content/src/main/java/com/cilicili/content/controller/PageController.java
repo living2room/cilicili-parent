@@ -11,13 +11,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.cilicili.advertisement.service.ButtleService;
+import com.cilicili.advertisement.service.CenterService;
+import com.cilicili.advertisement.service.LeftService;
+import com.cilicili.advertisement.service.ReserveService;
+import com.cilicili.advertisement.service.RightService;
 import com.cilicili.common.dto.TvAdDto;
 import com.cilicili.common.dto.TypeDto;
 import com.cilicili.common.dto.VideoReviewDto;
-import com.cilicili.common.utils.RedisUtil;
 import com.cilicili.content.service.PageService;
 import com.cilicili.content.service.RankService;
 import com.cilicili.content.service.ReviewService;
@@ -44,6 +47,16 @@ public class PageController {
 	@Resource
 	private VideoService vService;
 
+	@Resource
+	private ButtleService buttleService;
+	@Resource
+	private CenterService centerService;
+	@Resource
+	private LeftService leftService;
+	@Resource
+	private ReserveService reserveService;
+	@Resource
+	private RightService rightService;
 
 	/**
 	 * 去一级主页

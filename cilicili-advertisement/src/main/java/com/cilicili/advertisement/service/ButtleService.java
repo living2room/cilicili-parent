@@ -1,5 +1,6 @@
 package com.cilicili.advertisement.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,4 +83,34 @@ public class ButtleService {
 	public int selectCount() {
 		return buttleDao.selectCount(null);
 	}
+	
+	//返回单条广告
+			public ButtleAdv selAdvByNum() {
+				QueryWrapper<ButtleAdv> queryWrapper = new QueryWrapper<>();
+				queryWrapper.eq("status",1);
+				return buttleDao.selectOne(queryWrapper);
+			}
+			
+			//返回多条广告
+			public List<ButtleAdv> selAdvByOddNum() {
+				List<ButtleAdv> qlistCenter = new ArrayList<>();
+				List<ButtleAdv> rlistCenter = new ArrayList<>();
+				QueryWrapper<ButtleAdv> queryWrapper = new QueryWrapper<>();
+				queryWrapper.eq("status",1);
+				qlistCenter = buttleDao.selectList(queryWrapper);
+				for(int i=1;i<qlistCenter.size();i=i+2)
+					rlistCenter.add(qlistCenter.get(i));
+				return rlistCenter;
+			}
+			//返回多条广告
+			public List<ButtleAdv> selAdvByEvenNum() {
+				List<ButtleAdv> qlistCenter = new ArrayList<>();
+				List<ButtleAdv> rlistCenter = new ArrayList<>();
+				QueryWrapper<ButtleAdv> queryWrapper = new QueryWrapper<>();
+				queryWrapper.eq("status",1);
+				qlistCenter = buttleDao.selectList(queryWrapper);
+				for(int i=0;i<qlistCenter.size();i=i+2)
+					rlistCenter.add(qlistCenter.get(i));
+				return rlistCenter;
+			}
 }
