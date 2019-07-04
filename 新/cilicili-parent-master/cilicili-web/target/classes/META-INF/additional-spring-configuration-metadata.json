@@ -1,0 +1,32 @@
+{"properties": [
+  {
+    "name": "spring.datasource.druid.initial-size",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.druid.initial-size'"
+  },
+  {
+    "name": "spring.datasource.druid.min-idle",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.druid.min-idle'"
+  },
+  {
+    "name": "spring.datasource.druid.max-active",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.druid.max-active'"
+  },
+  {
+    "name": "spring.datasource.druid.test-on-borrow",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.druid.test-on-borrow'"
+  },
+  {
+    "name": "spring.datasource.druid.stat-view-servlet.allow",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.druid.stat-view-servlet.allow'"
+  },
+  {
+    "name": "spring.mail.from",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.mail.from'"
+  }
+]}

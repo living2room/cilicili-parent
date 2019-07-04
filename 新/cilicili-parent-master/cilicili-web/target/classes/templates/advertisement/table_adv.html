@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title></title>
+
+<link rel="shortcut icon" href="favicon.ico">
+<link href="/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+<link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+<link href="/css/plugins/bootstrap-table/bootstrap-table.min.css"
+	rel="stylesheet">
+<link href="/css/animate.css" rel="stylesheet">
+<link href="/css/style.css?v=4.1.0" rel="stylesheet">
+<style>
+.like {
+	margin-right: 10px;
+}
+</style>
+
+</head>
+
+
+<body class="gray-bg">
+
+	<div class="ibox-content">
+		<div class="row row-lg">
+			<div class="col-sm-12">
+				<!-- Example Events -->
+				<div class="example-wrap">
+					<h4 class="example-title">成绩表</h4>
+					<div class="example">
+						<div id="toolbar">
+							<button id="remove" class="btn btn-danger" disabled>
+								<i class="glyphicon glyphicon-remove"></i>Fake Delete
+							</button>
+						</div>
+						<table id="table" data-toolbar="#toolbar" data-search="true"
+							data-show-refresh="true" data-show-toggle="true"
+							data-show-fullscreen="true" data-show-columns="true"
+							data-detail-view="true" data-show-export="true"
+							data-detail-formatter="detailFormatter"
+							data-minimum-count-columns="2" data-show-pagination-switch="true"
+							data-pagination="true" data-id-field="id"
+							data-page-list="[10, 25, 50, 100, ALL]" data-show-footer="true"
+							data-side-pagination="server"
+							data-url=""
+							data-response-handler="responseHandler">
+						</table>
+					</div>
+				</div>
+				<!-- End Example Events -->
+			</div>
+		</div>
+	</div>
+
+	<!-- 全局js -->
+	<script src="js/jquery.min.js?v=2.1.4"></script>
+	<script src="js/bootstrap.min.js?v=3.3.6"></script>
+
+	<!-- 自定义js -->
+	<script src="js/content.js?v=1.0.0"></script>
+
+
+	<!-- Bootstrap table -->
+	<script src="/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+	<script src="/js/plugins/tableexport/tableExport.min.js"></script>
+	<script
+		src="/js/plugins/bootstrap-table/bootstrap-table-locale-all.min.js"></script>
+	<script
+		src="/js/plugins/bootstrap-table/extensions/export/bootstrap-table-export.min.js"></script>
+
+ 	<script>
+		var $table = $('#table')
+		var $remove = $('#remove')
+		var selections = []
+
+		function getIdSelections() {
+			return $.map($table.bootstrapTable('getSelections'), function(row) {
+				return row.id
+			})
+		}
+
+		function responseHandler(res) {
+		 return {
+	                  "total":res.total,//总页数
+	                  "rows": res.data //数据
+	              }
+
+		}
+
+		function detailFormatter(index, row) {
+			var html = []
+			$.each(row, function(key, value) {
+				html.push('<p><b>' + key + ':</b> ' + value + '</p>')
+			})
+			return html.join('')
+		}
+
+		function operateFormatter(value, row, index) {
+			return [
+				'<a class="like" href="javascript:void(0)" title="Like">',
+				'<i class="fa fa-heart"></i>',
+				'</a>  ',
+				'<a class="remove" href="javascript:void(0)" title="Remove">',
+				'<i class="fa fa-trash"></i>',
+				'</a>'
+			].join('')
+		}
+
+		window.operateEvents = {
+			'click .like' : function(e, value, row, index) {
+				alert('You click like action, row: ' + JSON.stringify(row))
+			},
+			'click .remove' : function(e, value, row, index) {
+				$table.bootstrapTable('remove', {
+					field : 'id',
+					values : [ row.id ]
+				})
+			}
+		}
+
+		function totalTextFormatter(data) {
+			return 'Total'
+		}
+
+		function totalNameFormatter(data) {
+			return data.length
+		}
+
+		function totalPriceFormatter(data) {
+			var field = this.field
+			return '$' + data.map(function(row) {
+					return +row[field].substring(1)
+				}).reduce(function(sum, i) {
+					return sum + i
+				}, 0)
+		}
+
+		function initTable() {
+			$table.bootstrapTable('destroy').bootstrapTable({
+				height : 550,
+				locale : "zh-CN",
+				columns : [
+					{
+						field : 'state',
+						checkbox : true,
+						align : 'center',
+						valign : 'middle'
+					}, {
+						title : 'ID',
+						field : 'student_id.id',
+						align : 'center',
+						valign : 'middle',
+						sortable : true,
+						footerFormatter : totalTextFormatter
+					}, {
+						field : 'grade',
+						title : '成绩',
+						sortable : false,
+						align : 'center',
+						footerFormatter : totalNameFormatter
+					}, {
+						field : 'exam_time',
+						title : '考试时间',
+						sortable : true,
+						align : 'center',
+						footerFormatter : totalNameFormatter
+					}, {
+						field : 'operate',
+						title : 'Operate',
+						align : 'center',
+						events : window.operateEvents,
+						formatter : operateFormatter
+					}]
+			})
+			$table.on('check.bs.table uncheck.bs.table ' +
+			'check-all.bs.table uncheck-all.bs.table',
+				function() {
+					$remove.prop('disabled', !$table.bootstrapTable('getSelections').length)
+
+					// save your data, here just save the current page
+					selections = getIdSelections()
+				// push or splice the selections if you want to save all data selections
+				})
+			$table.on('all.bs.table', function(e, name, args) {
+				console.log(name, args)
+			})
+			$remove.click(function() {
+				var ids = getIdSelections()
+				$table.bootstrapTable('remove', {
+					field : 'id',
+					values : ids
+				})
+				$remove.prop('disabled', true)
+			})
+		}
+
+		$(function() {
+			initTable()
+
+			$('#locale').change(initTable)
+		})
+
+	</script>
+</body>
+
+</html>
+

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>advertise page</title>
+<link rel="stylesheet" type="text/css" href="/css/unittool.css">
+<style type="text/css">
+	
+</style>
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/simpleAlert.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/simpleAlert.css">
+<script type="text/javascript">
+	
+	$(function(){
+		
+	    $("#but").click(function(){
+	    	var addr=advertise.value;
+	    	
+	    	//alert(addr);
+	        var newUrl = '/'+addr+'/'+typeId.value;    //设置新提交地址
+	        alert(newUrl);
+	        $("#form1").attr('action',newUrl);    //通过jquery为action属性赋值
+	        $("#form1").submit();    //提交ID为myform的表单
+	    });
+	    
+	})
+	
+</script>
+</head>
+<body>
+<p th:text="${controller}"></p>
+	<form action="" id="form1">
+		<p>广告类别</p>
+		<select id="advertise">
+			<option th:each="type,userStat:${session.typelist}"  th:value="${type.controllerPath}" th:text="${type.typeName}"></option>
+		</select>
+		<tr><td>时间：</td></tr>
+		<tr><td>从：</td><td><input type="date" name="toCreateTime" id="tocreate"></td></tr>
+		<tr><td>至：</td><td><input type="date" name="toFinalTime" id="tofinal"></td></tr>
+		<tr><td><input type="button" id="but" value="提交" ></td></tr>
+		<tr><td><input type="hidden" value="selectall" id="typeId"></td></tr>
+	</form>
+	
+	<a th:href="@{/advertisetype/pub}">发布广告</a>
+	<div>
+		<button class="all" style="margin:10px;">批量删除</button>
+		<table>
+			<tr><caption>广告展示</caption></tr>
+			<tr><th><input type="checkbox" name="selectall" id="selall"></th><th>序号</th><th>链接</th><th>图片地址</th><th>图片描述</th><th>图片信息</th><th>发布时间</th><th>修改信息时间</th><th>发布人id</th><th>广告状态</th><th>广告图片</th><th>操作</th></tr>
+			<tr th:each="advobj,advobjStat:${advlist}">
+				<td><input type="checkbox" th:value="${advobj.id}"></td>
+				<td th:text="${advobjStat.count}"></td>
+				<td th:text="${advobj.url}"></td>
+				<td th:text="${advobj.imgSrc}"></td>
+				<td th:text="${advobj.alt}"></td>
+				<td th:text="${advobj.remark}"></td>
+				<td th:text="${advobj.createTime}"></td>
+				<td th:text="${advobj.updateTime}"></td>
+				<td th:text="${advobj.operatorId}"></td>
+				<td th:text="${advobj.status}"></td>
+				<td><img th:src="@{${advobj.imgSrc}}" width="1024px" height="768px" class="classpic"></td>
+				<td><a th:href="@{isUse(operator=3,isNormal=1,advid=${advobj.id})}">启用</a>
+				<a th:href="@{isUse(operator=3,isNormal=0,advid=${advobj.id})}">禁用</a>
+				<a th:href="@{tomodify(advid=${advobj.id})}">修改</a></td>
+			</tr>
+		</table>
+	</div>
+	<script type="text/javascript">
+		$(function(){
+			/*批量选中的效果*/
+			$('#selall').click(function(){
+				if($(this).is(':checked')){
+					$('input:checkbox').each(function(){
+						$(this).prop("checked",true);
+					});
+				}else{
+					$('input:checkbox').each(function(){
+						$(this).prop("checked",false);
+					});
+				}
+			});
+
+			/*获取ids,批量删除*/
+			$(".all").click(function(){
+				var ids = '';
+				$('input:checkbox').each(function(){
+					if(this.checked == true){
+						ids += this.value + ',';
+					}
+				});
+				//alert(ids);
+				//var addr=advertise.value;
+				//console.log(confirm("dd"));
+				//下面的ajax根据自己的情况写
+				//var b = confirm("批量删除后不可恢复，谨慎操作!");
+				var dblChoseAlert = simpleAlert({
+				"content":"确定要批量删除吗!",
+				"buttons":{
+					"确定":function () {
+						//alert("你好");
+						$.ajax({
+						type: 'POST',
+						url: 'delmore',
+						data: {"ids": ids},
+						dataType: 'html',
+						success: function (data) {
+							location.reload();//页面刷新 
+						},
+						error: function (data) {
+							console.log(data.msg);
+						},
+					});
+						dblChoseAlert.close();
+					},
+					"取消":function () {
+						dblChoseAlert.close();
+					}
+				}
+			})
+				/* if(b){
+					alert("进来了吗");
+					$.ajax({
+						type: 'POST',
+						url: 'delmore',
+						data: {"ids": ids},
+						dataType: 'html',
+						success: function (data) {
+							location.reload();//页面刷新 
+						},
+						error: function (data) {
+							console.log(data.msg);
+						},
+					});
+				} */
+			});
+		});
+	</script>
+</body>
+</html>

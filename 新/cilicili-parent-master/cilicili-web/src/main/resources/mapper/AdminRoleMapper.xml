@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.cilicili.user.mapper.admin.AdminRoleMapper">
+
+
+	<!-- 通过roelId查角色的权限等信息 -->
+	<select id="findByRoleId" parameterType="int"
+		resultMap="BaseResultMap">
+		select * from tb_admin_role r left JOIN tb_admin_role_permission rp on
+		r.role_id = rp.role_id left JOIN tb_admin_permission p on
+		rp.permission_id = p.permission_id
+		WHERE r.role_id = #{roleId}
+	</select>
+	<resultMap id="BaseResultMap"
+		type="com.cilicili.domain.user.admin.AdminRole">
+		<id column="role_id" jdbcType="VARCHAR" property="roleId" />
+		<result column="role_name" jdbcType="VARCHAR"
+			property="roleName" />
+		<result column="description" jdbcType="VARCHAR"
+			property="description" />
+		<result column="status" jdbcType="INTEGER" property="status" />
+		<collection property="adminPermission"
+			javaType="java.util.List"
+			ofType="com.cilicili.domain.user.admin.AdminRolePermission"
+			resultMap="com.cilicili.user.mapper.admin.AdminPermissionMapper.BaseResultMap" />
+	</resultMap>
+
+</mapper>
