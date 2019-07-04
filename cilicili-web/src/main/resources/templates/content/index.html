@@ -292,7 +292,7 @@
 							<div class="con3_02" th:each="tvad2:${tvad1.value}" style="display:inline;">
 								<a th:href="${tvad2.link}">
 								<div class="index_mover_left">
-									<div class="mover1" th:style="background:url('@{${tvad2.picPath}}')"></div>
+									<div class="mover1" th:style="|background:url('@{${tvad2.picPath}}')|"></div>
 									<div class="beizhu" style="margin-top: 20px;">
 										<div th:text="${tvad2.name}" class="beizhu_title">斗破苍穹&nbsp;&nbsp;第二季</div>
 										<div class="beizhu_tubiao">
