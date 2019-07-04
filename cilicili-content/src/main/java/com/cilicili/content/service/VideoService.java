@@ -94,7 +94,6 @@ public class VideoService {
 	 * @param req
 	 */
 	public File videoupload(HttpServletRequest req) {
-		FTPClient c = new FTPClient();
 		String filePath ="/data/video";
 		MultipartHttpServletRequest Murequest = (MultipartHttpServletRequest) req;
 		Map<String, MultipartFile> files = Murequest.getFileMap();// 得到文件map对象
