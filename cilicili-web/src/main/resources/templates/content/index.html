@@ -25,7 +25,7 @@
 <script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript"
 	src="/webjars/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-	
+
 <script src="../js/jquery.min.js"></script>
 <!-- 搜索框的 -->
 <script type="text/javascript" src="/js/bootstrap-suggest.min.js"></script>
@@ -108,7 +108,7 @@
 					</div>
 					<div class="shcngchuan">
 
-						
+
 						<div th:if="${session.user}">
 							<a
 								th:href="@{'/message/usersMessage?userName='+${session.userName}}"><div
@@ -178,7 +178,7 @@
 		<script type="text/javascript">
 					var img6 = $("#img").val();
 					var img5 ="url("+img6+")";
-					$("#view1").css('background-image',img5);	
+					$("#view1").css('background-image',img5);
 					</script>
 
 		<!-------------------------------------------- 导航栏 ------------------------------------------------->
@@ -323,7 +323,7 @@
 							<div id="box97"></div>
 							<div class="con3_02" th:each="tvad2:${tvad1.value}"
 								style="display: inline;">
-								<a th:href="${tvad2.link}">
+								<a th:href="|vi/${tvad2.link}|">
 									<div class="index_mover_left">
 										<div class="mover1"
 											th:style="|background:url('@{${tvad2.picPath}}')|"></div>
@@ -335,7 +335,7 @@
 													alt="">&nbsp;&nbsp;[[${tvad2.bulletScreenNum}]]</span>
 											</div>
 										</div>
-										<div class="beizhu_text">大型虫洞控制权（上集）</div>
+										<div class="beizhu_text">[[${tvad2.videoDescribe}]]</div>
 									</div>
 								</a>
 
@@ -821,8 +821,8 @@
 			scroll_scroll()
 			scroll_cilck()
 			$(".index_mover_left:odd").css("margin-left","30px");
-			
-			
+
+
 					<!-- 搜索框的 -->
                      $("#box_sousuo").bsSuggest({
                         emptyTip: '未检索到匹配的数据',
@@ -879,18 +879,18 @@
                         };
                     })
                     <!-- 搜索框的 -->
-                    
-                    
-                    
-                    
-                    
+
+
+
+
+
 			/*
 			** 只填两个必要参数也是可以的
 			*/
 			var banenr2 = new FragmentBanner({
 				container : "#banner2",//选择容器 必选
 				imgs : ['/img/a1.png','/img/a2.png','/img/a3.png','/img/a4.png','/img/a5.png'],//图片集合
-			}); 
+			});
 
 		</script>
 
@@ -899,7 +899,7 @@
 	<!-------------------------------------- 轮播图的动效 --------------------------------------------------->
 	<!-------------------------------------- 轮播图的动效 --------------------------------------------------->
 	<script type="text/javascript">
-			
+
 			$( ".shcngchuan:eq(3),.tanchuang" ).hover(function() {
 				$( ".tanchuang" ).stop().fadeIn( 500 );
 				// $(".tanchuang").show()
@@ -908,18 +908,18 @@
 				$( ".tanchuang" ).stop().fadeOut( 100 );
 			  }
 			);
-	
+
 // 			$(".lianjie1").onmouseover(function(){
-// 				
+//
 // 			})
 			/*
 			** 只填两个必要参数也是可以的
 			*/
 			/* var banenr2 = new FragmentBanner({
 				container : "#banner2",//选择容器 必选
-				imgs : ['img/a1.png','img/a2.png','img/a3.png','img/a4.png','img/a5.png'],//图片集合 
+				imgs : ['img/a1.png','img/a2.png','img/a3.png','img/a4.png','img/a5.png'],//图片集合
 			}); */
-		
+
 		</script>
 </body>
 </html>
