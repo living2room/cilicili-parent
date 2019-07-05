@@ -18,5 +18,6 @@ import lombok.Data;
 public class VideoType {
 	private String videoId;
 	private Integer typeId;
-	private String reserved;
+	private Integer fatherType;
+
 }

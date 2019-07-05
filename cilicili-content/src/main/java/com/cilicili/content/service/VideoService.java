@@ -346,7 +346,8 @@ public class VideoService {
 	 * @param tn 类型
 	 */
 	public void addvideoInfo(HttpSession session,String videoInfoId, String base64,
-		String videoName, String videoDescribe, String tn) {
+
+		String videoName, String videoDescribe, String t1,String tn) {
 		VideoInfo entity = new VideoInfo();
 		entity.setVideoDescribe(videoDescribe);
 		entity.setVideoTitle(videoName);
@@ -356,6 +357,8 @@ public class VideoService {
 		VideoType vType = new VideoType();
 		vType.setVideoId(videoInfoId);
 		vType.setTypeId(Integer.valueOf(tn));
+
+		vType.setFatherType(Integer.valueOf(t1));
 		vTypeMapper.insert(vType );
 		
 		Users user = (Users) session.getAttribute("user");
