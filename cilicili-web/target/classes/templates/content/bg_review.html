@@ -19,7 +19,7 @@
     <script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!-- 自定义js -->
-    <script src="/js/content.js"></script>
+    <script src="/js/content.js?v=1.0.0"></script>
      <!-- jsTree plugin javascript -->
      <script src="/js/plugins/jsTree/jstree.js"></script>
      <!-- layer javascript -->
@@ -55,13 +55,6 @@
                        dataType: 'html',
                    })
                    .done(function(e) {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-                    console.log(e);
-                    location.reload();
-=======
-=======
->>>>>>> Stashed changes
                     var videojson = eval('('+e+')');
                     $(".panel-body").html("");
                     $.each(videojson,function(index,val){
@@ -70,19 +63,11 @@
                         if (val.videoStatus===0) {
                              $(".panel-body:eq(0)").append('<div class="file-box"><div id="'+val.id+'" onclick="vdreview('+val.id+')" class="file"><a href="javascript:;"><span class="corner"></span><div class="image"><img alt="image" class="img-responsive" src="'+val.picActualUrl+'"></div><div class="file-name"><div >'+val.videoName+'</div><br/><small>添加时间：'+val.videoUploadtime+'</small> </div> </a></div></div>')
                         }else(
-<<<<<<< Updated upstream
                             $(".panel-body:eq(1)").append('<i>hhh</i><div class="file-box"><div id="'+val.id+'" onclick="vdreview('+val.id+')" class="file"<a href="javascript:;"><span class="corner"></span><div class="image"><img alt="image" class="img-responsive" src="'+val.picActualUrl+'"></div><div class="file-name"><div >'+val.videoName+'</div><br/><small>添加时间：'+val.videoUploadtime+'</small> </div> </a></div></div>')
-=======
-                            $(".panel-body:eq(1)").append('<i>hhh</i><div class="file-box"><div id="'+val.id+'" onclick="vdreview('+val.id+')" class="file"><a href="javascript:;"><span class="corner"></span><div class="image"><img alt="image" class="img-responsive" src="'+val.picActualUrl+'"></div><div class="file-name"><div >'+val.videoName+'</div><br/><small>添加时间：'+val.videoUploadtime+'</small> </div> </a></div></div>')
->>>>>>> Stashed changes
                         )
 
                     });
                     //alert(e);
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
                 });
             });
         })
@@ -147,36 +132,17 @@
                     <div class="col-sm-12">
 
                 <div class="tabs-container">
-<<<<<<< Updated upstream
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> 未审核</a>
                         </li>
                         <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">未通过</a>
-=======
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li class="active"><a data-toggle="tab" role="tab" href="#tab-1" aria-expanded="true"> 未审核</a>
-                        </li>
-                        <li class=""><a data-toggle="tab" role="tab" href="#tab-2" aria-expanded="false">未通过</a>
->>>>>>> Stashed changes
                         </li>
                     </ul>
                     <div class="tab-content">
                         <div id="tab-1" class="tab-pane active">
                             <div class="panel-body">
-<<<<<<< Updated upstream
                                 <div th:each="videoByType : ${list}" th:if="${videoByType.videoStatus}==0" class="file-box">
                                     <div th:id="|video${videoByType.id}|" th:onclick="|vdreview(${videoByType.id})|" class="file">
-=======
-<!--
-                                <div th:each="videoByType:${list}"  class="file-box" style="border:1px solid red;">th:if="${videoByType.videoStatus}==0"
-                                   <p th:text="${videoByType.id}"></p>
-                                   <p th:text="${videoByType.videoName}"></p>
-                                   <p th:text="${videoByType.videoUploadtime}"></p>
-                                   <p th:text="${videoByType.actualUrl}"></p> -->
-
-
-                                  <!--   <div th:id="|video${videoByType.id}|" th:onclick="|vdreview(${videoByType.id})|" class="file">
->>>>>>> Stashed changes
                                         <a href="视频请求Url">
                                             <span class="corner"></span>
                                             <div class="icon">
@@ -194,7 +160,6 @@
                                                 <small th:text="|上传时间 : ${videoByType.videoUploadtime}|">添加时间：2014-10-13</small>
                                             </div>
                                         </a>
-<<<<<<< Updated upstream
                                     </div>
                                 </div>
                             </div>
@@ -202,21 +167,11 @@
                         <div id="tab-2" class="tab-pane">
                             <div class="panel-body">
                                 <div th:each="videoByType : ${list}" th:if="${videoByType.videoStatus}==1" class="file-box">
-=======
-                                    </div> -->
-                                </div>
-                            </div>
-
-                        <div id="tab-2" class="tab-pane">
-                            <div class="panel-body">
-<!--                                 <div th:each="videoByType : ${list}" th:if="${videoByType.videoStatus}==1" class="file-box">
->>>>>>> Stashed changes
                                     <div th:id="|video${videoByType.id}|" th:onclick="|vdreview(${videoByType.id})|" class="file">
                                         <a href="视频请求Url">
                                             <span class="corner"></span>
                                             <div class="icon">
                                                 <i class="fa fa-file"></i>
-<<<<<<< Updated upstream
                                             </div>
                                              <div th:if="${videoByType.picActualUrl}" class="image">
                                                 <img alt="image" class="img-responsive" th:src="@{${videoByType.picActualUrl}}">
@@ -229,28 +184,11 @@
                                                 <br/>
                                                 <small th:text="|上传时间 : ${videoByType.videoUploadtime}|">添加时间：2014-10-13</small>
                                             </div>
-=======
-                                            </div>
-                                             <div th:if="${videoByType.picActualUrl}" class="image">
-                                                <img alt="image" class="img-responsive" th:src="@{${videoByType.picActualUrl}}">
-                                            </div>
-                                            <div th:unless="${videoByType.picActualUrl}" class="icon">
-                                             <i class="img-responsive fa fa-film"></i>
-                                            </div>
-                                            <div class="file-name">
-                                                <div th:text="${videoByType.videoName}"> </div>
-                                                <br/>
-                                                <small th:text="|上传时间 : ${videoByType.videoUploadtime}|">添加时间：2014-10-13</small>
-                                            </div>
->>>>>>> Stashed changes
                                         </a>
                                     </div>
-                                </div> -->
+                                </div>
                             </div>
                         </div>
-                        </div>
-                    </div>
-                </div>
                     </div>
                 </div>
                     </div>

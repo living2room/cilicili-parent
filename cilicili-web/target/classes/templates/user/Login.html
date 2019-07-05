@@ -51,7 +51,7 @@
 							<div class="nav_text">
 								<a href="/Message/reveiceBox">消息</a>
 							</div>
-						</div>						
+						</div>
 						<div class="shcngchuan">
 							<div class="tubiao">
 								<img src="../img/huiyuan.png">
@@ -60,6 +60,23 @@
 								<a href="/PaymentBuyVip/Buy">会员</a>
 							</div>
 						</div>
+<<<<<<< Updated upstream
+						<div class="shcngchuan">
+							<div class="tubiao">
+								<img src="../img/yonghu.png">
+							</div>
+							<div class="nav_text">
+								<a href="/user/toLogin">登录</a>
+							<!--
+
+								<img alt="" src="">
+								<div id="view"
+									style="width: 50px; height: 50px; border-radius: 50%;"
+									title="请上传 321*321 的封面图片">
+								</div> -->
+						</div>
+					</div>
+=======
 				<div class="shcngchuan">
 					<
 					<!-- div class="tubiao"><img src="../img/yonghu.png" ></div>
@@ -74,28 +91,14 @@
 					<div th:unless="${session.user}">
 						<a href="/user/toLogin">
 							<div class="tubiao">
-<<<<<<< Updated upstream
-								<img src="../img/yonghu.png">
-							</div>
-							<div class="nav_text">
-								<a href="/user/toLogin">登录</a>
-							<!--
-
-								<img alt="" src="">
-								<div id="view"
-									style="width: 50px; height: 50px; border-radius: 50%;"
-									title="请上传 321*321 的封面图片">
-								</div> -->
-						</div>
-=======
 								<img src="/img/yonghu.png">
 							</div>
 							<div class="nav_text">登录</div>
 						</a>
->>>>>>> Stashed changes
 					</div>
 
 				</div>
+>>>>>>> Stashed changes
 				</div>
 			</div>
 
@@ -246,7 +249,7 @@
 						}
 					},
 					error : function(data) {
-						//alert("邮箱或密码错误");	
+						//alert("邮箱或密码错误");
 						$("#u").html("提交失败" + data);
 					}
 

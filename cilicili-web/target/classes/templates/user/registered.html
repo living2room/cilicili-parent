@@ -122,7 +122,6 @@
 <script type="text/javascript">
 //验证码
 var checkCode = "";
-<<<<<<< Updated upstream
 	$("#userPassword").on('keypress',function(e){
                 if (e.keyCode == 13) {
 					var inputCheckCode = $("#checkCode").val();
@@ -198,10 +197,6 @@ var checkCode = "";
                 }
             })
 	$("#register").click(function() {
-=======
-	$("#register").click(function() {
-	
->>>>>>> Stashed changes
 		var inputCheckCode = $("#checkCode").val();
 		var userName = $("#userName").val()
 		var userPassword = $("#userPassword").val()
@@ -224,13 +219,13 @@ var checkCode = "";
 			$("#email").focus();
 			$("#email").css("color", "red");
 			$("#e").html("请输入邮箱");
-			return false;		
-		} 
+			return false;
+		}
 		else if(!checkemail.test(email)){
 			$("#email").focus();
 			$("#email").css("color", "red");
 			$("#e").html("请输入正确的邮箱");
-			return false;	
+			return false;
 		}
 		else if (userPassword == "" || userPassword == null) {
 			$("#userPassword").focus();
@@ -276,7 +271,7 @@ var checkCode = "";
 
 
 	$("#sendCheckCode").click(function() {
-		
+
 		var email = $("#email").val();
 		if (email == null || email == "") {
 			$("#p").html("请输入邮箱！！！");

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.cilicili.bean.content.Type;
 import com.cilicili.common.dto.TvAdDto;
 import com.cilicili.common.dto.TypeDto;
+import com.cilicili.common.dto.VideoDetail;
 import com.cilicili.common.dto.VideoReviewDto;
 import com.cilicili.common.utils.RedisUtil;
 import com.cilicili.content.service.PageService;
@@ -200,6 +201,8 @@ public class PageController {
 	 @GetMapping("vi/{id}")
 	 public String toVideoPage(Model model,@PathVariable("id") String videoPath) {
 		 vService.getThisVideo(videoPath);
+		 VideoDetail thisVideo = vService.getThisVideo(videoPath);
+		 model.addAttribute("detail",thisVideo);
 		 return "/content/video";
 		}
 
