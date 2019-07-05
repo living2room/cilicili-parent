@@ -42,7 +42,7 @@
 				<div class="nav_right">
 					<div class="shouye">
 							<div class="tubiao">
-								<img src="../img/shouye.png">
+								<img src="/img/shouye.png">
 							</div>
 							<div class="nav_text">
 								<a href="/to/home" style="color: #00b7ee;">首页</a>
@@ -50,7 +50,7 @@
 						</div>
 						<div class="shcngchuan">
 							<div class="tubiao">
-								<img src="../img/shangchuan.png">
+								<img src="/img/shangchuan.png">
 							</div>
 							<div class="nav_text">
 								<a href="/to/up">上传</a>
@@ -58,7 +58,7 @@
 						</div>
 						<div class="shcngchuan">
 							<div class="tubiao">
-								<img src="../img/tuiguang.png">
+								<img src="/img/tuiguang.png">
 							</div>
 							<div class="nav_text">
 								<a href="/Message/reveiceBox">消息</a>
@@ -66,14 +66,13 @@
 						</div>
 						<div class="shcngchuan">
 							<div class="tubiao">
-								<img src="../img/huiyuan.png">
+								<img src="/img/huiyuan.png">
 							</div>
 							<div class="nav_text">
 								<a href="/PaymentBuyVip/Buy">会员</a>
 							</div>
 						</div>
 				<div class="shcngchuan">
-					<
 					<!-- div class="tubiao"><img src="../img/yonghu.png" ></div>
 						<div class="nav_text"><a href="Login.html">登录</a></div> -->
 					<div th:if="${session.user}">
@@ -101,8 +100,8 @@
 			<div class="shiping_con">
 					<div class="shiping_con_top">
 						<div class="top_left">
-							<div class="top_left1">岂有此理，又被这个小学生摆了一道！爆笑视频</div>
-							<div class="top_left2"> 75.2万播放 · 943弹幕  &nbsp;&nbsp;  2019-06-03 21:20:52</div>
+							<div th:text="${detail.videoTitle}" class="top_left1">岂有此理，又被这个小学生摆了一道！爆笑视频</div>
+							<div class="top_left2">[[${detail.videoPlayed}]]播放 · [[${detail.bulletScreenNum}]]弹幕  &nbsp;&nbsp;  [[${detail.videoUploadTime}]]</div>
 						</div>
 						<div class="top_right"></div>
 					</div>
