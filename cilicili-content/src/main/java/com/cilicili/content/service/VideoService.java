@@ -399,10 +399,10 @@ public class VideoService {
 		QueryWrapper<VideoData> updateWrapper = new  QueryWrapper<VideoData>();
 		updateWrapper.eq("video_id", vData.getVideoId());
 		vDataMapper.update(vData, updateWrapper );
-		detail.setActualUrl(videoUrl.getActualUrl());
+		detail.setActualUrl(videoUrl.getRequestUrl());
 		detail.setBulletScreenNum(vData.getBulletScreenNum());
 		detail.setLikedNum(vData.getLikedNum());
-		//detail.setPicUrl(pic);
+		detail.setPicUrl(pic);
 		detail.setVideoDescribe(videoInfo.getVideoDescribe());
 		detail.setVideoId(vData.getVideoId());
 		detail.setVideoPlayed(vData.getVideoPlayed());

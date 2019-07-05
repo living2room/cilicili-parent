@@ -20,6 +20,7 @@ import com.cilicili.advertisement.service.ReserveService;
 import com.cilicili.advertisement.service.RightService;
 import com.cilicili.common.dto.TvAdDto;
 import com.cilicili.common.dto.TypeDto;
+import com.cilicili.common.dto.VideoDetail;
 import com.cilicili.common.dto.VideoReviewDto;
 import com.cilicili.content.service.PageService;
 import com.cilicili.content.service.RankService;
@@ -213,8 +214,8 @@ public class PageController {
 	 */
 	 @GetMapping("vi/{id}")
 	 public String toVideoPage(Model model,@PathVariable("id") String videoPath) {
-		 vService.getThisVideo(videoPath);
-		 
+		 VideoDetail thisVideo = vService.getThisVideo(videoPath);
+		 model.addAttribute("detail",thisVideo);
 		 return "/content/video";
 		}
 
