@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Implementation-Title: cilicili-user
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: living2room
+Built-By: Administrator
 Implementation-Vendor-Id: com.cilicili
 Build-Jdk: 1.8.0_131
 Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo

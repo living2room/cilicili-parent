@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.event.TransactionalEventListener;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cilicili.bean.content.Type;
 import com.cilicili.bean.content.VideoData;
@@ -54,19 +55,25 @@ public class PageService {
 	 */
 	@Transactional
 	public List<TvAdDto> getPageContent(Type type,int index,int size) {
-//		Page<VideoInfo> page = new Page<>(1, 4);
-//        QueryWrapper<VideoInfo> queryWrapper = new QueryWrapper<>();
-//        IPage<VideoInfo> selectPage = infoMpper.selectPage(page, queryWrapper);
+
+
 		Page<VideoType> page = new Page<>(index, size);
-		List<VideoType> typeList = vtypeMapper.selectVideoTypeByType(page);//拿到该分类下的分页视频
+		QueryWrapper<VideoType> queryWrapperT = new QueryWrapper<>();
+		queryWrapperT.eq("father_type", type.getId());
+//		List<VideoType> typeList = vtypeMapper.selectVideoTypeByType(page,queryWrapperT );//拿到该分类下的分页视频
+		IPage<VideoType> typeList = vtypeMapper.selectPage(page, queryWrapperT);//拿到该分类下的分页视频
+		List<VideoType> records = typeList.getRecords();
+		System.out.println(records);
 		List<VideoInfo> infoList = new ArrayList<VideoInfo>();
 		List<TvAdDto>  tvAdDtos = new ArrayList<TvAdDto>();
 		List<VideoPic> picList = new ArrayList<VideoPic>();
 		List<VideoData> dataList = new ArrayList<VideoData>();
 		//查询出所需信息
-		for (int i = 0; i < typeList.size()-1; i++) {
+
+		for (int i = 0; i <= records.size()-1; i++) {
+
 			QueryWrapper<VideoInfo> queryWrapperVI = new QueryWrapper<>();
-			queryWrapperVI.eq("id", typeList.get(i).getVideoId());
+			queryWrapperVI.eq("id", records.get(i).getVideoId());
 			VideoInfo info = infoMpper.selectOne(queryWrapperVI);
 			infoList.add(info);
 			QueryWrapper<VideoPic> queryWrapperVP = new QueryWrapper<>();

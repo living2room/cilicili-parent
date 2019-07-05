@@ -187,4 +187,142 @@ public class VideoService {
 		videoPic.setPicRequestUrl(videoInfo.getId());
 		vPicMapper.insert(videoPic );
 	}
+
+	/**
+	 * 通过类型名拿到该类 审核未通过和未审核的视频信息
+	 * 
+	 * @param text
+	 * @return
+	 */
+	public List<VideoReviewDto> getVideoByTypeName(String text) {
+		List<VideoReviewDto> vrDtoList = new ArrayList<VideoReviewDto>();
+		QueryWrapper<Type> queryWrapper = new QueryWrapper<Type>();
+		queryWrapper.eq("type", text);
+		Type type = typeMapper.selectOne(queryWrapper);
+
+		QueryWrapper<VideoType> tqueryWrapper = new QueryWrapper<VideoType>();
+		tqueryWrapper.eq("type_id", type.getId());
+		List<VideoType> typetList = vTypeMapper.selectList(tqueryWrapper);
+		for (int j = 0; j < typetList.size(); j++) {
+			VideoReviewDto vrDto = new VideoReviewDto();
+			QueryWrapper<VideoExamine> vequeryWrapper = new QueryWrapper<VideoExamine>();
+			vequeryWrapper.eq("video_id", typetList.get(j).getVideoId());
+			vequeryWrapper.ne("video_status", 1);
+			VideoExamine videoExamine = veMapper.selectOne(vequeryWrapper);
+			if (videoExamine != null) {
+				VideoInfo byId = infoMapper
+						.selectById(typetList.get(j).getVideoId());
+				vrDto.setId(byId.getId());
+				vrDto.setVideoName(byId.getVideoName());
+				vrDto.setVideoUploadtime(byId.getVideoUploadTime());
+				QueryWrapper<VideoPic> vpqueryWrapper = new QueryWrapper<VideoPic>();
+				vpqueryWrapper.eq("video_id", byId.getId());
+				vpqueryWrapper.eq("pic_type", 2);
+				VideoPic videoPic = vPicMapper.selectOne(vpqueryWrapper);
+				vrDto.setPicActualUrl(videoPic.getPicActualUrl());
+				QueryWrapper<VideoUrl> vuqueryWrapper = new QueryWrapper<VideoUrl>();
+				vuqueryWrapper.eq("video_id", byId.getId());
+				VideoUrl videoUrl = vUrlMapper.selectOne(vuqueryWrapper);
+				vrDto.setActualUrl(videoUrl.getActualUrl());
+				vrDto.setVideoStatus(videoExamine.getVideoStatus());
+				vrDtoList.add(vrDto);
+			}
+		}
+		//
+		return vrDtoList;
+	}
+
+	/** 添加视频相关信息
+	 * @param videoInfoId 视频ID
+	 * @param base64 二进制图片
+	 * @param videoName 视频标题
+	 * @param videoDescribe 视频描述
+	 * @param tn 类型
+	 */
+	public void addvideoInfo(HttpSession session,String videoInfoId, String base64,
+		String videoName, String videoDescribe, String t1,String tn) {
+		VideoInfo entity = new VideoInfo();
+		entity.setVideoDescribe(videoDescribe);
+		entity.setVideoTitle(videoName);
+		entity.setId(videoInfoId);
+		infoMapper.updateById(entity );
+		
+		VideoType vType = new VideoType();
+		vType.setVideoId(videoInfoId);
+		vType.setTypeId(Integer.valueOf(tn));
+		vType.setFatherType(Integer.valueOf(t1));
+		vTypeMapper.insert(vType );
+		
+		Users user = (Users) session.getAttribute("user");
+		//目前session里面没有User
+		VideoUser uVi = new VideoUser();
+		uVi.setUserId(user.getUserId());
+		uVi.setVideoId(videoInfoId);
+		vUserMapper.insert(uVi );
+		
+		VideoData vData = new VideoData();
+		vData.setVideoId(videoInfoId);
+		vData.setVideoPlayed(0L);
+		vData.setLikedNum(0L);
+		vData.setBulletScreenNum(0L);
+		vDataMapper.insert(vData );
+		
+		// 将封面图片放进redis里
+		redisUtil.set(videoInfoId,base64);
+	}
+
+	/**拿到该视频的信息
+	 * @param videoPath
+	 */
+	public VideoDetail getThisVideo(String videoPath) {
+		VideoDetail detail = new VideoDetail();
+		QueryWrapper<VideoUrl> queryWrapper = new QueryWrapper<VideoUrl>();
+		queryWrapper.eq("video_id", videoPath);
+		VideoUrl videoUrl = vUrlMapper.selectOne(queryWrapper );
+		VideoInfo videoInfo = infoMapper.selectById(videoUrl.getVideoId());
+		
+		String pic = (String)redisUtil.get(videoPath);
+		
+		QueryWrapper<VideoData> dqueryWrapper = new QueryWrapper<VideoData>();
+		dqueryWrapper.eq("video_id", videoInfo.getId());
+		VideoData vData = vDataMapper.selectOne(dqueryWrapper );
+		vData.setVideoPlayed(vData.getVideoPlayed()+1);
+//		vDataMapper.updateById(vData);
+		QueryWrapper<VideoData> updateWrapper = new  QueryWrapper<VideoData>();
+		updateWrapper.eq("video_id", vData.getVideoId());
+		vDataMapper.update(vData, updateWrapper );
+		detail.setActualUrl(videoUrl.getActualUrl());
+		detail.setBulletScreenNum(vData.getBulletScreenNum());
+		detail.setLikedNum(vData.getLikedNum());
+		//detail.setPicUrl(pic);
+		detail.setVideoDescribe(videoInfo.getVideoDescribe());
+		detail.setVideoId(vData.getVideoId());
+		detail.setVideoPlayed(vData.getVideoPlayed());
+		detail.setVideoTitle(videoInfo.getVideoTitle());
+		detail.setVideoUploadTime(videoInfo.getVideoUploadTime());
+		return detail;
+		
+	}
+
+	// /**分片处理待完成
+	// * @param req
+	// */
+	// public void uploadByPieces(MultipartFile file,HttpServletRequest req) {
+	//
+	// int i = 1;
+	// String localPath = req.getSession().getServletContext().getRealPath("")
+	// + "temp" + File.separator + "video" + File.separator;
+	// String localfile = i + "_" + file.getOriginalFilename();
+	// File localFile = new File(localPath, localfile);
+	// try {
+	// // TODO 查看webloader上传参数制作Dto
+	// localFile.getParentFile().mkdirs();
+	// file.transferTo(localFile);
+	// i++;
+	// } catch (IllegalStateException | IOException e2) {
+	// e2.printStackTrace();
+	// }
+	//
+	// }
+
 }

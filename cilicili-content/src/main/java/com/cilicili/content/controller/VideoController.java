@@ -45,5 +45,27 @@ public class VideoController {
 		vService.addvideoProcessor(req,resp,jsonObj);
 	}
 	
+
+	@GetMapping("/v/player/{vi}")
+	public String getvidoe(@PathVariable("vi") String vi) {
+		System.out.println();
+		return vi;
+	}
+	@PostMapping("upinfo/{videoInfoId}")
+	public String uploadInfo(HttpSession session,Model model, @PathVariable("videoInfoId")String videoInfoId, 
+			String base64, String videoName, String videoDescribe,String t1, String t2,String t3) {
+		if (t3 !=  null ) {
+			vService.addvideoInfo(session,videoInfoId, base64, videoName, videoDescribe,t1,t3);
+		}else if(t2 != null) {
+			vService.addvideoInfo(session,videoInfoId, base64, videoName, videoDescribe,t1,t2);
+		}else if(t1 != null){
+			vService.addvideoInfo(session,videoInfoId, base64, videoName, videoDescribe,t1,t1);
+		}
+		
+		
+		// 根据videoInfoId获取相应的封面图
+//		String path = redisUtil.get(videoInfoId).toString();
+		return  "";
+	}
 	
 }
