@@ -15,7 +15,7 @@
     <link href="../css/font-awesome.css?v=4.4.0" rel="stylesheet">
 
     <link href="../css/animate.css" rel="stylesheet">
-    <link href="../css/style11.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <meta http-equiv="refresh" content="0;ie.html" />
     <![endif]-->
@@ -28,11 +28,10 @@
         <div>
             <div>
 
-                <h1 class="logo-name">H+</h1>
+                <h1 class="logo-name" style="margin-left: -50px">Cilicili</h1>
 
             </div>
             <h3>管理员登录</h3>
-            <h3 style="color: red" th:utext="${msg}"></h3>
             <form class="m-t" role="form" method="post" action="/admin/login">
                 <div class="form-group">
                     <input type="text" name="userName" id="userName" class="form-control" placeholder="用户名" required="">
@@ -40,12 +39,8 @@
                 <div class="form-group">
                     <input type="password" name="userPassword" id="userPassword" class="form-control" placeholder="密码" required="">
                 </div>
-                <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
-
-
-             <!--    <p class="text-muted text-center"> <a href="login.html#"><small>忘记密码了？</small></a> | <a href="register.html">注册一个新账号</a>
-                </p> -->
-
+				<h3 th:utext="${msg}"></h3>
+				<button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
             </form>
         </div>
     </div>

@@ -5,14 +5,14 @@
 <meta name="viewport"
 	content=" width=device-width, inittial-scale=1,maximum-scale=1" />
 <title></title>
-<link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
-<link rel="stylesheet" type="text/css" href="../css/stylef.css" />
-<script src="../css/bootstrap.css"></script>
-<script src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="/css/stylef.css" />
+<script src="/css/bootstrap.css"></script>
 <!-- 搜索框的 -->
 <script type="text/javascript" src="/js/bootstrap-suggest.min.js"></script>
 <!-- 搜索框的 -->
-
+<link rel="stylesheet" type="text/css" href="/css/reset.css">
 </head>
 
 <body>
@@ -105,6 +105,43 @@
 					</div>
 				</div>
 
+
+
+<!---------------------------- 弹窗开始 --------------------------------->
+			<div class="tanchuang" style="display:none;width: 100px;height: 104px;background: #fFF;z-index: 1000;position: absolute;top: 80px;left: 1494px;opacity:0.6;border-radius: 10px;">
+			
+			<div class="lianjie1" style="height: 20px;width: 100px;line-height: 24px;margin-left: 18px;margin-top: 6px;">
+				<div class="dayuhao" style="float: left;color: #00a1d6;font-weight: bolder">></div> 
+				<a href="#" style="margin-left: 14px;">
+					<em>第一链接<i></i></em>
+				</a>
+			</div><br>
+			
+			<div class="lianjie1" style="height: 20px;width: 100px;line-height: 24px;margin-left: 18px;">
+				<div class="dayuhao" style="float: left;color: #00a1d6;font-weight: bolder">></div> 
+				<a href="#" style="margin-left: 14px;">
+					<em>第一链接<i></i></em>
+				</a>
+			</div><br>
+			
+			<div class="lianjie1" style="height: 20px;width: 100px;line-height: 24px;margin-left: 18px;">
+				<div class="dayuhao" style="float: left;color: #00a1d6;font-weight: bolder">></div> 
+				<a href="#" style="margin-left: 14px;">
+					<em>第一链接<i></i></em>
+				</a>
+			</div>
+			
+			
+		</div>
+		<!---------------------------- 弹窗结束 --------------------------------->
+		
+		
+
+
+
+
+
+
 			</div>
 
 
@@ -142,9 +179,9 @@
 
 
 				<div class="center-block" style="text-align: center;">
-					<a href="/">>刷脸登录<</a>
+					<a href="/" style="display:inline">>>刷脸登录<<</a>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					没有帐号？<a href="/user/toRegister">立即注册</a>
+					<a href="/user/toRegister" style="display:inline">没有帐号?立即注册</a>
 				</div>
 			</div>
 		</div>
@@ -285,6 +322,21 @@
 								;
 							})<!-- 搜索框的 -->
 		</script>
+		
+		
+		
+		<script type="text/javascript">
+			
+			$( ".shcngchuan:eq(3),.tanchuang" ).hover(function() {
+				$( ".tanchuang" ).stop().fadeIn( 500 );
+				// $(".tanchuang").show()
+			  }, function() {
+				// $(".tanchuang").hide()
+				$( ".tanchuang" ).stop().fadeOut( 100 );
+			  }
+			);	
+		</script>
+		
 </body>
 
 </html>

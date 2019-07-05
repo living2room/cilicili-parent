@@ -41,12 +41,17 @@
 
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
     <div id="wrapper">
+    
+    
+    
         <!--左侧导航开始-->
         <nav class="navbar-default navbar-static-side" role="navigation">
             <div class="nav-close"><i class="fa fa-times-circle"></i>
             </div>
             <div class="sidebar-collapse">
                 <ul class="nav" id="side-menu">
+                
+                
                     <li class="nav-header">
                         <div class="dropdown profile-element">
                             <span><img alt="image" class="img-circle" src="/img/profile_small.jpg" /></span>
@@ -73,15 +78,47 @@
                         <div class="logo-element">CiliCili
                         </div>
                     </li>
-                    <li>
+                    
+					
+					 <li>
                         <a class="J_menuItem" href="/to/b/contab">
                             <i class="fa fa-home"></i>
                             <span class="nav-label">主页</span>
                         </a>
                     </li>
-                    <li>
+					
+					
+					
+					
+  <!--  ============================== -->
+                    <!-- 一级 -->
+					<div th:each="adminPermissionList : ${session.adminPermissionList3}" class="nav" id="side-menu">
+     					<li>
                         <a href="#">
-                            <i class="fa fa-book"></i>
+                            <i class="fa fa-home"></i>
+                            <span th:text="${adminPermissionList.getpDescription()}" class="nav-label"/>
+                            <span class="fa arrow"></span>
+                        </a>
+                        
+                        
+                      <!--   二级 -->
+                        <ul th:each="adminPermissionList1 : ${adminPermissionList.getAdminPermission()}" class="nav nav-second-level">
+                            <li>
+                                <a th:text="${adminPermissionList1.getpDescription()}" class="J_menuItem" th:href="${adminPermissionList1.getUrl()}" data-index="0"/>
+                            </li>
+                        </ul>
+
+	                    </li>
+	                    </div>
+					</ul>
+<!--   =======================      -->
+                    
+                    
+                    
+                    
+                    <!-- <li>
+                        <a href="#">
+                            <i class="fa fa-home"></i>
                             <span class="nav-label">内容管理</span>
                             <span class="fa arrow"></span>
                         </a>
@@ -99,12 +136,13 @@
                         <a class="J_menuItem" href="/test/th02">
                             <i class="fa fa-rss"></i>
                             <span  class="nav-label">广告管理</span>
+                            <span class="fa arrow"></span>
                         </a>
                     </li>
 
                     <li>
                         <a href="javascript:;">
-                            <i class="fa fa-cart-arrow-down"></i>
+                            <i class="fa fa-cc-visa"></i>
                             <span class="nav-label">支付模块</span>
                             <span class="fa arrow"></span>
                         </a>
@@ -123,11 +161,14 @@
                             </li>
                         </ul>
                     </li>
-
-                </ul>
+                </ul> -->
             </div>
         </nav>
         <!--左侧导航结束-->
+        
+        
+        
+        
         <!--右侧部分开始-->
         <div id="page-wrapper" class="gray-bg dashbard-1">
             <div class="row border-bottom">
@@ -231,6 +272,7 @@
                 </button>
                 <nav class="page-tabs J_menuTabs">
                     <div class="page-tabs-content">
+                        <a href="javascript:;" class="active J_menuTab" data-id="index_v1.html">首页</a>
                     </div>
                 </nav>
                 <button class="roll-nav roll-right J_tabRight"><i class="fa fa-forward"></i>
