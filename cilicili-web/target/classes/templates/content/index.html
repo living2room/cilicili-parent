@@ -129,42 +129,48 @@
 			</div>
 
 
-
-
+<div th:if="${session.user}">
 			<!---------------------------- 弹窗开始 --------------------------------->
 			<div class="tanchuang"
-				style="display: none; width: 100px; height: 104px; background: #fFF; z-index: 1000; position: absolute; top: 80px; left: 1494px; opacity: 0.6; border-radius: 10px;">
+				style="display: none; width: 115px; height: 124px; background: #fFF; z-index: 1000; position: absolute; top: 80px; left: 1494px; opacity: 0.6; border-radius: 10px;">
 
-				<div class="lianjie1"
-					style="height: 20px; width: 100px; line-height: 24px; margin-left: 18px; margin-top: 6px;">
-					<div class="dayuhao"
+				<div class="lianjie1 "
+					style="height: 15px; width: 180px; line-height: 24px; margin-left: 18px; margin-top: 6px;">
+					<div class="dayuhao animated "
 						style="float: left; color: #00a1d6; font-weight: bolder">></div>
-					<a href="#" style="margin-left: 14px;"> <em>第一链接<i></i></em>
+					<a th:href="@{/message/usersMessage(userName=${session.userName})}" style="margin-left: 10px;"> <em>修改用户信息<i></i></em>
 					</a>
 				</div>
 				<br>
 
 				<div class="lianjie1"
-					style="height: 20px; width: 100px; line-height: 24px; margin-left: 18px;">
-					<div class="dayuhao"
+					style="height: 15px; width: 180px; line-height: 24px; margin-left: 18px;">
+					<div class="dayuhao animated"
 						style="float: left; color: #00a1d6; font-weight: bolder">></div>
-					<a href="#" style="margin-left: 14px;"> <em>第一链接<i></i></em>
+					<a th:href="@{/user/toUpPassword}" style="margin-left: 10px;"> <em>修改密码<i></i></em>
 					</a>
 				</div>
 				<br>
 
 				<div class="lianjie1"
-					style="height: 20px; width: 100px; line-height: 24px; margin-left: 18px;">
-					<div class="dayuhao"
+					style="height: 15px; width: 180px; line-height: 24px; margin-left: 18px;">
+					<div class="dayuhao animated"
 						style="float: left; color: #00a1d6; font-weight: bolder">></div>
-					<a href="#" style="margin-left: 14px;"> <em>第一链接<i></i></em>
+					<a th:href="@{/user/logout}" style="margin-left: 10px;"> <em>退出登录<i></i></em>
+					</a>
+				</div><br>
+				<div class="lianjie1"
+					style="height: 15px; width: 200px; line-height: 24px; margin-left: 18px;">
+					<div class="dayuhao animated"
+						style="float: left; color: #00a1d6; font-weight: bolder">></div>
+					<a th:href="@{/storage}" style="margin-left: 10px;"> <em>刷脸登录设置<i></i></em>
 					</a>
 				</div>
 
 
 			</div>
 			<!---------------------------- 弹窗结束 --------------------------------->
-
+</div>
 
 
 
@@ -817,6 +823,11 @@
 
 	<!-------------------------------------- 轮播图的动效 --------------------------------------------------->
 	<script type="text/javascript">
+			$(".dayuhao").hover(function(){
+				$(this).addClass("fadeInLeftBig")
+			},function(){
+				$(this).removeClass("fadeInLeftBig")
+			})
 			scroll_scroll()
 			scroll_cilck()
 			$(".index_mover_left:odd").css("margin-left","30px");
