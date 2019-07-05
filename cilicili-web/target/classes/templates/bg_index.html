@@ -94,10 +94,10 @@
                     <!-- 一级 -->
 					<div th:each="adminPermissionList : ${session.adminPermissionList3}" class="nav" id="side-menu">
      					<li>
-                        <a href="#">
+                        <a class="J_menuItem"  th:href="${adminPermissionList.getUrl()}">
                             <i th:class="|fa ${adminPermissionList.getIcon()}|"></i>
                             <span th:text="${adminPermissionList.getpDescription()}" class="nav-label"/>
-                            <span class="fa arrow"></span>
+                            <span th:unless="${adminPermissionList.getUrl()}" class="fa arrow"></span>
                         </a>
 
 

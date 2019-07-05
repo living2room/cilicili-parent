@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -170,6 +171,16 @@ public class AdminController {
 		}
 		return "redirect:/to/b/index";
 
+	}
+	@RequestMapping("logout")
+	public String logout() {
+		// 获取subject
+		Subject currentUser = SecurityUtils.getSubject();
+		Session session = currentUser.getSession();
+		session.removeAttribute("adminName");
+		session.removeAttribute("adminPermissionList3");
+		SecurityUtils.getSubject().logout();// 调用登出方法
+		return "/admin/toLogin";
 	}
 
 	@RequestMapping("/background")
