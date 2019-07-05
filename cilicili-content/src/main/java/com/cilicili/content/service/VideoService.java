@@ -329,7 +329,7 @@ public class VideoService {
 				QueryWrapper<VideoUrl> vuqueryWrapper = new QueryWrapper<VideoUrl>();
 				vuqueryWrapper.eq("video_id", byId.getId());
 				VideoUrl videoUrl = vUrlMapper.selectOne(vuqueryWrapper);
-				vrDto.setActualUrl(videoUrl.getActualUrl());
+				vrDto.setActualUrl(videoUrl.getRequestUrl());
 				vrDto.setVideoStatus(videoExamine.getVideoStatus());
 				vrDtoList.add(vrDto);
 			}
