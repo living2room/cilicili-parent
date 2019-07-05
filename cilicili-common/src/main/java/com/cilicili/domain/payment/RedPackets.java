@@ -5,13 +5,13 @@ public class RedPackets {
 	private String redPacketsName;
 	private String redPacketsDescribe;
 	private Double redPacketsPrice;
-	private Integer userID; //领取的用户ID；
+	private String userID; //领取的用户ID；
 	public RedPackets() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public RedPackets(Integer redPacketsID, String redPacketsName, String redPacketsDescribe, Double redPacketsPrice,
-			Integer status, Integer userID) {
+			Integer status, String userID) {
 		super();
 		this.redPacketsID = redPacketsID;
 		this.redPacketsName = redPacketsName;
@@ -44,10 +44,10 @@ public class RedPackets {
 		this.redPacketsPrice = redPacketsPrice;
 	}
 
-	public Integer getUserID() {
+	public String getUserID() {
 		return userID;
 	}
-	public void setUserID(Integer userID) {
+	public void setUserID(String userID) {
 		this.userID = userID;
 	}
 	@Override

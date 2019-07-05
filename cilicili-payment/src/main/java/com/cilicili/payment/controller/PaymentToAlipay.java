@@ -101,7 +101,11 @@ public class PaymentToAlipay {
 			if(signVerified) {
 				OpenVip openVip=openVipService.select(Long.parseLong(alipayReturnConfig.getOut_trade_no()));
 				Long vipEndTime=openVip.getVipTime()+System.currentTimeMillis()/1000;
-				VipEndTime Db_vipEndTime=vipEndTimeService.select(openVip.getUserID());
+				
+				System.out.println(openVip.getUserID()+"???");
+			VipEndTime Db_vipEndTime = this.vipEndTimeService.select(openVip.getUserID());
+			System.out.println(openVip.getUserID()+"???");
+			
 				if(Db_vipEndTime==null) {
 					//说明数据库中没有该用户信息，即该用户不是vip用户
 					vipEndTimeService.insert(openVip.getUserID(),vipEndTime);

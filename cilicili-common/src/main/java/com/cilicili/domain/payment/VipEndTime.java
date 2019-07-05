@@ -4,14 +4,14 @@ public class VipEndTime {
 //	ID	int
 	private Integer ID;
 //	userID	int
-	private Integer userID;
+	private String userID;
 //	vipEndTime	bigint
 	private Long vipEndTime;
 	public VipEndTime() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public VipEndTime(Integer iD, Integer userID, Long vipEndTime) {
+	public VipEndTime(Integer iD, String userID, Long vipEndTime) {
 		super();
 		ID = iD;
 		this.userID = userID;
@@ -23,10 +23,10 @@ public class VipEndTime {
 	public void setID(Integer iD) {
 		ID = iD;
 	}
-	public Integer getUserID() {
+	public String getUserID() {
 		return userID;
 	}
-	public void setUserID(Integer userID) {
+	public void setUserID(String userID) {
 		this.userID = userID;
 	}
 	public Long getVipEndTime() {

@@ -28,9 +28,6 @@ public class Users implements Serializable {
 	// email varchar邮箱
 	private String email;
 
-	// phone varchar 联系方式
-	private String phone;
-
 	// sex int 性别：1男2女
 	private Integer sex;
 
@@ -98,14 +95,6 @@ public class Users implements Serializable {
 		this.email = email;
 	}
 
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
 	public Integer getSex() {
 		return sex;
 	}
@@ -143,7 +132,7 @@ public class Users implements Serializable {
 	}
 
 	public Users(int id, String userId, String userName, String userPassword, int locked, String salt, String email,
-			String phone, Integer sex, Integer age, Integer status, List<Role> roleList) {
+			 Integer sex, Integer age, Integer status, List<Role> roleList) {
 		super();
 		this.id = id;
 		this.userId = userId;
@@ -152,7 +141,6 @@ public class Users implements Serializable {
 		this.locked = locked;
 		this.salt = salt;
 		this.email = email;
-		this.phone = phone;
 		this.sex = sex;
 		this.age = age;
 		this.status = status;
@@ -167,7 +155,7 @@ public class Users implements Serializable {
 	@Override
 	public String toString() {
 		return "Users [id=" + id + ", userId=" + userId + ", userName=" + userName + ", userPassword=" + userPassword
-				+ ", locked=" + locked + ", salt=" + salt + ", email=" + email + ", phone=" + phone + ", sex=" + sex
+				+ ", locked=" + locked + ", salt=" + salt + ", email=" + email + ", sex=" + sex
 				+ ", age=" + age + ", status=" + status + ", roleList=" + roleList + "]";
 	}
 
