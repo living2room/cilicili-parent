@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="../css/reset2.css" />
 <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="../css/stylef.css" />
-
+<link rel="stylesheet" type="text/css" href="/css/animate.css" />
 <script src="../js/jquery-1.9.1.js" type="text/javascript"></script>
 <!-- 搜索框的 -->
 <script type="text/javascript" src="/js/bootstrap-suggest.min.js"></script>
@@ -573,6 +573,15 @@
 								}
 								;
 							})<!-- 搜索框的 -->
+		</script>
+		<script type="text/javascript">
+		$(".lianjie1").hover(function() {
+			/* Stuff to do when the mouse enters the element */
+			$(this).children(" .dayuhao").addClass("animated fadeInLeftBig myanimation");
+		}, function() {
+			/* Stuff to do when the mouse leaves the element */
+			$(this).children(" .dayuhao").removeClass("animated fadeInLeftBig myanimation");
+		});
 		</script>
 </body>
 </html>

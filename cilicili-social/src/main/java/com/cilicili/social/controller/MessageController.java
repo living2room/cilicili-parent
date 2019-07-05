@@ -72,12 +72,16 @@ public class MessageController {
 	
 	@RequestMapping("reveiceBox")
 	public String reveiceBox(Model model,HttpServletRequest request) {
+		
+		System.out.println("123321");
 		HttpSession session = request.getSession();
 		String userId=((String) session.getAttribute("userID")).trim();
+		 
 		List<MessageBox> messageBoxList=messageService.selectReceive(userId);
 		System.out.println("qqqqqqqqqqq");
 		System.out.println(messageBoxList);
 		System.out.println("qqqqqqqqqqq");
+		
 		String userName=messageService.selectUsernameByUserid(userId);
 		model.addAttribute("messageBoxList", messageBoxList);
 //		System.out.println("1111111111");

@@ -60,7 +60,6 @@
 		<result column="locked" jdbcType="INTEGER" property="locked" />
 		<result column="salt" jdbcType="VARCHAR" property="salt" />
 		<result column="email" jdbcType="VARCHAR" property="email" />
-		<result column="phone" jdbcType="VARCHAR" property="phone" />
 		<result column="sex" jdbcType="INTEGER" property="sex" />
 		<result column="age" jdbcType="INTEGER" property="age" />
 		<result column="status" jdbcType="INTEGER" property="status" />
