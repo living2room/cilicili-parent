@@ -103,11 +103,9 @@ public class VideoController {
 		}else if(t1 != null){
 			vService.addvideoInfo(session,videoInfoId, base64, videoName, videoDescribe,t1);
 		}
-		
-		
 		// 根据videoInfoId获取相应的封面图
 //		String path = redisUtil.get(videoInfoId).toString();
-		return  "";
+		return  "1";
 	}
 
 	

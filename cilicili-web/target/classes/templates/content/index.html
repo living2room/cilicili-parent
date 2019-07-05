@@ -19,7 +19,12 @@
 <link rel="stylesheet" type="text/css" href="/css/reset.css">
 <link rel="stylesheet" type="text/css" href="/css/common.css">
 <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
-
+<style type="text/css" media="screen">
+	.myanimation {
+  		animation-duration: 0.25s;
+  		animation-delay: 0s;
+}
+</style>
 
 <!-- 全局js -->
 <script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
@@ -136,7 +141,7 @@
 
 				<div class="lianjie1 "
 					style="height: 15px; width: 180px; line-height: 24px; margin-left: 18px; margin-top: 6px;">
-					<div class="dayuhao animated "
+					<div class="dayuhao "
 						style="float: left; color: #00a1d6; font-weight: bolder">></div>
 					<a th:href="@{/message/usersMessage(userName=${session.userName})}" style="margin-left: 10px;"> <em>修改用户信息<i></i></em>
 					</a>
@@ -145,7 +150,7 @@
 
 				<div class="lianjie1"
 					style="height: 15px; width: 180px; line-height: 24px; margin-left: 18px;">
-					<div class="dayuhao animated"
+					<div class="dayuhao"
 						style="float: left; color: #00a1d6; font-weight: bolder">></div>
 					<a th:href="@{/user/toUpPassword}" style="margin-left: 10px;"> <em>修改密码<i></i></em>
 					</a>
@@ -154,14 +159,14 @@
 
 				<div class="lianjie1"
 					style="height: 15px; width: 180px; line-height: 24px; margin-left: 18px;">
-					<div class="dayuhao animated"
+					<div class="dayuhao"
 						style="float: left; color: #00a1d6; font-weight: bolder">></div>
 					<a th:href="@{/user/logout}" style="margin-left: 10px;"> <em>退出登录<i></i></em>
 					</a>
 				</div><br>
 				<div class="lianjie1"
 					style="height: 15px; width: 200px; line-height: 24px; margin-left: 18px;">
-					<div class="dayuhao animated"
+					<div class="dayuhao"
 						style="float: left; color: #00a1d6; font-weight: bolder">></div>
 					<a th:href="@{/storage}" style="margin-left: 10px;"> <em>刷脸登录设置<i></i></em>
 					</a>
@@ -823,11 +828,19 @@
 
 	<!-------------------------------------- 轮播图的动效 --------------------------------------------------->
 	<script type="text/javascript">
-			$(".dayuhao").hover(function(){
-				$(this).addClass("fadeInLeftBig")
-			},function(){
-				$(this).removeClass("fadeInLeftBig")
-			})
+			// $(".dayuhao").hover(function(){
+			// 	$(this).addClass("fadeInLeftBig")
+			// },function(){
+			// 	$(this).removeClass("fadeInLeftBig")
+			// })
+			//
+			$(".lianjie1").hover(function() {
+				/* Stuff to do when the mouse enters the element */
+				$(this).children(" .dayuhao").addClass("animated fadeInLeftBig myanimation");
+			}, function() {
+				/* Stuff to do when the mouse leaves the element */
+				$(this).children(" .dayuhao").removeClass("animated fadeInLeftBig myanimation");
+			});
 			scroll_scroll()
 			scroll_cilck()
 			$(".index_mover_left:odd").css("margin-left","30px");
