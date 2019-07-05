@@ -325,7 +325,7 @@ public class VideoService {
 				vpqueryWrapper.eq("video_id", byId.getId());
 				vpqueryWrapper.eq("pic_type", 2);
 				VideoPic videoPic = vPicMapper.selectOne(vpqueryWrapper);
-				vrDto.setPicActualUrl((String)redisUtil.get("byId.getId()"));
+				vrDto.setPicActualUrl((String)redisUtil.get(byId.getId()));
 				QueryWrapper<VideoUrl> vuqueryWrapper = new QueryWrapper<VideoUrl>();
 				vuqueryWrapper.eq("video_id", byId.getId());
 				VideoUrl videoUrl = vUrlMapper.selectOne(vuqueryWrapper);
