@@ -85,11 +85,12 @@ public class PageService {
 			adDto.setId(infoList.get(i).getId());
 			adDto.setName(infoList.get(i).getVideoTitle());
 			adDto.setVideoDuration(String.valueOf(infoList.get(i).getVideoDuration()));
+			adDto.setVideoDescribe(infoList.get(i).getVideoDescribe());
 			adDto.setIsVip(infoList.get(i).getVideoIsvip());
 			adDto.setPicPath((String)redisUtil.get(infoList.get(i).getId()));
-//			adDto.setBulletScreenNum(dataList.get(i).getBulletScreenNum());
-//			adDto.setVideoPlayedNum(dataList.get(i).getVideoPlayed());
-//			adDto.setLink(dataList.get(i).getVideoId());
+			adDto.setBulletScreenNum(dataList.get(i).getBulletScreenNum());
+			adDto.setVideoPlayedNum(dataList.get(i).getVideoPlayed());
+			adDto.setLink(dataList.get(i).getVideoId());
 			tvAdDtos.add(adDto);
 		}
 		return tvAdDtos;

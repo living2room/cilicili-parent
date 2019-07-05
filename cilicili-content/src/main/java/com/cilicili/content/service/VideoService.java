@@ -390,16 +390,19 @@ public class VideoService {
 		
 		QueryWrapper<VideoData> dqueryWrapper = new QueryWrapper<VideoData>();
 		dqueryWrapper.eq("video_id", videoInfo.getId());
-		VideoData videoData = vDataMapper.selectOne(dqueryWrapper );
-		videoData.setVideoPlayed(videoData.getVideoPlayed()+1);
-		vDataMapper.updateById(videoData);
+		VideoData vData = vDataMapper.selectOne(dqueryWrapper );
+		vData.setVideoPlayed(vData.getVideoPlayed()+1);
+//		vDataMapper.updateById(vData);
+		QueryWrapper<VideoData> updateWrapper = new  QueryWrapper<VideoData>();
+		updateWrapper.eq("video_id", vData.getVideoId());
+		vDataMapper.update(vData, updateWrapper );
 		detail.setActualUrl(videoUrl.getActualUrl());
-		detail.setBulletScreenNum(videoData.getBulletScreenNum());
-		detail.setLikedNum(videoData.getLikedNum());
+		detail.setBulletScreenNum(vData.getBulletScreenNum());
+		detail.setLikedNum(vData.getLikedNum());
 		//detail.setPicUrl(pic);
 		detail.setVideoDescribe(videoInfo.getVideoDescribe());
-		detail.setVideoId(videoData.getVideoId());
-		detail.setVideoPlayed(videoData.getVideoPlayed());
+		detail.setVideoId(vData.getVideoId());
+		detail.setVideoPlayed(vData.getVideoPlayed());
 		detail.setVideoTitle(videoInfo.getVideoTitle());
 		detail.setVideoUploadTime(videoInfo.getVideoUploadTime());
 		return detail;

@@ -15,6 +15,7 @@ public class TvAdDto {
 	private String id;
 	private String videoDuration;
 	private String name;
+	private String videoDescribe;
 	private String picAlt;
 	private String picPath;
 	private Integer isVip;
