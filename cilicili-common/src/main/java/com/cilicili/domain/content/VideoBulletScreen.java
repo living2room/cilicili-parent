@@ -15,9 +15,8 @@ import lombok.Data;
 @Data
 @TableName("tb_video_bullet_screen")
 public class VideoBulletScreen {
-	private Integer id;
-	private Users userId;
-	private VideoInfo videoId;
-	private BulletScreen bulletScreenId;
+	private String userId;
+	private String videoId;
+	private String bulletScreenId;
 	private String reserved;
 }

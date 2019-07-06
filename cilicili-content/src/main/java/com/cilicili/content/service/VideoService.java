@@ -28,6 +28,7 @@ import com.cilicili.common.utils.PictureMerge;
 import com.cilicili.common.utils.RedisUtil;
 import com.cilicili.common.utils.VideoResolution;
 import com.cilicili.content.mapper.TypeMapper;
+import com.cilicili.content.mapper.VideoBulletScreenMapper;
 import com.cilicili.content.mapper.VideoDataMapper;
 import com.cilicili.content.mapper.VideoExamineMapper;
 import com.cilicili.content.mapper.VideoInfoMapper;
@@ -36,6 +37,7 @@ import com.cilicili.content.mapper.VideoTypeMapper;
 import com.cilicili.content.mapper.VideoUrlMapper;
 import com.cilicili.content.mapper.VideoUserMapper;
 import com.cilicili.domain.content.Type;
+import com.cilicili.domain.content.VideoBulletScreen;
 import com.cilicili.domain.content.VideoData;
 import com.cilicili.domain.content.VideoExamine;
 import com.cilicili.domain.content.VideoInfo;
@@ -72,6 +74,7 @@ public class VideoService {
 	private VideoExamineMapper veMapper;
 	@Resource
 	private VideoDataMapper vDataMapper;
+
 
 	@Value("${FTP.ADDRESS}")
 	private String ftpAddr;
@@ -411,6 +414,8 @@ public class VideoService {
 		return detail;
 		
 	}
+
+
 
 	// /**分片处理待完成
 	// * @param req
