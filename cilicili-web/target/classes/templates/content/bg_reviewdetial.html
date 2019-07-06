@@ -67,6 +67,7 @@ background-color:#f6f9fa
                     <h5 th:text=${rinfo.userId}>
                                     上传用户ID
                     </h5>
+                    <input type="hidden" th:value="${rinfo.id}" class="videoid">
                     <p>
                         <!-- 写点啥 -->
                     </p>
@@ -172,13 +173,18 @@ background-color:#f6f9fa
         }
     })
     
-  /*   $("#tosub").click(function(){
+     $("#tosub").click(function(){
     	var ispass=$('input[name="isok"]:checked').val();
     	var reason = $("#failreason").val();
+    	var videoid = $(".videoid").val();
     	$.ajax({
-    		url:"v/"
+    		url:"/v/videoVerity?ispass="+ispass+"&reason="+reason+"&videoid="+videoid;
+    		success:function(data){
+    			var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+   			 	parent.layer.close(index); //再执行关闭
+    		}
     	})
-    }); */
+    }); 
     </script>
 </body>
 </html>

@@ -4,36 +4,26 @@
 package com.cilicili.content.controller;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.bytedeco.javacpp.tools.InfoMapper;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.cilicili.common.dto.UploadJsonObj;
 import com.cilicili.common.dto.VideoReviewDto;
-import com.cilicili.common.utils.RedisUtil;
+import com.cilicili.content.service.VideoExamineService;
 import com.cilicili.content.service.VideoService;
-import com.cilicili.domain.content.Type;
+import com.cilicili.domain.content.VideoExamine;
 
 /**
  * @author 李明睿 2019年5月23日
@@ -44,6 +34,8 @@ public class VideoController {
 
 	@Resource
 	private VideoService vService;
+	
+	@Resource VideoExamineService veService;
 	
 	/**点击上传 分片传到临时位置并保存为一个文件
 	 */
@@ -111,5 +103,19 @@ public class VideoController {
 		return  "1";
 	}
 	
-	
+	@PostMapping("videoVerity")
+	@ResponseBody()
+	public String videoVerity(@PathVariable String ispass,@PathVariable String reason,@PathVariable String videoid, Model model) {
+		if(ispass.equals("1")){
+			VideoExamine ve = veService.selectOne(videoid);
+			ve.setVideoApprovalTime(new Date());
+			ve.setVideoStatus(1);
+		}else if(ispass.equals("-1")) {
+			VideoExamine ve = veService.selectOne(videoid);
+			ve.setVideoApprovalTime(new Date());
+			ve.setReasonId(Integer.parseInt(reason));
+			ve.setVideoStatus(-1);
+		}
+		return "success";
+	}
 }
