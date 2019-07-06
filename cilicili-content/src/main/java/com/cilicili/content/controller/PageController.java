@@ -22,11 +22,13 @@ import com.cilicili.common.dto.TvAdDto;
 import com.cilicili.common.dto.TypeDto;
 import com.cilicili.common.dto.VideoDetail;
 import com.cilicili.common.dto.VideoReviewDto;
+import com.cilicili.content.service.NotPassReasonService;
 import com.cilicili.content.service.PageService;
 import com.cilicili.content.service.RankService;
 import com.cilicili.content.service.ReviewService;
 import com.cilicili.content.service.TypeService;
 import com.cilicili.content.service.VideoService;
+import com.cilicili.domain.content.NotPassReason;
 import com.cilicili.domain.content.Type;
 /**
  * 页面导航的Controller
@@ -59,6 +61,8 @@ public class PageController {
 	@Resource
 	private RightService rightService;
 
+	@Resource
+	private NotPassReasonService nprService;
 	/**
 	 * 去一级主页
 	 * 
@@ -172,6 +176,12 @@ public class PageController {
 	public String toReviewPup(@PathVariable String text, Model model) {
 		VideoReviewDto vrDto = revService.getReviewInfo(text);
 		System.out.println(""+vrDto);
+		List<NotPassReason> nprlist = nprService.selectAll();
+		System.out.println("###########################");
+		for (NotPassReason notPassReason : nprlist) {
+			System.out.println(notPassReason);
+		}
+		model.addAttribute("nprlist",nprlist);
 		model.addAttribute("rinfo",vrDto);
 		return "content/bg_reviewdetial";
 	}

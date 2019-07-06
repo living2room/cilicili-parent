@@ -64,7 +64,7 @@ background-color:#f6f9fa
                 </div>
                 <div class="ibox-content profile-content">
                     <h4><strong th:text="${rinfo.videoTitle}"></strong></h4>
-                    <h5>
+                    <h5 th:text=${rinfo.userId}>
                                     上传用户ID
                     </h5>
                     <p>
@@ -99,7 +99,12 @@ background-color:#f6f9fa
                     <div class="feed-activity-list">
                         <!-- 信息 -->
                         <button class="btn btn-default btn-block m"><i class="fa fa-arrow-down"></i> 显示更多信息</button>
-                        <button class="btn btn-primary btn-sm btn-block"><i class="fa fa-check"></i> 提交</button>
+                        <select class="form-control" id="failreason">
+								<option th:each="type,userStat:${nprlist}"
+									th:value="${type.id}" th:text="${type.notPassReason}"></option>
+							</select>
+						<div><input type="radio" value="1" name="isok">通过<input type="radio" value="-1" name="isok">不通过</div>
+                        <button class="btn btn-primary btn-sm btn-block" id="tosub"><i class="fa fa-check"></i> 提交</button>
                     </div>
                 </div>
             </div>
@@ -166,6 +171,14 @@ background-color:#f6f9fa
             })
         }
     })
+    
+  /*   $("#tosub").click(function(){
+    	var ispass=$('input[name="isok"]:checked').val();
+    	var reason = $("#failreason").val();
+    	$.ajax({
+    		url:"v/"
+    	})
+    }); */
     </script>
 </body>
 </html>

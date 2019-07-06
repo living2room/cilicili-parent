@@ -65,9 +65,9 @@
                     	console.log(index,val)//index 当前数,val 内容
                     	/* $("panel-body").append('<option value="'+val.id+'">'+val.type+'</option>'); */
                         if (val.videoStatus===0) {
-                             $(".panel-body:eq(0)").append('<div class="file-box"><div id="'+val.id+'" onclick="vdreview('+val.id+')" class="file"><a href="javascript:;"><span class="corner"></span><div class="image"><img alt="image" class="img-responsive" src="'+val.picActualUrl+'"></div><div class="file-name"><div >'+val.videoName+'</div><br/><small>添加时间：'+val.videoUploadtime+'</small> </div> </a></div></div>')
+                             $(".panel-body:eq(0)").append('<div class="file-box"><div id="'+val.id+'" onclick="vdreview(&quot;'+val.id+'&quot;)" class="file"><a href="javascript:;"><span class="corner"></span><div class="image"><img alt="image" class="img-responsive" src="'+val.picActualUrl+'"></div><div class="file-name"><div >'+val.videoName+'</div><br/><small>添加时间：'+val.videoUploadtime+'</small> </div> </a></div></div>')
                         }else(
-                            $(".panel-body:eq(1)").append('<i>hhh</i><div class="file-box"><div id="'+val.id+'" onclick="vdreview('+val.id+')" class="file"><a href="javascript:;"><span class="corner"></span><div class="image"><img alt="image" class="img-responsive" src="'+val.picActualUrl+'"></div><div class="file-name"><div >'+val.videoName+'</div><br/><small>添加时间：'+val.videoUploadtime+'</small> </div> </a></div></div>')
+                            $(".panel-body:eq(1)").append('<i>hhh</i><div class="file-box"><div id="'+val.id+'" onclick="vdreview(&quot;'+val.id+'&quot;)" class="file"><a href="javascript:;"><span class="corner"></span><div class="image"><img alt="image" class="img-responsive" src="'+val.picActualUrl+'"></div><div class="file-name"><div >'+val.videoName+'</div><br/><small>添加时间：'+val.videoUploadtime+'</small> </div> </a></div></div>')
                         )
 
                     });
