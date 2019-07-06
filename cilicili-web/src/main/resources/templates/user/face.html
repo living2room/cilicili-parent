@@ -130,7 +130,7 @@ body {
 							});
 							
 							//跳到一个人脸登录处理的页面，传Email过去，拿到对应的账号，查密码，login()
-							location.href = "/faceLogin?userName="+result.user_info;
+							location.href = "/go/faceLogin?userName="+result.user_info;
 							
 						}
 						else if(result.error_code == "222202"){

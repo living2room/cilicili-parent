@@ -24,7 +24,7 @@ import com.cilicili.user.service.impl.user.UsersServiceImpl;
  *
  */
 @Controller
-@RequestMapping("/")
+@RequestMapping("/go")
 public class FaceController {
 	
 	@Resource
