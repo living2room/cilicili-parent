@@ -3,6 +3,10 @@
  */
 package com.cilicili.domain.content;
 
+import java.sql.Timestamp;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import lombok.Data;
@@ -14,10 +18,13 @@ import lombok.Data;
 @Data
 @TableName("tb_bullet_screen")
 public class BulletScreen {
-	private Integer id;
-	private String bulletScreenContent;
-	private String bulletScrennColor;
-	private String bulletScreenPosition;
-	private String bulletScreenTime;
-	private String bulletScreenIsNew;
+	private String id;
+	private String text;
+	private String color;
+	private Integer type;
+	private String time;
+	private Integer font;
+	private Timestamp timestamp;
+	private Integer pool;
+	private String user;
 }

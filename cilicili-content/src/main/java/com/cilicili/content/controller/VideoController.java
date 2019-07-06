@@ -1,10 +1,14 @@
 /**
- * 
+ *
  */
 package com.cilicili.content.controller;
 
 import java.io.File;
-import java.util.Date;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -21,9 +25,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONArray;
 import com.cilicili.common.dto.VideoReviewDto;
-import com.cilicili.content.service.VideoExamineService;
+
+import com.cilicili.common.utils.RedisUtil;
+import com.cilicili.content.service.BulletScreenService;
 import com.cilicili.content.service.VideoService;
-import com.cilicili.domain.content.VideoExamine;
+import com.cilicili.domain.content.BulletScreen;
+import com.cilicili.domain.content.Type;
+import com.cilicili.domain.user.user.Users;
+
 
 /**
  * @author 李明睿 2019年5月23日
@@ -34,13 +43,15 @@ public class VideoController {
 
 	@Resource
 	private VideoService vService;
-	
+	@Resource
+	private BulletScreenService bsService;
+
 	@Resource VideoExamineService veService;
-	
+
 	/**点击上传 分片传到临时位置并保存为一个文件
 	 */
-	
-	
+
+
 	@PostMapping("up")
 	public String uploadByPieces(HttpServletRequest req,HttpSession session) {
 		File file = vService.videoupload(req);
@@ -51,19 +62,8 @@ public class VideoController {
 		}
 		return "failed";
 	}
-	/**
-	 * 上传成后回调方法
-	 */
-	@PostMapping("afterup")
-	public void uploadSuccess() {
-	}
-	
-	@PostMapping("picThumb")
-	public void picThumb(String src) {
-		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-	}
-	
-	
+
+
 	/**点击某类型后调用的Controller
 	 * @param text 类型名称
 	 * @param model
@@ -73,21 +73,31 @@ public class VideoController {
 	@ResponseBody()
 	public String getVideoByName(@PathVariable String text, Model model) {
 		List<VideoReviewDto> videoByTypeName = vService.getVideoByTypeName(text);
-		System.out.println("( _ )"+videoByTypeName);
 		model.addAttribute("list",videoByTypeName);
 		String videoJson = JSONArray.toJSONStringWithDateFormat(videoByTypeName, " yyyy-MM-dd HH:mm:ss");
-		System.out.println("&&&&&&&&"+videoJson);
 		return videoJson;
 	}
-	
 
-	@GetMapping("/v/player/{vi}")
-	public String getvidoe(@PathVariable("vi") String vi) {
-		System.out.println();
-		return vi;
+
+	/**获取该视频的弹幕
+	 * @param vi 视频id
+	 * @return
+	 */
+	@GetMapping(value="/bs/{vi}",produces = {"application/json;charset=UTF-8"})
+	public String getvideoBs(@PathVariable("vi") String vi) {
+		List<BulletScreen> bulletScreen = bsService.getBulletScreen(vi);
+		return JSON.toJSONString(bulletScreen);
+	}
+	@GetMapping(value="/bs/get/{vi}",produces = {"application/json;charset=UTF-8"})
+	public String getvideoBsList(@PathVariable("vi") String vi) {
+		List<BulletScreen> bulletScreen = bsService.getBulletScreen(vi);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("code", "1");
+		map.put("danmaku", bulletScreen);
+		return JSON.toJSONString(map);
 	}
 	@PostMapping("upinfo/{videoInfoId}")
-	public String uploadInfo(HttpSession session,Model model, @PathVariable("videoInfoId")String videoInfoId, 
+	public String uploadInfo(HttpSession session,Model model, @PathVariable("videoInfoId")String videoInfoId,
 			String base64, String videoName, String videoDescribe,String t1, String t2,String t3) {
 		if (t3 !=  null ) {
 			vService.addvideoInfo(session,videoInfoId, base64, videoName, videoDescribe,t1,t3);
@@ -96,13 +106,12 @@ public class VideoController {
 		}else if(t1 != null){
 			vService.addvideoInfo(session,videoInfoId, base64, videoName, videoDescribe,t1,t1);
 		}
-		
-		
 		// 根据videoInfoId获取相应的封面图
 //		String path = redisUtil.get(videoInfoId).toString();
 		return  "1";
 	}
-	
+
+
 	@PostMapping("videoVerity")
 	@ResponseBody()
 	public String videoVerity(@PathVariable String ispass,@PathVariable String reason,@PathVariable String videoid, Model model) {
@@ -117,5 +126,17 @@ public class VideoController {
 			ve.setVideoStatus(-1);
 		}
 		return "success";
+
+	@PostMapping("/send/{vid}")
+	public String sbSend(@PathVariable("vid")String vid,HttpSession session,String time,String text,String color,Integer type) {
+		Object attribute = session.getAttribute("user");
+		if (attribute instanceof Users && attribute != null) {
+			Users user = (Users) attribute;
+			bsService.insertBs(user,vid, time, text, color, type);
+			return "1";
+		}else {
+			//未登录
+			return "0";
+		}
 	}
 }
