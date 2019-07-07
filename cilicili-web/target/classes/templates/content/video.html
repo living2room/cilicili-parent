@@ -504,8 +504,22 @@
 	            id: 'demo',
 	            api: 'https://api.prprpr.me/dplayer/',
 	            maximum: 1000,
-	            addition: ['https://api.prprpr.me/dplayer/bilibili?aid=13579']
+	            addition: ['/v/bs/'+vid]
 	        }
+	        //发送弹幕
+	        dp.danmaku.send({
+			    text: $('.dplayer-comment-input').val(),
+			    color: $("input[name='dplayer-danmaku-color-0']").val(),
+			    type: $("input[name='dplayer-danmaku-type-0']").val()   // should be `top` `bottom` or `right`
+			}, function () {
+			    console.log('success');
+			});
+			//实施绘制弹幕
+			dp.danmaku.draw({
+			    text: $('.dplayer-comment-input').val(),
+			    color: $("input[name='dplayer-danmaku-color-0']").val(),
+			    type: $("input[name='dplayer-danmaku-type-0']").val()   // should be `top` `bottom` or `right`
+			});
 	    });
 	    // 弹出框
 	    function alert_back(text) {
@@ -537,7 +551,7 @@
 	                {
 	                    autor="地主"
 	                }
-	                // var oLi='<ol class="danmuku_list" time="${item.time}"><li>${formatTime(item.time)}</li><li title="${item.text}">${item.text}</li><li>${autor}</li></ol>'
+	                 var oLi='<ol class="danmuku_list" time="${item.time}"><li>${formatTime(item.time)}</li><li title="${item.text}">${item.text}</li><li>${autor}</li></ol>'
 
 	                $(".list_ovefiow").append(oLi);
 	                autor="农民";

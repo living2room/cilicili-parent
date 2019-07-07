@@ -32,7 +32,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.cilicili.common.dto.UploadJsonObj;
 import com.cilicili.common.dto.VideoReviewDto;
 import com.cilicili.common.utils.RedisUtil;
+import com.cilicili.content.service.BulletScreenService;
 import com.cilicili.content.service.VideoService;
+import com.cilicili.domain.content.BulletScreen;
 import com.cilicili.domain.content.Type;
 
 /**
@@ -44,6 +46,8 @@ public class VideoController {
 
 	@Resource
 	private VideoService vService;
+	@Resource
+	private BulletScreenService bsService;
 	
 	/**点击上传 分片传到临时位置并保存为一个文件
 	 */
@@ -89,10 +93,14 @@ public class VideoController {
 	}
 	
 
-	@GetMapping("/v/player/{vi}")
-	public String getvidoe(@PathVariable("vi") String vi) {
-		System.out.println();
-		return vi;
+	/**获取该视频的弹幕
+	 * @param vi 视频id
+	 * @return
+	 */
+	@GetMapping("/bs/{vi}")
+	public String getvideoBs(@PathVariable("vi") String vi) {
+		List<BulletScreen> bulletScreen = bsService.getBulletScreen(vi);
+		return JSON.toJSONString(bulletScreen);
 	}
 	@PostMapping("upinfo/{videoInfoId}")
 	public String uploadInfo(HttpSession session,Model model, @PathVariable("videoInfoId")String videoInfoId, 
@@ -104,8 +112,6 @@ public class VideoController {
 		}else if(t1 != null){
 			vService.addvideoInfo(session,videoInfoId, base64, videoName, videoDescribe,t1,t1);
 		}
-		
-		
 		// 根据videoInfoId获取相应的封面图
 //		String path = redisUtil.get(videoInfoId).toString();
 		return  "1";

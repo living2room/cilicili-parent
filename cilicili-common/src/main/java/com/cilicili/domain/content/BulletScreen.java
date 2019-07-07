@@ -3,6 +3,8 @@
  */
 package com.cilicili.domain.content;
 
+import java.sql.Timestamp;
+
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import lombok.Data;
@@ -17,7 +19,10 @@ public class BulletScreen {
 	private Integer id;
 	private String bulletScreenContent;
 	private String bulletScrennColor;
-	private String bulletScreenPosition;
+	private Integer bulletScreenPosition;
 	private String bulletScreenTime;
-	private String bulletScreenIsNew;
+	private String bulletScreeFnont;
+	private Timestamp bulletScreenTimestamp;
+	private Integer bulletScreenPool;
+	private String bulletScreenUser;
 }
