@@ -16,13 +16,13 @@ import lombok.Data;
 @Data
 @TableName("tb_bullet_screen")
 public class BulletScreen {
-	private Integer id;
-	private String bulletScreenContent;
-	private String bulletScrennColor;
-	private Integer bulletScreenPosition;
-	private String bulletScreenTime;
-	private String bulletScreeFnont;
-	private Timestamp bulletScreenTimestamp;
-	private Integer bulletScreenPool;
-	private String bulletScreenUser;
+	private String id;
+	private String text;
+	private String color;
+	private Integer type;
+	private String time;
+	private Integer font;
+	private Timestamp timestamp;
+	private Integer pool;
+	private String user;
 }

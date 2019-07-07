@@ -19,6 +19,15 @@
 <!-- layer javascript -->
 <script src="/js/plugins/layer/layer.min.js"></script>
 <script type="text/javascript" src="/js/bootstrap-suggest.min.js"></script>
+
+
+	<!-- 登录按钮替换为头像 -->
+	<script type="text/javascript">
+		var img6 = $("#img").val();
+		var img5 = "url(" + img6 + ")";
+		$("#view1").css('background-image', img5);
+	</script>
+
 <script type="text/javascript">
 	$(function() {
 		$("#box_sousuo").bsSuggest({
@@ -164,31 +173,24 @@
 								</div></a>
 						</div>
 						<div th:unless="${session.user}">
-							<a href="/user/toLogin">
-								<div class="tubiao">
-									<img src="/img/yonghu.png">
-								</div>
-								<div class="nav_text">登录</div>
-							</a>
+								<a href="/user/toLogin">
+									<div class="tubiao">
+										<img src="/img/yonghu.png">
+									</div>
+									<div class="nav_text">登录</div>
+								</a>
 						</div>
 
-					</div>
-				</div>
+						</div>
+
 			</div>
 		</div>
+
+		<input type="hidden" id="img" th:value="${session.url1}">
 		<div class="shuaxin">
 			<button type="button" class="shuaxin_but">刷新重试</button>
 		</div>
 	</div>
-	
-	
-	<input type="hidden" id="img" th:value="${session.url1}">
-		<!-- 登录按钮替换为头像 -->
-		<script type="text/javascript">
-			var img6 = $("#img").val();
-			var img5 = "url(" + img6 + ")";
-			$("#view1").css('background-image', img5);
-		</script>
 </body>
 
 </html>

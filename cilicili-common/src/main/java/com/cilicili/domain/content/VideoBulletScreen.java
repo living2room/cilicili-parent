@@ -4,7 +4,6 @@
 package com.cilicili.domain.content;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.cilicili.domain.user.user.Users;
 
 import lombok.Data;
 
@@ -16,7 +15,7 @@ import lombok.Data;
 @TableName("tb_video_bullet_screen")
 public class VideoBulletScreen {
 	private String userId;
-	private VideoInfo videoId;
-	private Integer bulletScreenId;
+	private String videoId;
+	private String bulletScreenId;
 	private String reserved;
 }

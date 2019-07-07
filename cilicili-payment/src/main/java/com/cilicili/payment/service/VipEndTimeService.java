@@ -1,6 +1,8 @@
 package com.cilicili.payment.service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -27,5 +29,18 @@ public class VipEndTimeService {
 	@Transactional(propagation=Propagation.REQUIRED,readOnly=true)
 	public VipEndTime select(String userID) {
 		return vipEndTimeMapper.select(userID);
+	}
+	
+	//查用户是否为VIP
+	@Transactional(propagation=Propagation.REQUIRED,readOnly=true)
+	public int vip(HttpServletRequest request) {
+		HttpSession httpSession =request.getSession();
+		String userID = httpSession.getAttribute("userID").toString();
+		VipEndTime vipEndTime = vipEndTimeMapper.select(userID);
+		if(vipEndTime !=null) {
+			return 1;
+		}else {
+			return 0;
+		}
 	}
 }
