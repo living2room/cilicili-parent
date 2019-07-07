@@ -3,7 +3,6 @@
  */
 package com.cilicili.domain.content;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -22,6 +21,6 @@ public class VideoExamine {
 	private Integer videoStatus;
 	private Date videoLastExamineTime;
 	private Date videoApprovalTime;
-	private AdminUser adminId;
+	private Integer adminId;
 	private Integer reasonId;
 }
