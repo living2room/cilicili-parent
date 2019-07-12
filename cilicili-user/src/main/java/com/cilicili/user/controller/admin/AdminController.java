@@ -51,7 +51,7 @@ public class AdminController {
 	 */
 	@RequestMapping("/login")
 	public String login(String userName, String userPassword, Model model) {
-
+System.out.println("????????????/");
 		/*
 		 * 使用Shiro编写认证操作
 		 */
@@ -64,7 +64,8 @@ public class AdminController {
 		Subject currentUser = SecurityUtils.getSubject();
 //		Session session = currentUser.getSession();
 		// session.setAttribute("someKey", "aValue");
-		if (!currentUser.isAuthenticated()) {
+		
+		//if (!currentUser.isAuthenticated()) {
 
 			System.out.println("1" + userName);
 			System.out.println("2" + userPassword);
@@ -168,8 +169,8 @@ public class AdminController {
 				return "user/adminlogin";
 			}
 
-		}
-		return "redirect:/to/b/index";
+		//}
+		//return "redirect:/to/b/index";
 
 	}
 	@RequestMapping("logout")
