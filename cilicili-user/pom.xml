@@ -62,7 +62,7 @@
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-spring</artifactId>
-			<version>1.2.3</version>
+			<version>1.7.0</version>
 		</dependency>
 
 		<!--thymeleaf-shiro-extras 官网对于shiro标签说明 ，它支持jsp，jstl,gsp等前端技术，但是不支持themleaf。 
